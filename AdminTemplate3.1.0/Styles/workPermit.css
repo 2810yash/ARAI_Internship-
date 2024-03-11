@@ -1,0 +1,57 @@
+﻿@keyframes blink {
+    0% {
+        opacity: 1;
+        color: yellow;
+    }
+
+    100% {
+        opacity: 1;
+        color: red;
+    }
+}
+
+.blink-text {
+    animation: blink 1s infinite;
+}
+
+.wrapper-box {
+    position: relative;
+    width: 90%;
+    height: auto;
+    border: 2px solid rgba(46, 44, 44, 0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.icon-close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background: #000000;
+    font-size: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.pages::-webkit-scrollbar{
+    width:0.5em;
+}
+
+.pages::-webkit-scrollbar-track{
+    background-color:transparent;
+}
+
+.pages::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
