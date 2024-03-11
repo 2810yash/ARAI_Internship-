@@ -71,7 +71,7 @@
                             <select class="form-control select2" style="width: 100%;">
                                 <option selected="selected">Kothrud</option>
                                 <option>Site1</option>
-                                <option>Site2</option><!-- // -->
+                                <option>Site2</option>
                                 <option>Site3</option>
                             </select>
                         </div>
@@ -304,7 +304,5 @@
 
         </div>
         <!-- /.content-wrapper -->
-
-
 
     </asp:Content>
