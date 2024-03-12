@@ -41,7 +41,8 @@
                         <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a></li>
+                                <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a>
+                                </li>
                                 <li class="breadcrumb-item active">WorkPermit</li>
                             </ol>
                         </div>
@@ -57,63 +58,41 @@
             <section class="content">
                 <div class="container-fluid">
                     <%-- Page started here--%>
-                        <div class="headline text-align-center">
-                            <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
+                    <div class="headline text-align-center">
+                        <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
                                 workers to enter with valid work permit in case of below mentioned works</h6>
-                            <h6 class="blink-text text-align-center m-1">Work permit to be filled by contractor in
+                        <h6 class="blink-text text-align-center m-1">Work permit to be filled by contractor in
                                 consultation with ARAI officials (of work intending dept.)</h6>
-                            <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
+                        <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
                                 under strict supervision of work intending departments</h6>
-                        </div>
+                    </div>
 
-                    <div class="card-header justify-content-between">
+                    <div class="ms-4">
                         <label>Campus: </label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option selected="selected">Kothrud</option>
-                                <option>Site1</option>
-                                <option>Site2</option>
-                                <option>Site3</option>
-                            </select>
-                        </div>
+                        <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">Kothrud</option>
+                            <option>Site1</option>
+                            <option>Site2</option>
+                            <option>Site3</option>
+                        </select>
+                    </div>
 
-                    <div class="container mt-2 border rounded bg-light pages">
+                    <nav id="navbar-example2" class="card-header navbar navbar-light bg-light">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading1">First</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading2">Second</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="#scrollspyHeading3">Third</a>
+                            </li>
+                        </ul>
+                    </nav>
 
-                        <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-                            <a class="navbar-brand" href="#">Navbar</a>
-                            <ul class="nav nav-pills">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#scrollspyHeading1">First</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#scrollspyHeading2">Second</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
-                                        <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                            <h4 id="scrollspyHeading1">First heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading2">Second heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading3">Third heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading4">Fourth heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading5">Fifth heading</h4>
-                            <p>...</p>
-                        </div>
-
-                        <div class="page1">
+                    <div class="container mt-2 border rounded bg-light pages" data-bs-target="#navbar-example2">
+                        <div id="scrollspyHeading1" class="page1 pt-4">
                             <div class="bg-light">
                                 <div class="input-group mb-3 mt-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -124,7 +103,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="doi0">Date of
-                                        Issue:</span>
+                                            Issue:</span>
                                     <input type="datetime-local" class="form-control" placeholder="Username"
                                         aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
@@ -143,11 +122,11 @@
                                 <div class="input-group mb-3 icheck-primary">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="splLicense0">Special License:</span>
-                                    <input type="radio" class="btn-check" name="options-outlined" id="success-outlined"
-                                        autocomplete="off">
+                                    <input type="radio" class="btn-check" name="options-outlined"
+                                        id="success-outlined" autocomplete="off">
                                     <label class="btn btn-outline-secondary pe-4" for="success-outlined">Yes</label>
-                                    <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined"
-                                        autocomplete="off">
+                                    <input type="radio" class="btn-check" name="options-outlined"
+                                        id="danger-outlined" autocomplete="off">
                                     <label class="btn btn-outline-secondary pe-4" for="danger-outlined">No</label>
                                 </div>
                                 <div class="input-group mb-3">
@@ -159,7 +138,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="vendors0">Name of
-                                        Vendor or Contractor Firm/Agency:</span>
+                                            Vendor or Contractor Firm/Agency:</span>
                                     <input type="text" class="form-control" placeholder="Username"
                                         aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
@@ -172,7 +151,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="supervisor0">Name
-                                        of Vendor/Contractor Supervisor: </span>
+                                            of Vendor/Contractor Supervisor: </span>
                                     <input type="text" class="form-control" placeholder="Username"
                                         aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
@@ -186,7 +165,7 @@
                                     <label class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         for="araiEng">
                                         ARAI
-                                        Engineer:
+                                            Engineer:
                                     </label>
                                     <select class="form-select" id="araiEng">
                                         <option>Choose...</option>
@@ -204,7 +183,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="desc0">Brief
-                                        Description of Work:</span>
+                                            Description of Work:</span>
                                     <input type="text" class="form-control" placeholder="Username"
                                         aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
@@ -225,66 +204,88 @@
                             </div>
                         </div>
 
-                        <div class="page2">
+                        <div id="scrollspyHeading2" class="page2 p-4">
                             <div class="d-flex">
                                 <div class="cont-1">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
                                         <label class="text-wrap form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined
+                                                Spaces</label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
                                         <label class="form-check-label col-sm-9 m-lg-1 ">
                                             Civil Work (Painting, Construction, Excavation etc)</label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
-                                        <label class="form-check-label col-sm-9 m-lg-1 ">Hot Works (Welding/Gas Cutting) </label>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
+                                        <label class="form-check-label col-sm-9 m-lg-1 ">
+                                            Hot Works (Welding/Gas
+                                                Cutting)
+                                        </label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
-                                        <label class="form-check-label col-sm-9 m-lg-1 ">Work on Fragile Roof </label>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
+                                        <label class="form-check-label col-sm-9 m-lg-1 ">
+                                            Work on Fragile Roof
+                                        </label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
-                                        <label class="form-check-label col-sm-9 m-lg-1 ">High Tension Electrical Work </label>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
+                                        <label class="form-check-label col-sm-9 m-lg-1 ">
+                                            High Tension Electrical
+                                                Work
+                                        </label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
-                                        <label class="form-check-label col-sm-9 m-lg-1 ">Low Tension Electrical Work </label>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
+                                        <label class="form-check-label col-sm-9 m-lg-1 ">
+                                            Low Tension Electrical Work
+                                        </label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
                                         <label class="form-check-label col-sm-9 m-lg-1 border-1">
                                             Working on height (more than 3 meters)
                                         </label>
                                     </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></span>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault"></span>
                                         <label class="text-wrap form-check-label col-sm-9 m-lg-1 ">
-                                            Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)
+                                            Others (Mobile crane operations, loading and unloading of gas cylinder,
+                                                unloading of liquid nitrogen)
                                         </label>
                                     </div>
                                 </div>
                                 <div class="cont-2">
                                     <div class="input-group  border-1 border-dark mb-1">
                                         <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined
+                                                Spaces</label>
                                     </div>
                                 </div>
                                 <div class="cont-3">
                                     <div class="input-group  border-1 border-dark mb-1">
                                         <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                            Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined
+                                                Spaces</label>
                                     </div>
                                 </div>
                             </div>
@@ -298,6 +299,21 @@
                             </div>
                         </div>
 
+                        <div id="scrollspyHeading2" class="page-3 p-4">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et repudiandae unde, ipsum maiores voluptas, est ducimus iusto, non repellat illum magnam odio natus eveniet aliquam recusandae distinctio quos cum beatae!
+                            </p>
+                            <div id="workers">
+                            </div>
+                            <div class="d-flex justify-content-between mt-3 mb-2">
+                                <button type="reset" class="btn btn-outline-secondary align-self-end"
+                                    onclick="clearFields('workDetails')">
+                                    Back</button>
+                                <button type="submit" class="btn btn-success align-self-end"
+                                    onclick="saveWork_page3()">
+                                    Submit</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
