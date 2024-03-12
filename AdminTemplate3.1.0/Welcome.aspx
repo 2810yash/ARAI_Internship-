@@ -76,10 +76,9 @@
                             </select>
                         </div>
 
-                    <div class="container mt-2 border rounded bg-light pages">
+                    <!--<div class="container mt-2 border rounded bg-light pages"> -->
 
                         <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-                            <a class="navbar-brand" href="#">Navigation</a>
                             <ul class="nav nav-pills">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#page1">Details</a>
@@ -87,16 +86,8 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
-                                        <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
-                                    </ul>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                 </li>
                             </ul>
                         </nav>
@@ -112,7 +103,7 @@
                             <h4 id="scrollspyHeading5">Fifth heading</h4>
                             <p>...</p>
                         </div>--%>
-
+                    <div class="pages" id="Pages">
                         <div class="page1" id="page1">
                             <div class="bg-light">
                                 <div class="input-group mb-3 mt-3">
@@ -223,7 +214,7 @@
                         </div>
                         
                         <!--Work Permit Options-->
-                        <div class="page2" id="page2">
+                        <div class="page2  scroll-smooth" id="page2">
                         <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Job Safety Assessment</label>
                             <div class="d-flex">
                                 <div class="cont-1">
@@ -299,8 +290,8 @@
                                     Next</button>
                             </div>
                         </div>
-
                     </div>
+                    <!--</div>-->
                 </div>
             </section>
 
