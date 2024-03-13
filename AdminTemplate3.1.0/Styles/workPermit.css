@@ -71,7 +71,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .pages{
-    height:60%;
+    height:350px;
     overflow:hidden;
     overflow-y:scroll;
     scroll-behavior:smooth;

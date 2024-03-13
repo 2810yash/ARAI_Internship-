@@ -97,7 +97,7 @@
                             <img src="dist/img/user.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block text-decoration-none">ARAI Kothrude</a>
+                            <a href="#" class="d-block text-decoration-none">ARAI Kothrud</a>
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item menu-open">
-                                <a href="./pages/login.html" class="nav-link" id="login">
+                                <a href="./login.aspx" class="nav-link" id="login">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         login

@@ -91,8 +91,8 @@
                         </ul>
                     </nav>
 
-                    <div class="container mt-2 border rounded bg-light pages" data-bs-target="#navbar-example2">
-                        <div id="scrollspyHeading1" class="page1 pt-4">
+                    <div class="container mt-2 border rounded bg-light pages">
+                        <div class="page1 pt-4">
                             <div class="bg-light">
                                 <div class="input-group mb-3 mt-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -204,7 +204,7 @@
                             </div>
                         </div>
 
-                        <div id="scrollspyHeading2" class="page2 p-4">
+                        <div class="page2 p-4">
                             <div class="d-flex">
                                 <div class="cont-1">
                                     <div class="input-group mb-3">
@@ -299,7 +299,7 @@
                             </div>
                         </div>
 
-                        <div id="scrollspyHeading2" class="page-3 p-4">
+                        <div class="page-3 p-4">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et repudiandae unde, ipsum maiores voluptas, est ducimus iusto, non repellat illum magnam odio natus eveniet aliquam recusandae distinctio quos cum beatae!
                             </p>
