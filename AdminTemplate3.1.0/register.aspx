@@ -5,6 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <style type="text/css">
+        #Submit1 {
+            width: 166px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" class="login-box position-relative d-flex justify-content-center align-items-center">
@@ -18,20 +23,22 @@
 
                     <asp:Label ID="Label1" runat="server" Text="Email-ID"></asp:Label>
 &nbsp;:<br />
-                    <input id="Text1" type="text" /><br />
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                     <br />
                     <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
                     <br />
-                    <input id="Password1" type="password" /><br />
-                    <br />
-                    <asp:Button ID="Button1" runat="server" Text="Sign-In" Width="166px" CssClass="btn btn-sucsess" OnClick="Button1_Click" />
+                    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
                     <br />
                     <br />
-                    <asp:LinkButton ID="LinkButton2" runat="server">Forgot Password?</asp:LinkButton>
+                    Re-Enter Password :<br />
+                    <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
                     <br />
-                    Don&#39;t have account ? <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CssClass="btn btn-success"> Sign Up</asp:LinkButton>
-
-                </div>
+                    <br />
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Sign Up" Width="164px" />
+                    <br />
+                    <br />
+                    Already have account ? <asp:LinkButton ID="LinkButton3" runat="server" OnClick="LinkButton3_Click">Sign In</asp:LinkButton>
+&nbsp;</div>
         </div>
     </form>
 </body>
