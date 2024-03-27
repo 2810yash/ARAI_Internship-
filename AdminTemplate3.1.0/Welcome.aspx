@@ -66,6 +66,10 @@
                             <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
                                 under strict supervision of work intending departments</h6>
                         </div>
+                    <div>
+                            <asp:CheckBoxList ID="CheckBoxList3" runat="server"></asp:CheckBoxList>
+                            <asp:CheckBoxList ID="CheckBoxList4" runat="server"></asp:CheckBoxList>
+                        </div>
 
                     <div class="card-header justify-content-between">
                         <label>Site: </label>
@@ -87,23 +91,11 @@
                                     <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                 </li>
                                  <li class="nav-item">
-                                    <a class="nav-link" href="#page2">Job Safety Assessment</a>
+                                    <a class="nav-link" href="#page3">Job Safety Assessment</a>
                                 </li>
                             </ul>
                         </nav>
-                       <%-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                            <h4 id="scrollspyHeading1">First heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading2">Second heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading3">Third heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading4">Fourth heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading5">Fifth heading</h4>
-                            <p>...</p>
-                        </div>--%>
-                    <div class="pages" id="Pages">
+                    <div class="pages bg-light rounded" id="Pages">
                         <div class="page1" id="page1">
                             <div class="bg-light">
                                 <div class="input-group mb-3 mt-3">
@@ -203,17 +195,17 @@
                                         aria-label="Location of Work" aria-describedby="basic-addon1">
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mt-3 mb-2">
+                            <%-- <div class="d-flex justify-content-between mt-3 mb-2">
                                 <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
                                     onclick="clearFields('workDetails')">
                                     Back</button>
                                 <button type="submit" class="btn btn-primary align-self-end"
                                     onclick="saveWork_page1()">
                                     Next</button>
-                            </div>
+                            </div> --%>
                         </div>
 
-                        <div id="scrollspyHeading2" class="page2 p-4">
+                        <div id="page2" class="page2 p-4">
                             <div class="d-flex">
                                 <div class="cont-1">
                                     <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
@@ -279,17 +271,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between mt-3 mb-2">
+                            <%--<div class="d-flex justify-content-between mt-3 mb-2">
                                 <button type="reset" class="btn btn-outline-secondary align-self-end"
                                     onclick="clearFields('workDetails')">
                                     Back</button>
                                 <button type="submit" class="btn btn-primary align-self-end"
                                     onclick="saveWork_page2()">
                                     Next</button>
-                            </div>
+                            </div>--%>
+                        </div>
+                        <div>
+                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
+                            <asp:CheckBoxList ID="CheckBoxList2" runat="server"></asp:CheckBoxList>
                         </div>
 
-                        <div id="scrollspyHeading2" class="page-3 p-4">
+                        <%--
+                            <div id="page3" class="page-3 p-4">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et repudiandae unde, ipsum maiores voluptas, est ducimus iusto, non repellat illum magnam odio natus eveniet aliquam recusandae distinctio quos cum beatae!
                             </p>
@@ -303,6 +300,12 @@
                                     onclick="saveWork_page3()">
                                     Submit</button>
                             </div>
+                        </div>
+                            --%>
+                        
+                        <div id="page3">
+                            <asp:CheckBoxList ID="CheckBoxList5" runat="server" DataTextField="gyvfhgbj"></asp:CheckBoxList>
+                            <asp:CheckBoxList ID="CheckBoxList6" runat="server"></asp:CheckBoxList>
                         </div>
                     </div>
                     <!--</div>-->
