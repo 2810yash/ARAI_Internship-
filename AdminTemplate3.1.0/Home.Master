@@ -105,7 +105,7 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item menu-open">
-                                <a href="./Homepage.aspx" class="nav-link active" id="dashboard">
+                                <a href="./Homepage.aspx" class="nav-link" id="dashboard">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Dashboard
