@@ -18,6 +18,11 @@ namespace AdminTemplate3._1._0
         {
 
         }
+
+        protected void LinkButton3_Click(object sender, EventArgs e)
+        {
+            //Sign in Page
+        }
         
         // Sign Up Button
         protected void Button1_Click(object sender, EventArgs e)
@@ -33,6 +38,7 @@ namespace AdminTemplate3._1._0
                 int result = 0;
                 using (SqlConnection con = new SqlConnection(strcon))
                 {
+                    con.Open();
                     using (SqlCommand cmd = new SqlCommand("sp_register_table", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -40,7 +46,6 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@Password", TextBox2.Text.Trim());
                         cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
                        // cmd.Parameters.AddWithValue("@AcountStatus", "pending");
-                        con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
                         if (result > 0)
