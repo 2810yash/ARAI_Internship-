@@ -6,16 +6,17 @@ body {
 }
 
 .login-box {
-    background-color: #fff;
+    background-color: red;
     border: 1px solid #ccc;
-    justify-content: center;
-    text-align: center;
+    /*justify-content: center;
+    text-align: center;*/
     padding: 20px;
     width: 300px;
     margin: 50px auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/*
 .login-box1 {
     background-color: #fff;
     justify-content: center;
@@ -63,3 +64,4 @@ body {
     color: #007bff;
     text-decoration: none;
 }
+*/

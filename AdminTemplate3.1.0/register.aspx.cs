@@ -14,7 +14,7 @@ namespace AdminTemplate3._1._0
 {
     public partial class register : System.Web.UI.Page
     {
-        string strcon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         private SqlCommand cmd;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -36,23 +36,21 @@ namespace AdminTemplate3._1._0
         protected void RecordInsert()
         {
             // Response.Write("<script>alert('Testing');</script>");
-            SqlConnection con = new SqlConnection(strcon);
+            SqlConnection con = new SqlConnection(strconn2);
             try
             {
                 int result = 0;
-                using (con = new SqlConnection(strcon))
+                using (con = new SqlConnection(strconn2))
                 {
                     using (cmd = new SqlCommand("usp_register_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@EmailID", TextBox1.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Password", TextBox2.Text.Trim());
-                        cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
-                        cmd.Parameters.AddWithValue("@AcountStatus", "pending");
+                        cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Value = TextBox1.Text.Trim();
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 150).Value = TextBox2.Text.Trim();
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
-                        if(result > 0)
+                        if (result > 0)
                         {
                             Response.Write("Record inserted");
                             Response.Write("<script>alert('Added');</script>");
