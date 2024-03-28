@@ -8,35 +8,62 @@
     </head>
 
     <body>
-        <form id="form1" runat="server"
-            class="login-box position-relative d-flex justify-content-center align-items-center">
+        <form id="form1" runat="server" class="login-box">
             <div>
                 <div>
                     <p>
                         <b>ARAI</b>
                     </p>
                 </div>
-                <div class="login-box1">
-
-                    <asp:Label ID="Label1" runat="server" Text="Email-ID"></asp:Label>
-&nbsp;:<br />
-                    <input id="Text1" type="text" /><br />
-                    <br />
-                    <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
-                    <br />
-                    <input id="Password1" type="password" /><br />
-                    <br />
-                    <asp:Button ID="Button1" runat="server" Text="Sign-In" Width="166px" CssClass="btn btn-sucsess" OnClick="Button1_Click" />
-                    <br />
-                    <br />
-                    <asp:LinkButton ID="LinkButton2" runat="server">Forgot Password?</asp:LinkButton>
-                    <br />
-                    Don&#39;t have account ? <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CssClass="btn btn-success"> Sign Up</asp:LinkButton>
-
-                </div>
-
+                <asp:Login ID="Login1" runat="server">
+                    <LayoutTemplate>
+                        <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                            <tr>
+                                <td>
+                                    <table cellpadding="0" style="height: 257px">
+                                        <tr>
+                                            <td align="center" colspan="2">Log In</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="User Name is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2" style="color:Red;">
+                                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="2">
+                                                <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="Login1" Width="291px" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </LayoutTemplate>
+                </asp:Login>
             </div>
         </form>
     </body>
-
     </html>

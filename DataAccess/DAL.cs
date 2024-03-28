@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class DAL
     {
-        string constr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        string constr = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         SqlCommand cmd;
         DataTable dt;
         SqlDataReader dr;

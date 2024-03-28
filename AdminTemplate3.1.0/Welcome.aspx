@@ -34,7 +34,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container-fluid">
+\                <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">WorkPermit</h1>
@@ -96,6 +96,7 @@
                             </ul>
                         </nav>
                     <div class="pages bg-light rounded" id="Pages">
+
                         <div class="page1" id="page1">
                             <div class="bg-light">
                                 <div class="input-group mb-3 mt-3">
@@ -149,7 +150,8 @@
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                         id="numWorkers0">Number of Workers:</span>
                                     <input type="text" class="form-control" placeholder="No. of Workers"
-                                        aria-label="No. of Workers" aria-describedby="basic-addon1">
+                                        aria-label="No. of Workers" aria-describedby="basic-addon1" id="noWorkers">
+                                    <button class="input-group-text btn btn-info border-1" id="confirm">Confirm</button>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -280,32 +282,22 @@
                                     Next</button>
                             </div>--%>
                         </div>
-                        <div>
-                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
-                            <asp:CheckBoxList ID="CheckBoxList2" runat="server"></asp:CheckBoxList>
-                        </div>
 
-                        <%--
-                            <div id="page3" class="page-3 p-4">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et repudiandae unde, ipsum maiores voluptas, est ducimus iusto, non repellat illum magnam odio natus eveniet aliquam recusandae distinctio quos cum beatae!
-                            </p>
+                        <div id="page3" class="page-3 p-4">
+                            
                             <div id="workers">
+
                             </div>
                             <div class="d-flex justify-content-between mt-3 mb-2">
-                                <button type="reset" class="btn btn-outline-secondary align-self-end"
+                                <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
                                     onclick="clearFields('workDetails')">
-                                    Back</button>
+                                    Back
+                                </button>
                                 <button type="submit" class="btn btn-success align-self-end"
                                     onclick="saveWork_page3()">
-                                    Submit</button>
+                                    Submit
+                                </button>
                             </div>
-                        </div>
-                            --%>
-                        
-                        <div id="page3">
-                            <asp:CheckBoxList ID="CheckBoxList5" runat="server" DataTextField="gyvfhgbj"></asp:CheckBoxList>
-                            <asp:CheckBoxList ID="CheckBoxList6" runat="server"></asp:CheckBoxList>
                         </div>
                     </div>
                     <!--</div>-->
@@ -314,5 +306,26 @@
 
         </div>
         <!-- /.content-wrapper -->
+
+        <script>
+            $(document).ready(function() {
+                $('#confirm').click(function () {
+                    var rows = parseInt($('#noWorkers').val());
+                    var cols = 10;
+                    var table = $('<table></table>');
+
+                    for (var i = 0; i < 3; i++) {
+                        var row = $('<tr></tr>');
+                        for (var j = 0; j < cols; j++) {
+                            var cell = $('<td></td>').text('Row ' + (i + 1) + ',Cols' + (j + 1));
+                            row.append(cell);
+                        }
+                        table.append(row);
+                    }
+
+                    $('#workers').empty().append(table);
+                });
+            });
+        </script>
 
     </asp:Content>
