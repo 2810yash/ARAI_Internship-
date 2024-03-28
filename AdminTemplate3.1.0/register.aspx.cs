@@ -1,6 +1,4 @@
-﻿// register.aspx.cs
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,52 +19,50 @@ namespace AdminTemplate3._1._0
         {
 
         }
-
-        protected void LinkButton3_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         // Sign Up Button
         protected void Button1_Click(object sender, EventArgs e)
         {
-            // Response.Write("<script>alert('Testing');</script>");
             RecordInsert();
         }
+
         protected void RecordInsert()
         {
             // Response.Write("<script>alert('Testing');</script>");
-            SqlConnection con = new SqlConnection(strconn2);
+            SqlConnection con = new SqlConnection(strcon);
             try
             {
                 int result = 0;
-                using (con = new SqlConnection(strconn2))
+                using (con = new SqlConnection(strcon))
                 {
-                    using (cmd = new SqlCommand("usp_register_tbl", con))
+                    using (SqlCommand cmd = new SqlCommand("sp_register_table", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Value = TextBox1.Text.Trim();
-                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 150).Value = TextBox2.Text.Trim();
+                        cmd.Parameters.AddWithValue("@EmailID", TextBox1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Password", TextBox2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@AcountStatus", "pending");
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
                         if (result > 0)
                         {
                             Response.Write("Record inserted");
-                            Response.Write("<script>alert('Added');</script>");
+                            Response.Write("<script>alert(Record Inserted);</script>");
                         }
                         else
                         {
                             Response.Write("Record not inserted");
-                            Response.Write("<script>alert('Not Added');</script>");
+                            Response.Write("<script>alert(Record Not Inserted);</script>");
                         }
                     }
-                }            
+                }
             }
             catch (Exception ex)
             {
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
+
     }
 }
