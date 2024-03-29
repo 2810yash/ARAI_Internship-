@@ -60,7 +60,7 @@
                     <%-- Page started here--%>
 
                     <div data-aos="slide-up">
-                        <%-- Blinking TEXT--%>
+                        <%-- Blinking TEXT --%>
                         <div class="headline text-align-center">
                             <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
                                 workers to enter with valid work permit in case of below mentioned works</h6>
@@ -69,7 +69,7 @@
                             <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
                                 under strict supervision of work intending departments</h6>
                         </div>
-                        <div class="pages">
+                        <div>
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
@@ -95,8 +95,8 @@
                                         </li>
                                     </ul>
                                 </nav>
-                                <div class="bg-light rounded" id="Pages">
 
+                                <div class="bg-light rounded" id="Pages">
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
                                             <div class="input-group mb-3 mt-3">
@@ -107,8 +107,7 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="doi0">Date of
-                                        Issue:</span>
+                                                    id="doi0">Date of Issue:</span>
                                                 <input type="datetime-local" class="form-control"
                                                     aria-label="DOI" aria-describedby="basic-addon1">
                                             </div>
@@ -168,8 +167,7 @@
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     for="araiEng">
-                                                    ARAI
-                                        Engineer:
+                                                    ARAI Engineer:
                                                 </label>
                                                 <select class="form-select" id="araiEng">
                                                     <option>Choose...</option>
@@ -211,6 +209,31 @@
                                         <div class="d-flex">
                                             <div class="cont-1">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Work on Fragile Roof" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="High Tension Electrical Work" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                </div>
+                                                <%-- 
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
                                                         <input class="form-check-input" type="checkbox" value="" id="wk1"></span>
@@ -257,6 +280,7 @@
                                                         Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)
                                                     </label>
                                                 </div>
+                                                    --%>
                                             </div>
                                             <div class="cont-2">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
@@ -273,14 +297,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <%--<div class="d-flex justify-content-between mt-3 mb-2">
-                                <button type="reset" class="btn btn-outline-secondary align-self-end"
-                                    onclick="clearFields('workDetails')">
-                                    Back</button>
-                                <button type="submit" class="btn btn-primary align-self-end"
-                                    onclick="saveWork_page2()">
-                                    Next</button>
-                            </div>--%>
+                                        
                                     </div>
 
                                     <div id="page3" class="page-3 p-4">

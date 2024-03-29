@@ -1,13 +1,13 @@
-﻿body::-webkit-scrollbar{
-    width:0.5em;
+﻿body::-webkit-scrollbar {
+    width: 0em;
 }
 
-body::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color:transparent;
+    background-color: transparent;
 }
 
 @keyframes blink {
@@ -56,23 +56,73 @@ body::-webkit-scrollbar-thumb {
     z-index: 1;
 }
 
-.pages::-webkit-scrollbar{
-    width:0.5em;
+.pages::-webkit-scrollbar {
+    width: 0.5em;
 }
 
-.pages::-webkit-scrollbar-track{
+.pages::-webkit-scrollbar-track {
     border-radius: 5px;
     background-color: rgb(218, 218, 218);
 }
 
 .pages::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color:rgb(159, 155, 155);
+    background-color: rgb(159, 155, 155);
 }
 
-.pages{
-    height:50%;
-    overflow:hidden;
-    overflow-y:scroll;
-    scroll-behavior:smooth;
+.pages {
+    height: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.checkbox-container {
+    margin-bottom: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-container label {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.checkbox-container label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.checkbox-container input[type="checkbox"]:checked+label::before {
+    background-color: #007bff;
+}
+
+.checkbox-container label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.checkbox-container input[type="checkbox"]:checked+label::after {
+    display: block;
 }

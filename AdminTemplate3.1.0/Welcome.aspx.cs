@@ -14,5 +14,9 @@ namespace AdminTemplate3._1._0
 
         }
 
+        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
