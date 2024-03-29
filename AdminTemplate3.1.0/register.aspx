@@ -37,7 +37,7 @@
                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Sign Up" Width="164px" />
                     <br />
                     <br />
-                    Already have account ? <asp:LinkButton ID="LinkButton3" runat="server" OnClick="LinkButton3_Click">Sign In</asp:LinkButton>
+                    Already have account? <asp:LinkButton ID="LinkButton3" runat="server" >Sign In</asp:LinkButton>
 &nbsp;</div>
         </div>
     </form>
