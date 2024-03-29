@@ -29,11 +29,11 @@ namespace AdminTemplate3._1._0
         protected void RecordInsert()
         {
             // Response.Write("<script>alert('Testing');</script>");
-            SqlConnection con = new SqlConnection(strcon);
+            SqlConnection con = new SqlConnection(strconn2);
             try
             {
                 int result = 0;
-                using (con = new SqlConnection(strcon))
+                using (con = new SqlConnection(strconn2))
                 {
                     using (SqlCommand cmd = new SqlCommand("sp_register_table", con))
                     {
