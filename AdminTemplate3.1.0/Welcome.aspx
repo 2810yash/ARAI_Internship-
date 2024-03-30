@@ -60,7 +60,7 @@
                     <%-- Page started here--%>
 
                     <div data-aos="slide-up">
-                        <%-- Blinking TEXT--%>
+                        <%-- Blinking TEXT --%>
                         <div class="headline text-align-center">
                             <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
                                 workers to enter with valid work permit in case of below mentioned works</h6>
@@ -69,7 +69,7 @@
                             <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
                                 under strict supervision of work intending departments</h6>
                         </div>
-                        <div class="pages">
+                        <div>
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
@@ -91,12 +91,12 @@
                                             <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#page3">Worker Details</a>
+                                            <a class="nav-link" href="#page3">Job Safety Assessment</a>
                                         </li>
                                     </ul>
                                 </nav>
-                                <div class="bg-light rounded" id="Pages">
 
+                                <div class="bg-light rounded" id="Pages">
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
                                             <div class="input-group mb-3 mt-3">
@@ -107,8 +107,7 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="doi0">Date of
-                                        Issue:</span>
+                                                    id="doi0">Date of Issue:</span>
                                                 <input type="datetime-local" class="form-control"
                                                     aria-label="DOI" aria-describedby="basic-addon1">
                                             </div>
@@ -168,8 +167,7 @@
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     for="araiEng">
-                                                    ARAI
-                                        Engineer:
+                                                    ARAI Engineer:
                                                 </label>
                                                 <select class="form-select" id="araiEng">
                                                     <option>Choose...</option>
@@ -210,116 +208,85 @@
                                     <div id="page2" class="page2 p-4">
                                         <div class="d-flex">
                                             <div class="cont-1">
-                                                <label class="text-wrap form-col-sm-7 m-lg-1 border-bottom-0">Work Permit</label>
+                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Work on Fragile Roof" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="High Tension Electrical Work" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                </div>
+                                                <div class="checkbox-container">
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                </div>
+                                                <%-- 
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk1" onchange="addHazard()"></span>
-                                                    <label class="text-wrap form-check-label col-sm-7 m-lg-1 border-bottom-0">
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk1"></span>
+                                                    <label class="text-wrap form-check-label col-sm-9 m-lg-1 border-bottom-0">
                                                         Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon2">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk2" onchange="addHazard()"></span>
-                                                    <label class="text-wrap form-check-lab elevation-0  col-sm-7 m-lg-1 ">
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk2"></span>
+                                                    <label class="form-check-label col-sm-9 m-lg-1 ">
                                                         Civil Work (Painting, Construction, Excavation etc)</label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon3">
-                                                        <input class="text-wrap form-check-input" type="checkbox" value="" id="wk3" onchange="addHazard()"></span>
-                                                    <label class="form-check-label col-sm-7 m-lg-1 ">Hot Works (Welding/Gas Cutting) </label>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk3"></span>
+                                                    <label class="form-check-label col-sm-9 m-lg-1 ">Hot Works (Welding/Gas Cutting) </label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon4">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk4" onchange="addHazard()"></span>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk4"></span>
                                                     <label class="form-check-label col-sm-9 m-lg-1 ">Work on Fragile Roof </label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk5" onchange="addHazard()"></span>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk5"></span>
                                                     <label class="form-check-label col-sm-9 m-lg-1 ">High Tension Electrical Work </label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon6">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk6" onchange="addHazard()"></span>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk6"></span>
                                                     <label class="form-check-label col-sm-9 m-lg-1 ">Low Tension Electrical Work </label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon7">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk7" onchange="addHazard()"></span>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk7"></span>
                                                     <label class="form-check-label col-sm-9 m-lg-1 border-1">
                                                         Working on height (more than 3 meters)
                                                     </label>
                                                 </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text" id="basic-addon8">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk8" onchange="addHazard()"></span>
+                                                        <input class="form-check-input" type="checkbox" value="" id="wk8"></span>
                                                     <label class="text-wrap form-check-label col-sm-9 m-lg-1 ">
                                                         Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)
                                                     </label>
                                                 </div>
+                                                    --%>
                                             </div>
                                             <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions to be taken</label>
-                                                <!-- Work Permit 1: Entry into vessels... -->
+                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
                                                 <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr1">Remove Flammable and explosive materials.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr2">Provide appropriate exhaust.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr3">Confirm oxygen levels are not below 19.5% or less.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr4">Pipeline/tank to be drained, purged and valve closed.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr5">Confirm Electrical equipment kept off.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr6">Person is wearing suitable breating apparatus and a belt securely attached to a rope the free end of which his held by a person outside the confined space, if apparatus is provided.</li>
-                                                    </ul>
-                                                </div>
-
-                                                <!-- Work Permit 2: Civil Work -->
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr7">Provide fire watch/guard.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr8">Perform hot work in a safe location, or with fire hazards removed or covered.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr9">Provide appropriate ventilations.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr10">Use appropriate PPEs.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr11">Check routes of fuel lines, cables, etc.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr12">Check hose pipes and exhaust.</li>
-
-                                                    </ul>
-                                                </div>
-
-                                                <!-- Work Permit 3: Hot Works -->
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr13">Provide barricade.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr14">Stacking to be made minimum 2 feet from edges of trench or excavation.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr15">Provide safe means of access.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr16">Check routes of electrical cables, gas/fuel/water pipes lines etc before initiation of work.</li>
-                                                    </ul>
-                                                </div>
-
-                                                 <!-- Work Permit 4: Work on Fragile Roof -->
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <!-- <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0" id="pr15">Provide safe means of access.</li> -->
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr17">Provide ladder attendant if required.</li>
-                                                    </ul>
-                                                </div>
-
-                                                <!-- Work Permit 5 & 6: High tension and Low tension electrical Work -->
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <!-- <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0" id="pr15">Provide safe means of access.</li> -->
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr18">Work to be carried out by trained manpower.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr19">Strict supervision required.</li>
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr20">Fire attendant and first aider should be availabe.</li>
-                                                    </ul>
-                                                </div>
-                                                <!-- Work Permit 7: Work On Height (more than 3 meters) -->
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <ul class="border-1 mb-1">
-                                                        <!-- <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0" id="pr15">Provide safe means of access.</li> -->
-                                                        <!-- <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0" id="pr18">Work to be carried out by trained manpower.</li> -->
-                                                        <!-- <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0" id="pr19">Strict supervision required.</li> -->
-                                                        <li class="form-check-label col-sm-9 m-lg-1 border-bottom-0 invisible" id="pr21">Use of scaffold.</li>
-                                                    </ul>
+                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
+                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
                                                 </div>
                                             </div>
                                             <div class="cont-3">
@@ -330,14 +297,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <%--<div class="d-flex justify-content-between mt-3 mb-2">
-                                <button type="reset" class="btn btn-outline-secondary align-self-end"
-                                    onclick="clearFields('workDetails')">
-                                    Back</button>
-                                <button type="submit" class="btn btn-primary align-self-end"
-                                    onclick="saveWork_page2()">
-                                    Next</button>
-                            </div>--%>
+                                        
                                     </div>
 
                                     <div id="page3" class="page-3 p-4">

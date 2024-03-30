@@ -35,13 +35,13 @@ namespace AdminTemplate3._1._0
                 int result = 0;
                 using (con = new SqlConnection(strconn2))
                 {
-                    using (SqlCommand cmd = new SqlCommand("sp_register_table", con))
+                    using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", TextBox1.Text.Trim());
                         cmd.Parameters.AddWithValue("@Password", TextBox2.Text.Trim());
-                        cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
-                        cmd.Parameters.AddWithValue("@AcountStatus", "pending");
+                        //cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
+                        //cmd.Parameters.AddWithValue("@AcountStatus", "pending");
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
@@ -64,5 +64,9 @@ namespace AdminTemplate3._1._0
             }
         }
 
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
