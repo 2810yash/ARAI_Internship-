@@ -210,7 +210,7 @@
                                             <div class="cont-1">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" AutoPostBack="true" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
                                                 </div>
                                                 <div class="checkbox-container">
                                                     <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
@@ -282,20 +282,12 @@
                                                 </div>
                                                     --%>
                                             </div>
-                                            <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
-                                                </div>
+                                           
+                                            <div class="cont2">
+                                               <ul runat="server" id="dynamicList">
+                                               </ul>
                                             </div>
-                                            <div class="cont-3">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
-                                                </div>
-                                            </div>
+
                                         </div>
                                         
                                     </div>
@@ -327,37 +319,25 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <script>
-            $(document).ready(function() {
-                $('#confirm').click(function () {
-                    var rows = parseInt($('#noWorkers').val());
-                    var cols = 10;
-                    var table = $('<table></table>');
-
-                    for (var i = 0; i < 3; i++) {
-                        var row = $('<tr></tr>');
-                        for (var j = 0; j < cols; j++) {
-                            var cell = $('<td></td>').text('Row ' + (i + 1) + ',Cols' + (j + 1));
-                            row.append(cell);
-                        }
-                        table.append(row);
-                    }
-
-                    $('#workers').empty().append(table);
-                });
-            });
-        </script>
-        <script>
-            function changeHeight() {
-                var scroll = (window.pageYOffset / 5);
-                var height = scroll;
-
-                document.getElementById('expand').style.height = height + '%';
+        <!--Checkbox Function 
+        <script type="text/javascript">
+            function handleCheckboxChange() {
+                var isChecked = document.getElementById('<%= CheckBox1.ClientID%>').checked;
+                var listContainer = document.getElementById('dynamicList');
+    
+                if (isChecked) {
+                    var listItem = document.createElement('li');
+                    listItem.className = 'form-check-label col-sm-9 m-lg-1 border-bottom-0';
+                    listItem.id = 'pr1';
+                    listItem.textContent = 'Remove Flammable and explosive materials.';
+                    cont2.appendChild(listItem);
+                } else {
+                    var listItemToRemove = document.getElementById('pr1');
+                    listItemToRemove.parentNode.removeChild(listItemToRemove);
+                }
             }
+        </script> -->
 
-            window.addEventListener('scroll', function () {
-                requestAnimationFrame(changeHeight);
-            })
-        </script>
+
 
     </asp:Content>
