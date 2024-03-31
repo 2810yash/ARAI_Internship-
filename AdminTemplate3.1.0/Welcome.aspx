@@ -195,92 +195,36 @@
                                                     aria-label="Location of Work" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
-                                        <%-- <div class="d-flex justify-content-between mt-3 mb-2">
-                                <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
-                                    onclick="clearFields('workDetails')">
-                                    Back</button>
-                                <button type="submit" class="btn btn-primary align-self-end"
-                                    onclick="saveWork_page1()">
-                                    Next</button>
-                            </div> --%>
                                     </div>
 
                                     <div id="page2" class="page2 p-4">
                                         <div class="d-flex">
-                                            <div class="cont-1">
+                                            <div  id="checkboxContainer"  class="cont-1">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Work on Fragile Roof" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="High Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
                                                 </div>
-                                                <%-- 
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon1">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk1"></span>
-                                                    <label class="text-wrap form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon2">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk2"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 ">
-                                                        Civil Work (Painting, Construction, Excavation etc)</label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon3">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk3"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 ">Hot Works (Welding/Gas Cutting) </label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon4">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk4"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 ">Work on Fragile Roof </label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon5">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk5"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 ">High Tension Electrical Work </label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon6">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk6"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 ">Low Tension Electrical Work </label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon7">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk7"></span>
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-1">
-                                                        Working on height (more than 3 meters)
-                                                    </label>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon8">
-                                                        <input class="form-check-input" type="checkbox" value="" id="wk8"></span>
-                                                    <label class="text-wrap form-check-label col-sm-9 m-lg-1 ">
-                                                        Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)
-                                                    </label>
-                                                </div>
-                                                    --%>
                                             </div>
                                             <div class="cont-2">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
@@ -288,6 +232,7 @@
                                                     <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
                                                         Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
                                                 </div>
+                                                <asp:ListBox ID="listContainer" runat="server"></asp:ListBox>
                                             </div>
                                             <div class="cont-3">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
@@ -326,38 +271,5 @@
 
         </div>
         <!-- /.content-wrapper -->
-
-        <script>
-            $(document).ready(function() {
-                $('#confirm').click(function () {
-                    var rows = parseInt($('#noWorkers').val());
-                    var cols = 10;
-                    var table = $('<table></table>');
-
-                    for (var i = 0; i < 3; i++) {
-                        var row = $('<tr></tr>');
-                        for (var j = 0; j < cols; j++) {
-                            var cell = $('<td></td>').text('Row ' + (i + 1) + ',Cols' + (j + 1));
-                            row.append(cell);
-                        }
-                        table.append(row);
-                    }
-
-                    $('#workers').empty().append(table);
-                });
-            });
-        </script>
-        <script>
-            function changeHeight() {
-                var scroll = (window.pageYOffset / 5);
-                var height = scroll;
-
-                document.getElementById('expand').style.height = height + '%';
-            }
-
-            window.addEventListener('scroll', function () {
-                requestAnimationFrame(changeHeight);
-            })
-        </script>
 
     </asp:Content>

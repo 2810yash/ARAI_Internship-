@@ -124,7 +124,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./WebForm1.aspx" class="nav-link"/a>
+                                        <a href="./WebForm1.aspx" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Create Report</p>
                                         </a>
