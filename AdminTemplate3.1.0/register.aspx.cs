@@ -23,12 +23,22 @@ namespace AdminTemplate3._1._0
         // Sign Up Button
         protected void Button1_Click(object sender, EventArgs e)
         {
-            RecordInsert();
+            String email = TextBox1.Text.Trim();
+            String pass = TextBox2.Text.Trim();
+            String rePass = TextBox3.Text.Trim();
+
+            if (pass == rePass)
+            {
+                SignUpNewUser(email, pass);
+            }
+            else
+            {
+                Response.Write("<script>alert('PassWord does not matched');</script>");
+            }
         }
 
-        protected void RecordInsert()
+        protected void SignUpNewUser(String email, String pass)
         {
-            // Response.Write("<script>alert('Testing');</script>");
             SqlConnection con = new SqlConnection(strconn2);
             try
             {
@@ -38,22 +48,18 @@ namespace AdminTemplate3._1._0
                     using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@EmailID", TextBox1.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Password", TextBox2.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@RePassword", TextBox3.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@AcountStatus", "pending");
+                        cmd.Parameters.AddWithValue("@EmailID", email);
+                        cmd.Parameters.AddWithValue("@Password", pass);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
                         if (result > 0)
                         {
-                            Response.Write("Record inserted");
-                            Response.Write("<script>alert(Record Inserted);</script>");
+                            Response.Write("<script>alert('Register Successfully.\nGo for Login Page to Login.');</script>");
                         }
                         else
                         {
-                            Response.Write("Record not inserted");
-                            Response.Write("<script>alert(Record Not Inserted);</script>");
+                            Response.Write("<script>alert('Register UnSuccessfully.\nTry Again');</script>");
                         }
                     }
                 }
@@ -66,7 +72,7 @@ namespace AdminTemplate3._1._0
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("login.aspx");
         }
     }
 }
