@@ -1,69 +1,104 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="AdminTemplate3._1._0.login" %>
 
-    <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head runat="server">
-        <link href="Styles/login.css" rel="stylesheet" />
-        <title>Log in</title>
-    </head>
+<!DOCTYPE html>
 
-    <body>
-        <form id="form1" runat="server" class="login-box">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>ARAI | Login</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box{
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .login-box p {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-box1 {
+            margin-top: 20px;
+        }
+
+        .login-box1 label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .login-box1 input[type="text"],
+        .login-box1 input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .sub-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .login-box1 a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .login-box1 a:hover {
+            text-decoration: underline;
+        }
+
+        .sub-btn{
+            width: 100%;
+            padding: 10px;
+            background-color: #2fba2c;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="login-box">
             <div>
-                <div>
-                    <p>
-                        <b>ARAI</b>
-                    </p>
-                </div>
-                <asp:Login ID="Login1" runat="server">
-                    <LayoutTemplate>
-                        <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
-                            <tr>
-                                <td>
-                                    <table cellpadding="0" style="height: 257px">
-                                        <tr>
-                                            <td align="center" colspan="2">Log In</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">
-                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="User Name is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">
-                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" colspan="2" style="color:Red;">
-                                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="2">
-                                                <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="Login1" Width="291px" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </LayoutTemplate>
-                </asp:Login>
+                <p>
+                    <b>ARAI<br /><br />Sign-Up</b>
+                </p>
             </div>
-        </form>
-    </body>
-    </html>
+            <div class="login-box1">
+
+                <asp:Label ID="Label1" runat="server" Text="Email-ID"></asp:Label>
+                <br />
+                <asp:TextBox ID="TextBox1" runat="server" required></asp:TextBox>
+                <br />
+                <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
+                <br />
+                <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
+                <br />
+                <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Button" />
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -124,9 +124,10 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="WebForm1.aspx" class="nav-link"/a>
+                                        <a href="./WebForm1.aspx" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Create Report</p>
+                                        </a>
                                         
                                     </li>
                                     <li class="nav-item">
@@ -140,8 +141,7 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link" id="workpermit">
                                     <i class="nav-icon fas fa-chart-pie"></i>
-                                    <p>
-                                        Work Permite
+                                    <p> Work Permit
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -149,13 +149,13 @@
                                     <li class="nav-item">
                                         <a href="./Welcome.aspx" class="nav-link" onclick="Active_WP">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Create Work Permite</p>
+                                            <p>Create Work Permit</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>View Work Permite</p>
+                                            <p>View Work Permit</p>
                                         </a>
                                     </li>
                                 </ul>

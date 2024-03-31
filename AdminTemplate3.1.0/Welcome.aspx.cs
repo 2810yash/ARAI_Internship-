@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
@@ -9,85 +11,34 @@ namespace AdminTemplate3._1._0
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Check if checkbox was previously checked and item needs to be added on load (optional)
-            if (!IsPostBack)
-            {
-                //if (/* Your logic to check if item should be pre-selected */) 
-                //{
-                //  CheckBox1.Checked = true;
-                //  AddListItem();
-                //}
-            }
+
         }
 
         protected void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            var selectedCheckBox = (CheckBox)sender;
-            var selectedWorkText = FindControl("selectedWorkText") as HtmlGenericControl;
+            CheckBox checkBox = (CheckBox)sender;
+            string labelText = checkBox.Text;
 
-            if (selectedWorkText != null)
+            // Get the list container
+            ListBox listContainer = (ListBox)FindControl("listContainer");
+
+            if (listContainer != null)
             {
-                if (selectedCheckBox.Checked)
+                if (checkBox.Checked)
                 {
-                    selectedWorkText.InnerHtml = selectedCheckBox.Text;
+                    // Add the checkbox text to the list container
+                    listContainer.Items.Add(new ListItem(labelText));
                 }
                 else
                 {
-                    selectedWorkText.InnerHtml = "";
+                    // Remove the checkbox text from the list container if it exists
+                    ListItem itemToRemove = listContainer.Items.FindByText(labelText);
+                    if (itemToRemove != null)
+                    {
+                        listContainer.Items.Remove(itemToRemove);
+                    }
                 }
             }
-        }
-
-        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckBox1.Checked)
-            {
-                AddListItem();
-            }
-            else
-            {
-                RemoveListItem();
-            }
-        }
-
-        private void AddListItem()
-        {
-            var listItem = new HtmlGenericControl("li");
-            listItem.ID = "pr1";
-            listItem.Attributes["class"] = "form-check-label col-sm-9 m-lg-1 border-bottom-0";
-            listItem.InnerHtml = "Remove Flammable and explosive materials.";
-            CheckBox1.Text = "Remove Flammable and explosive materials";
-            var list = GetUlElement(); // Dynamically find the ul element
-            if (list != null)
-            {
-                list.Controls.Add(listItem);
-            }
-        }
-
-        private void RemoveListItem()
-        {
-            var list = GetUlElement(); // Dynamically find the ul element
-            if (list != null)
-            {
-                var itemToRemove = list.FindControl("pr1") as HtmlGenericControl;
-                if (itemToRemove != null)
-                {
-                    list.Controls.Remove(itemToRemove);
-                }
-            }
-        }
-
-        private HtmlGenericControl GetUlElement()
-        {
-            // Search for the ul element within dynamicList (or any other container)
-            foreach (Control control in dynamicList.Controls)
-            {
-                if (control is HtmlGenericControl && control.TagName == "ul")
-                {
-                    return (HtmlGenericControl)control;
-                }
-            }
-            return null;
         }
     }
 }
