@@ -26,30 +26,35 @@ namespace AdminTemplate3._1._0
             String email = TextBox1.Text.Trim();
             String pass = TextBox2.Text.Trim();
             String rePass = TextBox3.Text.Trim();
-
-            if (pass == rePass)
+            String selectedRole = roles.SelectedValue;
+            if (pass == rePass && roles.SelectedItem != null)
             {
-                SignUpNewUser(email, pass);
+                SignUpNewUser(email, pass, selectedRole);
             }
+            else if(pass != rePass)
+            {
+                Response.Write("<script>alert('Password does not matched');</script>");
+            } 
             else
             {
-                Response.Write("<script>alert('PassWord does not matched');</script>");
+                Response.Write("<script>alert('Please select a role');</script>");
             }
         }
 
-        protected void SignUpNewUser(String email, String pass)
+        protected void SignUpNewUser(String email, String pass, String selectedRole)
         {
-            SqlConnection con = new SqlConnection(strconn2);
+            //SqlConnection con = new SqlConnection(strconn2);
             try
             {
                 int result = 0;
-                using (con = new SqlConnection(strconn2))
+                using (SqlConnection con = new SqlConnection(strconn2))
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
+                    using (SqlCommand cmd = new SqlCommand("usp_registration_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
+                        cmd.Parameters.AddWithValue("@Role", selectedRole);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();

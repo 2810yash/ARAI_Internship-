@@ -100,6 +100,13 @@
                 Re-Enter Password :<br />
                 <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"></asp:TextBox>
                 <br />
+                Role:
+                <asp:DropDownList ID="roles" runat="server">
+                    <asp:ListItem Text="Admin" Selected="false" value="admin"></asp:ListItem>
+                    <asp:ListItem Text="User" value="user"></asp:ListItem>
+                </asp:DropDownList>
+                <br />
+
                 <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Sign Up" />
                 <br />
                 Already have an account ? <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Sign-In</asp:LinkButton>

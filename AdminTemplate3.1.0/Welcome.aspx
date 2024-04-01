@@ -228,15 +228,13 @@
                                             </div>
                                             <div class="cont-2">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                                <div id="listContainer" class="input-group border-1 border-dark mb-1">
+
                                                 </div>
-                                                <asp:ListBox ID="listContainer" runat="server"></asp:ListBox>
                                             </div>
                                             <div class="cont-3">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
+                                                <div class="input-group border-1 border-dark mb-1">
                                                     <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
                                                         Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
                                                 </div>
