@@ -78,6 +78,15 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.RadioButton special_license_no;
 
         /// <summary>
+        /// spl_Licence control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList spl_Licence;
+
+        /// <summary>
         /// TextBox5 control.
         /// </summary>
         /// <remarks>

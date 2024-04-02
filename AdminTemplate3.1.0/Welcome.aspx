@@ -125,10 +125,18 @@
                                                     <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <div class="input-group mb-3 icheck-primary">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
-                                                <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
-                                                <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2 icheck-primary">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
+                                                    <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
+                                                    <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
+                                                </div>
+                                                <asp:DropDownList ID="spl_Licence" Height="100%" CssClass="form-select" runat="server">
+                                                    <asp:ListItem Text="-- Select Special License Work --" Value="null"></asp:ListItem>
+                                                    <asp:ListItem Text="Electric Contractor" Value="elec-contractor"></asp:ListItem>
+                                                    <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
+                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
+                                                </asp:DropDownList>
                                             </div>
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
@@ -163,9 +171,7 @@
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <label class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        for="araiEng">
-                                                        ARAI Engineer:
-                                                    </label>
+                                                        for="araiEng">ARAI Engineer: </label>
                                                     <asp:DropDownList ID="araiEng" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
                                                 </div>
                                                 <div class="input-group">
