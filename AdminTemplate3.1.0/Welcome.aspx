@@ -73,6 +73,7 @@
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
+                                <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
                                 <select class="form-control select2" style="width: 100%;">
                                     <option selected="selected" id="kothrud">Kothrud</option>
                                     <option id="chakan">Chakan</option>
@@ -102,26 +103,22 @@
                                             <div class="input-group mb-3 mt-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="permitNo0">Permit No:</span>
-                                                <input type="text" class="form-control" placeholder="Permit No"
-                                                    aria-label="Permit No" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="doi0">Date of Issue:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="DOI" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="basic-addon1">Permit Valid From:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="Valid From" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="basic-addon1">Permit Valid Till:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="Valid Till" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3 icheck-primary">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -136,33 +133,28 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="esiNum0">ESI/Insurance No & Validity: </span>
-                                                <input type="text" class="form-control" placeholder="ESI/Insurance No & Validity"
-                                                    aria-label="ESI/Insurance No & Validity" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox5" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
-                                                <input type="text" class="form-control" placeholder="Name of Vendor or Contractor Firm/Agency"
-                                                    aria-label="Name of Vendor or Contractor Firm/Agency" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox6" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
-                                                <input type="text" class="form-control" placeholder="No. of Workers"
-                                                    aria-label="No. of Workers" aria-describedby="basic-addon1" id="noWorkers">
+                                                <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <button class="input-group-text btn btn-info border-1" id="confirm">Confirm</button>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
-                                                <input type="text" class="form-control" placeholder="Vendor/Contractor Supervisor"
-                                                    aria-label="Vendor/Contractor Supervisor" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox8" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="supervisorContact0">Contact Number:</span>
-                                                <input type="text" class="form-control" placeholder="Vendor/Contractor Supervisor Contact No."
-                                                    aria-label="Contact No." aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox9" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -179,20 +171,17 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="araiEngContact0">Contact Number:</span>
-                                                <input type="text" class="form-control" placeholder="ARAI Engineer Contact No."
-                                                    aria-label="Contact No." aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox10" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="desc0">Brief Description of Work:</span>
-                                                <input type="text" class="form-control" placeholder="Work Description"
-                                                    aria-label="Work Description" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox11" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="location0">Location of Work:</span>
-                                                <input type="text" class="form-control" placeholder="Location of Work"
-                                                    aria-label="Location of Work" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox12" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>
@@ -202,44 +191,37 @@
                                             <div  id="checkboxContainer"  class="cont-1">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox2_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox3_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox4_CheckedChanged" Text="Work on Fragile Roof" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox5_CheckedChanged" Text="High Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox6_CheckedChanged" Text="Low Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox7_CheckedChanged" Text="Working on height (more than 3 meters)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox8_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
                                                 </div>
                                             </div>
                                             <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
-                                                </div>
-                                                <asp:ListBox ID="listContainer" runat="server"></asp:ListBox>
+                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions Taken</label>
+                                               <!-- <asp:ListBox ID="listContainer" runat="server"></asp:ListBox> -->
+                                                <asp:Button ID="viewPri" runat="server" Text="View Precautions" CssClass="btn btn-primary" OnClick="View_Precautions_Button1_Click" />
                                             </div>
                                             <div class="cont-3">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                                <div class="input-group  border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
-                                                </div>
                                             </div>
                                         </div>
                                         
