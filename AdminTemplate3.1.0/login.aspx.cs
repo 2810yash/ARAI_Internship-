@@ -37,32 +37,32 @@ namespace AdminTemplate3._1._0
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
-                        //cmd.Parameters.AddWithValue("@Role", 0);
+                        cmd.Parameters.AddWithValue("@Role", 0);
                         cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Role", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        //cmd.Parameters.Add("@Role", SqlDbType.VarChar).Direction = ParameterDirection.Output;
 
                         con.Open();
                         result = cmd.ExecuteNonQuery();
 
                         // Get the output parameter value
-                        userID = (int)cmd.Parameters["@Id"].Value;
+                        userID = (int)cmd.Parameters["@ID"].Value;
                         //role = (string)cmd.Parameters["@Role"].Value;
 
                         con.Close();
                     }
                 }
 
-                if (userID == 1)
+                if (userID > 0)
                 {
                     // Successful login
                     Response.Write("<script>alert('Login Successfully.');</script>");
                     // Redirect user to a dashboard page or any other page
                     Response.Redirect("Welcome.aspx");
                 }
-                else if (userID == 2)
-                {
-                    Response.Redirect("HomePage.aspx");
-                }
+                // else if (userID == 2)
+                // {
+                    // Response.Redirect("HomePage.aspx");
+                // }
                 else
                 {
                     // Unsuccessful login

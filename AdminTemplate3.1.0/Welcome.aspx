@@ -100,41 +100,47 @@
 
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
-                                            <div class="input-group mb-3 mt-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="permitNo0">Permit No:</span>
-                                                <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3 mt-3">
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="permitNo0">Permit No:</span>
+                                                    <asp:TextBox ID="TextBox1" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="doi0">Date of Issue:</span>
+                                                    <!-- <input type="date" /> -->
+                                                    <asp:TextBox ID="TextBox2" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="doi0">Date of Issue:</span>
-                                                <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="valid-from">Permit Valid From:</span>
-                                                <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="valid-till">Permit Valid Till:</span>
-                                                <asp:TextBox ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="valid-from">Permit Valid From:</span>
+                                                    <asp:TextBox ID="TextBox3" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="valid-till">Permit Valid Till:</span>
+                                                    <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
                                             <div class="input-group mb-3 icheck-primary">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
                                                 <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
                                                 <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
                                             </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="esiNum0">ESI/Insurance No & Validity: </span>
-                                                <asp:TextBox ID="TextBox5" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
-                                                <asp:TextBox ID="TextBox6" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="esiNum0">ESI/Insurance No & Validity: </span>
+                                                    <asp:TextBox ID="TextBox5" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
+                                                    <asp:TextBox ID="TextBox6" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -142,81 +148,94 @@
                                                 <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
-                                                <asp:TextBox ID="TextBox8" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
+                                                    <asp:TextBox ID="TextBox8" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="supervisorContact0">Contact Number:</span>
+                                                    <asp:TextBox ID="TextBox9" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="supervisorContact0">Contact Number:</span>
-                                                <asp:TextBox ID="TextBox9" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2">
+                                                    <label class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        for="araiEng">
+                                                        ARAI Engineer:
+                                                    </label>
+                                                    <asp:DropDownList ID="araiEng" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="araiEngContact0">Contact Number:</span>
+                                                    <asp:TextBox ID="TextBox10" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <label class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    for="araiEng">
-                                                    ARAI Engineer:
-                                                </label>
-                                                <asp:DropDownList ID="araiEng" CssClass="form-select" runat="server"></asp:DropDownList>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="araiEngContact0">Contact Number:</span>
-                                                <asp:TextBox ID="TextBox10" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="desc0">Brief Description of Work:</span>
-                                                <asp:TextBox ID="TextBox11" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="location0">Location of Work:</span>
-                                                <asp:TextBox ID="TextBox12" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <div class="d-flex mb-3">
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="desc0">Brief Description of Work:</span>
+                                                    <asp:TextBox ID="TextBox11" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="location0">Location of Work:</span>
+                                                    <asp:TextBox ID="TextBox12" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div id="page2" class="page2 p-4">
                                         <div class="d-flex">
-                                            <div  id="checkboxContainer"  class="cont-1">
+                                            <div  id="checkboxContainer"  class="cont-1" style="width:30%;">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
                                                 </div>
                                             </div>
                                             <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
+                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
                                                 <div id="listContainer" class="input-group border-1 border-dark mb-1">
-
+                                                    <ul>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Strict supervision required</li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="cont-3">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                                <div class="input-group border-1 border-dark mb-1">
-                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
-                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                                <div id="listContainer2" class="input-group border-1 border-dark mb-1">
+                                                    <ul>
+                                                        <li>Portable ladders</li>
+                                                        <li>Safety Goggles and kit</li>
+                                                        <li>Helmet</li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,10 +251,7 @@
                                                 onclick="clearFields('workDetails')">
                                                 Back
                                             </button>
-                                            <button type="submit" class="btn btn-success align-self-end"
-                                                onclick="saveWork_page3()">
-                                                Submit
-                                            </button>
+                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" />
                                         </div>
                                     </div>
 
