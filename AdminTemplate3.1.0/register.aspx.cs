@@ -30,6 +30,18 @@ namespace AdminTemplate3._1._0
             if (pass == rePass && roles.SelectedItem != null)
             {
                 SignUpNewUser(email, pass, selectedRole);
+                if (selectedRole == "admin")
+                {
+                    Response.Redirect("Homepage.aspx");
+                }
+                else if(selectedRole == "user")
+                {
+                    Response.Redirect("Welcome.aspx");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Select Proper Role');</script>");
+                }
             }
             else if(pass != rePass)
             {
@@ -49,7 +61,7 @@ namespace AdminTemplate3._1._0
                 int result = 0;
                 using (SqlConnection con = new SqlConnection(strconn2))
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_registration_tbl", con))
+                    using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", email);
@@ -60,18 +72,18 @@ namespace AdminTemplate3._1._0
                         con.Close();
                         if (result > 0)
                         {
-                            Response.Write("<script>alert('Register Successfully.\nGo for Login Page to Login.');</script>");
+                            Response.Write("<script>alert('Register Successfully. Go for Login Page to Login.');</script>");
                         }
                         else
                         {
-                            Response.Write("<script>alert('Register UnSuccessfully.\nTry Again');</script>");
+                            Response.Write("<script>alert('Register UnSuccessfully. Try Again');</script>");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message + "');</script>");
+                Response.Write(ex.Message);
             }
         }
 

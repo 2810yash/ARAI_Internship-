@@ -73,11 +73,11 @@
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected" id="kothrud">Kothrud</option>
-                                    <option id="chakan">Chakan</option>
-                                    <option id="htcCk">HTC-Chakan</option>
-                                </select>
+                                <asp:DropDownList ID="site" CssClass="form-control select2" runat="server">
+                                    <asp:ListItem Text="Kothrud" Selected="false" Value="kothrud"></asp:ListItem>
+                                    <asp:ListItem Text="Chakan" Value="chakan"></asp:ListItem>
+                                    <asp:ListItem Text="HTC-Chakan" Value="htc-chakan"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
 
                             <%-- Permit Form--%>
@@ -91,108 +91,88 @@
                                             <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#page3">Job Safety Assessment</a>
+                                            <a class="nav-link" href="#page3">Workers Info</a>
                                         </li>
                                     </ul>
                                 </nav>
 
                                 <div class="bg-light rounded" id="Pages">
+
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
                                             <div class="input-group mb-3 mt-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="permitNo0">Permit No:</span>
-                                                <input type="text" class="form-control" placeholder="Permit No"
-                                                    aria-label="Permit No" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="doi0">Date of Issue:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="DOI" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="basic-addon1">Permit Valid From:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="Valid From" aria-describedby="basic-addon1">
+                                                    id="valid-from">Permit Valid From:</span>
+                                                <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="basic-addon1">Permit Valid Till:</span>
-                                                <input type="datetime-local" class="form-control"
-                                                    aria-label="Valid Till" aria-describedby="basic-addon1">
+                                                    id="valid-till">Permit Valid Till:</span>
+                                                <asp:TextBox ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3 icheck-primary">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="splLicense0">Special License:</span>
-                                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-secondary pe-4" for="success-outlined">Yes</label>
-                                                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-secondary pe-4" for="danger-outlined">No</label>
+                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
+                                                <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
+                                                <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
                                             </div>
+
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="esiNum0">ESI/Insurance No & Validity: </span>
-                                                <input type="text" class="form-control" placeholder="ESI/Insurance No & Validity"
-                                                    aria-label="ESI/Insurance No & Validity" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox5" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
-                                                <input type="text" class="form-control" placeholder="Name of Vendor or Contractor Firm/Agency"
-                                                    aria-label="Name of Vendor or Contractor Firm/Agency" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox6" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
-                                                <input type="text" class="form-control" placeholder="No. of Workers"
-                                                    aria-label="No. of Workers" aria-describedby="basic-addon1" id="noWorkers">
-                                                <button class="input-group-text btn btn-info border-1" id="confirm">Confirm</button>
+                                                <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
-                                                <input type="text" class="form-control" placeholder="Vendor/Contractor Supervisor"
-                                                    aria-label="Vendor/Contractor Supervisor" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox8" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="supervisorContact0">Contact Number:</span>
-                                                <input type="text" class="form-control" placeholder="Vendor/Contractor Supervisor Contact No."
-                                                    aria-label="Contact No." aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox9" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     for="araiEng">
                                                     ARAI Engineer:
                                                 </label>
-                                                <select class="form-select" id="araiEng">
-                                                    <option>Choose...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                                <asp:DropDownList ID="araiEng" CssClass="form-select" runat="server"></asp:DropDownList>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="araiEngContact0">Contact Number:</span>
-                                                <input type="text" class="form-control" placeholder="ARAI Engineer Contact No."
-                                                    aria-label="Contact No." aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox10" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="desc0">Brief Description of Work:</span>
-                                                <input type="text" class="form-control" placeholder="Work Description"
-                                                    aria-label="Work Description" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox11" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="location0">Location of Work:</span>
-                                                <input type="text" class="form-control" placeholder="Location of Work"
-                                                    aria-label="Location of Work" aria-describedby="basic-addon1">
+                                                <asp:TextBox ID="TextBox12" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>
@@ -258,6 +238,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

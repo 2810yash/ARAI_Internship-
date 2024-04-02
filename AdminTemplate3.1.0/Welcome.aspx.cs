@@ -4,14 +4,34 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace AdminTemplate3._1._0
 {
     public partial class Welcome : System.Web.UI.Page
     {
+        string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                arai_Engineer_list();
+            }
+        }
 
+        protected void arai_Engineer_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            araiEng.DataSource = sql_command.ExecuteReader();
+            araiEng.DataTextField = "EngineerName";
+            //araiEng.DataValueField = "DeptID";
+            araiEng.DataBind();
+            araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
 
         protected void CheckBox_CheckedChanged(object sender, EventArgs e)

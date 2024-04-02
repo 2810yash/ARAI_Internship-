@@ -28,6 +28,7 @@ namespace AdminTemplate3._1._0
             {
                 int result = 0;
                 int userID = 0;
+                //string role = "";
 
                 using (con = new SqlConnection(strconn2))
                 {
@@ -36,23 +37,30 @@ namespace AdminTemplate3._1._0
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
+                        //cmd.Parameters.AddWithValue("@Role", 0);
                         cmd.Parameters.Add("@Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Role", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                         con.Open();
                         result = cmd.ExecuteNonQuery();
 
                         // Get the output parameter value
                         userID = (int)cmd.Parameters["@Id"].Value;
+                        //role = (string)cmd.Parameters["@Role"].Value;
 
                         con.Close();
                     }
                 }
 
-                if (userID > 0)
+                if (userID == 1)
                 {
                     // Successful login
                     Response.Write("<script>alert('Login Successfully.');</script>");
                     // Redirect user to a dashboard page or any other page
+                    Response.Redirect("Welcome.aspx");
+                }
+                else if (userID == 2)
+                {
                     Response.Redirect("HomePage.aspx");
                 }
                 else
@@ -64,7 +72,8 @@ namespace AdminTemplate3._1._0
             catch (Exception ex)
             {
                 // Handle any exceptions
-                Response.Write("<script>alert('" + ex.Message + "');</script>");
+                Response.Write(ex.Message);
+                //Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
     }
