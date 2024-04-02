@@ -5,9 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <style type="text/css">
         body {
             font-family: Arial, sans-serif;
@@ -28,31 +25,31 @@
             width: 300px;
         }
 
-        .login-box p {
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .login-box p {
+                font-size: 18px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
         .login-box1 {
             margin-top: 20px;
         }
 
-        .login-box1 label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+            .login-box1 label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
 
-        .login-box1 input[type="text"],
-        .login-box1 input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+            .login-box1 input[type="text"],
+            .login-box1 input[type="password"] {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
 
         .sub-btn:hover {
             background-color: #0056b3;
@@ -64,11 +61,11 @@
             font-weight: bold;
         }
 
-        .login-box1 a:hover {
-            text-decoration: underline;
-        }
+            .login-box1 a:hover {
+                text-decoration: underline;
+            }
 
-        .sub-btn{
+        .sub-btn {
             width: 100%;
             padding: 10px;
             background-color: #2fba2c;
@@ -77,6 +74,20 @@
             color: #fff;
             font-size: 16px;
             cursor: pointer;
+        }
+
+        .drop-down {
+            display: block;
+            width: 100%;
+            padding: .375rem 2.25rem .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
     </style>
 </head>
@@ -100,8 +111,16 @@
                 Re-Enter Password :<br />
                 <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"></asp:TextBox>
                 <br />
-                <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Sign Up" />
+                Role:
+                <asp:DropDownList ID="roles" CssClass="drop-down" runat="server">
+                    <asp:ListItem Text="-- Select Role --" Selected="false" value="role"></asp:ListItem>
+                    <asp:ListItem Text="Admin" value="admin"></asp:ListItem>
+                    <asp:ListItem Text="User" value="user"></asp:ListItem>
+                </asp:DropDownList>
                 <br />
+
+                <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Sign Up" />
+                <br /><br />
                 Already have an account ? <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Sign-In</asp:LinkButton>
             </div>
         </div>

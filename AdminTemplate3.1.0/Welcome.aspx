@@ -73,12 +73,11 @@
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
-                                <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected" id="kothrud">Kothrud</option>
-                                    <option id="chakan">Chakan</option>
-                                    <option id="htcCk">HTC-Chakan</option>
-                                </select>
+                                <asp:DropDownList ID="site" CssClass="form-control select2" runat="server">
+                                    <asp:ListItem Text="Kothrud" Selected="false" Value="kothrud"></asp:ListItem>
+                                    <asp:ListItem Text="Chakan" Value="chakan"></asp:ListItem>
+                                    <asp:ListItem Text="HTC-Chakan" Value="htc-chakan"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
 
                             <%-- Permit Form--%>
@@ -92,12 +91,13 @@
                                             <a class="nav-link" href="#page2">Job Safety Assessment</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#page3">Job Safety Assessment</a>
+                                            <a class="nav-link" href="#page3">Workers Info</a>
                                         </li>
                                     </ul>
                                 </nav>
 
                                 <div class="bg-light rounded" id="Pages">
+
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
                                             <div class="input-group mb-3 mt-3">
@@ -112,24 +112,20 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="basic-addon1">Permit Valid From:</span>
+                                                    id="valid-from">Permit Valid From:</span>
                                                 <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="basic-addon1">Permit Valid Till:</span>
+                                                    id="valid-till">Permit Valid Till:</span>
                                                 <asp:TextBox ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="input-group mb-3 icheck-primary">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="splLicense0">Special License:</span>
-                                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-secondary pe-4" for="success-outlined">Yes</label>
-                                                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-secondary pe-4" for="danger-outlined">No</label>
+                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
+                                                <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
+                                                <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
                                             </div>
+
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="esiNum0">ESI/Insurance No & Validity: </span>
@@ -144,7 +140,7 @@
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
                                                 <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <button class="input-group-text btn btn-info border-1" id="confirm">Confirm</button>
+                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -161,12 +157,7 @@
                                                     for="araiEng">
                                                     ARAI Engineer:
                                                 </label>
-                                                <select class="form-select" id="araiEng">
-                                                    <option>Choose...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                                <asp:DropDownList ID="araiEng" CssClass="form-select" runat="server"></asp:DropDownList>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -191,37 +182,42 @@
                                             <div  id="checkboxContainer"  class="cont-1">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox2_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox3_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox4_CheckedChanged" Text="Work on Fragile Roof" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox5_CheckedChanged" Text="High Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox6_CheckedChanged" Text="Low Tension Electrical Work" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox7_CheckedChanged" Text="Working on height (more than 3 meters)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
                                                 </div>
                                                 <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox8_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
+                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
                                                 </div>
                                             </div>
                                             <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions Taken</label>
-                                               <!-- <asp:ListBox ID="listContainer" runat="server"></asp:ListBox> -->
-                                                <asp:Button ID="viewPri" runat="server" Text="View Precautions" CssClass="btn btn-primary" OnClick="View_Precautions_Button1_Click" />
+                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazard Associated</label>
+                                                <div id="listContainer" class="input-group border-1 border-dark mb-1">
+
+                                                </div>
                                             </div>
                                             <div class="cont-3">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
+                                                <div class="input-group border-1 border-dark mb-1">
+                                                    <label class="form-check-label col-sm-9 m-lg-1 border-bottom-0">
+                                                        Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces</label>
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -242,6 +238,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
