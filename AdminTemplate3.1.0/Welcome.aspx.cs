@@ -17,7 +17,7 @@ namespace AdminTemplate3._1._0
         {
             if (!IsPostBack)
             {
-                arai_Engineer_list();
+                // arai_Engineer_list();
             }
         }
 
@@ -60,5 +60,103 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
+
+        protected void special_license_yes_CheckedChanged(object sender, EventArgs e)
+        {
+            // Find the DropDownList control
+            DropDownList spl_Licence = Page.FindControl("spl_Licence") as DropDownList;
+            // Check if the control is found and the "Yes" radio button is checked
+            if (spl_Licence != null && special_license_yes.Checked)
+            {
+                // Remove the "invisible" CSS class
+                Response.Write("<script>alert('chnage');</script>");
+                spl_Licence.CssClass = spl_Licence.CssClass.Replace("invisible", "");
+            }
+            else
+            {
+                // Add the "invisible" CSS class if the "No" radio button is checked or the control is not found
+                if (spl_Licence != null && !special_license_yes.Checked)
+                {
+                    if (!spl_Licence.CssClass.Contains("invisible"))
+                    {
+                        Response.Write("<script>alert('no chnage');</script>");
+                        spl_Licence.CssClass += " invisible";
+                    }
+                }
+            }
+        }
+
+        protected void confirm_Click(object sender, EventArgs e)
+        {
+            // Parse the number of workers entered in the TextBox
+            int numberOfWorkers;
+            if (int.TryParse(TextBox7.Text, out numberOfWorkers))
+            {
+                // Clear any previous content in the workers div
+                workers.Controls.Clear();
+
+                // Create a new table
+                Table table = new Table();
+                table.CssClass = "table table-bordered"; // Optionally, you can set CSS class for the table
+
+                // Create the first row with headers
+                TableRow tableFirstRow = new TableRow();
+                string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Goggle/Face shield", "Mask",
+                                "Safety Shoes/Gum Boots", "Jackets/Aprons", "Gloves", "Ear plug/muffs",
+                                "Belt/Harness", "Remarks" };
+                for (int i = 0; i < 11; i++)
+                {
+                    TableCell cell = new TableCell();
+                    cell.Text = headerText[i];
+                    tableFirstRow.Cells.Add(cell);
+                }
+                table.Rows.Add(tableFirstRow);
+
+                // Create table rows and cells based on the number of workers
+                for (int i = 0; i < numberOfWorkers; i++)
+                {
+                    TableRow row = new TableRow();
+
+                    // Add Sr. No. column with sequential numbers
+                    TableCell srNoCell = new TableCell();
+                    srNoCell.Text = (i + 1).ToString();
+                    row.Cells.Add(srNoCell);
+
+                    // Add TextBox for Name of Workers column
+                    TableCell nameCell = new TableCell();
+                    nameCell.Controls.Add(new TextBox { ID = "txtName_" + i }); // Assign a unique ID to each TextBox
+                    row.Cells.Add(nameCell);
+
+                    // Add a TextBox for Age column
+                    TableCell ageCell = new TableCell();
+                    ageCell.Controls.Add(new TextBox { ID = "txtAge_" + i }); // Assign a unique ID to each TextBox
+                    row.Cells.Add(ageCell);
+
+                    // Add TextBox for Remarks column
+                    TableCell remarksCell = new TableCell();
+                    remarksCell.Controls.Add(new TextBox { ID = "txtRemarks_" + i }); // Assign a unique ID to each TextBox
+                    row.Cells.Add(remarksCell);
+
+                    // Add remaining columns (you can add TextBoxes or other input controls as needed)
+                    for (int j = 3; j < 10; j++) // Start from index 3 as we've added Sr. No., Name of Workers, and Age
+                    {
+                        TableCell cell = new TableCell();
+                        // Add your input controls or placeholder text here
+                        row.Cells.Add(cell);
+                    }
+
+                    table.Rows.Add(row);
+                }
+
+                // Add the table to the workers div
+                workers.Controls.Add(table);
+            }
+            else
+            {
+                // Display a message or take appropriate action if the input is invalid
+                // For example: Response.Write("Invalid input for the number of workers.");
+            }
+        }
+
     }
 }

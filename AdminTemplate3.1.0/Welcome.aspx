@@ -100,6 +100,7 @@
 
                                     <div class="page1" id="page1">
                                         <div class="bg-light">
+                                            <!-- permit number & date of issue: -->
                                             <div class="d-flex mb-3 mt-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -113,6 +114,7 @@
                                                     <asp:TextBox ID="TextBox2" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- Permit Valid From & Permit Valid Till -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -125,19 +127,21 @@
                                                     <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- Special License & DropDown list -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2 icheck-primary">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
-                                                    <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" />
-                                                    <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" />
+                                                    <asp:RadioButton ID="special_license_yes"  AutoPostBack="true" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_yes_CheckedChanged" />
+                                                    <asp:RadioButton ID="special_license_no" AutoPostBack="true" Text="No" runat="server" GroupName="Special-License" />
                                                 </div>
-                                                <asp:DropDownList ID="spl_Licence" Height="100%" CssClass="form-select" runat="server">
+                                                <asp:DropDownList ID="spl_Licence" Height="100%" CssClass="form-select invisible" runat="server">
                                                     <asp:ListItem Text="-- Select Special License Work --" Value="null"></asp:ListItem>
                                                     <asp:ListItem Text="Electric Contractor" Value="elec-contractor"></asp:ListItem>
                                                     <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
                                                     <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
+                                            <!-- ESI/Insurance No & Name of Vendor or Contractor Firm/Agency -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -150,12 +154,15 @@
                                                     <asp:TextBox ID="TextBox6" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- Number of Workers -->
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
                                                 <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
+                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" OnClick="confirm_Click" />
+                                                <div id="workers" runat="server"></div>
                                             </div>
+                                            <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -168,6 +175,7 @@
                                                     <asp:TextBox ID="TextBox9" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- ARAI Engineer & contact number -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <label class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -180,6 +188,7 @@
                                                     <asp:TextBox ID="TextBox10" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- Brief Description of Work & Location of Work -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
@@ -249,9 +258,6 @@
                                     </div>
 
                                     <div id="page3" class="page-3 p-4">
-
-                                        <div id="workers">
-                                        </div>
                                         <div class="d-flex justify-content-between mt-3 mb-2">
                                             <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
                                                 onclick="clearFields('workDetails')">
