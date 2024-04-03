@@ -60,5 +60,53 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-    }
+
+        protected void submit_Click(object sender, EventArgs e)
+        {
+            // String permitNo = TextBox1.Text.Trim();
+            // DateTime dateOfIssue = TextBox2.Text.Trim(); // DATE AND TIME
+            // DateTime permitValidFrom =// TextBox3.Text.Trim();  // DATE AND TIME
+            // DateTime permitValidTill =// TextBox4.Text.Trim();  // DATE AND TIME
+            // bool splLicense = special_license_yes.Checked;
+            // String splLicenseType = spl_Licence.SelectedValue;
+            // String esiNum = TextBox5.Text.Trim();
+            // DateTime esiValidity = ; // DATE AND TIME
+            // String nameOfAgency = TextBox6.Text.Trim();
+            // int numOfWorkes = TextBox7.Text.Trim(); //type conversion STRING TO INT
+            // String nameOfContractor = TextBox8.Text.Trim();
+            // String contractorContact = TextBox9.Text.Trim();
+            // String araiEngineer = araiEng.SelectedValue;
+            // String engineerContact = TextBox10.Text.Trim();
+            // String descOfWork = TextBox11.Text.Trim();
+            // String location = TextBox12.Text.Trim();
+
+            // if ((permitValidTill - permitValidFrom).TotalDays > 15)
+            // {
+                // Response.Write("<script>alert('Please enter the valid permit dates between 15 days max')</script>");
+                // TextBox3.Controls.Clear();
+                // TextBox4.Controls.Clear();
+            // } else
+            // {
+                // NewWorkPermit(permitNo, dateOfIssue, permitValidFrom, permitValidTill, splLicense, splLicenseType, esiNum, esiValidity, nameOfAgency, numOfWorkes, nameOfContractor, contractorContact, araiEngineer, engineerContact, descOfWork, location);
+            // }
+        }
+        protected void NewWorkPermit(String permitNo, DateTime dateOfIssue, DateTime permitValidFrom, DateTime permitValidTill, bool splLicense, string splLicenseType, String esiNum, DateTime esiValidity, String nameofAgency, int numOfWorkers, String nameofContractor, String contractorContact, String araiEngg, String engineerContact, String descOfWork, String location)
+        {
+            //SqlConnection con = new SqlConnection(strconn2);
+            try
+            {
+                int result = 0;
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
+                    {
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        } 
+    } 
 }

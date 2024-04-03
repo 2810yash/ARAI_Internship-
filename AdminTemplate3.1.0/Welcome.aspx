@@ -116,12 +116,12 @@
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="valid-from">Permit Valid From:</span>
+                                                        id="validFrom">Permit Valid From:</span>
                                                     <asp:TextBox ID="TextBox3" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="valid-till">Permit Valid Till:</span>
+                                                        id="validill">Permit Valid Till:</span>
                                                     <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -142,6 +142,7 @@
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="esiNum0">ESI/Insurance No & Validity: </span>
+
                                                     <asp:TextBox ID="TextBox5" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
@@ -153,7 +154,7 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
-                                                <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="TextBox7"  CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
                                             </div>
                                             <div class="d-flex mb-3">
@@ -257,7 +258,7 @@
                                                 onclick="clearFields('workDetails')">
                                                 Back
                                             </button>
-                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" />
+                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end" OnClick="submit_Click" runat="server" Text="Submit" />
                                         </div>
                                     </div>
 
