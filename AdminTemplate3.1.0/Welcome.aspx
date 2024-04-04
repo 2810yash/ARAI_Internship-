@@ -160,7 +160,9 @@
                                                 <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                     id="numWorkers0">Number of Workers:</span>
                                                 <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" runat="server" Text="Confirm" />
+                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
+                                                <div id="workers" runat="server">
+                                                </div>
                                             </div>
                                             <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
@@ -263,7 +265,7 @@
                                                 onclick="clearFields('workDetails')">
                                                 Back
                                             </button>
-                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end" OnClick="submit_Click" runat="server" Text="Submit" />
+                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end"  runat="server" Text="Submit" />
                                         </div>
                                     </div>
 
