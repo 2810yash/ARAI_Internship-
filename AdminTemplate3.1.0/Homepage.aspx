@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" enableEventValidation="false" CodeBehind="Homepage.aspx.cs" Inherits="AdminTemplate3._1._0.Homepage" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
       <!-- Content Wrapper. Contains page content -->
