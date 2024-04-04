@@ -129,18 +129,19 @@
                                             </div>
                                             <!-- Special License & DropDown list -->
                                             <div class="d-flex mb-3">
-                                                <div class="input-group me-2 icheck-primary">
+                                                <div class="input-group me-2 icheck-primary d-flex align-items-center" style="width: 50%;">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
-                                                    <asp:RadioButton ID="special_license_yes"  AutoPostBack="true" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_yes_CheckedChanged" />
-                                                    <asp:RadioButton ID="special_license_no" AutoPostBack="true" Text="No" runat="server" GroupName="Special-License" />
+                                                    <div class="ms-2 me-2"><asp:RadioButton ID="special_license_yes" AutoPostBack="true" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_CheckedChanged" /></div>
+                                                    <div class="ms-2"><asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
                                                 </div>
-                                                <asp:DropDownList ID="spl_Licence" Height="100%" CssClass="form-select invisible" runat="server">
-                                                    <asp:ListItem Text="-- Select Special License Work --" Value="null"></asp:ListItem>
+                                                <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server">
+                                                    <asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
                                                     <asp:ListItem Text="Electric Contractor" Value="elec-contractor"></asp:ListItem>
                                                     <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
                                                     <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
+
                                             <!-- ESI/Insurance No & Name of Vendor or Contractor Firm/Agency -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
@@ -156,13 +157,14 @@
                                                 </div>
                                             </div>
                                             <!-- Number of Workers -->
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                    id="numWorkers0">Number of Workers:</span>
-                                                <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
-                                                <div id="workers" runat="server">
+                                            <div class="mb-3 d-block">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="numWorkers0">Number of Workers:</span>
+                                                    <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
                                                 </div>
+                                                <div id="workers" style="width:50%;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
                                             </div>
                                             <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
@@ -280,5 +282,29 @@
 
         </div>
         <!-- /.content-wrapper -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var specialLicenseYes = document.getElementById('<%= special_license_yes.ClientID %>');
+                var splLicenceDropDown = document.getElementById('<%= spl_Licence.ClientID %>');
+
+                // Function to toggle dropdown visibility
+                function toggleDropdownVisibility() {
+                    splLicenceDropDown.style.display = specialLicenseYes.checked ? 'block' : 'none';
+                }
+
+                // Initial toggle on page load
+                toggleDropdownVisibility();
+
+                // Event listener for radio button change
+                specialLicenseYes.addEventListener('change', toggleDropdownVisibility);
+
+                // Additional logic for "No" selection
+                var specialLicenseNo = document.getElementById('<%= special_license_no.ClientID %>');
+                specialLicenseNo.addEventListener('change', function () {
+                    splLicenceDropDown.style.display = specialLicenseNo.checked ? 'none' : 'block';
+                });
+            });
+        </script>
 
     </asp:Content>

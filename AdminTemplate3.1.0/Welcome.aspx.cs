@@ -17,7 +17,7 @@ namespace AdminTemplate3._1._0
         {
             if (!IsPostBack)
             {
-                // arai_Engineer_list();
+                arai_Engineer_list();
             }
         }
 
@@ -61,30 +61,7 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        protected void special_license_yes_CheckedChanged(object sender, EventArgs e)
-        {
-            // Find the DropDownList control
-            DropDownList spl_Licence = Page.FindControl("spl_Licence") as DropDownList;
-            // Check if the control is found and the "Yes" radio button is checked
-            if (spl_Licence != null && special_license_yes.Checked)
-            {
-                // Remove the "invisible" CSS class
-                Response.Write("<script>alert('chnage');</script>");
-                spl_Licence.CssClass = spl_Licence.CssClass.Replace("invisible", "");
-            }
-            else
-            {
-                // Add the "invisible" CSS class if the "No" radio button is checked or the control is not found
-                if (spl_Licence != null && !special_license_yes.Checked)
-                {
-                    if (!spl_Licence.CssClass.Contains("invisible"))
-                    {
-                        Response.Write("<script>alert('no chnage');</script>");
-                        spl_Licence.CssClass += " invisible";
-                    }
-                }
-            }
-        }
+        protected void special_license_CheckedChanged(object sender, EventArgs e){}
 
         protected void confirm_Click(object sender, EventArgs e)
         {
@@ -101,10 +78,8 @@ namespace AdminTemplate3._1._0
 
                 // Create the first row with headers
                 TableRow tableFirstRow = new TableRow();
-                string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Goggle/Face shield", "Mask",
-                                "Safety Shoes/Gum Boots", "Jackets/Aprons", "Gloves", "Ear plug/muffs",
-                                "Belt/Harness", "Remarks" };
-                for (int i = 0; i < 11; i++)
+                string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Remarks" };
+                for (int i = 0; i < headerText.Length; i++)
                 {
                     TableCell cell = new TableCell();
                     cell.Text = headerText[i];
@@ -129,21 +104,52 @@ namespace AdminTemplate3._1._0
 
                     // Add a TextBox for Age column
                     TableCell ageCell = new TableCell();
-                    ageCell.Controls.Add(new TextBox { ID = "txtAge_" + i }); // Assign a unique ID to each TextBox
+                    TextBox ageTextBox = new TextBox { ID = "txtAge_" + i };
+                    ageCell.Controls.Add(ageTextBox);
                     row.Cells.Add(ageCell);
+
+                    // Add RegularExpressionValidator for Age column
+                    RegularExpressionValidator ageValidator = new RegularExpressionValidator();
+                    ageValidator.ControlToValidate = ageTextBox.ID;
+                    ageValidator.ValidationExpression = @"\d+"; // Regular expression to match digits only
+                    ageValidator.ErrorMessage = "Please enter a numeric value for Age.";
+                    ageValidator.CssClass = "text-danger"; // Optional: Add CSS class for error messages
+                    ageCell.Controls.Add(ageValidator);
+
+                    // Add CheckBox for Mask column
+                    TableCell maskCell = new TableCell();
+                    maskCell.Controls.Add(new CheckBox { ID = "chkMask_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(maskCell);
+
+                    // Add CheckBox for Safety Shoes/Gum Boots column
+                    TableCell safetyShoesCell = new TableCell();
+                    safetyShoesCell.Controls.Add(new CheckBox { ID = "chkSafetyShoes_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(safetyShoesCell);
+
+                    // Add CheckBox for Jackets/Aprons column
+                    TableCell jacketsCell = new TableCell();
+                    jacketsCell.Controls.Add(new CheckBox { ID = "chkJackets_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(jacketsCell);
+
+                    // Add CheckBox for Gloves column
+                    TableCell glovesCell = new TableCell();
+                    glovesCell.Controls.Add(new CheckBox { ID = "chkGloves_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(glovesCell);
+
+                    // Add CheckBox for Ear plug/muffs column
+                    TableCell earPlugsCell = new TableCell();
+                    earPlugsCell.Controls.Add(new CheckBox { ID = "chkEarPlugs_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(earPlugsCell);
+
+                    // Add CheckBox for Belt/Harness column
+                    TableCell beltCell = new TableCell();
+                    beltCell.Controls.Add(new CheckBox { ID = "chkBelt_" + i, Checked = true }); // Assign a unique ID to each CheckBox
+                    row.Cells.Add(beltCell);
 
                     // Add TextBox for Remarks column
                     TableCell remarksCell = new TableCell();
                     remarksCell.Controls.Add(new TextBox { ID = "txtRemarks_" + i }); // Assign a unique ID to each TextBox
                     row.Cells.Add(remarksCell);
-
-                    // Add remaining columns (you can add TextBoxes or other input controls as needed)
-                    for (int j = 3; j < 10; j++) // Start from index 3 as we've added Sr. No., Name of Workers, and Age
-                    {
-                        TableCell cell = new TableCell();
-                        // Add your input controls or placeholder text here
-                        row.Cells.Add(cell);
-                    }
 
                     table.Rows.Add(row);
                 }
@@ -157,6 +163,5 @@ namespace AdminTemplate3._1._0
                 // For example: Response.Write("Invalid input for the number of workers.");
             }
         }
-
     }
 }
