@@ -17,7 +17,23 @@ namespace AdminTemplate3._1._0
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                dept_list();
+            }
+        }
 
+        protected void dept_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(strconn2);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[Department_TBL]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            dept.DataSource = sql_command.ExecuteReader();
+            dept.DataTextField = "Dept_Name";
+            //araiEng.DataValueField = "DeptID";
+            dept.DataBind();
+            dept.Items.Insert(0, new ListItem("- Select Department Name -", "0"));
         }
         
         // Sign Up Button
@@ -27,14 +43,16 @@ namespace AdminTemplate3._1._0
             String pass = TextBox2.Text.Trim();
             String rePass = TextBox3.Text.Trim();
             String selectedRole = roles.SelectedValue;
-            if (pass == rePass && roles.SelectedItem != null)
+            String selectedDept = dept.SelectedValue;
+
+            if (pass == rePass && selectedRole != "role" && selectedDept != "0")
             {
-                SignUpNewUser(email, pass, selectedRole);
+                SignUpNewUser(email, pass, selectedRole, selectedDept);
                 if (selectedRole == "admin")
                 {
                     Response.Redirect("Homepage.aspx");
                 }
-                else if(selectedRole == "user")
+                else if (selectedRole == "user")
                 {
                     Response.Redirect("Welcome.aspx");
                 }
@@ -43,17 +61,17 @@ namespace AdminTemplate3._1._0
                     Response.Write("<script>alert('Select Proper Role');</script>");
                 }
             }
-            else if(pass != rePass)
+            else if (pass != rePass)
             {
                 Response.Write("<script>alert('Password does not matched');</script>");
-            } 
+            }
             else
             {
-                Response.Write("<script>alert('Please select a role');</script>");
+                Response.Write("<script>alert('Please fill all the details.');</script>");
             }
         }
 
-        protected void SignUpNewUser(String email, String pass, String selectedRole)
+        protected void SignUpNewUser(String email, String pass, String selectedRole, String selectedDept)
         {
             //SqlConnection con = new SqlConnection(strconn2);
             try
@@ -67,6 +85,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
                         cmd.Parameters.AddWithValue("@Role", selectedRole);
+                        cmd.Parameters.AddWithValue("@Dept", selectedDept);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();

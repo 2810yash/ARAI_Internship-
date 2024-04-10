@@ -118,13 +118,13 @@
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="validFrom">Permit Valid From:</span>
-                                                    <asp:TextBox ID="TextBox3" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                        id="validFrom">Permit Valid From:</span><asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                                    <asp:TextBox ID="TextBox3" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="validill">Permit Valid Till:</span>
-                                                    <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Special License & DropDown list -->
@@ -141,7 +141,6 @@
                                                     <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
-
                                             <!-- ESI/Insurance No & Name of Vendor or Contractor Firm/Agency -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
@@ -164,7 +163,7 @@
                                                     <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
                                                     <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
                                                 </div>
-                                                <div id="workers" style="width:50%;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
+                                                <div id="workers" style="width:auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
                                             </div>
                                             <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
@@ -287,22 +286,31 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var specialLicenseYes = document.getElementById('<%= special_license_yes.ClientID %>');
                 var splLicenceDropDown = document.getElementById('<%= spl_Licence.ClientID %>');
-
                 // Function to toggle dropdown visibility
                 function toggleDropdownVisibility() {
                     splLicenceDropDown.style.display = specialLicenseYes.checked ? 'block' : 'none';
                 }
-
                 // Initial toggle on page load
                 toggleDropdownVisibility();
-
                 // Event listener for radio button change
                 specialLicenseYes.addEventListener('change', toggleDropdownVisibility);
-
                 // Additional logic for "No" selection
                 var specialLicenseNo = document.getElementById('<%= special_license_no.ClientID %>');
                 specialLicenseNo.addEventListener('change', function () {
                     splLicenceDropDown.style.display = specialLicenseNo.checked ? 'none' : 'block';
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Initialize datepicker for elements with 'datepicker' class
+                $('.datepicker').datepicker({
+                    dateFormat: 'dd MM yy', // Set the desired date format
+                    changeMonth: true, // Allow changing months
+                    changeYear: true, // Allow changing years
+                    showButtonPanel: true, // Show a button panel for navigation
+                    yearRange: '1900:2100', // Set the range of years
+                    // You can add more options as needed
                 });
             });
         </script>
