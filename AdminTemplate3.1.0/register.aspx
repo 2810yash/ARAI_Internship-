@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>ARAI | Register</title>
     <style type="text/css">
@@ -132,10 +132,10 @@
                 <br />
                 <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
                 <br />
-                <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="TextBox2" runat="server" required TextMode="Password"></asp:TextBox>
                 <br />
                 Re-Enter Password :<br />
-                <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="TextBox3" runat="server" required TextMode="Password"></asp:TextBox>
                 <br />
                 Role:
                 <asp:DropDownList ID="roles" CssClass="drop-down" runat="server">
@@ -144,7 +144,9 @@
                     <asp:ListItem Text="User" value="user"></asp:ListItem>
                 </asp:DropDownList>
                 <br />
-
+                Dept:
+                <asp:DropDownList ID="dept" CssClass="drop-down" runat="server"></asp:DropDownList>
+                <br />
                 <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Sign Up" />
                 <br /><br />
                 Already have an account ? <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Sign-In</asp:LinkButton>
