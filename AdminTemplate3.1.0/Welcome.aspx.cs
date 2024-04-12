@@ -22,25 +22,6 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        protected void addWorkPermit_Click(object sender, EventArgs e)
-        {
-            // Create a new dropdown list control
-            DropDownList ddlNewDropDown = new DropDownList();
-
-            // Set properties of the dropdown list
-            ddlNewDropDown.ID = "DynamicDropDownList"; // Set a unique ID for the dropdown list
-            ddlNewDropDown.Items.Add(new ListItem("-- Select --", "")); // Add default item
-            ddlNewDropDown.Items.Add(new ListItem("Option 1", "1")); // Add example items
-
-            // Add the dropdown list to the placeholder
-            DropDownPlaceHolder.Controls.Add(ddlNewDropDown);
-        }
-
-        protected void workPermit_list()
-        {
-
-            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
-        }
         protected void arai_Engineer_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);

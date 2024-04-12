@@ -1,10 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="AdminTemplate3._1._0.login" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+﻿    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head runat="server">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <title>Login</title>
+    </head>
 
     <title>ARAI | Login</title>
 <style type="text/css">
@@ -17,36 +19,30 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        }
 
-        .container-logi {
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex: 1;
+            flex: 1; /* Allow the container to expand to fill available space */
         }
 
-        /* Login box styles */
         .login-box {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 35%;
-            /*max-width: 60%;*/
-        }
-
-        .txt-box{
-             width:100%;
+            width: 300px;
         }
 
         .login-box p {
-            font-size: 24px;
+            font-size: 18px;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Form input styles */
         .login-box1 label {
             display: block;
             margin-bottom: 5px;
@@ -54,17 +50,15 @@
         }
 
         .login-box1 input[type="text"],
-        .login-box1 input[type="password"],
-        .login-box1 .drop-down {
+        .login-box1 input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
-        /* Button styles */
         .sub-btn {
             width: 100%;
             padding: 10px;
@@ -72,52 +66,13 @@
             border: none;
             border-radius: 4px;
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
         }
 
         .sub-btn:hover {
-                background-color: #0056b3;
+            background-color: #0056b3;
         }
-
-        /* Link styles */
-        .login-box1 a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .login-box1 a:hover {
-                text-decoration: underline;
-        }
-
-        /* Navbar styles */
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand {
-            color: #fff !important;
-            font-weight: bold;
-        }
-
-        .nav-link {
-            color: #fff !important;
-            font-weight: bold;
-        }
-
-        /* Center the logo */
-        .navbar-brand {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Responsive adjustments */
-        /*@media (max-width: 768px) {
-            .login-box {
-                width: 90%;*/ /* Adjusted for smaller screens */
-            /*}
-        }*/
     </style>
 
 </head>
@@ -137,9 +92,9 @@
             </div>
         </div>
     </nav>
-    <div class="container-logi">
-        <form id="form1" runat="server" class="login-box">
-            <div>
+    <div class="container">
+        <form id="form1" runat="server">
+            <div class="login-box">
                 <div>
                     <p>
                         <b>ARAI</b>
@@ -153,19 +108,19 @@
 
                     <asp:Label ID="Label1" runat="server" Text="Email-ID"></asp:Label>
                     <br />
-                    <asp:TextBox ID="TextBox1" runat="server" CssClass="txt-box" required></asp:TextBox>
+                    <asp:TextBox ID="TextBox1" runat="server" required></asp:TextBox>
                     <br />
                     <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
                     <br />
-                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" CssClass="txt-box" required></asp:TextBox>
+                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
                     <br />
                     <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Button" />
 
                 </div>
             </div>
-        </form>
-    </div>
+        </div> 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+        </div>
+        </div>
+    </body>
+    </html>
