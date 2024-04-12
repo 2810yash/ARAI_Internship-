@@ -33,21 +33,22 @@ namespace AdminTemplate3._1._0
             dept.DataTextField = "Dept_Name";
             //araiEng.DataValueField = "DeptID";
             dept.DataBind();
-            dept.Items.Insert(0, new ListItem("- Select Department Name -", "0"));
+            dept.Items.Insert(0, new ListItem("-- Select Department Name --", "0"));
         }
         
         // Sign Up Button
         protected void Button1_Click(object sender, EventArgs e)
         {
-            String email = TextBox1.Text.Trim();
-            String pass = TextBox2.Text.Trim();
-            String rePass = TextBox3.Text.Trim();
+            String userName = regiName.Text.Trim();
+            String email = regiEmail.Text.Trim();
+            String pass = regiPass.Text.Trim();
+            String rePass = regiRepass.Text.Trim();
             String selectedRole = roles.SelectedValue;
             String selectedDept = dept.SelectedValue;
 
             if (pass == rePass && selectedRole != "role" && selectedDept != "0")
             {
-                SignUpNewUser(email, pass, selectedRole, selectedDept);
+                SignUpNewUser(userName, email, pass, selectedRole, selectedDept);
                 if (selectedRole == "admin")
                 {
                     Response.Redirect("Homepage.aspx");
@@ -71,7 +72,7 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        protected void SignUpNewUser(String email, String pass, String selectedRole, String selectedDept)
+        protected void SignUpNewUser(String userName, String email, String pass, String selectedRole, String selectedDept)
         {
             //SqlConnection con = new SqlConnection(strconn2);
             try
@@ -82,6 +83,7 @@ namespace AdminTemplate3._1._0
                     using (SqlCommand cmd = new SqlCommand("usp_register_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Username", userName);
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
                         cmd.Parameters.AddWithValue("@Role", selectedRole);

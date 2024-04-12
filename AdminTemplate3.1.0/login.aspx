@@ -7,8 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>ARAI | Login</title>
-
-    <style>
+<style type="text/css">
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -16,31 +15,38 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Ensure the body covers the entire viewport height */
+            min-height: 100vh;
         }
 
-        .container {
+        .container-logi {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex: 1; /* Allow the container to expand to fill available space */
+            flex: 1;
         }
 
+        /* Login box styles */
         .login-box {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 300px;
+            width: 35%;
+            /*max-width: 60%;*/
+        }
+
+        .txt-box{
+             width:100%;
         }
 
         .login-box p {
-            font-size: 18px;
+            font-size: 24px;
             text-align: center;
             margin-bottom: 20px;
         }
 
+        /* Form input styles */
         .login-box1 label {
             display: block;
             margin-bottom: 5px;
@@ -48,15 +54,17 @@
         }
 
         .login-box1 input[type="text"],
-        .login-box1 input[type="password"] {
+        .login-box1 input[type="password"],
+        .login-box1 .drop-down {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
+        /* Button styles */
         .sub-btn {
             width: 100%;
             padding: 10px;
@@ -64,13 +72,52 @@
             border: none;
             border-radius: 4px;
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
         }
 
         .sub-btn:hover {
-            background-color: #0056b3;
+                background-color: #0056b3;
         }
+
+        /* Link styles */
+        .login-box1 a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .login-box1 a:hover {
+                text-decoration: underline;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        /* Center the logo */
+        .navbar-brand {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive adjustments */
+        /*@media (max-width: 768px) {
+            .login-box {
+                width: 90%;*/ /* Adjusted for smaller screens */
+            /*}
+        }*/
     </style>
 
 </head>
@@ -90,9 +137,9 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <form id="form1" runat="server">
-            <div class="login-box">
+    <div class="container-logi">
+        <form id="form1" runat="server" class="login-box">
+            <div>
                 <div>
                     <p>
                         <b>ARAI</b>
@@ -106,11 +153,11 @@
 
                     <asp:Label ID="Label1" runat="server" Text="Email-ID"></asp:Label>
                     <br />
-                    <asp:TextBox ID="TextBox1" runat="server" required></asp:TextBox>
+                    <asp:TextBox ID="TextBox1" runat="server" CssClass="txt-box" required></asp:TextBox>
                     <br />
                     <asp:Label ID="Label2" runat="server" Text="Password :"></asp:Label>
                     <br />
-                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" CssClass="txt-box" required></asp:TextBox>
                     <br />
                     <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Button" />
 
