@@ -31,11 +31,23 @@
                     <div class="input-group mb-1">
                         <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
                     </div>
+                  <div>  
+            <asp:DropDownList ID="DropDownList1" >  
+            <asp:ListItem Value=""> Select Role</asp:ListItem>  
+            <asp:ListItem>Admin </asp:ListItem>  
+            <asp:ListItem>Head</asp:ListItem>  
+            <asp:ListItem>Incharge</asp:ListItem>  
+            <asp:ListItem></asp:ListItem>  
+            <asp:ListItem></asp:ListItem>  
+        </asp:DropDownList>  
+        </div>  
+        <br />  
                     <div class="input-group mb-5 d-flex justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="formCheck">
                             <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
                         </div>
+             
                     </div>
                     <div class="input-group mb-3">
                         <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>

@@ -15,12 +15,77 @@ namespace AdminTemplate3._1._0
     {
 
         string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        
+
+        // List to hold rows of Why questions
+        private static List<WhyQuestion> whyQuestions = new List<WhyQuestion>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                // Initialize the data source and bind the GridView
+                InitializeWhyQuestions();
+                BindWhyGridView();
+            }
 
+            // Set the visibility of the footer template field based on the EditIndex
+            whyGridView.Columns[whyGridView.Columns.Count - 1].Visible = whyGridView.EditIndex == -1;
         }
 
-        protected void submitForm(object sender, EventArgs e)
+
+        protected void AddRow(object sender, EventArgs e)
+        {
+            // Add a new Why question to the list
+            whyQuestions.Add(new WhyQuestion { ID = whyQuestions.Count + 1, WhyQuestionText = "" });
+
+            // Rebind the GridView to update the display
+            BindWhyGridView();
+        }
+
+        protected void WhyGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "RemoveRow")
+            {
+                // Get the ID of the row to remove
+                int id = Convert.ToInt32(e.CommandArgument);
+
+                // Remove the row from the list
+                whyQuestions.RemoveAll(wq => wq.ID == id);
+
+                // Rebind the GridView to update the display
+                BindWhyGridView();
+            }
+        }
+
+        protected void WhyGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            // Get the index of the row being deleted
+            int index = e.RowIndex;
+
+            // Remove the row from the list
+            whyQuestions.RemoveAt(index);
+
+            // Rebind the GridView to update the display
+            BindWhyGridView();
+        }
+
+        private void InitializeWhyQuestions()
+        {
+            // Initialize the list of Why questions (optional)
+            whyQuestions = new List<WhyQuestion>();
+        }
+
+        private void BindWhyGridView()
+        {
+            // Bind the list of Why questions to the GridView
+            whyGridView.DataSource = whyQuestions;
+            whyGridView.DataBind();
+        }
+    
+
+
+    protected void submitForm(object sender, EventArgs e)
         {
             try
             {
@@ -60,5 +125,11 @@ namespace AdminTemplate3._1._0
             }
 
         }
+    }
+    // Class to represent a Why question
+    public class WhyQuestion
+    {
+        public int ID { get; set; }
+        public string WhyQuestionText { get; set; }
     }
 }
