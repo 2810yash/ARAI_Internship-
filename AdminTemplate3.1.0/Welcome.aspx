@@ -208,7 +208,18 @@
                                     </div>
 
                                     <div id="page2" class="page2 p-4">
-                                        <div class="d-flex">
+
+                                        <div class="input-group me-2">
+                                            <label class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                for="workPermit">
+                                                Work Permit Required:
+                                            </label>
+                                            <asp:DropDownList ID="workPermit" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
+                                            <asp:Button ID="addWorkPermit" runat="server" Text="+ Add" OnClick="addWorkPermit_Click" />
+                                            <br />
+                                            <asp:PlaceHolder ID="DropDownPlaceHolder" runat="server"></asp:PlaceHolder>
+                                        </div>
+                                        <%--<div class="d-flex">
                                             <div  id="checkboxContainer"  class="cont-1" style="width:30%;">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
                                                 <div class="checkbox-container">
@@ -235,7 +246,7 @@
                                                 <div class="checkbox-container">
                                                     <asp:CheckBox class="text-wrap" ID="CheckBox8" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                             <div class="cont-2">
                                                 <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
                                                 <div id="listContainer" class="input-group border-1 border-dark mb-1">
@@ -298,19 +309,6 @@
                 var specialLicenseNo = document.getElementById('<%= special_license_no.ClientID %>');
                 specialLicenseNo.addEventListener('change', function () {
                     splLicenceDropDown.style.display = specialLicenseNo.checked ? 'none' : 'block';
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                // Initialize datepicker for elements with 'datepicker' class
-                $('.datepicker').datepicker({
-                    dateFormat: 'dd MM yy', // Set the desired date format
-                    changeMonth: true, // Allow changing months
-                    changeYear: true, // Allow changing years
-                    showButtonPanel: true, // Show a button panel for navigation
-                    yearRange: '1900:2100', // Set the range of years
-                    // You can add more options as needed
                 });
             });
         </script>

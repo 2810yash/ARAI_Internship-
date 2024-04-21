@@ -17,22 +17,23 @@ namespace AdminTemplate3._1._0
         {
             if (!IsPostBack)
             {
-                //arai_Engineer_list();
+                arai_Engineer_list();
+                workPermit_list();
             }
         }
 
-        //protected void arai_Engineer_list()
-        //{
-        //    SqlConnection sqlcon = new SqlConnection(Main_con);
-        //    sqlcon.Open();
-        //    SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
-        //    sql_command.CommandType = CommandType.Text;
-        //    araiEng.DataSource = sql_command.ExecuteReader();
-        //    araiEng.DataTextField = "EngineerName";
-        //    //araiEng.DataValueField = "DeptID";
-        //    araiEng.DataBind();
-        //    araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
-        //}
+        protected void arai_Engineer_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            araiEng.DataSource = sql_command.ExecuteReader();
+            araiEng.DataTextField = "EngineerName";
+            //araiEng.DataValueField = "DeptID";
+            araiEng.DataBind();
+            araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
+        }
 
         protected void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
