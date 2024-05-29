@@ -130,15 +130,6 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
         
         /// <summary>
-        /// mitigation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox mitigation;
-        
-        /// <summary>
         /// TextBox5 control.
         /// </summary>
         /// <remarks>
@@ -148,13 +139,13 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.TextBox TextBox5;
         
         /// <summary>
-        /// whyGridView control.
+        /// Gv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView whyGridView;
+        protected global::System.Web.UI.WebControls.GridView Gv;
         
         /// <summary>
         /// root_cause_analysis control.

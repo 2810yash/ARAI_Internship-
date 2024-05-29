@@ -1,6 +1,5 @@
 ﻿
-<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs"
-    Inherits="AdminTemplate3._1._0.WebForm1" %>
+<%@ Page Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="AdminTemplate3._1._0.WebForm1" %>
     <asp:Content ContentPlaceHolderID="head" runat="server">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,31 +25,165 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="dist/css/adminlte.min.css">
         <link rel="stylesheet" href="./Styles/accident.css" />
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #000000; /* background for container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
+        }
+        .area{
+            background-color:blanchedalmond;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px; /* Adjust this value as needed */
+            object-fit: contain;
+        }
+        .position-relative form{
+            background-color: #778899; /* grey background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
+        }
+
+        .radioinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.radio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hazard-study {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    cursor: pointer;
+    padding: 8px 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+ .container1 {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gridview input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .gridview th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+        }
+
+        .gridview td {
+            padding: 10px;
+        }
+
+        content-wrapper position-relative main{
+            background-color:antiquewhite;
+        }
+        
+    </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <div class="content-wrapper position-relative main">
-            <div class="position-relative form">
-                <div class="heading">
-                    <h1>ACCIDENT-INCIDENT</h1>
-                </div>
-                <style>
-                    .heading {
-                        text-align: center;
-                        font-weight: 200;
-                        padding: 50px;
-                        border-radius: 20px;
-                        box-shadow: 0 0 10px rgb(56, 111, 111);
+
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="content-wrapper position-relative main">
+        <div class="position-relative form">
+            <div class="heading">
+                <h1>ACCIDENT-INCIDENT</h1>
+            </div>
+
+            <style>
+                .heading {
+                    text-align: center;
+                    font-weight: 500;
+                    padding: 50px;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px rgb(56, 111, 111);
+                    background-color: aliceblue;
+                }
+
+                    .heading h1 {
+                        margin: 0;
+                        font-family: 'sans-serif';
+                        color: #00000;
+                        font-weight: 1000;
+                        text-shadow: 20px 20px 40px rgb(56, 111, 111);
                     }
+            </style>
 
-                        .heading h1 {
-                            margin: 0;
-                            font-family: 'Arial', sans-serif;
-                            color: #6a3e95;
-                            text-shadow: 20px 20px 40px rgb(56, 111, 111);
-                        }
-                </style>
+            <div class="container mt-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="AT3.1.0/dist/img/Inci1.jpg" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
 
+                            <img class="d-block w-100" src="AT3.1.0/dist/img/Inci2.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="AT3.1.0/dist/img/Inci3.jpg" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <br />
+            <br />
+
+
+            <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
                         <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date_of_issue" required="required"></asp:TextBox>
@@ -87,6 +220,7 @@
                         <span>Location of incident/accident</span>
                     </div>
                 </div>
+
 
                 <div class="datentime">
                     <div class="inputBox">
@@ -269,145 +403,161 @@
                     </div>
                 </div>
 
-
+                <!-- Immediate Action Taken -->
                 <div class="datentime">
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" ID="mitigation" required="required" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" ID="TextBox5" runat="server" required="required"></asp:TextBox>
                         <span>Immediate Action Taken</span>
                     </div>
                 </div>
-       <div class="container">
-                  <!-- Immediate Action Taken -->
-            <div class="datentime">
-                <div class="inputBox">
-                    <asp:TextBox CssClass="date-input" ID="TextBox5" runat="server" required="required"></asp:TextBox>
-                    <span>Immediate Action Taken</span>
+
+                <div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="form-group">
+<div class="table-responsive">
+<asp:GridView ID="Gv"  Width="100%" AutoGenerateSelectButton="true"
+OnSelectedIndexChanged="Gv_SelectedIndexChanged"
+CssClass="table table-bordered table-condensed table-responsive table-hover"
+runat="server">
+<AlternatingRowStyle BackColor="White" />
+<HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" />
+<RowStyle BackColor="#f5f5f5" />
+<SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="White" />
+</asp:GridView>
+</div>
+</div>
+</div>
+</div> 
+
+
+                <div class="datentime">
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" ID="root_cause_analysis" required="required" runat="server"></asp:TextBox>
+                        <span>Root Cause Analysis</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- GridView for Why questions -->
-            <asp:GridView ID="whyGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" 
-                         OnRowCommand="WhyGridView_RowCommand" OnRowDeleting="WhyGridView_RowDeleting" ShowFooter="True">
-                <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
-                    <asp:TemplateField HeaderText="Why Question">
-                        <ItemTemplate>
-                            <asp:TextBox ID="whyTextBox" runat="server" Text='<%# Bind("WhyQuestion") %>'></asp:TextBox>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Actions">
-                        <ItemTemplate>
-                            <asp:Button ID="removeRowButton" runat="server" Text="Remove" CommandName="RemoveRow" CommandArgument='<%# Eval("ID") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-<asp:TemplateField HeaderText="Add Row">
-    <FooterTemplate>
-        <asp:Button ID="addRowButton" runat="server" Text="Add Why Question" OnClick="AddRow" />
-    </FooterTemplate>
-</asp:TemplateField>
-
-                </Columns>
-            </asp:GridView>
-           </div>
-
-       
-
-
-                <div class="new-div">
-                    <div class="datentime">
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" ID="root_cause_analysis" required="required" runat="server"></asp:TextBox>
-                            <span>Root Cause Analysis</span>
-                        </div>
+                <div class="datentime">
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="corrective_action_plan"></asp:TextBox>
+                        <span>Corrective Action Plan</span>
                     </div>
-
-                    <div class="datentime">
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" runat="server" required="required" ID="corrective_action_plan"></asp:TextBox>
-                            <span>Corrective Action Plan</span>
-                        </div>
-                    </div>
-                    <div class="datentime">
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
-                            <span>Completion Date</span>
-                        </div>
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsibility"></asp:TextBox>
-                            <span>Responsible Person</span>
-                        </div>
-                    </div>
-
-                    <div class="datentime">
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" runat="server" required="required" ID="TextBox3"></asp:TextBox>
-                            <span>Corrective Action Impact</span>
-                        </div>
-                    </div>
-
-
-                    <div class="radioinput">
-                        <div class="radio">
-                            <div class="hazard-study">Hazard Study Updated?</div>
-                            <div>
-                                <input type="radio" id="yes" name="option" onclick="toggleFileInput(true)">
-                                <label for="yes">Yes</label>
-                                <input type="radio" id="no" name="option" onclick="toggleFileInput(false)">
-                                <label for="no">No</label>
-                            </div>
-                            <div class="file" id="fileUpload" style="display: none;">
-                                <span class="upload-arrow">&#x25BC;</span>
-                                <!-- Downward arrow indicating file upload -->
-                                <input type="file" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        function toggleFileInput(show) {
-                            var fileUpload = document.getElementById("fileUpload");
-                            if (show) {
-                                fileUpload.style.display = "block";
-                                alert("Please upload a file."); // Popup message
-                            } else {
-                                fileUpload.style.display = "none";
-                            }
-                        }
-                    </script>
-
-
-
-                    <div class="new block">
-                        <div class="inputBox">
-                            <asp:TextBox CssClass="date-input" required="required" runat="server" ID="remarks"></asp:TextBox>
-                            <span>Remarks(If Any)</span>
-                        </div>
-                    </div>
-                    <div class="subbtn">
-                        <asp:Button OnClientClick="return validateForm();" Text="SUBMIT" CssClass="submit btn btn-primary" runat="server" />
-                    </div>
-
-                    <script>
-                        function validateForm() {
-                            var date = document.getElementById('<%= date_of_issue.ClientID %>').value;
-        var time = document.getElementById('<%= time_of_issue.ClientID %>').value;
-
-                            if (date.trim() === '' || time.trim() === '') {
-                                alert('Please fill in both Date and Time fields.');
-                                return false; // Prevent form submission
-                            }
-                            return true; // Allow form submission
-                        }
-                    </script>
-
-
-
                 </div>
-            </div>
-        </div>    
+                <div class="datentime">
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
+                        <span>Completion Date</span>
+                    </div>
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsibility"></asp:TextBox>
+                        <span>Responsible Person</span>
+                    </div>
+                </div>
 
+                <div class="datentime">
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="TextBox3"></asp:TextBox>
+                        <span>Corrective Action Impact</span>
+                    </div>
+                </div>
+
+
+                <div class="radioinput">
+                    <div class="radio">
+                        <div class="hazard-study">IS HAZARD STUDY UPDATED?</div>
+                        <style>
+                            /* Add your CSS here */
+                            .hazard-study {
+                                font-size: 25px; /* Adjust the font size */
+                                font-weight: bold; /* Make the text bold */
+                                color: #000000; /* Set the text color */
+                                margin-bottom: 10px; /* Add some space below the heading */
+                            }
+                        </style>
+                        <div>
+                            <input type="radio" id="yes" name="option" onclick="toggleFileInput(true)">
+                            <label for="yes">Yes</label>
+                            <input type="radio" id="no" name="option" onclick="toggleFileInput(false)">
+                            <label for="no">No</label>
+                        </div>
+
+                        <div class="file" id="fileUpload" style="display: none;">
+                            <span class="upload-arrow">&#x25BC;</span>
+                            <!-- Downward arrow indicating file upload -->
+                            <input type="file" />
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function toggleFileInput(show) {
+                        var fileUpload = document.getElementById("fileUpload");
+                        if (show) {
+                            fileUpload.style.display = "block";
+                            alert("Please upload a file."); // Popup message
+                        } else {
+                            fileUpload.style.display = "none";
+                        }
+                    }
+                </script>
+
+
+
+                <div class="new block">
+                    <div class="inputBox">
+                        <asp:TextBox
+                            CssClass="date-input text-area"
+                            TextMode="MultiLine"
+                            required="required"
+                            runat="server"
+                            ID="remarks">
+                        </asp:TextBox>
+                        <span>Remarks(If Any)</span>
+                    </div>
+                </div>
+
+                <style>
+                    .date-input.text-area {
+                        width: 95%; /* Adjust the width as needed */
+                        height: 100px; /* Adjust the height as needed */
+                        overflow-y: auto; /* Adds a vertical scrollbar */
+                        white-space: pre-wrap; /* Ensures text wraps to the next line */
+                        word-wrap: break-word; /* Breaks long words and wraps to the next line */
+                        padding: 10px; /* Adds padding inside the textarea */
+                        box-sizing: border-box; /* Ensures padding and border are included in the width and height */
+                        resize: vertical; /* Allows the user to resize the height of the textarea */
+                    }
+                </style>
+
+
+                <div class="subbtn">
+                    <asp:Button OnClientClick="return validateForm();" Text="SUBMIT" CssClass="submit btn btn-primary" runat="server" />
+                </div>
+
+                <script>
+                    function validateForm() {
+                        var date = document.getElementById('<%= date_of_issue.ClientID %>').value;
+                            var time = document.getElementById('<%= time_of_issue.ClientID %>').value;
+
+                        if (date.trim() === '' || time.trim() === '') {
+                            alert('Please fill in both Date and Time fields.');
+                            return false; // Prevent form submission
+                        }
+                        return true; // Allow form submission
+                    }
+                </script>
+
+               
+
+
+
+
+
+            </div>
+        </div>
+    </div>
    
-
+                  
        
 
 </asp:Content>
