@@ -7,29 +7,58 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0 {
-    
-    
-    public partial class WebForm1 {
-        
+namespace AdminTemplate3._1._0
+{
+
+
+    public partial class WebForm1
+    {
+
         /// <summary>
-        /// date_of_issue control.
+        /// date_of_incident control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date_of_issue;
-        
+        protected global::System.Web.UI.WebControls.TextBox date_of_incident;
+
         /// <summary>
-        /// time_of_issue control.
+        /// time_of_incident control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox time_of_issue;
-        
+        protected global::System.Web.UI.WebControls.TextBox time_of_incident;
+
+        /// <summary>
+        /// name_person control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox name_person;
+
+        /// <summary>
+        /// dept_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dept_name;
+
+        /// <summary>
+        /// accident_location control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox accident_location;
+
         /// <summary>
         /// TextBox1 control.
         /// </summary>
@@ -121,22 +150,22 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList7;
         
         /// <summary>
-        /// TextBox2 control.
+        /// root_cause control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox root_cause;
         
         /// <summary>
-        /// TextBox5 control.
+        /// mitigation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
+        protected global::System.Web.UI.WebControls.TextBox mitigation;
         
         /// <summary>
         /// root_cause_analysis control.
@@ -146,7 +175,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox root_cause_analysis;
-        
+
         /// <summary>
         /// corrective_action_plan control.
         /// </summary>
@@ -155,7 +184,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox corrective_action_plan;
-        
+
         /// <summary>
         /// completion_date control.
         /// </summary>
@@ -164,16 +193,43 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox completion_date;
-        
+
         /// <summary>
-        /// responsibility control.
+        /// responsible_person control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox responsibility;
-        
+        protected global::System.Web.UI.WebControls.TextBox responsible_person;
+
+        /// <summary>
+        /// corrective_action_impact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox corrective_action_impact;
+
+        /// <summary>
+        /// hazard_update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton hazard_update;
+
+        /// <summary>
+        /// RadioButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
+
         /// <summary>
         /// TextBox3 control.
         /// </summary>

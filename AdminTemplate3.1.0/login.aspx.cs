@@ -58,7 +58,7 @@ namespace AdminTemplate3._1._0
                     // Successful login
                     Response.Write("<script>alert('Login Successfully.');</script>");
                     // Redirect user to a dashboard page or any other page
-                    Response.Redirect("Welcome.aspx");
+                    Response.Redirect("Homepage.aspx");
                 }
                 else
                 {

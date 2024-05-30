@@ -18,10 +18,11 @@ namespace AdminTemplate3._1._0
             if (!IsPostBack)
             {
                 arai_Engineer_list();
-                workPermit_list();
+                WorkPermit_list();
+                splWorkPermit_list();
+                ViewState["AppendedValues"] = "";
             }
         }
-
         protected void arai_Engineer_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -30,45 +31,37 @@ namespace AdminTemplate3._1._0
             sql_command.CommandType = CommandType.Text;
             araiEng.DataSource = sql_command.ExecuteReader();
             araiEng.DataTextField = "EngineerName";
-            //araiEng.DataValueField = "DeptID";
             araiEng.DataBind();
             araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
-
-        protected void CheckBox_CheckedChanged(object sender, EventArgs e)
+        protected void WorkPermit_list()
         {
-            CheckBox checkBox = (CheckBox)sender;
-            string labelText = checkBox.Text;
-
-            // Get the list container
-            ListBox listContainer = (ListBox)FindControl("listContainer");
-
-            if (listContainer != null)
-            {
-                if (checkBox.Checked)
-                {
-                    // Add the checkbox text to the list container
-                    listContainer.Items.Add(new ListItem(labelText));
-                }
-                else
-                {
-                    // Remove the checkbox text from the list container if it exists
-                    ListItem itemToRemove = listContainer.Items.FindByText(labelText);
-                    if (itemToRemove != null)
-                    {
-                        listContainer.Items.Remove(itemToRemove);
-                    }
-                }
-            }
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            workPermit.DataSource = sql_command.ExecuteReader();
+            workPermit.DataTextField = "Work_Permit";
+            workPermit.DataBind();
+            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
         }
-
-        protected void special_license_CheckedChanged(object sender, EventArgs e){}
-
+        protected void splWorkPermit_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            spl_Licence.DataSource = sql_command.ExecuteReader();
+            spl_Licence.DataTextField = "Work_Permit";
+            spl_Licence.DataBind();
+            spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+        }
+        protected void special_license_CheckedChanged(object sender, EventArgs e) { }
         protected void confirm_Click(object sender, EventArgs e)
         {
             // Parse the number of workers entered in the TextBox
             int numberOfWorkers;
-            if (int.TryParse(TextBox7.Text, out numberOfWorkers))
+            if (int.TryParse(numWorkers.Text, out numberOfWorkers))
             {
                 // Clear any previous content in the workers div
                 workers.Controls.Clear();
@@ -162,6 +155,144 @@ namespace AdminTemplate3._1._0
             {
                 // Display a message or take appropriate action if the input is invalid
                 // For example: Response.Write("Invalid input for the number of workers.");
+            }
+        }
+        protected void addWorkPermit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the selected work permit value
+                string selectedWorkPermit = workPermit.SelectedValue;
+
+                // Retrieve the corresponding hazard information from the database
+                using (SqlConnection sqlcon = new SqlConnection(Main_con))
+                {
+                    sqlcon.Open();
+                    string query = "SELECT * FROM Hazard_TBL WHERE Hazard_No IN (SELECT Hazard_No FROM JobSafetyAssessment_TBL WHERE Work_Permit = @WorkPermit)";
+                    using (SqlCommand command = new SqlCommand(query, sqlcon))
+                    {
+                        command.Parameters.AddWithValue("@WorkPermit", selectedWorkPermit);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            // Clear existing content in the panel
+                           // Panel1.Controls.Clear();
+
+                            // Create a new table to display the hazard information
+                            Table hazardTable = new Table();
+                            hazardTable.CssClass = "table table-decoration-none";
+
+                            // Create table header row
+                            TableRow headerRow = new TableRow();
+                            headerRow.Cells.Add(new TableCell { Text = "Hazard_No" });
+                            headerRow.Cells.Add(new TableCell { Text = "Status" });
+                            hazardTable.Rows.Add(headerRow);
+
+                            // Add hazard information rows
+                            while (reader.Read())
+                            {
+                                TableRow hazardRow = new TableRow();
+                                hazardRow.Cells.Add(new TableCell { Text = reader["Hazard_No"].ToString() });
+                                // You can add more cells for other hazard attributes if needed
+                                hazardRow.Cells.Add(new TableCell { Text = reader["Fire"].ToString() }); // Replace "Status Value" with the actual value from the database
+                                hazardTable.Rows.Add(hazardRow);
+                            }
+
+                            // Add the table to the panel
+                            Panel1.Controls.Add(hazardTable);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                Response.Write("An error occurred: " + ex.Message);
+            }
+        }
+
+        //protected void addWorkPermit_Click(object sender, EventArgs e)
+        //{
+        //    string selectedVal = workPermit.SelectedValue;
+
+        //    // Retrieve previously appended values from ViewState
+        //    string appendedValues = ViewState["AppendedValues"].ToString();
+
+        //    // Append the new selected value
+        //    appendedValues += selectedVal + "<br />";
+
+        //    // Update the ViewState with the new appended values
+        //    ViewState["AppendedValues"] = appendedValues;
+
+        //    // Update the Panel with the appended values
+        //    Panel1.Controls.Clear(); // Clear existing controls
+        //    Panel1.Controls.Add(new LiteralControl(appendedValues));
+        //}
+        protected void SubmitFrom(object sender, EventArgs e)
+        {
+            String siteName = site.SelectedValue;
+            String permitNumber = permitNum.Text.Trim();
+            DateTime dateOfIssue = Convert.ToDateTime(issueDate.Text.Trim());
+            DateTime validFrom = Convert.ToDateTime(perValidFrom.Text.Trim());
+            DateTime validTill = Convert.ToDateTime(perValidTill.Text.Trim());
+            bool hasSpecialLicenseYES = special_license_yes.Checked;
+            String splWork = "NO SPL Licence";
+            if (hasSpecialLicenseYES == true)
+            {
+                splWork = spl_Licence.SelectedValue;
+            }
+            bool hasSpecialLicenseNO = special_license_no.Checked;
+            String esiNumber = esiNUM.Text.Trim();
+            DateTime esiValidity = Convert.ToDateTime(esiVali.Text.Trim());
+            String contractorName = contractorNam.Text.Trim();
+            int workerNum = Convert.ToInt32(numWorkers.Text.Trim());
+            String supervisorName = supervisorNam.Text.Trim();
+            String supervisorContact = supervisorContactNUM.Text.Trim();
+            String engineerName = araiEng.SelectedValue;
+            String engiContact = engiContactNUM.Text.Trim();
+            String workDescription = describeWork.Text.Trim();
+            String workLocation = locateWork.Text.Trim();
+
+            try
+            {
+                int result = 0;
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_workPermit_tbl", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                        cmd.Parameters.AddWithValue("@DateOfIssue", dateOfIssue);
+                        cmd.Parameters.AddWithValue("@PermitValidFrom", validFrom);
+                        cmd.Parameters.AddWithValue("@PermitValidTill", validTill);
+                        cmd.Parameters.AddWithValue("@SpecialLicense", hasSpecialLicenseYES);
+                        cmd.Parameters.AddWithValue("@SplLicenseType", splWork);
+                        cmd.Parameters.AddWithValue("@ESIInsuranceNo", esiNumber);
+                        cmd.Parameters.AddWithValue("@ESIValidity", esiValidity);
+                        cmd.Parameters.AddWithValue("@NameofAgency", contractorName);
+                        cmd.Parameters.AddWithValue("@NumOfWorkers", workerNum);
+                        cmd.Parameters.AddWithValue("@NameofContractor", supervisorName);
+                        cmd.Parameters.AddWithValue("@ContractorContact", supervisorContact);
+                        cmd.Parameters.AddWithValue("@ARAIEngineer", engineerName);
+                        cmd.Parameters.AddWithValue("@EngineerContact", engiContact);
+                        cmd.Parameters.AddWithValue("@DescofWork", workDescription);
+                        cmd.Parameters.AddWithValue("@Location", workLocation);
+                        con.Open();
+                        result = cmd.ExecuteNonQuery();
+                        con.Close();
+                        if (result > 0)
+                        {
+                            Response.Write("<script>alert('Data added Successfully.');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
             }
         }
     }

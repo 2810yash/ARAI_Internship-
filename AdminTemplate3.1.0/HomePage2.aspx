@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" enableEventValidation="false" CodeBehind="Homepage.aspx.cs" Inherits="AdminTemplate3._1._0.Homepage" %>
-    
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-      <!-- Content Wrapper. Contains page content -->
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="HomePage2.aspx.cs" Inherits="AdminTemplate3._1._0.HomePage2" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+ <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -32,9 +32,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>1500</h3>
 
-                <p>New Reports</p>
+                <p>New Orders</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -47,7 +47,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>530<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Bounce Rate</p>
               </div>
@@ -62,9 +62,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>440</h3>
 
-                <p>Total Reports in a year</p>
+                <p>User Registrations</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -77,9 +77,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>650</h3>
 
-                <p>Reports in a month</p>
+                <p>Unique Visitors</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -99,12 +99,15 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Reports
+                  Sales
                 </h3>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
                     <li class="nav-item">
-                      <a class="nav-link active" href="#month-chart" data-toggle="tab">Monthly Report</a>
+                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                     </li>
                   </ul>
                 </div>
@@ -112,18 +115,13 @@
               <div class="card-body">
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active justify-content-center" id="month-chart" style="position: relative; height: 370px;">
-                        <asp:Chart ID="Chart1" CssClass="ms-5" runat="server" Width="500px" Height="350px" DataSourceID="SqlDataSource2">
-                            <Series>
-                                <asp:Series Name="Series1" XValueMember="Month" YValueMembers="IncidentCount" YValuesPerPoint="2">
-                                </asp:Series>
-                            </Series>
-                            <ChartAreas>
-                                <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                            </ChartAreas>
-                        </asp:Chart>
-                        <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:strconn %>' SelectCommand="SELECT MONTH([Date_of_Incident]) AS Month, COUNT(*) AS IncidentCount FROM [IncidentReport] GROUP BY MONTH([Date_of_Incident])"></asp:SqlDataSource>
-                    </div>
+                  <div class="chart tab-pane active" id="revenue-chart"
+                       style="position: relative; height: 300px;">
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                   </div>
+                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  </div>
                 </div>
               </div><!-- /.card-body -->
             </div>
@@ -137,7 +135,19 @@
             <!-- Map card -->
             <div class="card bg-gradient-primary">
               <div class="card-header border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-map-marker-alt mr-1"></i>
+                  Visitors
+                </h3>
                 <!-- card tools -->
+                <div class="card-tools">
+                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
                 <!-- /.card-tools -->
               </div>
               <div class="card-body">
@@ -195,8 +205,6 @@
                   <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
                     <i class="fas fa-times"></i>
                   </button>
-
-                   
                 </div>
                 <!-- /. tools -->
               </div>

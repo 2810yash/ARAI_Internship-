@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -33,41 +33,39 @@ namespace AdminTemplate3._1._0
         {
             try
             {
-
-                SqlConnection con = new SqlConnection(strcon);
-                if (con.State == ConnectionState.Closed)
+                using (SqlConnection con = new SqlConnection(strcon))
                 {
-                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_incident);
+                        cmd.Parameters.AddWithValue("@Time_of_Incident", time_of_incident);
+                        cmd.Parameters.AddWithValue("@Name_of_Affected_person", name_person);
+                        cmd.Parameters.AddWithValue("@Dept_name", dept_name.SelectedValue);
+                        cmd.Parameters.AddWithValue("@Location_Accident", accident_location);
+                        cmd.Parameters.AddWithValue("@Nature_of_Incident", nature_of_incident.SelectedValue);
+                        cmd.Parameters.AddWithValue("@Accident_Description", describtion);
+                        cmd.Parameters.AddWithValue("@Immediate_ActionTaken", immediate_action);
+                        cmd.Parameters.AddWithValue("@Root_cause_Analysis", root_cause_analysis);
+                        cmd.Parameters.AddWithValue("@Corrective_action_plan", corrective_action_plan);
+                        cmd.Parameters.AddWithValue("@Completion_date", completion_date);
+                        cmd.Parameters.AddWithValue("@Responsible_person", responsible_person);
+                        cmd.Parameters.AddWithValue("@Corrective_action_impact", corrective_action_impact);
+                        cmd.Parameters.AddWithValue("@Hazard_Study_Update", hazard_update.Checked);
+                        cmd.Parameters.AddWithValue("@Remark", remarks);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                        con.Close();
+                    }
                 }
-
-                SqlCommand cmd = new SqlCommand("insert into exp (date_of_issue, time_of_issue, root_cause, mitigation, root_cause_analysis, corrective_action_plan, completion_date, responsibility, remarks) values(@date_of_issue, @time_of_issue, @root_cause, @mitigation, @root_cause_analysis, @corrective_action_plan, @completion_date, @responsibility, @remarks)", con);
-                cmd.Parameters.AddWithValue("date_of_issue", date_of_issue.Text.Trim());
-                cmd.Parameters.AddWithValue("time_of_issue", time_of_issue.Text.Trim());
-                cmd.Parameters.AddWithValue("root_cause", root_cause.Text.Trim());
-                cmd.Parameters.AddWithValue("mitigation", mitigation.Text.Trim());
-                cmd.Parameters.AddWithValue("root_cause_analysis", root_cause_analysis.Text.Trim());
-                cmd.Parameters.AddWithValue("corrective_action_plan", corrective_action_plan.Text.Trim());
-                cmd.Parameters.AddWithValue("completion_date", completion_date.Text.Trim());
-                cmd.Parameters.AddWithValue("responsibility", responsibility.Text.Trim());
-                cmd.Parameters.AddWithValue("remarks", remarks.Text.Trim());
-
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-                // Display alert using JavaScript
-                string script = "<script>alert('Form Submitted Successfully');\nalert('Now Redirecting to Dashboard');</script>";
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", script);
-
-                // Redirect after a delay
-                Response.AddHeader("REFRESH", "0.1;URL=Homepage.aspx");
-
             }
-
             catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message + "');</script>");
+                // Handle any exceptions
+                Response.Write(ex.Message);
             }
-
         }
        
     }
