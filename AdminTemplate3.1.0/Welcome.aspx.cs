@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Net.Mail;
+using System.Net;
 
 namespace AdminTemplate3._1._0
 {
@@ -25,36 +27,36 @@ namespace AdminTemplate3._1._0
         }
         protected void arai_Engineer_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            araiEng.DataSource = sql_command.ExecuteReader();
-            araiEng.DataTextField = "EngineerName";
-            araiEng.DataBind();
-            araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //araiEng.DataSource = sql_command.ExecuteReader();
+            //araiEng.DataTextField = "EngineerName";
+            //araiEng.DataBind();
+            //araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
         protected void WorkPermit_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            workPermit.DataSource = sql_command.ExecuteReader();
-            workPermit.DataTextField = "Work_Permit";
-            workPermit.DataBind();
-            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //workPermit.DataSource = sql_command.ExecuteReader();
+            //workPermit.DataTextField = "Work_Permit";
+            //workPermit.DataBind();
+            //workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
         }
         protected void splWorkPermit_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            spl_Licence.DataSource = sql_command.ExecuteReader();
-            spl_Licence.DataTextField = "Work_Permit";
-            spl_Licence.DataBind();
-            spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //spl_Licence.DataSource = sql_command.ExecuteReader();
+            //spl_Licence.DataTextField = "Work_Permit";
+            //spl_Licence.DataBind();
+            //spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
         }
         protected void special_license_CheckedChanged(object sender, EventArgs e) { }
         protected void confirm_Click(object sender, EventArgs e)
@@ -293,6 +295,38 @@ namespace AdminTemplate3._1._0
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
+            }
+
+            try {
+                sendEmail();
+            } catch (Exception ex) {
+                Response.Write(ex.Message);
+            }
+        }
+
+        protected void sendEmail()
+        {
+            string from = "adityaraut1003@gmail.com"; //example:- sourabh9303@gmail.com
+            string to = "adityaraut216@gmail.com";
+            using (MailMessage mail = new MailMessage(from, to))
+            {
+                mail.Subject = "New Work Permit Created";
+                mail.Body = "Check out the new work permit created!";
+                //if (fileUploader.HasFile)
+                //{
+                //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);
+                //    mail.Attachments.Add(new Attachment(fileUploader.PostedFile.InputStream, fileName));
+                //}
+                mail.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential networkCredential = new NetworkCredential(from, "jgcb dmvu boae jfhh");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCredential;
+                smtp.Port = 587;
+                smtp.Send(mail);
+                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
             }
         }
     }

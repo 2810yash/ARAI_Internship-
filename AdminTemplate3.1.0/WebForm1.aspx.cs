@@ -19,12 +19,12 @@ namespace AdminTemplate3._1._0
         {
             if (!IsPostBack)
             {
-                // Create a list of 5 items to bind to the Repeater
-                var textBoxRows = new List<int> { 1, 2, 3, 4, 5 };
+                //// Create a list of 5 items to bind to the Repeater
+                //var textBoxRows = new List<int> { 1, 2, 3, 4, 5 };
 
-                // Bind the list to the Repeater
-                Repeater1.DataSource = textBoxRows;
-                Repeater1.DataBind();
+                //// Bind the list to the Repeater
+                //Repeater1.DataSource = textBoxRows;
+                //Repeater1.DataBind();
             }
         }
 
@@ -38,8 +38,8 @@ namespace AdminTemplate3._1._0
                     using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_issue);
-                        cmd.Parameters.AddWithValue("@Time_of_Incident", time_of_issue);
+                        //cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_issue);
+                        //cmd.Parameters.AddWithValue("@Time_of_Incident", time_of_issue);
                         //cmd.Parameters.AddWithValue("@Name_of_Affected_person", name_person);
                         //cmd.Parameters.AddWithValue("@Dept_name", dept_name.SelectedValue);
                         //cmd.Parameters.AddWithValue("@Location_Accident", accident_location);
