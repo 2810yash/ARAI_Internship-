@@ -57,22 +57,7 @@ namespace AdminTemplate3._1._0
             }
 
         }
-        protected void Gv_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                e.Row.Cells[0].Text = "Action";
-                e.Row.Cells[1].Text = "Student ID";
-                e.Row.Cells[2].Text = "Student Name";
-                e.Row.Cells[3].Text = "Father Name";
-                e.Row.Cells[4].Text = "DOB";
-                e.Row.Cells[5].Text = "Program";
-                e.Row.Cells[6].Text = "Region";
-                e.Row.Cells[7].Text = "Address";
-                e.Row.Cells[8].Text = "Cell Number";
-                e.Row.Cells[9].Text = "Gender";
-            }
-        }
+       
     }
 }
 

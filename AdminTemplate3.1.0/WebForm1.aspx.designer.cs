@@ -139,15 +139,6 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.TextBox TextBox5;
         
         /// <summary>
-        /// Gv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Gv;
-        
-        /// <summary>
         /// root_cause_analysis control.
         /// </summary>
         /// <remarks>

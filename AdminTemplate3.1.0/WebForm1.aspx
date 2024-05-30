@@ -411,23 +411,7 @@ input[type="radio"]:checked + label {
                     </div>
                 </div>
 
-                <div class="row">
-<div class="col-md-10 col-md-offset-1">
-<div class="form-group">
-<div class="table-responsive">
-<asp:GridView ID="Gv"  Width="100%" AutoGenerateSelectButton="true"
-OnSelectedIndexChanged="Gv_SelectedIndexChanged"
-CssClass="table table-bordered table-condensed table-responsive table-hover"
-runat="server">
-<AlternatingRowStyle BackColor="White" />
-<HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" />
-<RowStyle BackColor="#f5f5f5" />
-<SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="White" />
-</asp:GridView>
-</div>
-</div>
-</div>
-</div> 
+                
 
 
                 <div class="datentime">
