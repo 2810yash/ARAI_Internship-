@@ -39,7 +39,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
         }
         .area{
-            background-color:white;
+            background-color:blanchedalmond;
         }
         .carousel-item img {
             width: 100%;
@@ -410,7 +410,54 @@ input[type="radio"]:checked + label {
                     </div>
                 </div>
 
-                
+             <asp:gridview ID="Gridview1" runat="server" ShowFooter="true" AutoGenerateColumns="false">
+
+        <Columns>
+
+        <asp:BoundField DataField="RowNumber" HeaderText="Row " />
+            
+
+        <asp:TemplateField HeaderText="Corrective Action">
+
+            <ItemTemplate>
+
+                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+
+            </ItemTemplate>
+
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Responsible Person">
+
+            <ItemTemplate>
+
+                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+
+            </ItemTemplate>
+
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Completion Date">
+
+            <ItemTemplate>
+
+                 <asp:TextBox TextMode="Date" runat="server" ID="date_of_completion" required="required"></asp:TextBox>
+
+            </ItemTemplate>
+
+            <FooterStyle HorizontalAlign="Center" />
+
+            <FooterTemplate>
+
+             <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_Click"/>
+
+            </FooterTemplate>
+
+        </asp:TemplateField>
+
+        </Columns>
+
+</asp:gridview>   
 
 
                 
