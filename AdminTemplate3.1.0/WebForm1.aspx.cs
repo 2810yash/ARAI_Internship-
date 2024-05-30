@@ -15,8 +15,20 @@ namespace AdminTemplate3._1._0
     {
 
         string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Create a list of 5 items to bind to the Repeater
+                var textBoxRows = new List<int> { 1, 2, 3, 4, 5 };
 
-       
+                // Bind the list to the Repeater
+                Repeater1.DataSource = textBoxRows;
+                Repeater1.DataBind();
+            }
+        }
+
+
         protected void submitForm(object sender, EventArgs e)
         {
             try

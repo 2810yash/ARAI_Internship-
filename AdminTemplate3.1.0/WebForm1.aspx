@@ -40,7 +40,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
         }
         .area{
-            background-color:blanchedalmond;
+            background-color:white;
         }
         .carousel-item img {
             width: 100%;
@@ -264,7 +264,7 @@ input[type="radio"]:checked + label {
                         <asp:ListItem Text="Gas " Value="1"></asp:ListItem>
                         <asp:ListItem Text="Dust " Value="2"></asp:ListItem>
                         <asp:ListItem Text="Explosions" Value="3"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>   <%--new--%>
 
                     </asp:DropDownList>
                     <span>TYPE</span>
@@ -414,6 +414,9 @@ input[type="radio"]:checked + label {
                 
 
 
+                
+
+
                 <div class="datentime">
                     <div class="inputBox">
                         <asp:TextBox CssClass="date-input" ID="root_cause_analysis" required="required" runat="server"></asp:TextBox>
@@ -540,9 +543,7 @@ input[type="radio"]:checked + label {
             </div>
         </div>
     </div>
-   
-                  
-       
+ 
 
 </asp:Content>
 
