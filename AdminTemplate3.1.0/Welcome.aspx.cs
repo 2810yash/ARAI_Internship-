@@ -25,36 +25,36 @@ namespace AdminTemplate3._1._0
         }
         protected void arai_Engineer_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            araiEng.DataSource = sql_command.ExecuteReader();
-            araiEng.DataTextField = "EngineerName";
-            araiEng.DataBind();
-            araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //araiEng.DataSource = sql_command.ExecuteReader();
+            //araiEng.DataTextField = "EngineerName";
+            //araiEng.DataBind();
+            //araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
         protected void WorkPermit_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            workPermit.DataSource = sql_command.ExecuteReader();
-            workPermit.DataTextField = "Work_Permit";
-            workPermit.DataBind();
-            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //workPermit.DataSource = sql_command.ExecuteReader();
+            //workPermit.DataTextField = "Work_Permit";
+            //workPermit.DataBind();
+            //workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
         }
         protected void splWorkPermit_list()
         {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            spl_Licence.DataSource = sql_command.ExecuteReader();
-            spl_Licence.DataTextField = "Work_Permit";
-            spl_Licence.DataBind();
-            spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+            //SqlConnection sqlcon = new SqlConnection(Main_con);
+            //sqlcon.Open();
+            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            //sql_command.CommandType = CommandType.Text;
+            //spl_Licence.DataSource = sql_command.ExecuteReader();
+            //spl_Licence.DataTextField = "Work_Permit";
+            //spl_Licence.DataBind();
+            //spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
         }
         protected void special_license_CheckedChanged(object sender, EventArgs e) { }
         protected void confirm_Click(object sender, EventArgs e)
