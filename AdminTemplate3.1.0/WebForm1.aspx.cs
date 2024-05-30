@@ -15,10 +15,8 @@ namespace AdminTemplate3._1._0
     {
 
         string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        protected void Page_Load(object sender, EventArgs e)
-        {
 
-        }
+       
         protected void submitForm(object sender, EventArgs e)
         {
             try
@@ -57,5 +55,7 @@ namespace AdminTemplate3._1._0
                 Response.Write(ex.Message);
             }
         }
+       
     }
 }
+

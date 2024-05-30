@@ -60,14 +60,41 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.TextBox accident_location;
 
         /// <summary>
-        /// nature_of_incident control.
+        /// TextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList nature_of_incident;
-
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        
+        /// <summary>
+        /// DropDownList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
+        /// TextBox4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        
+        /// <summary>
+        /// DropDownListNatureOfIncident control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListNatureOfIncident;
+        
         /// <summary>
         /// DropDownListSubNatureOfIncident control.
         /// </summary>
@@ -76,7 +103,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListSubNatureOfIncident;
-
+        
         /// <summary>
         /// DropDownList2 control.
         /// </summary>
@@ -85,7 +112,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-
+        
         /// <summary>
         /// DropDownList3 control.
         /// </summary>
@@ -94,7 +121,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
-
+        
         /// <summary>
         /// DropDownList4 control.
         /// </summary>
@@ -103,7 +130,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
-
+        
         /// <summary>
         /// DropDownList5 control.
         /// </summary>
@@ -112,7 +139,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList5;
-
+        
         /// <summary>
         /// DropDownList7 control.
         /// </summary>
@@ -121,25 +148,25 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList7;
-
+        
         /// <summary>
-        /// describtion control.
+        /// root_cause control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox describtion;
-
+        protected global::System.Web.UI.WebControls.TextBox root_cause;
+        
         /// <summary>
-        /// immediate_action control.
+        /// mitigation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox immediate_action;
-
+        protected global::System.Web.UI.WebControls.TextBox mitigation;
+        
         /// <summary>
         /// root_cause_analysis control.
         /// </summary>
@@ -203,6 +230,15 @@ namespace AdminTemplate3._1._0
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
 
+        /// <summary>
+        /// TextBox3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        
         /// <summary>
         /// remarks control.
         /// </summary>

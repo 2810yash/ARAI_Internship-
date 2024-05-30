@@ -161,6 +161,9 @@
     <Content Include="AT3.1.0\dist\img\credit\visa.png" />
     <Content Include="AT3.1.0\dist\img\default-150x150.png" />
     <Content Include="AT3.1.0\dist\img\icons.png" />
+    <Content Include="AT3.1.0\dist\img\Inci1.jpg" />
+    <Content Include="AT3.1.0\dist\img\Inci2.jpg" />
+    <Content Include="AT3.1.0\dist\img\Inci3.jpg" />
     <Content Include="AT3.1.0\dist\img\photo1.png" />
     <Content Include="AT3.1.0\dist\img\photo2.png" />
     <Content Include="AT3.1.0\dist\img\photo3.jpg" />
