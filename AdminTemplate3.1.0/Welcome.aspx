@@ -30,6 +30,7 @@
 
     <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper position-relative">
             <!-- Content Header (Page header) -->
@@ -59,7 +60,8 @@
                 <div class="container-fluid">
                     <%-- Page started here--%>
 
-                    <div data-aos="slide-up">
+                    <%--<div data-aos="slide-up">--%>
+                    <div>
                         <%-- Blinking TEXT --%>
                         <div class="headline text-align-center">
                             <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
@@ -73,12 +75,15 @@
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
-                                <asp:DropDownList ID="site" CssClass="form-control select2" runat="server">
-                                    <asp:ListItem Text="Kothrud" Selected="false" Value="kothrud"></asp:ListItem>
-                                    <asp:ListItem Text="Chakan" Value="chakan"></asp:ListItem>
-                                    <asp:ListItem Text="HTC-Chakan" Value="htc-chakan"></asp:ListItem>
+                                <asp:DropDownList ID="site" CssClass="form-control select" runat="server">
+                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="kothrud"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-Chakan" Value="chakan"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="htc-chakan"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+
+                              <%--<asp:UpdatePanel ID
+                                  ="UpdatePanel1" runat="server">--%>
 
                             <%-- Permit Form--%>
                             <div class="position-relative" id="expand">
@@ -105,54 +110,61 @@
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="permitNo0">Permit No:</span>
-                                                    <asp:TextBox ID="TextBox1" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="permitNum" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="doi0">Date of Issue:</span>
-                                                    <!-- <input type="date" /> -->
-                                                    <asp:TextBox ID="TextBox2" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center">Date of Issue</span>
+                                                    <asp:TextBox TextMode="DateTimeLocal" ID="issueDate" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Permit Valid From & Permit Valid Till -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="validFrom">Permit Valid From:</span><asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-                                                    <asp:TextBox ID="TextBox3" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
+                                                        id="validFrom">Permit Valid From:</span>
+                                                    <asp:TextBox TextMode="Date" ID="perValidFrom" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="validill">Permit Valid Till:</span>
-                                                    <asp:TextBox ID="TextBox4" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
+                                                        id="validTill">Permit Valid Till:</span>
+                                                    <asp:TextBox TextMode="Date" ID="perValidTill" Height="100%" CssClass="form-control " runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Special License & DropDown list -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2 icheck-primary d-flex align-items-center" style="width: 50%;">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
-                                                    <div class="ms-2 me-2"><asp:RadioButton ID="special_license_yes" AutoPostBack="true" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_CheckedChanged" /></div>
-                                                    <div class="ms-2"><asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
+                                                    <div class="ms-2 me-2">
+                                                        <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_CheckedChanged" /></div>
+                                                    <div class="ms-2">
+                                                        <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
                                                 </div>
                                                 <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server">
-                                                    <asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
-                                                    <asp:ListItem Text="Electric Contractor" Value="elec-contractor"></asp:ListItem>
+                                                    <%--<asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
+                                                    <asp:ListItem Text="High Tension Electrical Work" Value="elec-contractor"></asp:ListItem>
                                                     <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
-                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
+                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>--%>
                                                 </asp:DropDownList>
                                             </div>
-                                            <!-- ESI/Insurance No & Name of Vendor or Contractor Firm/Agency -->
+                                            <!-- ESI/Insurance No & Its Date -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="esiNum0">ESI/Insurance No & Validity: </span>
-
-                                                    <asp:TextBox ID="TextBox5" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                        id="esiNum0">ESI/Insurance No: </span>
+                                                    <asp:TextBox ID="esiNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
+                                                <div class="input-group me-2">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="esiVal">ESI/Insurance Validity: </span>
+                                                    <asp:TextBox TextMode="Date" ID="esiVali" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <!-- Name of Vendor or Contractor Firm/Agency -->
+                                            <div class="mb-3 d-flex">
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
-                                                    <asp:TextBox ID="TextBox6" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="contractorNam" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Number of Workers -->
@@ -160,35 +172,37 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="numWorkers0">Number of Workers:</span>
-                                                    <asp:TextBox ID="TextBox7" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="numWorkers" CssClass="form-control" runat="server"></asp:TextBox>
                                                     <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
                                                 </div>
-                                                <div id="workers" style="width:auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
+                                                <div id="workers" style="width: auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
                                             </div>
                                             <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
-                                                    <asp:TextBox ID="TextBox8" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="supervisorNam" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="supervisorContact0">Contact Number:</span>
-                                                    <asp:TextBox ID="TextBox9" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="supervisorContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- ARAI Engineer & contact number -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
                                                     <label class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        for="araiEng">ARAI Engineer: </label>
+                                                        for="araiEng">
+                                                        ARAI Engineer:
+                                                    </label>
                                                     <asp:DropDownList ID="araiEng" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="araiEngContact0">Contact Number:</span>
-                                                    <asp:TextBox ID="TextBox10" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="engiContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Brief Description of Work & Location of Work -->
@@ -196,12 +210,12 @@
                                                 <div class="input-group me-2">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="desc0">Brief Description of Work:</span>
-                                                    <asp:TextBox ID="TextBox11" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="describeWork" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="location0">Location of Work:</span>
-                                                    <asp:TextBox ID="TextBox12" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="locateWork" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                         </div>
@@ -215,79 +229,76 @@
                                                 Work Permit Required:
                                             </label>
                                             <asp:DropDownList ID="workPermit" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
-                                            <asp:Button ID="addWorkPermit" runat="server" Text="+ Add" OnClick="addWorkPermit_Click" />
+                                            <asp:Button ID="addWorkPermit" CssClass="btn btn-secondary rounded-end" runat="server" Text="+ Add" OnClick="addWorkPermit_Click" />
                                             <br />
                                             <asp:PlaceHolder ID="DropDownPlaceHolder" runat="server"></asp:PlaceHolder>
                                         </div>
-                                        <%--<div class="d-flex">
-                                            <div  id="checkboxContainer"  class="cont-1" style="width:30%;">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Work Permit</label>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox1" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Entry into vessel/Tanks/Manholes/A.C. Ducts/Cooling Towers/Confined Spaces" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox2" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Civil Work (Painting, Construction, Excavation etc)" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox3" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Hot Works (Welding/Gas Cutting)" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox4" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Work on Fragile Roof" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox5" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="High Tension Electrical Work" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox6" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Low Tension Electrical Work" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox7" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Working on height (more than 3 meters)" />
-                                                </div>
-                                                <div class="checkbox-container">
-                                                    <asp:CheckBox class="text-wrap" ID="CheckBox8" CssClass="text-wrap" runat="server" OnCheckedChanged="CheckBox_CheckedChanged" Text="Others (Mobile crane operations, loading and unloading of gas cylinder, unloading of liquid nitrogen)" />
-                                                </div>
-                                            </div>--%>
-                                            <div class="cont-2">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
-                                                <div id="listContainer" class="input-group border-1 border-dark mb-1">
-                                                    <ul>
-                                                        <li>Work to be carried out by trained manpower</li>
-                                                        <li>Provide safe means of access</li>
-                                                        <li>Strict supervision required</li>
-                                                    </ul>
-                                                </div>
+                                        <div class="d-flex justify-content-between">
+                                        <asp:Panel ID="Panel1" runat="server">
+                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazards Associated</label>
+                                            <div id="listContainer1" class="input-group border-1 border-dark mb-1">
+                                                <ul>
+                                                </ul>
                                             </div>
-                                            <div class="cont-3">
-                                                <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                                <div id="listContainer2" class="input-group border-1 border-dark mb-1">
-                                                    <ul>
-                                                        <li>Portable ladders</li>
-                                                        <li>Safety Goggles and kit</li>
-                                                        <li>Helmet</li>
-                                                    </ul>
-                                                </div>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel2" runat="server">
+                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
+                                            <div id="listContainer2" class="input-group border-1 border-dark mb-1">
+                                                <ul>
+                                                </ul>
                                             </div>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel3" runat="server">
+                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Protective Equipment</label>
+                                            <div id="listContainer3" class="input-group border-1 border-dark mb-1">
+                                                <ul>
+                                                </ul>
+                                            </div>
+                                        </asp:Panel>
                                         </div>
-                                        
-                                    </div>
-
-                                    <div id="page3" class="page-3 p-4">
-                                        <div class="d-flex justify-content-between mt-3 mb-2">
-                                            <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
-                                                onclick="clearFields('workDetails')">
-                                                Back
-                                            </button>
-                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end"  runat="server" Text="Submit" />
-                                        </div>
+                                        <%--<div class="cont-2">
+                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
+                                            <div id="listContainer" class="input-group border-1 border-dark mb-1">
+                                                <ul>
+                                                    <li>Work to be carried out by trained manpower</li>
+                                                    <li>Provide safe means of access</li>
+                                                    <li>Strict supervision required</li>
+                                                </ul>
+                                            </div>
+                                        </div>--%>
+                                        <%--<div class="cont-3">
+                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
+                                            <div id="listContainer2" class="input-group border-1 border-dark mb-1">
+                                                <ul>
+                                                    <li>Portable ladders</li>
+                                                    <li>Safety Goggles and kit</li>
+                                                    <li>Helmet</li>
+                                                </ul>
+                                            </div>
+                                        </div>--%>
                                     </div>
 
                                 </div>
+
+                                <div id="page3" class="page-3 p-4">
+                                    <div class="d-flex justify-content-between mt-3 mb-2">
+                                        <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
+                                            onclick="clearFields('workDetails')">
+                                            Back
+                                        </button>
+                                        <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" OnClick="SubmitFrom" />
+                                    </div>
+                                </div>
+
                             </div>
+
+                       <%--   </asp:UpdatePanel>--%>
+
                         </div>
+                    </div>
 
                     </div>
 
-                </div>
             </section>
 
         </div>

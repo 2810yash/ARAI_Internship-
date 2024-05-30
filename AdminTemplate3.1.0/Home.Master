@@ -61,7 +61,9 @@
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="Homepage" class="nav-link">Home</a>
+                        <a href="Homepage.aspx" class="nav-link">Incident/Accident</a>
+                    </li><li class="nav-item d-none d-sm-inline-block">
+                        <a href="HomePage2.aspx" class="nav-link">Work Permit</a>
                     </li>
                     <%-- <li class="nav-item d-none d-sm-inline-block">
                         <a href="#" class="nav-link">Contact</a>
