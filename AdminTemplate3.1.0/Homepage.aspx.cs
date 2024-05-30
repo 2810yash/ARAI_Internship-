@@ -19,10 +19,10 @@ namespace AdminTemplate3._1._0
         {
             if (!IsPostBack)
             {
-                int bounceRate = FetchBounceRateFromDatabase();
-                int newOrdersCount = FetchNewOrdersCountFromDatabase();
-                LiteralBounceRate.Text = bounceRate.ToString();
-                LiteralNewOrders.Text = newOrdersCount.ToString();
+                //int bounceRate = FetchBounceRateFromDatabase();
+                //int newOrdersCount = FetchNewOrdersCountFromDatabase();
+                //LiteralBounceRate.Text = bounceRate.ToString();
+                //LiteralNewOrders.Text = newOrdersCount.ToString();
             }
         }
 
