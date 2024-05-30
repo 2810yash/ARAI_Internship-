@@ -28,7 +28,7 @@ namespace AdminTemplate3._1._0
             
         }
         
-          private void AddNewRowToGrid()
+          public void AddNewRowToGrid()
 
         {
 
