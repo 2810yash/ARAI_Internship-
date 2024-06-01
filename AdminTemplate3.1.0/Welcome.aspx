@@ -37,7 +37,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mt-5">
                             <h1 class="m-0">WorkPermit</h1>
                         </div>
                         <!-- /.col -->
@@ -87,7 +87,7 @@
 
                             <%-- Permit Form--%>
                             <div class="position-relative" id="expand">
-                                <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+                               <%-- <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
                                     <ul class="nav nav-pills">
                                         <li class="nav-item">
                                             <a class="nav-link" href="#page1">Details</a>
@@ -99,7 +99,7 @@
                                             <a class="nav-link" href="#page3">Workers Info</a>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav>--%>
 
                                 <div class="bg-light rounded" id="Pages">
 
@@ -222,40 +222,34 @@
                                     </div>
 
                                     <div id="page2" class="page2 p-4">
-
                                         <div class="input-group me-2">
                                             <label class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                 for="workPermit">
                                                 Work Permit Required:
                                             </label>
                                             <asp:DropDownList ID="workPermit" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
-                                            <asp:Button ID="addWorkPermit" CssClass="btn btn-secondary rounded-end" runat="server" Text="+ Add" OnClick="addWorkPermit_Click" />
-                                            <br />
-                                            <asp:PlaceHolder ID="DropDownPlaceHolder" runat="server"></asp:PlaceHolder>
+                                            <asp:Button ID="addWP" runat="server" CssClass="btn btn-secondary rounded-end" OnClick="addWorkPermitBTN" Text="+ ADD" />
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                        <asp:Panel ID="Panel1" runat="server">
-                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazards Associated</label>
-                                            <div id="listContainer1" class="input-group border-1 border-dark mb-1">
-                                                <ul>
-                                                </ul>
-                                            </div>
-                                        </asp:Panel>
-                                        <asp:Panel ID="Panel2" runat="server">
-                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
-                                            <div id="listContainer2" class="input-group border-1 border-dark mb-1">
-                                                <ul>
-                                                </ul>
-                                            </div>
-                                        </asp:Panel>
-                                        <asp:Panel ID="Panel3" runat="server">
-                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Protective Equipment</label>
-                                            <div id="listContainer3" class="input-group border-1 border-dark mb-1">
-                                                <ul>
-                                                </ul>
-                                            </div>
-                                        </asp:Panel>
-                                        </div>
+                                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="demoGrid1" ForeColor="Black" GridLines="Horizontal" AllowPaging="True" AllowSorting="True">
+                                            <Columns>
+                                                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
+                                                <asp:BoundField DataField="Work_Permit" HeaderText="Work_Permit" SortExpression="Work_Permit" />
+                                                <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
+                                                <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
+                                                <asp:BoundField DataField="PPEs" HeaderText="PPEs" SortExpression="PPEs" />
+                                            </Columns>
+                                            <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                                            <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                                            <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                                            <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                                            <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                                            <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                                            <SortedDescendingHeaderStyle BackColor="#242121" />
+                                        </asp:GridView>
+
+                                        <asp:SqlDataSource ID="demoGrid1" runat="server" ConnectionString="<%$ ConnectionStrings:DemoConnectionString %>" SelectCommand="SELECT * FROM [Update_permit_tbl]"></asp:SqlDataSource>
+
                                         <%--<div class="cont-2">
                                             <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
                                             <div id="listContainer" class="input-group border-1 border-dark mb-1">
@@ -277,6 +271,7 @@
                                             </div>
                                         </div>--%>
                                     </div>
+                                   
 
                                 </div>
 
@@ -284,8 +279,7 @@
                                     <div class="d-flex justify-content-between mt-3 mb-2">
                                         <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
                                             onclick="clearFields('workDetails')">
-                                            Back
-                                        </button>
+                                            Back</button>
                                         <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" OnClick="SubmitFrom" />
                                     </div>
                                 </div>
