@@ -112,7 +112,7 @@
                     <br />
                     <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
                     <br />
-                    <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Button" />
+                    <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Login" />
 
                 </div>
             </div>
