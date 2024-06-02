@@ -298,26 +298,48 @@ namespace AdminTemplate3._1._0
             }
 
             try {
-                sendEmail();
+                SendEmail(dateOfIssue);
             } catch (Exception ex) {
                 Response.Write(ex.Message);
             }
         }
 
-        protected void sendEmail()
+        protected void SendEmail(DateTime dateOfIssue)
         {
+            string deptName = string.Empty;
+            if (Session["deptName"] != null)
+            {
+                deptName = Session["deptName"].ToString();
+            }
 
+            //Response.Write("<script>alert('Dept Name: " + deptName + "');</script>");
+            string email;
+            int flag = -1;
             using (SqlConnection con = new SqlConnection(Main_con))
             {
-                string query = "select ";
-                SqlCommand fetchmail = new SqlCommand();
+                using (SqlCommand cmd = new SqlCommand("usp_fetchEmail", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Dept_Name", deptName);
+                    cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
+                    con.Open();
+                    flag = cmd.ExecuteNonQuery();
+
+                    // Fetch the output 
+                    email = cmd.Parameters["@EmailID"].Value.ToString();
+                    //Response.Write("<script>alert('Email: " + email + "');</script>");
+
+                    con.Close();
+
+                }
             }
-            string from = "adityaraut1003@gmail.com"; 
-            string to = "adityaraut216@gmail.com";
-            using (MailMessage mail = new MailMessage(from, to))
+
+            string from = "adityaraut1003@gmail.com";
+            //string to = email; //Use exception handling here!
+            using (MailMessage mail = new MailMessage(from, email))
             {
                 mail.Subject = "New Work Permit Created";
-                mail.Body = "Check out the new work permit created! \nAt: " + DateTime.Today.TimeOfDay;
+                mail.Body = "Check out the new work permit created! \nAt: " + dateOfIssue;
                 //if (fileUploader.HasFile)
                 //{
                 //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);

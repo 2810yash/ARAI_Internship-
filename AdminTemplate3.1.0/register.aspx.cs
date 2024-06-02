@@ -88,6 +88,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@Password", pass);
                         cmd.Parameters.AddWithValue("@Role", selectedRole);
                         cmd.Parameters.AddWithValue("@Dept", selectedDept);
+                        Session["deptName"] = selectedDept;
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();

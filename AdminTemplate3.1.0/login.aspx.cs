@@ -183,6 +183,7 @@ namespace AdminTemplate3._1._0
             if (flag >= 0)
             {
                 Response.Write("<script>alert('Login Successfully.');</script>");
+                Session["deptName"] = deptName;
                 // Redirect user to a dashboard page or any other page
                 Response.Redirect("Homepage.aspx");
             } else
