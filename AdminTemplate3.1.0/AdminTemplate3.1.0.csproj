@@ -2428,6 +2428,7 @@
     <Content Include="HomePage2.aspx" />
     <Content Include="login.aspx" />
     <Content Include="register.aspx" />
+    <Content Include="Scripts\search_function.js" />
     <Content Include="Styles\accident.css" />
     <Content Include="Styles\login.css" />
     <Content Include="Styles\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />

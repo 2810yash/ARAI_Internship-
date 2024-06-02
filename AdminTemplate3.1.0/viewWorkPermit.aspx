@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="viewWorkPermit.aspx.cs" Inherits="AdminTemplate3._1._0.viewWorkPermit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Google Font -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 </asp:Content>
@@ -34,34 +33,53 @@
                 <%-- Page started here--%>
 
                 <div>
-                    <asp:DataList ID="DataList1" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyField="PermitNumber" DataSourceID="demoPermitList" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="Black" GridLines="Horizontal" HorizontalAlign="Justify" OnSelectedIndexChanged="DataList1_SelectedIndexChanged">
-                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
-                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
-                        <ItemTemplate>
-                            PermitNumber:
-                        <asp:Label ID="PermitNumberLabel" runat="server" Text='<%# Eval("PermitNumber") %>' />
-                            <br />
-                            NameofSupervisor:
-                        <asp:Label ID="NameofSupervisorLabel" runat="server" Text='<%# Eval("NameofSupervisor") %>' />
-                            <br />
-                            DateofIssue:
-                        <asp:Label ID="DateofIssueLabel" runat="server" Text='<%# Eval("DateofIssue") %>' />
-                            <br />
-                            PermitValidFrom:
-                        <asp:Label ID="PermitValidFromLabel" runat="server" Text='<%# Eval("PermitValidFrom") %>' />
-                            <br />
-                            <br />
-                            <asp:Button ID="viewBTN" CssClass="btn btn-secondary align-self-end" runat="server" Text="View More" />
-                            <hr />
-                        </ItemTemplate>
-                        <SelectedItemStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
-                        <SeparatorStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" Wrap="False" />
-                    </asp:DataList>
-
-                    <asp:SqlDataSource ID="demoPermitList" runat="server" ConnectionString="<%$ ConnectionStrings:DemoConnectionString %>" SelectCommand="SELECT [PermitNumber], [NameofSupervisor], [DateofIssue], [PermitValidFrom] FROM [permit_details_tbl]"></asp:SqlDataSource>
+                    <div>
+                        <input type="text" placeholder="Search here..." id="txtSearch" class="form-control m-1 float-end" style="width:30%;" onkeyup="searchFun()" />
+                    </div>
+                    <br />
+                    <br />
+                    <div>
+                        <asp:Repeater ID="reptCard" runat="server">
+                            <ItemTemplate>
+                                <div class="card repeater-item">
+                                    <div class="card-header">
+                                        Permit Number: 
+                                        <asp:Label runat="server" ID="permitNUM" Text='<%# Eval("PermitNumber") %>'></asp:Label>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Name of Supervisor: 
+                                            <asp:Label runat="server" ID="contractorName" Text='<%# Eval("NameofSupervisor") %>'></asp:Label>
+                                        </h5>
+                                        <p class="card-text">
+                                            Date of Issue: 
+                                            <asp:Label runat="server" ID="dateIssue" Text='<%# Eval("DateofIssue") %>'></asp:Label><br />
+                                            Permit Valid From: 
+                                            <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
+                                        </p>
+                                        <asp:Button ID="viewPermit" runat="server" Text="View details" />
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
                 </div>
-
             </div>
         </section>
     </div>
+
+    <script>
+        function searchFun() {
+            const filter = document.getElementById('txtSearch').value.toUpperCase();
+            const repeaterItems = document.getElementsByClassName('repeater-item');
+            for (let i = 0; i < repeaterItems.length; i++) {
+                const permitNum = repeaterItems[i].querySelector('#permitNUM').innerText.toUpperCase();
+                const supervisorName = repeaterItems[i].querySelector('#contractorName').innerText.toUpperCase();
+                if (permitNum.includes(filter) || supervisorName.includes(filter)) {
+                    repeaterItems[i].style.display = "";
+                } else {
+                    repeaterItems[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </asp:Content>
