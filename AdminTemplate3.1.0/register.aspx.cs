@@ -77,6 +77,7 @@ namespace AdminTemplate3._1._0
             //SqlConnection con = new SqlConnection(strconn2);
             try
             {
+                string hashedPassword = PasswordHelper.HashPassword(pass);
                 int result = 0;
                 using (SqlConnection con = new SqlConnection(strconn2))
                 {
@@ -85,7 +86,7 @@ namespace AdminTemplate3._1._0
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Username", userName);
                         cmd.Parameters.AddWithValue("@EmailID", email);
-                        cmd.Parameters.AddWithValue("@Password", pass);
+                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
                         cmd.Parameters.AddWithValue("@Role", selectedRole);
                         cmd.Parameters.AddWithValue("@Dept", selectedDept);
                         Session["deptName"] = selectedDept;
