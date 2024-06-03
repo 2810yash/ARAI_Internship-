@@ -33,13 +33,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>1500</h3>
+                <h3><sup style="font-size: 27px"><asp:Label ID ="lblCurrentMonthPermitCount" runat="server"></asp:Label></sup></h3>
 
-                <p>New Work Permits</p>
+                <p>Work Permits This Month</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-pie-graph"></i>
               </div>
+                <!-- Link to the View Permits page here-->
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
@@ -48,7 +49,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3 id="totalWP">530<sup style="font-size: 20px">%</sup></h3>
+                <h3><sup style="font-size: 27px"><asp:Label ID ="lblTotalPermitCount" runat="server"></asp:Label> </sup></h3>
 
                 <p> Total Work Permits</p>
               </div>
@@ -117,7 +118,7 @@
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 800px;">
+                       style="position: relative; height: 500px;">
                       <canvas id="workPermitChart" width="600" height="400"></canvas>
                       <asp:HiddenField ID="hfChartData" runat="server" />
                    </div>
