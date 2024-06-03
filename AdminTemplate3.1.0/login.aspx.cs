@@ -89,6 +89,7 @@ namespace AdminTemplate3._1._0
             string deptCode = string.Empty;
             string deptName = string.Empty;
             string username = string.Empty;
+            string role = string.Empty;
 
             try
             {
@@ -102,6 +103,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.Add("@DeptCode", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@DeptName", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Role", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
 
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -110,17 +112,18 @@ namespace AdminTemplate3._1._0
                         deptCode = cmd.Parameters["@DeptCode"].Value.ToString();
                         deptName = cmd.Parameters["@DeptName"].Value.ToString();
                         username = cmd.Parameters["@Username"].Value.ToString();
+                        role = cmd.Parameters["@Role"].Value.ToString();
 
                         con.Close();
                     }
                 }
 
-                if (!string.IsNullOrEmpty(deptCode) && !string.IsNullOrEmpty(deptName) && !string.IsNullOrEmpty(username))
+                if (!string.IsNullOrEmpty(deptCode) && !string.IsNullOrEmpty(deptName) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role))
                 {
                     // Successful login
                     try
                     {
-                        storeDetails(deptCode, deptName, username, email, pass);
+                        storeDetails(deptCode, deptName, username, email, pass, role);
                     } catch (Exception ex)
                     {
                         Response.Write(ex.Message);
@@ -139,14 +142,19 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        protected void storeDetails(string deptCode, string deptName, string username, string email, string pass)
+        protected void storeDetails(string deptCode, string deptName, string username, string email, string pass, string role)
         {
-            string clientIPAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            Session["Role"] = role; 
+            string clientIPAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (clientIPAddress == "" || clientIPAddress == null)
+                clientIPAddress = Request.ServerVariables["REMOTE_ADDR"];
+
             int index = email.IndexOf('@');
             string userDisplayName = string.Empty;
             if (index > 0)
             {
                 userDisplayName = email.Substring(0, index);
+                Session["Username"] = username;
             }
             string hashedPassword = PasswordHelper.HashPassword(pass);
             DateTime currentDate = DateTime.Today;
@@ -167,6 +175,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@HashedPass", hashedPassword);
                         cmd.Parameters.AddWithValue("@Date", currentDate);
                         cmd.Parameters.AddWithValue("@IPAddress", clientIPAddress);
+                        cmd.Parameters.AddWithValue("@UserRoleID", role);
 
                         con.Open();
                         flag = cmd.ExecuteNonQuery();

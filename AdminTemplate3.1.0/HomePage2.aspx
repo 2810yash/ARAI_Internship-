@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="HomePage2.aspx.cs" Inherits="AdminTemplate3._1._0.HomePage2" %>
+﻿                    <%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="HomePage2.aspx.cs" Inherits="AdminTemplate3._1._0.HomePage2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -21,6 +21,7 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -34,7 +35,7 @@
               <div class="inner">
                 <h3>1500</h3>
 
-                <p>New Orders</p>
+                <p>New Work Permits</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -47,9 +48,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>530<sup style="font-size: 20px">%</sup></h3>
+                <h3 id="totalWP">530<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
+                <p> Total Work Permits</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -99,12 +100,12 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
+                  Work Permit Details
                 </h3>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
                     <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Permits Issued</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
@@ -116,12 +117,13 @@
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                       style="position: relative; height: 800px;">
+                      <canvas id="workPermitChart" width="600" height="400"></canvas>
+                      <asp:HiddenField ID="hfChartData" runat="server" />
                    </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                  <%--<div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
                     <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
+                  </div>--%>
                 </div>
               </div><!-- /.card-body -->
             </div>
@@ -141,9 +143,6 @@
                 </h3>
                 <!-- card tools -->
                 <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
                   <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                   </button>
@@ -224,5 +223,33 @@
     </section>
     <!-- /.content -->
   </div>
+    <script>
+        window.onload = function () {
+            var chartData = JSON.parse(document.getElementById('<%= hfChartData.ClientID %>').value);
+            var ctx = document.getElementById('workPermitChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Number of Work Permits Issued',
+                        data: chartData.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        };
+    </script>
   <!-- /.content-wrapper -->
 </asp:Content>

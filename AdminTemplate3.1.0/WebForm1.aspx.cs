@@ -1,73 +1,88 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+using BusinessLogic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BusinessObject;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Net.Mail;
+using System.Linq;
+using System.IO;
+using System.Web;
+using System.Configuration;
 
 namespace AdminTemplate3._1._0
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-
+        BLL objBLL = new BLL();
+        string ipaddress;
+        string FilePath = common.FilePath();
         string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                //// Create a list of 5 items to bind to the Repeater
-                //var textBoxRows = new List<int> { 1, 2, 3, 4, 5 };
-
-                //// Bind the list to the Repeater
-                //Repeater1.DataSource = textBoxRows;
-                //Repeater1.DataBind();
-            }
-        }
-
-
-        protected void submitForm(object sender, EventArgs e)
-        {
+            ipaddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (ipaddress == "" || ipaddress == null)
+                ipaddress = Request.ServerVariables["REMOTE_ADDR"];
             try
             {
-                using (SqlConnection con = new SqlConnection(strcon))
+                if (!IsPostBack)
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_issue);
-                        //cmd.Parameters.AddWithValue("@Time_of_Incident", time_of_issue);
-                        //cmd.Parameters.AddWithValue("@Name_of_Affected_person", name_person);
-                        //cmd.Parameters.AddWithValue("@Dept_name", dept_name.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@Location_Accident", accident_location);
-                        //cmd.Parameters.AddWithValue("@Nature_of_Incident", nature_of_incident.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@Accident_Description", describtion);
-                        //cmd.Parameters.AddWithValue("@Immediate_ActionTaken", immediate_action);
-                        //cmd.Parameters.AddWithValue("@Root_cause_Analysis", root_cause_analysis);
-                        //cmd.Parameters.AddWithValue("@Corrective_action_plan", corrective_action_plan);
-                        //cmd.Parameters.AddWithValue("@Completion_date", completion_date);
-                        //cmd.Parameters.AddWithValue("@Responsible_person", responsible_person);
-                        //cmd.Parameters.AddWithValue("@Corrective_action_impact", corrective_action_impact);
-                        //cmd.Parameters.AddWithValue("@Hazard_Study_Update", hazard_update.Checked);
-                        //cmd.Parameters.AddWithValue("@Remark", remarks);
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-
-                        con.Close();
-                    }
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions
-                Response.Write(ex.Message);
+                ShowMessage(ex.Message);
             }
         }
-       
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string FName = "";
+            string FExtension = "";
+            string FilePath = null;
+            string FileAttachment = string.Empty;
+            SaveBO objUser = new SaveBO();
+
+            if (FileUpload1.HasFile)
+            {
+
+                string filename = FileUpload1.FileName;
+                string extension = Path.GetExtension(filename);
+                HttpPostedFile file = FileUpload1.PostedFile;
+                if ((extension == ".pdf") || (extension == ".PDF") || (extension == ".jpg") || (extension == ".JPG") || (extension == ".doc") || (extension == ".DOC") || (extension == ".docx") || (extension == ".DOCX") || (extension == ".xlsx") || (extension == ".XLSX") || (extension == ".xls") || (extension == ".XLS") || (extension == ".rtf") || (extension == ".RTF") || (extension == ".pptx") || (extension == ".PPTX") || (extension == ".txt") || (extension == ".TXT"))//extension  
+                {
+                    if (file.ContentLength <= 5000000) // allow file size upto 5MB  
+                    {
+                        FName = filename;
+                        FExtension = extension;
+                        //FileUpload.SaveAs(folder_path + filename);
+                        string filepath = FilePath + filename.Trim();
+                        FilePath = filepath;
+                        FileAttachment = "Y";
+
+                        int result = objBLL.SaveAccidentIncident(objUser);
+                        if (result > 0)
+                        {
+                            ShowMessage("Form save successfully!");
+                        }
+                        else
+                        {
+                            ShowMessage("Form not saved!");
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void ShowMessage(string message)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "customScript", "<script>alert('" + message + "');</script>", false);
+        }
     }
 }
-

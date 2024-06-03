@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0
-{
-
-
-    public partial class SiteMaster
-    {
-
+namespace AdminTemplate3._1._0 {
+    
+    
+    public partial class SiteMaster {
+        
         /// <summary>
         /// head control.
         /// </summary>
@@ -22,7 +20,25 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
-
+        
+        /// <summary>
+        /// createReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton createReport;
+        
+        /// <summary>
+        /// createWP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton createWP;
+        
         /// <summary>
         /// MainContent control.
         /// </summary>

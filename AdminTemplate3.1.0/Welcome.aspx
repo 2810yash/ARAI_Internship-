@@ -140,10 +140,10 @@
                                                         <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
                                                 </div>
                                                 <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server">
-                                                    <%--<asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
+                                                    <asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
                                                     <asp:ListItem Text="High Tension Electrical Work" Value="elec-contractor"></asp:ListItem>
                                                     <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
-                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>--%>
+                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <!-- ESI/Insurance No & Its Date -->
