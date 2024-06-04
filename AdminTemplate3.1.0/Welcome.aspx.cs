@@ -14,7 +14,7 @@ namespace AdminTemplate3._1._0
 {
     public partial class Welcome : System.Web.UI.Page
     {
-        //string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -27,39 +27,39 @@ namespace AdminTemplate3._1._0
         }
         protected void arai_Engineer_list()
         {
-            //SqlConnection sqlcon = new SqlConnection(Main_con);
-            //sqlcon.Open();
-            //SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
-            //sql_command.CommandType = CommandType.Text;
-            //araiEng.DataSource = sql_command.ExecuteReader();
-            //araiEng.DataTextField = "EngineerName";
-            //araiEng.DataBind();
-            //araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            araiEng.DataSource = sql_command.ExecuteReader();
+            araiEng.DataTextField = "EngineerName";
+            araiEng.DataBind();
+            araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
         protected void WorkPermit_list()
         {
-            //SqlConnection sqlcon = new SqlConnection(Main_con);
-            //sqlcon.Open();
-            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
-            //sql_command.CommandType = CommandType.Text;
-            //workPermit.DataSource = sql_command.ExecuteReader();
-            //workPermit.DataTextField = "Work_Permit";
-            //workPermit.DataBind();
-            //workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            workPermit.DataSource = sql_command.ExecuteReader();
+            workPermit.DataTextField = "Work_Permit";
+            workPermit.DataBind();
+            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
         }
         protected void splWorkPermit_list()
         {
-            //SqlConnection sqlcon = new SqlConnection(Main_con);
-            //sqlcon.Open();
-            //SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
-            //sql_command.CommandType = CommandType.Text;
-            //spl_Licence.DataSource = sql_command.ExecuteReader();
-            //spl_Licence.DataTextField = "Work_Permit";
-            //spl_Licence.DataBind();
-            //spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            spl_Licence.DataSource = sql_command.ExecuteReader();
+            spl_Licence.DataTextField = "Work_Permit";
+            spl_Licence.DataBind();
+            spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
         }
         protected void special_license_CheckedChanged(object sender, EventArgs e) { }
-      /*  protected void confirm_Click(object sender, EventArgs e)
+        protected void confirm_Click(object sender, EventArgs e)
         {
             // Parse the number of workers entered in the TextBox
             int numberOfWorkers;
@@ -159,77 +159,8 @@ namespace AdminTemplate3._1._0
                 // For example: Response.Write("Invalid input for the number of workers.");
             }
         }
-       /* protected void addWorkPermit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Get the selected work permit value
-                string selectedWorkPermit = workPermit.SelectedValue;
 
-                // Retrieve the corresponding hazard information from the database
-                using (SqlConnection sqlcon = new SqlConnection(Main_con))
-                {
-                    sqlcon.Open();
-                    string query = "SELECT * FROM Hazard_TBL WHERE Hazard_No IN (SELECT Hazard_No FROM JobSafetyAssessment_TBL WHERE Work_Permit = @WorkPermit)";
-                    using (SqlCommand command = new SqlCommand(query, sqlcon))
-                    {
-                        command.Parameters.AddWithValue("@WorkPermit", selectedWorkPermit);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            // Clear existing content in the panel
-                           // Panel1.Controls.Clear();
-
-                            // Create a new table to display the hazard information
-                            Table hazardTable = new Table();
-                            hazardTable.CssClass = "table table-decoration-none";
-
-                            // Create table header row
-                            TableRow headerRow = new TableRow();
-                            headerRow.Cells.Add(new TableCell { Text = "Hazard_No" });
-                            headerRow.Cells.Add(new TableCell { Text = "Status" });
-                            hazardTable.Rows.Add(headerRow);
-
-                            // Add hazard information rows
-                            while (reader.Read())
-                            {
-                                TableRow hazardRow = new TableRow();
-                                hazardRow.Cells.Add(new TableCell { Text = reader["Hazard_No"].ToString() });
-                                // You can add more cells for other hazard attributes if needed
-                                hazardRow.Cells.Add(new TableCell { Text = reader["Fire"].ToString() }); // Replace "Status Value" with the actual value from the database
-                                hazardTable.Rows.Add(hazardRow);
-                            }
-
-                            // Add the table to the panel
-                            Panel1.Controls.Add(hazardTable);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions
-                Response.Write("An error occurred: " + ex.Message);
-            }
-        }*/
-
-        //protected void addWorkPermit_Click(object sender, EventArgs e)
-        //{
-        //    string selectedVal = workPermit.SelectedValue;
-
-        //    // Retrieve previously appended values from ViewState
-        //    string appendedValues = ViewState["AppendedValues"].ToString();
-
-        //    // Append the new selected value
-        //    appendedValues += selectedVal + "<br />";
-
-        //    // Update the ViewState with the new appended values
-        //    ViewState["AppendedValues"] = appendedValues;
-
-        //    // Update the Panel with the appended values
-        //    Panel1.Controls.Clear(); // Clear existing controls
-        //    Panel1.Controls.Add(new LiteralControl(appendedValues));
-        //}
-       /* protected void SubmitFrom(object sender, EventArgs e)
+        protected void SubmitFrom(object sender, EventArgs e)
         {
             String siteName = site.SelectedValue;
             String permitNumber = permitNum.Text.Trim();
@@ -300,34 +231,69 @@ namespace AdminTemplate3._1._0
             try {
                 sendEmail();
             } catch (Exception ex) {
-                Response.Write(ex.Message);
+                Response.Write("<script>alert('Message has been sent successfully.'+ ex.Message); </script>");
             }
         }
 
         protected void sendEmail()
         {
-            string from = "adityaraut1003@gmail.com"; //example:- sourabh9303@gmail.com
-            string to = "adityaraut216@gmail.com";
-            using (MailMessage mail = new MailMessage(from, to))
+            using (SqlConnection con = new SqlConnection(Main_con))
             {
-                mail.Subject = "New Work Permit Created";
-                mail.Body = "Check out the new work permit created!";
-                //if (fileUploader.HasFile)
-                //{
-                //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);
-                //    mail.Attachments.Add(new Attachment(fileUploader.PostedFile.InputStream, fileName));
-                //}
-                mail.IsBodyHtml = false;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential networkCredential = new NetworkCredential(from, "jgcb dmvu boae jfhh");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = networkCredential;
-                smtp.Port = 587;
-                smtp.Send(mail);
-                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                SqlCommand fetchMail = new SqlCommand("");
             }
-        }*/
+            string from = "yash2810203@gmail.com";
+            string to = "adityaraut216@gmail.com";
+            try
+            {
+                using (MailMessage mail = new MailMessage(from, to))
+                {
+                    mail.Subject = "New Work Permit Created";
+                    mail.Body = "Check out the new work permit created! \nAt: " + DateTime.Now;
+                    //if (fileUploader.HasFile)
+                    //{
+                    //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);
+                    //    mail.Attachments.Add(new Attachment(fileUploader.PostedFile.InputStream, fileName));
+                    //}
+                    mail.IsBodyHtml = false;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential(from, "ohfm hsdv qgxq vmej");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = networkCredential;
+                    smtp.Port = 587;
+                    smtp.Send(mail);
+                    ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                }
+            }catch (Exception ex)
+            {
+                Response.Write("***********************************************" + ex.Message + "*******************");
+            }
+        }
+
+        protected void addWorkPermitBTN(object sender, EventArgs e)
+        {
+            int WPresult = 0;
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_temp_workpermit", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@workPermit", workPermit.SelectedValue);
+                    con.Open();
+                    WPresult = cmd.ExecuteNonQuery();
+                    con.Close();
+                    if (WPresult > 0)
+                    {
+                        Response.Write("<script>alert('WP Data added Successfully.');</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('WP Data updatation UnSuccessfully. Try Again');</script>");
+                    }
+                    Response.Redirect("Welcome.aspx");
+                }
+            }
+        }
     }
 }

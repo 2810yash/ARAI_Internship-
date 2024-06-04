@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0 {
-    
-    
-    public partial class WebForm1 {
-        
+namespace AdminTemplate3._1._0
+{
+
+
+    public partial class WebForm1
+    {
+
         /// <summary>
         /// date_of_issue control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox date_of_issue;
-        
+
         /// <summary>
         /// time_of_issue control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox time_of_issue;
-        
+
         /// <summary>
         /// TextBox1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
+
         /// <summary>
         /// DropDownList1 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
+
         /// <summary>
         /// TextBox4 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox4;
-        
+
         /// <summary>
         /// DropDownListNatureOfIncident control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListNatureOfIncident;
-        
+
         /// <summary>
         /// DropDownListSubNatureOfIncident control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListSubNatureOfIncident;
-        
+
         /// <summary>
         /// DropDownList2 control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-        
+
         /// <summary>
         /// DropDownList3 control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
-        
+
         /// <summary>
         /// DropDownList4 control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
-        
+
         /// <summary>
         /// DropDownList5 control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList5;
-        
+
         /// <summary>
         /// DropDownList7 control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList7;
-        
+
         /// <summary>
         /// TextBox2 control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
-        
+
         /// <summary>
         /// TextBox5 control.
         /// </summary>
@@ -137,7 +139,16 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox5;
-        
+
+        /// <summary>
+        /// Gridview1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView Gridview1;
+
         /// <summary>
         /// root_cause_analysis control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox root_cause_analysis;
-        
+
         /// <summary>
         /// corrective_action_plan control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox corrective_action_plan;
-        
+
         /// <summary>
         /// completion_date control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox completion_date;
-        
+
         /// <summary>
         /// responsibility control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox responsibility;
-        
+
         /// <summary>
         /// TextBox3 control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox3;
-        
+
         /// <summary>
         /// remarks control.
         /// </summary>

@@ -2428,6 +2428,7 @@
     <Content Include="HomePage2.aspx" />
     <Content Include="login.aspx" />
     <Content Include="register.aspx" />
+    <Content Include="Scripts\search_function.js" />
     <Content Include="Styles\accident.css" />
     <Content Include="Styles\login.css" />
     <Content Include="Styles\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
@@ -4265,6 +4266,7 @@
     <Content Include="Styles\StyleSheet1.css" />
     <Content Include="Styles\workPermit.css" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="viewWorkPermit.aspx" />
     <Content Include="Web.config" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="WebForm1.aspx" />
@@ -4326,6 +4328,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="viewWorkPermit.aspx.cs">
+      <DependentUpon>viewWorkPermit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewWorkPermit.aspx.designer.cs">
+      <DependentUpon>viewWorkPermit.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
