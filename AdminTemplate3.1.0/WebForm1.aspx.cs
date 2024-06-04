@@ -33,9 +33,9 @@ namespace AdminTemplate3._1._0
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(strcon))
+               // using (SqlConnection con = new SqlConnection(strcon))
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
+                   // using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_issue);

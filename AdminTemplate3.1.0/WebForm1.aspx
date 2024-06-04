@@ -52,42 +52,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
         }
 
-        .radioinput {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.radio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hazard-study {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-input[type="radio"] {
-    display: none;
-}
-
-input[type="radio"] + label {
-    cursor: pointer;
-    padding: 8px 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-input[type="radio"]:checked + label {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-}
+        
 
  .container1 {
             max-width: 800px;
@@ -182,6 +147,12 @@ input[type="radio"]:checked + label {
             <br />
 
 
+
+
+
+
+
+
             <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
@@ -237,7 +208,7 @@ input[type="radio"]:checked + label {
                             <asp:ListItem Text="Others" Value="10"></asp:ListItem>
                         </asp:DropDownList>
                         <div id="othersTextBox" style="display: none;">
-                            <input type="text" id="txtOthers" placeholder="Enter details" />
+                            <input type="text" id="txtOthers" placeholder="Enter details" />1
                         </div>
 
                     </div>
@@ -411,6 +382,7 @@ input[type="radio"]:checked + label {
                 </div>
 
                 
+
 
 
                 

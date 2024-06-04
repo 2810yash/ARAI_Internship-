@@ -80,10 +80,42 @@ body {
 
 
 
+.radioinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.radio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hazard-study {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 input[type="radio"] {
     display: none;
 }
 
+    input[type="radio"] + label {
+        cursor: pointer;
+        padding: 8px 20px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
 label {
     position: relative;
     color: #4285F4;
@@ -200,7 +232,7 @@ body {
 }
 
 
-.radioinput {
+/*.radioinput {
     padding: 20px;
     display: flex;
 }
@@ -209,7 +241,7 @@ body {
     font-size: 20px;
     font-weight:normal;
     justify-content: center;
-}
+}*/
 
 .file {
     width: 200px;
@@ -226,9 +258,9 @@ body {
     font-size: 20px;
 }
 
-.radio > div {
+/*.radio > div {
     padding: 20px;
-}
+}*/
 
 .date-input {
     text-align: center !important;

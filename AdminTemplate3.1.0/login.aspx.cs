@@ -8,7 +8,7 @@ namespace AdminTemplate3._1._0
 {
     public partial class login : System.Web.UI.Page
     {
-        string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        /*string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         
         //Login button
         protected void Button1_Click(object sender, EventArgs e)
@@ -71,6 +71,6 @@ namespace AdminTemplate3._1._0
                 // Handle any exceptions
                 Response.Write(ex.Message);
             }
-        }
+        }*/
     }
 }

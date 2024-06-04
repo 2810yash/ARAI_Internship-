@@ -14,7 +14,7 @@ namespace AdminTemplate3._1._0
 {
     public partial class Welcome : System.Web.UI.Page
     {
-        string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        //string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,7 +59,7 @@ namespace AdminTemplate3._1._0
             //spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
         }
         protected void special_license_CheckedChanged(object sender, EventArgs e) { }
-        protected void confirm_Click(object sender, EventArgs e)
+      /*  protected void confirm_Click(object sender, EventArgs e)
         {
             // Parse the number of workers entered in the TextBox
             int numberOfWorkers;
@@ -159,7 +159,7 @@ namespace AdminTemplate3._1._0
                 // For example: Response.Write("Invalid input for the number of workers.");
             }
         }
-        protected void addWorkPermit_Click(object sender, EventArgs e)
+       /* protected void addWorkPermit_Click(object sender, EventArgs e)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace AdminTemplate3._1._0
                 // Handle any exceptions
                 Response.Write("An error occurred: " + ex.Message);
             }
-        }
+        }*/
 
         //protected void addWorkPermit_Click(object sender, EventArgs e)
         //{
@@ -229,7 +229,7 @@ namespace AdminTemplate3._1._0
         //    Panel1.Controls.Clear(); // Clear existing controls
         //    Panel1.Controls.Add(new LiteralControl(appendedValues));
         //}
-        protected void SubmitFrom(object sender, EventArgs e)
+       /* protected void SubmitFrom(object sender, EventArgs e)
         {
             String siteName = site.SelectedValue;
             String permitNumber = permitNum.Text.Trim();
@@ -328,6 +328,6 @@ namespace AdminTemplate3._1._0
                 smtp.Send(mail);
                 ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
             }
-        }
+        }*/
     }
 }

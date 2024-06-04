@@ -14,7 +14,7 @@ namespace AdminTemplate3._1._0
 {
     public partial class Homepage : System.Web.UI.Page
     {
-        string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        //string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,7 +28,7 @@ namespace AdminTemplate3._1._0
 
         private int FetchNewOrdersCountFromDatabase()
         {
-            int count = 0;
+           /* int count = 0;
             using (SqlConnection connection = new SqlConnection(strcon))
             {
                 string query = "SELECT COUNT(*) FROM IncidentReport";
@@ -38,7 +38,7 @@ namespace AdminTemplate3._1._0
                     count = (int)command.ExecuteScalar();
                 }
             }
-            return count;
+            return count;*/
         }
 
         private int FetchBounceRateFromDatabase()
