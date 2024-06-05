@@ -31,9 +31,12 @@ namespace AdminTemplate3._1._0
             if (!IsPostBack)
             {
                 arai_Engineer_list();
-                WorkPermit_list();
                 splWorkPermit_list();
-                ViewState["AppendedValues"] = "";
+                if (ViewState["NumberOfWorkers"] != null)
+                {
+                    int numberOfWorkers = (int)ViewState["NumberOfWorkers"];
+                    CreateWorkerTable(numberOfWorkers);
+                }
             }
         }
         protected void arai_Engineer_list()
@@ -47,17 +50,7 @@ namespace AdminTemplate3._1._0
             araiEng.DataBind();
             araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
-        protected void WorkPermit_list()
-        {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            workPermit.DataSource = sql_command.ExecuteReader();
-            workPermit.DataTextField = "Work_Permit";
-            workPermit.DataBind();
-            workPermit.Items.Insert(0, new ListItem("-- Select Work Permit --", "0"));
-        }
+        
         protected void splWorkPermit_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -72,156 +65,97 @@ namespace AdminTemplate3._1._0
         protected void special_license_CheckedChanged(object sender, EventArgs e) { }
         protected void confirm_Click(object sender, EventArgs e)
         {
-            // Parse the number of workers entered in the TextBox
             int numberOfWorkers;
             if (int.TryParse(numWorkers.Text, out numberOfWorkers))
             {
-                // Clear any previous content in the workers div
-                workers.Controls.Clear();
-
-                // Create a new table
-                Table table = new Table();
-                table.CssClass = "table table-bordered"; // Optionally, you can set CSS class for the table
-
-                // Create the first row with headers
-                TableRow tableFirstRow = new TableRow();
-                string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Remarks" };
-                for (int i = 0; i < headerText.Length; i++)
-                {
-                    TableCell cell = new TableCell();
-                    cell.Text = headerText[i];
-                    tableFirstRow.Cells.Add(cell);
-                }
-                table.Rows.Add(tableFirstRow);
-
-                // Create table rows and cells based on the number of workers
-                for (int i = 0; i < numberOfWorkers; i++)
-                {
-                    TableRow row = new TableRow();
-
-                    // Add Sr. No. column with sequential numbers
-                    TableCell srNoCell = new TableCell();
-                    srNoCell.Text = (i + 1).ToString();
-                    row.Cells.Add(srNoCell);
-
-                    // Add TextBox for Name of Workers column
-                    TableCell nameCell = new TableCell();
-                    nameCell.Controls.Add(new TextBox { ID = "txtName_" + i }); // Assign a unique ID to each TextBox
-                    row.Cells.Add(nameCell);
-
-                    // Add a TextBox for Age column
-                    TableCell ageCell = new TableCell();
-                    TextBox ageTextBox = new TextBox { ID = "txtAge_" + i };
-                    ageCell.Controls.Add(ageTextBox);
-                    row.Cells.Add(ageCell);
-
-                    // Add RegularExpressionValidator for Age column
-                    RegularExpressionValidator ageValidator = new RegularExpressionValidator();
-                    ageValidator.ControlToValidate = ageTextBox.ID;
-                    ageValidator.ValidationExpression = @"\d+"; // Regular expression to match digits only
-                    ageValidator.ErrorMessage = "Please enter a numeric value for Age.";
-                    ageValidator.CssClass = "text-danger"; // Optional: Add CSS class for error messages
-                    ageCell.Controls.Add(ageValidator);
-
-                    // Add CheckBox for Mask column
-                    TableCell maskCell = new TableCell();
-                    maskCell.Controls.Add(new CheckBox { ID = "chkMask_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(maskCell);
-
-                    // Add CheckBox for Safety Shoes/Gum Boots column
-                    TableCell safetyShoesCell = new TableCell();
-                    safetyShoesCell.Controls.Add(new CheckBox { ID = "chkSafetyShoes_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(safetyShoesCell);
-
-                    // Add CheckBox for Jackets/Aprons column
-                    TableCell jacketsCell = new TableCell();
-                    jacketsCell.Controls.Add(new CheckBox { ID = "chkJackets_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(jacketsCell);
-
-                    // Add CheckBox for Gloves column
-                    TableCell glovesCell = new TableCell();
-                    glovesCell.Controls.Add(new CheckBox { ID = "chkGloves_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(glovesCell);
-
-                    // Add CheckBox for Ear plug/muffs column
-                    TableCell earPlugsCell = new TableCell();
-                    earPlugsCell.Controls.Add(new CheckBox { ID = "chkEarPlugs_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(earPlugsCell);
-
-                    // Add CheckBox for Belt/Harness column
-                    TableCell beltCell = new TableCell();
-                    beltCell.Controls.Add(new CheckBox { ID = "chkBelt_" + i, Checked = true }); // Assign a unique ID to each CheckBox
-                    row.Cells.Add(beltCell);
-
-                    // Add TextBox for Remarks column
-                    TableCell remarksCell = new TableCell();
-                    remarksCell.Controls.Add(new TextBox { ID = "txtRemarks_" + i }); // Assign a unique ID to each TextBox
-                    row.Cells.Add(remarksCell);
-
-                    table.Rows.Add(row);
-                }
-
-                // Add the table to the workers div
-                workers.Controls.Add(table);
+                ViewState["NumberOfWorkers"] = numberOfWorkers;
+                CreateWorkerTable(numberOfWorkers);
             }
-            else
-            {
-                // Display a message or take appropriate action if the input is invalid
-                // For example: Response.Write("Invalid input for the number of workers.");
-            }
+
         }
-        protected void addWorkPermit_Click(object sender, EventArgs e)
+
+        protected void CreateWorkerTable(int numberOfWorkers)
         {
-            try
+            //workers.Controls.Clear();
+            Table table = new Table();
+            table.CssClass = "table table-bordered";
+
+            TableRow tableFirstRow = new TableRow();
+            string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Goggles", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Helmet", "Remarks" };
+            for (int i = 0; i < headerText.Length; i++)
             {
-                // Get the selected work permit value
-                string selectedWorkPermit = workPermit.SelectedValue;
-
-                // Retrieve the corresponding hazard information from the database
-                using (SqlConnection sqlcon = new SqlConnection(Main_con))
-                {
-                    sqlcon.Open();
-                    string query = "SELECT * FROM Hazard_TBL WHERE Hazard_No IN (SELECT Hazard_No FROM JobSafetyAssessment_TBL WHERE Work_Permit = @WorkPermit)";
-                    using (SqlCommand command = new SqlCommand(query, sqlcon))
-                    {
-                        command.Parameters.AddWithValue("@WorkPermit", selectedWorkPermit);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            // Clear existing content in the panel
-                           // Panel1.Controls.Clear();
-
-                            // Create a new table to display the hazard information
-                            Table hazardTable = new Table();
-                            hazardTable.CssClass = "table table-decoration-none";
-
-                            // Create table header row
-                            TableRow headerRow = new TableRow();
-                            headerRow.Cells.Add(new TableCell { Text = "Hazard_No" });
-                            headerRow.Cells.Add(new TableCell { Text = "Status" });
-                            hazardTable.Rows.Add(headerRow);
-
-                            // Add hazard information rows
-                            while (reader.Read())
-                            {
-                                TableRow hazardRow = new TableRow();
-                                hazardRow.Cells.Add(new TableCell { Text = reader["Hazard_No"].ToString() });
-                                // You can add more cells for other hazard attributes if needed
-                                hazardRow.Cells.Add(new TableCell { Text = reader["Fire"].ToString() }); // Replace "Status Value" with the actual value from the database
-                                hazardTable.Rows.Add(hazardRow);
-                            }
-
-                            // Add the table to the panel
-                            Panel1.Controls.Add(hazardTable);
-                        }
-                    }
-                }
+                TableCell cell = new TableCell();
+                cell.Text = headerText[i];
+                tableFirstRow.Cells.Add(cell);
             }
-            catch (Exception ex)
+            table.Rows.Add(tableFirstRow);
+
+            for (int i = 0; i < numberOfWorkers; i++)
             {
-                // Handle any exceptions
-                Response.Write("An error occurred: " + ex.Message);
+                TableRow row = new TableRow();
+
+                TableCell srNoCell = new TableCell();
+                srNoCell.Text = (i + 1).ToString();
+                row.Cells.Add(srNoCell);
+
+                TableCell nameCell = new TableCell();
+                nameCell.Controls.Add(new TextBox { ID = "txtName_" + i });
+                row.Cells.Add(nameCell);
+
+                TableCell ageCell = new TableCell();
+                TextBox ageTextBox = new TextBox { ID = "txtAge_" + i };
+                ageCell.Controls.Add(ageTextBox);
+                row.Cells.Add(ageCell);
+
+                RegularExpressionValidator ageValidator = new RegularExpressionValidator();
+                ageValidator.ControlToValidate = ageTextBox.ID;
+                ageValidator.ValidationExpression = @"\d+";
+                ageValidator.ErrorMessage = "Please enter a numeric value for Age.";
+                ageValidator.CssClass = "text-danger";
+                ageCell.Controls.Add(ageValidator);
+
+                TableCell maskCell = new TableCell();
+                maskCell.Controls.Add(new CheckBox { ID = "chkMask_" + i, Checked = true });
+                row.Cells.Add(maskCell);
+
+                TableCell gogglesCell = new TableCell();
+                gogglesCell.Controls.Add(new CheckBox { ID = "chkGoggles_" + i, Checked = true });
+                row.Cells.Add(gogglesCell);
+
+                TableCell safetyShoesCell = new TableCell();
+                safetyShoesCell.Controls.Add(new CheckBox { ID = "chkSafetyShoes_" + i, Checked = true });
+                row.Cells.Add(safetyShoesCell);
+
+                TableCell jacketsCell = new TableCell();
+                jacketsCell.Controls.Add(new CheckBox { ID = "chkJackets_" + i, Checked = true });
+                row.Cells.Add(jacketsCell);
+
+                TableCell glovesCell = new TableCell();
+                glovesCell.Controls.Add(new CheckBox { ID = "chkGloves_" + i, Checked = true });
+                row.Cells.Add(glovesCell);
+
+                TableCell earPlugsCell = new TableCell();
+                earPlugsCell.Controls.Add(new CheckBox { ID = "chkEarPlugs_" + i, Checked = true });
+                row.Cells.Add(earPlugsCell);
+
+                TableCell beltCell = new TableCell();
+                beltCell.Controls.Add(new CheckBox { ID = "chkBelt_" + i, Checked = true });
+                row.Cells.Add(beltCell);
+
+                TableCell helmetCell = new TableCell();
+                helmetCell.Controls.Add(new CheckBox { ID = "chkHelmet_" + i, Checked = true });
+                row.Cells.Add(helmetCell);
+
+                TableCell remarksCell = new TableCell();
+                remarksCell.Controls.Add(new TextBox { ID = "txtRemarks_" + i });
+                row.Cells.Add(remarksCell);
+
+                table.Rows.Add(row);
             }
+
+            workers.Controls.Add(table);
         }
+
 
         //protected void addWorkPermit_Click(object sender, EventArgs e)
         //{
@@ -264,7 +198,21 @@ namespace AdminTemplate3._1._0
             String engiContact = engiContactNUM.Text.Trim();
             String workDescription = describeWork.Text.Trim();
             String workLocation = locateWork.Text.Trim();
-            
+            String permitsIssued = null;
+
+
+
+
+
+            if (check1.Checked == true)
+            {
+                permitsIssued = "Entry into vessels/tanks/manholes/A.C Ducts / Cooling towers / fire fighting equipment";
+            }
+            if (check4.Checked == true)
+            {
+                permitsIssued = "Work on fragile roof";
+            } 
+
 
             try
             {
@@ -291,11 +239,14 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@DescofWork", workDescription);
                         cmd.Parameters.AddWithValue("@Location", workLocation);
                         cmd.Parameters.AddWithValue("@DeptIssued", deptName);
+                        cmd.Parameters.AddWithValue("@PermitsIssued", permitsIssued);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
+
                         if (result > 0)
                         {
+                            storeWorkerDetails(workerNum, permitNumber);
                             Response.Write("<script>alert('Data added Successfully.');</script>");
                         }
                         else
@@ -316,6 +267,63 @@ namespace AdminTemplate3._1._0
                 Response.Write(ex.Message);
             }
         }
+        protected void storeWorkerDetails(int workerNum, string permitNumber)
+        {
+            int result;
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                for (int i = 0; i < workerNum; i++)
+                {
+                    // Obtain worker details from the form
+                    TextBox txtName = (TextBox)workers.FindControl("txtName_" + i);
+                    TextBox txtAge = (TextBox)workers.FindControl("txtAge_" + i);
+
+                    if (txtName == null || txtAge == null)
+                    {
+                        Response.Write($"<script>console.log('Worker details control not found: txtName_{i}, txtAge_{i}');</script>");
+                        continue; // Skip this iteration if controls are not found
+                    }
+
+                    String workerName = txtName.Text;
+                    int workerAge = 0;
+                    if (!int.TryParse(txtAge.Text, out workerAge))
+                    {
+                        Response.Write($"<script>console.log('Invalid age input for worker {i + 1}');</script>");
+                        continue; // Skip this iteration if age is not a valid integer
+                    }
+
+                    try
+                    {
+                        using (SqlCommand cmdWorker = new SqlCommand("InsertWorkerDetails", con))
+                        {
+                            cmdWorker.CommandType = CommandType.StoredProcedure;
+                            // Add parameters for worker details
+                            cmdWorker.Parameters.AddWithValue("@PermitID", permitNumber);
+                            cmdWorker.Parameters.AddWithValue("@WorkerName", workerName);
+                            cmdWorker.Parameters.AddWithValue("@WorkerAge", workerAge);
+                            // Add other worker details parameters similarly...
+
+                            // Execute the command to insert worker details
+                            result = cmdWorker.ExecuteNonQuery();
+
+                        }
+                        // Insert worker details using the stored procedure
+
+                        if (result>0)
+                        {
+
+                        } else
+                        {
+                            Response.Write("<script>alert('Could not store worker details!) </script>");
+                        }
+                    } catch (Exception ex)
+                    {
+                        Response.Write(ex);
+                    }
+                }
+            }
+        }
+
 
         protected void SendEmail(DateTime dateOfIssue)
         {

@@ -185,6 +185,7 @@ input[type="radio"]:checked + label {
             <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
+                       
                         <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date_of_incident" required="required"></asp:TextBox>
                         <span>Date of Incident/Accident</span>
                     </div>
@@ -434,6 +435,7 @@ input[type="radio"]:checked + label {
                         <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
                         <span>Completion Date</span>
                     </div>
+
                     <div class="inputBox">
                         <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsible_person"></asp:TextBox>
                         <span>Responsible Person</span>
@@ -518,7 +520,7 @@ input[type="radio"]:checked + label {
 
 
                 <div class="subbtn">
-                <asp:Button OnClick="submitForm" Text="SUBMIT" CssClass="submit btn btn-primary" runat="server" />
+                <asp:Button OnClick="submitForm" Text="SUBMIT" CssClass="submit btn btn-primary" runat="server" onsubmit="return validateDates();"/>
                 </div>
 
                 <script>
@@ -532,9 +534,25 @@ input[type="radio"]:checked + label {
                         }
                         return true; // Allow form submission
                     }
-                </script>
 
-               
+                    function validateDates() {
+                        var dateOfIncident = document.getElementById('<%= date_of_incident.ClientID %>').value;
+                        var completionDate = document.getElementById('<%= completion_date.ClientID %>').value;
+
+                        if (dateOfIncident && completionDate) {
+                            var incidentDate = new Date(dateOfIncident);
+                            var compDate = new Date(completionDate);
+
+                            if (compDate < incidentDate) {
+                                alert("Completion date must be greater than or equal to the date of incident.");
+                                return false;
+                            }
+                        }
+
+                        return true;
+                    }
+                </script>
+                
 
 
 

@@ -52,6 +52,9 @@ namespace AdminTemplate3._1._0
             }
 
 
+            //DateTime dateofIncident = date_of_incident;
+
+
             try
             {
                 string filename = "NULL";
@@ -86,6 +89,8 @@ namespace AdminTemplate3._1._0
 
                 // Insert file metadata into the database
                 DateTime now = DateTime.Now;
+
+                
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

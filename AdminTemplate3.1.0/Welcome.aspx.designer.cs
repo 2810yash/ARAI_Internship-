@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0
-{
-
-
-    public partial class Welcome
-    {
-
+namespace AdminTemplate3._1._0 {
+    
+    
+    public partial class Welcome {
+        
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-
+        
         /// <summary>
         /// site control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList site;
-
+        
         /// <summary>
         /// permitNum control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox permitNum;
-
+        
         /// <summary>
         /// issueDate control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox issueDate;
-
+        
         /// <summary>
         /// perValidFrom control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox perValidFrom;
-
+        
         /// <summary>
         /// perValidTill control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox perValidTill;
-
+        
         /// <summary>
         /// special_license_yes control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton special_license_yes;
-
+        
         /// <summary>
         /// special_license_no control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton special_license_no;
-
+        
         /// <summary>
         /// spl_Licence control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList spl_Licence;
-
+        
         /// <summary>
         /// esiNUM control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox esiNUM;
-
+        
         /// <summary>
         /// esiVali control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox esiVali;
-
+        
         /// <summary>
         /// contractorNam control.
         /// </summary>
@@ -121,34 +119,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox contractorNam;
-
-        /// <summary>
-        /// numWorkers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox numWorkers;
-
-        /// <summary>
-        /// confirm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button confirm;
-
-        /// <summary>
-        /// workers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
-
+        
         /// <summary>
         /// supervisorNam control.
         /// </summary>
@@ -157,7 +128,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox supervisorNam;
-
+        
         /// <summary>
         /// supervisorContactNUM control.
         /// </summary>
@@ -166,7 +137,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox supervisorContactNUM;
-
+        
         /// <summary>
         /// araiEng control.
         /// </summary>
@@ -175,7 +146,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList araiEng;
-
+        
         /// <summary>
         /// engiContactNUM control.
         /// </summary>
@@ -184,7 +155,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox engiContactNUM;
-
+        
         /// <summary>
         /// describeWork control.
         /// </summary>
@@ -193,7 +164,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox describeWork;
-
+        
         /// <summary>
         /// locateWork control.
         /// </summary>
@@ -202,34 +173,178 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox locateWork;
-
+        
         /// <summary>
-        /// workPermit control.
+        /// numWorkers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList workPermit;
-
+        protected global::System.Web.UI.WebControls.TextBox numWorkers;
+        
         /// <summary>
-        /// addWorkPermit control.
+        /// confirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addWorkPermit;
-
+        protected global::System.Web.UI.WebControls.Button confirm;
+        
         /// <summary>
-        /// DropDownPlaceHolder control.
+        /// workers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder DropDownPlaceHolder;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
+        
+        /// <summary>
+        /// check1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check1;
+        
+        /// <summary>
+        /// chk1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk1;
+        
+        /// <summary>
+        /// check2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check2;
+        
+        /// <summary>
+        /// chk2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk2;
+        
+        /// <summary>
+        /// check3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check3;
+        
+        /// <summary>
+        /// chk3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk3;
+        
+        /// <summary>
+        /// check4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check4;
+        
+        /// <summary>
+        /// chk4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk4;
+        
+        /// <summary>
+        /// check5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check5;
+        
+        /// <summary>
+        /// chk5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk5;
+        
+        /// <summary>
+        /// check6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check6;
+        
+        /// <summary>
+        /// chk6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk6;
+        
+        /// <summary>
+        /// check7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check7;
+        
+        /// <summary>
+        /// chk7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk7;
+        
+        /// <summary>
+        /// check8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check8;
+        
+        /// <summary>
+        /// chk8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk8;
+        
         /// <summary>
         /// Panel1 control.
         /// </summary>
@@ -238,7 +353,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel1;
-
+        
         /// <summary>
         /// Panel2 control.
         /// </summary>
@@ -247,7 +362,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
-
+        
         /// <summary>
         /// Panel3 control.
         /// </summary>
@@ -256,7 +371,7 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel3;
-
+        
         /// <summary>
         /// submit control.
         /// </summary>
