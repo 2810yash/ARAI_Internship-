@@ -11,6 +11,10 @@ namespace AdminTemplate3._1._0
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Role"].Equals("admin"))
+            {
+                Response.Redirect("Homepage.aspx");
+            }
         }
 
         private string GetClientIpAddress()

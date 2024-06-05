@@ -13,21 +13,29 @@ namespace AdminTemplate3._1._0
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            if (!IsPostBack)
+            try
             {
-                if (Session["Username"] != null)
+                if (!IsPostBack)
                 {
-                    userDisplayName = Session["Username"].ToString().ToUpperInvariant();
-                }
+                    if (Session["Username"] != null)
+                    {
+                        userDisplayName = Session["Username"].ToString().ToUpperInvariant();
+                    }
 
-                if (Session["Role"].Equals("user"))
-                {
-                    createWP.Visible = true;
-                    createReport.Visible = true;
+                    if (Session["Role"].Equals("user"))
+                    {
+                        createWP.Visible = true;
+                        createReport.Visible = true;
+                    }
+                    //GetFunc();            
                 }
-                //GetFunc();            
+            } catch
+            {
+                Response.Write("<script> alert('Please login first!')</script>");
+                Response.Redirect("login.aspx");
+
             }
+            
         }
         protected void Create_Report(object sender, EventArgs e)
         {
