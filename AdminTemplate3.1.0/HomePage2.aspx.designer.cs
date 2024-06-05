@@ -31,12 +31,30 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.Label lblTotalPermitCount;
         
         /// <summary>
-        /// hfChartData control.
+        /// hfChartData1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfChartData;
+        protected global::System.Web.UI.WebControls.HiddenField hfChartData1;
+        
+        /// <summary>
+        /// demoPie control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource demoPie;
+        
+        /// <summary>
+        /// piechart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField piechart;
     }
 }

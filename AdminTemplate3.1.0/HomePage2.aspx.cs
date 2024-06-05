@@ -21,14 +21,17 @@ namespace AdminTemplate3._1._0
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadChartData();
+            LoadBarChartData();
+            LoadPieChartData();
             GetPermitCounts();
         }
 
-        private void LoadChartData()
+        private void LoadBarChartData()
         {
-            string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-            string query = @"
+            try {
+
+                string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+                string query = @"
             SELECT 
                 YEAR(dateOfIssue) AS Year, 
                 DATENAME(MONTH, DATEADD(MONTH, MONTH(dateOfIssue) - 1, '1900-01-01')) AS MonthName, 
@@ -43,37 +46,42 @@ namespace AdminTemplate3._1._0
                 MONTH(dateOfIssue);";
 
 
-            DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
 
-            using(SqlConnection con = new SqlConnection(strcon))
-            {
-                using(SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection con = new SqlConnection(strcon))
                 {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dt);
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                    }
                 }
+
+                var labels = new List<string>();
+                var data = new List<int>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    // string monthName = GetMonthName((int)row["Month"]);
+                    labels.Add($"{row["MonthName"]} {row["Year"]}");
+                    data.Add((int)row["PermitCount"]);
+                }
+
+                var chartData = new
+                {
+                    labels = labels,
+                    data = data
+                };
+
+                JavaScriptSerializer serializer1 = new JavaScriptSerializer();
+                hfChartData1.Value = serializer1.Serialize(chartData);
+
             }
-
-            var labels = new List<string>();
-            var data = new List<int>();
-
-            foreach (DataRow row in dt.Rows)
+            catch (Exception ex)
             {
-                // string monthName = GetMonthName((int)row["Month"]);
-                labels.Add($"{row["MonthName"]} {row["Year"]}");
-                data.Add((int)row["PermitCount"]);
+                Response.Write("<script>alert('Could not load data for charts: " + ex + "');</script>");
             }
-
-            var chartData = new
-            {
-                labels = labels,
-                data = data
-            };
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            hfChartData.Value = serializer.Serialize(chartData);
-
         }
         private string GetMonthName(int month)
         {
@@ -82,35 +90,82 @@ namespace AdminTemplate3._1._0
 
         private void GetPermitCounts()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-            string query = "EXEC dbo.GetPermitCounts";
+            try {
+                string connectionString = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+                string query = "EXEC dbo.GetPermitCounts";
 
-            int currentMonthPermitCount = 0;
-            int totalPermitCount = 0;
+                int currentMonthPermitCount = 0;
+                int totalPermitCount = 0;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    con.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        if (reader.Read())
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            currentMonthPermitCount = reader.GetInt32(0);
-                        }
+                            if (reader.Read())
+                            {
+                                currentMonthPermitCount = reader.GetInt32(0);
+                            }
 
-                        if (reader.NextResult() && reader.Read())
-                        {
-                            totalPermitCount = reader.GetInt32(0);
+                            if (reader.NextResult() && reader.Read())
+                            {
+                                totalPermitCount = reader.GetInt32(0);
+                            }
                         }
                     }
                 }
-            }
 
-            // Now you can use the permit counts as needed
-            lblCurrentMonthPermitCount.Text = currentMonthPermitCount.ToString();
-            lblTotalPermitCount.Text = totalPermitCount.ToString();
+                // Now you can use the permit counts as needed
+                lblCurrentMonthPermitCount.Text = currentMonthPermitCount.ToString();
+                lblTotalPermitCount.Text = totalPermitCount.ToString();
+            } catch (Exception ex)
+            {
+                 Response.Write("<script>alert('Could not load data for charts: " + ex + "');</script>");
+            }
+        }
+
+        private void LoadPieChartData()
+        {
+            try {
+                string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+                string query = "EXEC dbo.usp_GetDepartmentDistribution";
+
+                DataTable dt = new DataTable();
+
+                using (SqlConnection con = new SqlConnection(strcon))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                    }
+                }
+
+                var labels = new List<string>();
+                var data = new List<int>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    labels.Add(row["DeptIssued"].ToString());
+                    data.Add((int)row["DeptCount"]);
+                }
+
+                var chartData2 = new
+                {
+                    labels = labels,
+                    data = data
+                };
+
+                JavaScriptSerializer serializer2 = new JavaScriptSerializer();
+                piechart.Value = serializer2.Serialize(chartData2);
+
+            } catch (Exception ex) {
+                Response.Write("<script>alert('Could not load data for charts: " + ex + "');</script>");
+            }
+            
         }
     }
 }

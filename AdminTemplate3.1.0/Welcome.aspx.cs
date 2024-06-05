@@ -15,8 +15,14 @@ namespace AdminTemplate3._1._0
     public partial class Welcome : System.Web.UI.Page
     {
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        public string deptName;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["deptName"] != null)
+            {
+                deptName = Session["deptName"].ToString();
+            }
+
             if (!IsPostBack)
             {
                 arai_Engineer_list();
@@ -253,6 +259,7 @@ namespace AdminTemplate3._1._0
             String engiContact = engiContactNUM.Text.Trim();
             String workDescription = describeWork.Text.Trim();
             String workLocation = locateWork.Text.Trim();
+            
 
             try
             {
@@ -278,6 +285,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@EngineerContact", engiContact);
                         cmd.Parameters.AddWithValue("@DescofWork", workDescription);
                         cmd.Parameters.AddWithValue("@Location", workLocation);
+                        cmd.Parameters.AddWithValue("@DeptIssued", deptName);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();
@@ -306,12 +314,6 @@ namespace AdminTemplate3._1._0
 
         protected void SendEmail(DateTime dateOfIssue)
         {
-            string deptName = string.Empty;
-            if (Session["deptName"] != null)
-            {
-                deptName = Session["deptName"].ToString();
-            }
-
             //Response.Write("<script>alert('Dept Name: " + deptName + "');</script>");
             string email;
             int flag = -1;
