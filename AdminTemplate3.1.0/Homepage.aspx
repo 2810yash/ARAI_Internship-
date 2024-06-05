@@ -113,7 +113,7 @@
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active justify-content-center" id="month-chart" style="position: relative; height: 370px;">
-                        <asp:Chart ID="Chart1" CssClass="ms-5" runat="server" Width="500px" Height="350px" DataSourceID="SqlDataSource2">
+                        <%--<asp:Chart ID="Chart1" CssClass="ms-5" runat="server" Width="500px" Height="350px" DataSourceID="SqlDataSource2">
                             <Series>
                                 <asp:Series Name="Series1" XValueMember="Month" YValueMembers="IncidentCount" YValuesPerPoint="2">
                                 </asp:Series>
@@ -121,7 +121,9 @@
                             <ChartAreas>
                                 <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                             </ChartAreas>
-                        </asp:Chart>
+                        </asp:Chart>--%>
+                        <canvas id="viewReports"></canvas>
+                        <asp:HiddenField ID="hfchartdata1" />
                         <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:strconn %>' SelectCommand="SELECT MONTH([Date_of_Incident]) AS Month, COUNT(*) AS IncidentCount FROM [IncidentReport] GROUP BY MONTH([Date_of_Incident])"></asp:SqlDataSource>
                     </div>
                 </div>
@@ -216,5 +218,7 @@
     </section>
     <!-- /.content -->
   </div>
+
+
   <!-- /.content-wrapper -->
 </asp:Content>

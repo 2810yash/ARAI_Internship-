@@ -1,225 +1,162 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading;
+using System.IO;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-
-        string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        private readonly DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
            
-            if (!Page.IsPostBack)
-            {
-
-                SetInitialRow();
-
-            }
-            
         }
-        
-          public void AddNewRowToGrid()
 
+        private string GetClientIpAddress()
         {
+            string ipAddress = HttpContext.Current.Request.UserHostAddress;
 
-            int rowIndex = 1;
-
-
-
-            if (ViewState["CurrentTable"] != null)
-
+            // Check for X-Forwarded-For header for cases where the server is behind a proxy
+            string xForwardedFor = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (!string.IsNullOrEmpty(xForwardedFor))
             {
-
-                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
-
-                DataRow drCurrentRow = null;
-
-                if (dtCurrentTable.Rows.Count > 0)
-
+                string[] ipAddresses = xForwardedFor.Split(',');
+                if (ipAddresses.Length > 0)
                 {
-
-                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-
-                    {
-
-                        //extract the TextBox values
-
-                        TextBox box1 = (TextBox)Gridview1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
-
-                        TextBox box2 = (TextBox)Gridview1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
-
-                        TextBox box3 = (TextBox)Gridview1.Rows[rowIndex].Cells[3].FindControl("TextBox3");
-
-
-
-                        drCurrentRow = dtCurrentTable.NewRow();
-
-                        drCurrentRow["RowNumber"] = i + 1;
-
-
-
-                        dtCurrentTable.Rows[i - 1]["Column1"] = box1.Text;
-
-                        dtCurrentTable.Rows[i - 1]["Column2"] = box2.Text;
-
-                        dtCurrentTable.Rows[i - 1]["Column3"] = box3.Text;
-
-
-
-                        rowIndex++;
-
-                    }
-
-                    dtCurrentTable.Rows.Add(drCurrentRow);
-
-                    ViewState["CurrentTable"] = dtCurrentTable;
-
-
-
-                    Gridview1.DataSource = dtCurrentTable;
-
-                    Gridview1.DataBind();
-
+                    ipAddress = ipAddresses[0];
                 }
-
             }
 
-            else
-
+            // Handle IPv6 loopback address (::1) for local testing
+            if (ipAddress == "::1")
             {
-
-                Response.Write("ViewState is null");
-
+                ipAddress = "127.0.0.1";
             }
 
-
-
-            //Set Previous Data on Postbacks
-
-            SetPreviousData();
-
-        }
-
-     private void SetPreviousData()
-
-        {
-
-            int rowIndex = 0;
-
-            if (ViewState["CurrentTable"] != null)
-
-            {
-                //// Create a list of 5 items to bind to the Repeater
-                //var textBoxRows = new List<int> { 1, 2, 3, 4, 5 };
-
-                //// Bind the list to the Repeater
-                //Repeater1.DataSource = textBoxRows;
-                //Repeater1.DataBind();
-            }
-
-        }
-
-       
-     private void SetInitialRow()
-
-        {
-
-            DataTable dt = new DataTable();
-
-            DataRow dr = null;
-
-            dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-
-            dt.Columns.Add(new DataColumn("Column1", typeof(string)));
-
-            dt.Columns.Add(new DataColumn("Column2", typeof(string)));
-
-            dt.Columns.Add(new DataColumn("Column3", typeof(string)));
-
-            dr = dt.NewRow();
-
-            dr["RowNumber"] = 1;
-
-            dr["Column1"] = string.Empty;
-
-            dr["Column2"] = string.Empty;
-
-            dr["Column3"] = string.Empty;
-
-            dt.Rows.Add(dr);
-
-            //dr = dt.NewRow();
-
-
-
-            //Store the DataTable in ViewState
-
-            ViewState["CurrentTable"] = dt;
-
-
-
-            Gridview1.DataSource = dt;
-
-            Gridview1.DataBind();
-
-        }
-        protected void ButtonAdd_Click(object sender, EventArgs e)
-
-        {
-
-            AddNewRowToGrid();
-
+            return ipAddress;
         }
 
         protected void submitForm(object sender, EventArgs e)
         {
+            string connectionString = ConfigurationManager.ConnectionStrings["NewDemoConnectionString"].ConnectionString;
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                StatusLabel.Text = "Database connection string is not set.";
+                Response.Write("<script>alert('no db connection');</script>");
+                return;
+            }
+
+
+            //DateTime dateofIncident = date_of_incident;
+
+
             try
             {
-                using (SqlConnection con = new SqlConnection(strcon))
+                string filename = "NULL";
+                string extension = "NULL";
+                string customUploadPath = "NULL";
+                string savePath = "NULL";
+
+                if (FileUpload1.HasFile)
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_exp_tbl", con))
+                    filename = Path.GetFileName(FileUpload1.FileName);
+                    extension = Path.GetExtension(FileUpload1.FileName);
+                    customUploadPath = @"D:\Uploads\";
+
+
+                    // Ensure the custom directory exists
+                    if (!Directory.Exists(customUploadPath))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.Parameters.AddWithValue("@Date_of_Incident", date_of_issue);
-                        //cmd.Parameters.AddWithValue("@Time_of_Incident", time_of_issue);
-                        //cmd.Parameters.AddWithValue("@Name_of_Affected_person", name_person);
-                        //cmd.Parameters.AddWithValue("@Dept_name", dept_name.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@Location_Accident", accident_location);
-                        //cmd.Parameters.AddWithValue("@Nature_of_Incident", nature_of_incident.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@Accident_Description", describtion);
-                        //cmd.Parameters.AddWithValue("@Immediate_ActionTaken", immediate_action);
-                        //cmd.Parameters.AddWithValue("@Root_cause_Analysis", root_cause_analysis);
-                        //cmd.Parameters.AddWithValue("@Corrective_action_plan", corrective_action_plan);
-                        //cmd.Parameters.AddWithValue("@Completion_date", completion_date);
-                        //cmd.Parameters.AddWithValue("@Responsible_person", responsible_person);
-                        //cmd.Parameters.AddWithValue("@Corrective_action_impact", corrective_action_impact);
-                        //cmd.Parameters.AddWithValue("@Hazard_Study_Update", hazard_update.Checked);
-                        //cmd.Parameters.AddWithValue("@Remark", remarks);
+                        Directory.CreateDirectory(customUploadPath);
+                    }
 
-                        con.Open();
+                    savePath = Path.Combine(customUploadPath, filename);
+
+                    // Save the file to the specified path
+                    FileUpload1.SaveAs(savePath);
+                }
+
+                // Get the client's IP address
+                string ipAddress = GetClientIpAddress();
+
+                // Extract the selected value from the radio buttons
+                string hazardStudy = RadioYes.Checked ? "Yes" : "No";
+
+                // Insert file metadata into the database
+                DateTime now = DateTime.Now;
+
+
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open(); // Ensure the connection is open
+                    string query = "INSERT INTO accident_incident (date_of_incident, time_of_incident, name_of_affected_person, name_of_department, location_of_incident, nature_of_incident, drop_down_1, drop_down_2, drop_down_3, drop_down_4, drop_down_5, drop_down_6,describe_incident,  immediate_action, hazard_study, FName, FExtension, FilePath, CreatedDate, remarks, IPAddress, root_cause_1, root_cause_2, root_cause_3, root_cause_4, root_cause_5, corrective_action_1, corrective_action_2, corrective_action_3, responsible_person_1, responsible_person_2, responsible_person_3, date_of_completion_1, date_of_completion_2, date_of_completion_3) " +
+                        "VALUES (@date_of_incident, @time_of_incident, @name_of_affected_person, @name_of_department, @location_of_incident, @nature_of_incident, @drop_down_1, @drop_down_2, @drop_down_3, @drop_down_4, @drop_down_5, @drop_down_6, @describe_incident, @immediate_action, @hazard_study, @FName, @FExtension, @FilePath, @CreatedDate, @remarks, @IPAddress, @root_cause_1, @root_cause_2, @root_cause_3, @root_cause_4, @root_cause_5, @corrective_action_1, @corrective_action_2, @corrective_action_3, @responsible_person_1, @responsible_person_2, @responsible_person_3, @date_of_completion_1, @date_of_completion_2, @date_of_completion_3)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        // Add the text properties of TextBox controls
+                        cmd.Parameters.AddWithValue("@date_of_incident", date_of_incident.Text.Trim());
+                        cmd.Parameters.AddWithValue("@time_of_incident", time_of_incident.Text.Trim());
+                        cmd.Parameters.AddWithValue("@name_of_affected_person", name_of_affected_person.Text.Trim());
+                        cmd.Parameters.AddWithValue("@name_of_department", name_of_department.Text.Trim());
+                        cmd.Parameters.AddWithValue("@location_of_incident", location_of_incident.Text.Trim());
+                        cmd.Parameters.AddWithValue("@nature_of_incident", nature_of_incident.Text.Trim());
+                        cmd.Parameters.AddWithValue("@drop_down_1", drop_down_1.SelectedValue);
+                        cmd.Parameters.AddWithValue("@drop_down_2", drop_down_2.SelectedValue);
+                        cmd.Parameters.AddWithValue("@drop_down_3", drop_down_3.SelectedValue);
+                        cmd.Parameters.AddWithValue("@drop_down_4", drop_down_4.SelectedValue);
+                        cmd.Parameters.AddWithValue("@drop_down_5", drop_down_5.SelectedValue);
+                        cmd.Parameters.AddWithValue("@drop_down_6", drop_down_6.SelectedValue);
+                        cmd.Parameters.AddWithValue("@describe_incident", describe_incident.Text.Trim());
+                        cmd.Parameters.AddWithValue("@immediate_action", immediate_action.Text.Trim());
+                        cmd.Parameters.AddWithValue("@root_cause_1", root1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@root_cause_2", root2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@root_cause_3", root3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@root_cause_4", root4.Text.Trim());
+                        cmd.Parameters.AddWithValue("@root_cause_5", root5.Text.Trim());
+                        cmd.Parameters.AddWithValue("@corrective_action_1", corrective1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@corrective_action_2", corrective2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@corrective_action_3", corrective3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_1", resp1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_2", resp2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_3", resp3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_1", date1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_2", date2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_3", date3.Text.Trim());
+
+
+
+                        //cmd.Parameters.AddWithValue("@root_cause_analysis", root_cause_analysis.Text.Trim());
+                        //cmd.Parameters.AddWithValue("@corrective_action_plan", corrective_action_plan.Text.Trim());
+                        //cmd.Parameters.AddWithValue("@completion_date", completion_date.Text.Trim());
+                        //cmd.Parameters.AddWithValue("@responsible_person", responsible_person.Text.Trim());
+                        //cmd.Parameters.AddWithValue("@corrective_action_impact", corrective_action_impact.Text.Trim());
+                        cmd.Parameters.AddWithValue("@hazard_study", hazardStudy);
+                        cmd.Parameters.AddWithValue("@FName", filename);
+                        cmd.Parameters.AddWithValue("@FExtension", extension);
+                        cmd.Parameters.AddWithValue("@FilePath", savePath);
+                        cmd.Parameters.AddWithValue("@CreatedDate", now);
+                        cmd.Parameters.AddWithValue("@remarks", remarks.Text.Trim());
+                        cmd.Parameters.AddWithValue("@IPAddress", ipAddress.Trim());
+
                         cmd.ExecuteNonQuery();
+                        conn.Close();
 
-                        con.Close();
+                        string script = "<script>alert('Form Submitted Successfully'); alert('Now Redirecting to Dashboard'); window.location='Homepage.aspx';</script>";
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", script);
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions
-                Response.Write(ex.Message);
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+                Response.Write(" *********************************************************************************************"+ ex.Message+"");
             }
+
         }
-       
     }
 }
-

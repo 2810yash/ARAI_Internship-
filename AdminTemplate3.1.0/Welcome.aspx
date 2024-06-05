@@ -76,9 +76,9 @@
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
                                 <asp:DropDownList ID="site" CssClass="form-control select" runat="server">
-                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="kothrud"></asp:ListItem>
-                                    <asp:ListItem Text="ARAI-Chakan" Value="chakan"></asp:ListItem>
-                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="htc-chakan"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="ARAI-Kothrud"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-Chakan" Value="ARAI-Chakan"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="ARAI-HTC-Chakan"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
 
@@ -167,16 +167,6 @@
                                                     <asp:TextBox ID="contractorNam" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <!-- Number of Workers -->
-                                            <div class="mb-3 d-block">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="numWorkers0">Number of Workers:</span>
-                                                    <asp:TextBox ID="numWorkers" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
-                                                </div>
-                                                <div id="workers" style="width: auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
-                                            </div>
                                             <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
                                             <div class="d-flex mb-3">
                                                 <div class="input-group me-2">
@@ -186,7 +176,7 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="supervisorContact0">Contact Number:</span>
+                                                        id="supervisorContact0">Contact Number (Contractor):</span>
                                                     <asp:TextBox ID="supervisorContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -201,7 +191,7 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="araiEngContact0">Contact Number:</span>
+                                                        id="araiEngContact0">Contact Number (Engineer):</span>
                                                     <asp:TextBox ID="engiContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -218,60 +208,174 @@
                                                     <asp:TextBox ID="locateWork" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
+                                            <!-- Number of Workers -->
+                                            <div class="mb-3 d-block">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                        id="numWorkers0">Number of Workers:</span>
+                                                    <asp:TextBox ID="numWorkers" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
+                                                </div>
+                                                <div id="workers" style="width: auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div id="page2" class="page2 p-4">
-                                        <div class="input-group me-2">
-                                            <label class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                for="workPermit">
-                                                Work Permit Required:
-                                            </label>
-                                            <asp:DropDownList ID="workPermit" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
-                                            <asp:Button ID="addWP" runat="server" CssClass="btn btn-secondary rounded-end" OnClick="addWorkPermitBTN" Text="+ ADD" />
+                                        <div>
+                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
+                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Civil Work(Construction/Excavation & Painting)" /><br />
+                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Hot Works" /><br />
+                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Work on fragile roof" /><br />
+                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" High Tension Electrical Work" /><br />
+                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Low Tension Electrical Work" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)" /><br />
+                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
+                                        </div><br /><hr />
+                                        <div class="d-flex justify-content-around">
+                                            <div class="d-block">
+                                                <h5>Hazards Associated</h5>
+                                                <ul>
+                                                    <div id="check1-Hinfo" style="display: none;">
+                                                        <li>Breathlessness/Fainting</li>
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Fall of Material</li>
+                                                        <li>Poor Visibility</li>
+                                                        <li>InfectionOfViruses</li>
+                                                    </div>
+                                                    <div id="check2-Hinfo" style="display: none;">
+                                                        <li>Fall of Material</li>
+                                                        <li>Fall from height</li>
+                                                        <li>Tripping over equipment</li>
+                                                        <li>Exposure</li>
+                                                        <li>Unstable Adjacent Struct</li>
+                                                        <li>Mishandled/PoorlyP Materials</li>
+                                                        <li>Hazardous Atmosphere</li>
+                                                        <li>Eye Injury/Irritation</li>
+                                                        <li>Inhalation of fumes</li>
+                                                    </div>
+                                                    <div id="check3-Hinfo" style="display: none;"
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Exposure</li>
+                                                        <li>Eye Injury/Irritation</li>
+                                                        <li>Inhalation of fumes</li>
+                                                        <li>Accumulation of gases</li>
+                                                        <li>Property_Damage</li>
+                                                        <li>Allergies</li>
+                                                        <li>Suffocation</li>
+                                                    </div>
+                                                    <div id="check4-Hinfo" style="display: none;">...</div>
+                                                    <div id="check5-Hinfo" style="display: none;">...</div>
+                                                    <div id="check6-Hinfo" style="display: none;">...</div>
+                                                    <div id="check7-Hinfo" style="display: none;">...</div>
+                                                    <div id="check8-Hinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
+                                            <div class="d-block">
+                                                <h5>Precautions to be taken</h5>
+                                                <ul>
+                                                    <div id="check1-Pinfo" style="display: none;">
+                                                        <li>Remove Flammable/Explosive Materials</li>
+                                                        <li>Breathing apparatus</li>
+                                                        <li>Confirm Electrical equipment kept off</li>
+                                                        <li>Confirm oxygen levels are not below 19.5%</li>
+                                                        <li>Provide appropriate exhaust/ventilation</li>
+                                                        <li>Pipeline/Tank to be drained</li>
+                                                    </div>
+                                                    <div id="check2-Pinfo" style="display: none;">
+                                                        <li>Provide barricade</li>
+                                                        <li>Stacking to be made min 2 feet</li>
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Check routes of electrical cables</li>
+                                                    </div>
+                                                    <div id="check3-Pinfo" style="display: none;">
+                                                        <li>Provide appropriate exhaust/ventilation</li>
+                                                        <li>Check routes of electrical cables</li>
+                                                        <li>Perform hot work in safe location</li>
+                                                        <li>Use appropriate PPEs</li>
+                                                        <li>Check hose pipes</li>
+                                                        <li>Check exhaust</li>
+                                                    </div>
+                                                    <div id="check4-Pinfo" style="display: none;">...</div>
+                                                    <div id="check5-Pinfo" style="display: none;">...</div>
+                                                    <div id="check6-Pinfo" style="display: none;">...</div>
+                                                    <div id="check7-Pinfo" style="display: none;">...</div>
+                                                    <div id="check8-Pinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
+                                            <div class="d-block">
+                                                <h5>PPE's</h5>
+                                                <ul>
+                                                    <div id="check1-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Safety shoes</li>
+                                                        <li>High visibility jackets</li>
+                                                        <li>Dust masks</li>
+                                                        <li>Breathing apparatus</li>
+                                                        <li>Fire extinguisher</li>
+                                                        <li>Portable ladders</li>
+                                                        <li>Belts attached to rope</li>
+                                                        <li>Ear plugs/mufflers</li>
+                                                        <li>Torch</li>
+                                                    </div>
+                                                    <div id="check2-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Safety shoes</li>
+                                                        <li>High visibility jackets</li>
+                                                        <li>Dust masks</li>
+                                                        <li>Portable ladders</li>
+                                                        <li>Provide fall protection</li>
+                                                    </div>
+                                                    <div id="check3-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Use appropriate instrument</li>
+                                                        <li>Safety goggles/face shield</li>
+                                                        <li>Safety gloves/apron</li>
+                                                    </div>
+                                                    <div id="check4-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check5-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check6-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check7-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check8-PPEinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="demoGrid1" ForeColor="Black" GridLines="Horizontal" AllowPaging="True" AllowSorting="True">
-                                            <Columns>
-                                                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                                                <asp:BoundField DataField="Work_Permit" HeaderText="Work_Permit" SortExpression="Work_Permit" />
-                                                <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
-                                                <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
-                                                <asp:BoundField DataField="PPEs" HeaderText="PPEs" SortExpression="PPEs" />
-                                            </Columns>
-                                            <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
-                                            <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
-                                            <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
-                                            <SortedAscendingCellStyle BackColor="#F7F7F7" />
-                                            <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
-                                            <SortedDescendingCellStyle BackColor="#E5E5E5" />
-                                            <SortedDescendingHeaderStyle BackColor="#242121" />
-                                        </asp:GridView>
-
-                                        <asp:SqlDataSource ID="demoGrid1" runat="server" ConnectionString="<%$ ConnectionStrings:DemoConnectionString %>" SelectCommand="SELECT * FROM [Update_permit_tbl]"></asp:SqlDataSource>
-
-                                        <%--<div class="cont-2">
-                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions taken</label>
-                                            <div id="listContainer" class="input-group border-1 border-dark mb-1">
-                                                <ul>
-                                                    <li>Work to be carried out by trained manpower</li>
-                                                    <li>Provide safe means of access</li>
-                                                    <li>Strict supervision required</li>
-                                                </ul>
-                                            </div>
-                                        </div>--%>
-                                        <%--<div class="cont-3">
-                                            <label class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal Precautionary Equipment</label>
-                                            <div id="listContainer2" class="input-group border-1 border-dark mb-1">
-                                                <ul>
-                                                    <li>Portable ladders</li>
-                                                    <li>Safety Goggles and kit</li>
-                                                    <li>Helmet</li>
-                                                </ul>
-                                            </div>
-                                        </div>--%>
                                     </div>
-                                   
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Function to toggle visibility of info divs
+                                            function toggleInfoDiv(event) {
+                                                var checkboxId = event.target.id;
+                                                var HcheckboxId = checkboxId + '-Hinfo';  // Get info div ID based on checkbox ID
+                                                var PcheckboxId = checkboxId + '-Pinfo';  // Get info div ID based on checkbox ID
+                                                var PPEcheckboxId = checkboxId + '-PPEinfo';  // Get info div ID based on checkbox ID
+
+                                                var HinfoDiv = document.getElementById(HcheckboxId);
+                                                var PinfoDiv = document.getElementById(PcheckboxId);
+                                                var PPEinfoDiv = document.getElementById(PPEcheckboxId);
+
+                                                if (HinfoDiv) {
+                                                    HinfoDiv.style.display = HinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                                if (PinfoDiv) {
+                                                    PinfoDiv.style.display = PinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                                if (PPEinfoDiv) {
+                                                    PPEinfoDiv.style.display = PPEinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                            }
+
+                                            // Attach event listener to all checkboxes
+                                            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                                            checkboxes.forEach(function (checkbox) {
+                                                checkbox.addEventListener('click', toggleInfoDiv);
+                                            });
+                                        });
+
+                                    </script>
 
                                 </div>
 
@@ -283,7 +387,6 @@
                                         <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" OnClick="SubmitFrom" />
                                     </div>
                                 </div>
-
                             </div>
 
                        <%--   </asp:UpdatePanel>--%>

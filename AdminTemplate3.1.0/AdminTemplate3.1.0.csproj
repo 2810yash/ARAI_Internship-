@@ -110,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\arai.png" />
+    <Content Include="assets\im1.jpg" />
+    <Content Include="assets\img2.jpg" />
+    <Content Include="assets\img3.jpg" />
     <Content Include="AT3.1.0\build\config\postcss.config.js" />
     <Content Include="AT3.1.0\build\config\rollup.config.js" />
     <Content Include="AT3.1.0\build\js\AdminLTE.js" />

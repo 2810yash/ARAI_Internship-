@@ -123,33 +123,6 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.TextBox contractorNam;
 
         /// <summary>
-        /// numWorkers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox numWorkers;
-
-        /// <summary>
-        /// confirm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button confirm;
-
-        /// <summary>
-        /// workers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
-
-        /// <summary>
         /// supervisorNam control.
         /// </summary>
         /// <remarks>
@@ -204,40 +177,103 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.TextBox locateWork;
 
         /// <summary>
-        /// workPermit control.
+        /// numWorkers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList workPermit;
+        protected global::System.Web.UI.WebControls.TextBox numWorkers;
 
         /// <summary>
-        /// addWP control.
+        /// confirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addWP;
+        protected global::System.Web.UI.WebControls.Button confirm;
 
         /// <summary>
-        /// GridView1 control.
+        /// workers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
 
         /// <summary>
-        /// demoGrid1 control.
+        /// check1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource demoGrid1;
+        protected global::System.Web.UI.WebControls.CheckBox check1;
+
+        /// <summary>
+        /// check2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check2;
+
+        /// <summary>
+        /// check3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check3;
+
+        /// <summary>
+        /// check4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check4;
+
+        /// <summary>
+        /// check5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check5;
+
+        /// <summary>
+        /// check6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check6;
+
+        /// <summary>
+        /// check7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check7;
+
+        /// <summary>
+        /// check8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check8;
 
         /// <summary>
         /// submit control.
