@@ -82,10 +82,10 @@
                                                 <label>Site: </label>
                                                 <asp:DropDownList ID="site" CssClass="form-control select"
                                                     runat="server">
-                                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="kothrud">
+                                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="ARAI-Kothrud">
                                                     </asp:ListItem>
-                                                    <asp:ListItem Text="ARAI-Chakan" Value="chakan"></asp:ListItem>
-                                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="htc-chakan">
+                                                    <asp:ListItem Text="ARAI-Chakan" Value="ARAI-Chakan"></asp:ListItem>
+                                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="ARAI-HTC-Chakan">
                                                     </asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
@@ -116,21 +116,21 @@
                                                                 <div class="bg-light">
                                                                     <!-- permit number & date of issue: -->
                                                                     <div class="d-flex mb-3 mt-3">
-                                                                        <div class="input-group me-2">
-                                                                            <span
-                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                                                id="permitNo0">Permit No:</span>
-                                                                            <asp:TextBox ID="permitNum" Height="100%"
-                                                                                CssClass="form-control" runat="server">
-                                                                            </asp:TextBox>
-                                                                        </div>
+                                                                            <div class="input-group me-2">
+                                                                                <span
+                                                                                    class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                    id="permitNo0">Permit No:</span>
+                                                                                <asp:TextBox ID="permitNum" Height="100%"
+                                                                                    CssClass="form-control" required runat="server">
+                                                                                </asp:TextBox>
+                                                                            </div>
                                                                         <div class="input-group">
                                                                             <span
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center">Date
                                                                                 of Issue</span>
                                                                             <asp:TextBox TextMode="DateTimeLocal"
                                                                                 ID="issueDate" Height="100%"
-                                                                                CssClass="form-control" runat="server">
+                                                                                CssClass="form-control" required runat="server">
                                                                             </asp:TextBox>
                                                                         </div>
                                                                     </div>
@@ -142,7 +142,7 @@
                                                                                 id="validFrom">Permit Valid From:</span>
                                                                             <asp:TextBox TextMode="Date"
                                                                                 ID="perValidFrom" Height="100%"
-                                                                                CssClass="form-control datepicker"
+                                                                                CssClass="form-control datepicker" required
                                                                                 runat="server"></asp:TextBox>
                                                                         </div>
                                                                         <div class="input-group">
@@ -151,7 +151,7 @@
                                                                                 id="validTill">Permit Valid Till:</span>
                                                                             <asp:TextBox TextMode="Date"
                                                                                 ID="perValidTill" Height="100%"
-                                                                                CssClass="form-control " runat="server">
+                                                                                CssClass="form-control " required runat="server">
                                                                             </asp:TextBox>
                                                                         </div>
                                                                     </div>
@@ -165,7 +165,7 @@
                                                                             <div class="ms-2 me-2">
                                                                                 <asp:RadioButton
                                                                                     ID="special_license_yes" Text="Yes"
-                                                                                    runat="server"
+                                                                                    runat="server" 
                                                                                     GroupName="Special-License"
                                                                                     OnCheckedChanged="special_license_CheckedChanged" />
                                                                             </div>
@@ -198,7 +198,7 @@
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="esiNum0">ESI/Insurance No: </span>
                                                                             <asp:TextBox ID="esiNUM" Height="100%"
-                                                                                CssClass="form-control" runat="server">
+                                                                                CssClass="form-control" required runat="server">
                                                                             </asp:TextBox>
                                                                         </div>
                                                                         <div class="input-group me-2">
@@ -207,7 +207,7 @@
                                                                                 id="esiVal">ESI/Insurance Validity:
                                                                             </span>
                                                                             <asp:TextBox TextMode="Date" ID="esiVali"
-                                                                                Height="100%" CssClass="form-control"
+                                                                                Height="100%" CssClass="form-control" required
                                                                                 runat="server"></asp:TextBox>
                                                                         </div>
                                                                     </div>
@@ -219,7 +219,7 @@
                                                                                 id="vendors0">Name of Vendor or
                                                                                 Contractor Firm/Agency:</span>
                                                                             <asp:TextBox ID="contractorNam"
-                                                                                Height="100%" CssClass="form-control"
+                                                                                Height="100%" CssClass="form-control" required
                                                                                 runat="server"></asp:TextBox>
                                                                         </div>
                                                                     </div>
@@ -232,7 +232,7 @@
                                                                                 id="supervisor0">Name of
                                                                                 Vendor/Contractor Supervisor: </span>
                                                                             <asp:TextBox ID="supervisorNam"
-                                                                                Height="100%" CssClass="form-control"
+                                                                                Height="100%" CssClass="form-control" required
                                                                                 runat="server"></asp:TextBox>
                                                                         </div>
                                                                         <div class="input-group">
@@ -240,9 +240,9 @@
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="supervisorContact0">Contact
                                                                                 Number:</span>
-                                                                            <asp:TextBox ID="supervisorContactNUM"
+                                                                            <asp:TextBox ID="supervisorContactNUM" required
                                                                                 Height="100%" CssClass="form-control"
-                                                                                runat="server" MaxLength="10" TextMode="Phone" required></asp:TextBox>
+                                                                                runat="server" MaxLength="10" TextMode="Phone"></asp:TextBox>
                                                                         </div>
                                                                     </div>
                                                                     <!-- ARAI Engineer & contact number -->
@@ -253,7 +253,7 @@
                                                                                 for="araiEng">
                                                                                 ARAI Engineer:
                                                                             </label>
-                                                                            <asp:DropDownList ID="araiEng" Height="100%"
+                                                                            <asp:DropDownList ID="araiEng" Height="100%" required
                                                                                 CssClass="form-select" runat="server">
                                                                             </asp:DropDownList>
                                                                         </div>
@@ -263,7 +263,7 @@
                                                                                 id="araiEngContact0">Contact
                                                                                 Number:</span>
                                                                             <asp:TextBox ID="engiContactNUM"
-                                                                                Height="100%" CssClass="form-control"
+                                                                                Height="100%" CssClass="form-control" required
                                                                                 runat="server"></asp:TextBox>
                                                                         </div>
                                                                     </div>
@@ -274,7 +274,7 @@
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="desc0">Brief Description of
                                                                                 Work:</span>
-                                                                            <asp:TextBox ID="describeWork" Height="100%"
+                                                                            <asp:TextBox ID="describeWork" Height="100%" required
                                                                                 CssClass="form-control" runat="server">
                                                                             </asp:TextBox>
                                                                         </div>
@@ -282,7 +282,7 @@
                                                                             <span
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="location0">Location of Work:</span>
-                                                                            <asp:TextBox ID="locateWork" Height="100%"
+                                                                            <asp:TextBox ID="locateWork" Height="100%" required
                                                                                 CssClass="form-control" runat="server">
                                                                             </asp:TextBox>
                                                                         </div>
@@ -296,9 +296,9 @@
                                                                                 id="numWorkers0">Number of
                                                                                 Workers:</span>
                                                                             <asp:TextBox ID="numWorkers"
-                                                                                CssClass="form-control" runat="server">
+                                                                                CssClass="form-control" required runat="server">
                                                                             </asp:TextBox>
-                                                                            <asp:Button ID="confirm"
+                                                                            <asp:Button ID="confirm" required
                                                                                 CssClass="input-group-text btn btn-info border-1"
                                                                                 OnClick="confirm_Click" runat="server"
                                                                                 Text="Confirm" />
@@ -311,14 +311,14 @@
                                                             </div>
 
                                         <div id="page2" class="page2 p-4">
-                                        <div>
+                                        <div required>
                                             <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
                                             <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Civil Work(Construction/Excavation & Painting)" /><br />
                                             <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Hot Works" /><br />
                                             <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Work on fragile roof" /><br />
                                             <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" High Tension Electrical Work" /><br />
                                             <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Low Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)"  /><br />
                                             <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
                                         </div><br /><hr />
                                         <div class="d-flex justify-content-around">

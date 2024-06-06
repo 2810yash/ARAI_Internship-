@@ -154,8 +154,6 @@
                 <!-- /.card-tools -->
               </div>
                 <div class="card-body">
-                  
-                    <asp:SqlDataSource ID="demoPie" runat="server" ConnectionString="<%$ ConnectionStrings:strconn %>" SelectCommand="dbo.usp_GetDepartmentDistribution" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                   <canvas id="deptPieChart" width="600" height="300"></canvas>
                   <asp:HiddenField ID="piechart" runat="server" />
 
@@ -306,7 +304,7 @@
              var chartData4 = JSON.parse(document.getElementById('<%= siteChart.ClientID %>').value);
             var ctx4 = document.getElementById('sitePieChart').getContext('2d');
             var myChart4 = new Chart(ctx4, {
-                type: '',
+                type: 'pie',
                 data: {
                     labels: chartData4.labels,
                     datasets: [{

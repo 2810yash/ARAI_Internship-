@@ -156,6 +156,26 @@ namespace AdminTemplate3._1._0
             workers.Controls.Add(table);
         }
 
+        protected int validateDates(DateTime dateOfIssue, DateTime validFrom, DateTime validTill)
+        {
+            int flag = 0;
+            TimeSpan diff = validTill.Subtract(validFrom);
+            if(dateOfIssue > validTill)
+            {
+                flag = -1;
+                Response.Write("<script> alert('Valid Till Date cannot be earlier than Date of Issue!'); </script>");
+            } else if (dateOfIssue.Date > validFrom)
+            {
+                flag = -1;
+                Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
+            } else if (diff.Days > 15) 
+            {
+                flag = -1;
+                Response.Write("<script> alert('Valid Till Date cannot exceed 15 days!'); </script>");
+            }
+            return flag;
+        }
+
         protected void SubmitFrom(object sender, EventArgs e)
         {
             String siteName = site.SelectedValue;
@@ -163,6 +183,13 @@ namespace AdminTemplate3._1._0
             DateTime dateOfIssue = Convert.ToDateTime(issueDate.Text.Trim());
             DateTime validFrom = Convert.ToDateTime(perValidFrom.Text.Trim());
             DateTime validTill = Convert.ToDateTime(perValidTill.Text.Trim());
+            int flag = validateDates(dateOfIssue, validFrom, validTill);
+
+            if(flag<0)
+            {
+                return;
+            }
+
             bool hasSpecialLicenseYES = special_license_yes.Checked;
             String splWork = "NO SPL Licence";
             if (hasSpecialLicenseYES == true)
@@ -192,6 +219,7 @@ namespace AdminTemplate3._1._0
             //CheckBox bottons
             if (check1.Checked)
             {
+                
                 check1Txt = check1.Text;
             }
             if (check2.Checked)
@@ -221,6 +249,11 @@ namespace AdminTemplate3._1._0
             if (check8.Checked)
             {
                 check8Txt = check8.Text;
+            }
+            if(!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
+            {
+                Response.Write("<script>alert('Please select a work permit!');</script>");
+                return;
             }
             selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
             
@@ -259,6 +292,14 @@ namespace AdminTemplate3._1._0
                         {
                             storeWorkerDetails(workerNum, permitNumber);
                             Response.Write("<script>alert('Data added Successfully.');</script>");
+                            try
+                            {
+                                SendEmail(dateOfIssue);
+                            }
+                            catch (Exception ex)
+                            {
+                                Response.Write("<script> alert("+ex.Message+"); </script>");
+                            }
                         }
                         else
                         {
@@ -269,12 +310,6 @@ namespace AdminTemplate3._1._0
             }
             catch (Exception ex)
             {
-                Response.Write(ex.Message);
-            }
-
-            try {
-                SendEmail(dateOfIssue);
-            } catch (Exception ex) {
                 Response.Write(ex.Message);
             }
         }
@@ -329,7 +364,7 @@ namespace AdminTemplate3._1._0
                         }
                     } catch (Exception ex)
                     {
-                        Response.Write(ex);
+                        Response.Write("<script> alert(" + ex.Message + "); </script>");
                     }
                 }
             }
@@ -381,6 +416,7 @@ namespace AdminTemplate3._1._0
                 smtp.Port = 587;
                 smtp.Send(mail);
                 ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                Response.Redirect("Welcome.aspx");
             }
         }
     }
