@@ -24,6 +24,51 @@ namespace AdminTemplate3._1._0
             LoadBarChartData();
             LoadPieChartData();
             GetPermitCounts();
+            LoadSiteData();
+        }
+
+        private void LoadSiteData()
+        {
+            try
+            {
+                string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+                string query = "EXEC dbo.usp_GetSiteDistribution";
+
+                DataTable dt = new DataTable();
+
+                using (SqlConnection con = new SqlConnection(strcon))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                    }
+                }
+
+                var labels = new List<string>();
+                var data = new List<int>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    labels.Add(row["SiteName"].ToString());
+                    data.Add((int)row["SiteCount"]);
+                }
+
+                var chartData2 = new
+                {
+                    labels = labels,
+                    data = data
+                };
+
+                JavaScriptSerializer serializer2 = new JavaScriptSerializer();
+                siteChart.Value = serializer2.Serialize(chartData2);
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Could not load data for charts: " + ex + "');</script>");
+            }
         }
 
         private void LoadBarChartData()

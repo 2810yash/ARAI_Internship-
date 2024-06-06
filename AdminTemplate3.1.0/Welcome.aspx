@@ -310,233 +310,129 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div id="page2" class="page2 p-4">
-                                                                <h5>Job Safety Assessment</h5>
-                                                                <div class="d-flex">
-                                                                    <div style="width: 100%;">
-                                                                        <br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check1" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk1" for="check1"
-                                                                                style="width: 60%;" runat="server">
-                                                                                Entry into vessels/tanks/manholes/A.C.
-                                                                                Ducts/Cooling towers/fire fighting
-                                                                                equipment</label>
-                                                                        </div>
-                                                                        <br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check2" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk2" for="check2"
-                                                                                style="width: 60%;" runat="server">Civil
-                                                                                Work(Construction/Excavation &
-                                                                                Painting)</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check3" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk3" for="check3"
-                                                                                style="width: 60%;" runat="server">Hot Works</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check4" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk4" for="check4"
-                                                                                style="width: 60%;" runat="server">Work on fragile
-                                                                                roof</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check5" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk5" for="check5"
-                                                                                style="width: 60%;" runat="server">High Tension
-                                                                                Electrical Work</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check6" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk6" for="check6"
-                                                                                style="width: 60%;" runat="server">Low Tension
-                                                                                Electrical Work</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check7" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" id="chk7" for="check7"
-                                                                                style="width: 60%;" runat="server">Working on height
-                                                                                (More than 3 meters)</label>
-                                                                        </div><br />
-                                                                        <div class="input-group d-flex">
-                                                                            <div class="bg-secondary d-flex justify-content-center align-items-center"
-                                                                                style="width: 30px;">
-                                                                                <input type="checkbox" id="check8" runat="server">
-                                                                            </div>
-                                                                            <label class="form-control" Id="chk8" for="check8"
-                                                                                style="width: 60%;" runat="server">
-                                                                                Others (Mobile crane operations,
-                                                                                loading/unloading on gas cylinder,
-                                                                                unloading of liquid nitrogen)</label>
-                                                                        </div>
-                                                                    </div>
-
-
-                                                                </div>
-
-
-                                                                <br />
-                                                                <br />
-
-
-                                                                <div class="d-flex justify-content-between">
-                                                                    <asp:Panel ID="Panel1" runat="server">
-                                                                        <label
-                                                                            class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Hazards
-                                                                            Associated</label>
-                                                                        <div id="listContainer1"
-                                                                            class="input-group border-1 border-dark mb-1">
-                                                                            <br>
-                                                                            <p>
-                                                                            <ul>
-                                                                                <div id="check1-Hinfo"
-                                                                                    style="display: none;">
-                                                                                    <li>Breathlessness/Fainting</li>
-                                                                                    <li>Fire</li>
-                                                                                    <li>Explosion</li>
-                                                                                    <li>Fall of Material</li>
-                                                                                    <li>Poor Visibility</li>
-                                                                                    <li>InfectionOfViruses</li>
-                                                                                </div>
-                                                                                <div id="check2-Hinfo"
-                                                                                    style="display: none;">
-                                                                                    <li>Fall of Material</li>
-                                                                                    <li>Fall from height</li>
-                                                                                    <li>Tripping over equipment</li>
-                                                                                    <li>Exposure</li>
-                                                                                    <li>Unstable Adjacent Struct</li>
-                                                                                    <li>Mishandled/PoorlyP Materials
-                                                                                    </li>
-                                                                                    <li>Hazardous Atmosphere</li>
-                                                                                    <li>Eye Injury/Irritation</li>
-                                                                                    <li>Inhalation of fumes</li>
-                                                                                </div>
-                                                                            </ul>
-                                                                            </p>
-                                                                            <div id="check3-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                            <div id="check4-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                            <div id="check5-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                            <div id="check6-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                            <div id="check7-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                            <div id="check8-Hinfo"
-                                                                                style="display: none;">...</div>
-                                                                        </div>
-                                                                    </asp:Panel>
-                                                                    <asp:Panel ID="Panel2" runat="server">
-                                                                        <label
-                                                                            class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions
-                                                                            taken</label>
-                                                                        <div id="listContainer2"
-                                                                            class="input-group border-1 border-dark mb-1">
-                                                                            <br>
-                                                                            <p>
-                                                                            <ul>
-                                                                                <div id="check1-Pinfo"
-                                                                                    style="display: none;">
-                                                                                    <li>Remove Flammable/Explosive
-                                                                                        Materials</li>
-                                                                                    <li>Breathing apparatus</li>
-                                                                                    <li>Confirm Electrical equipment
-                                                                                        kept off</li>
-                                                                                    <li>Confirm oxygen levels are not
-                                                                                        below 19.5%</li>
-                                                                                    <li>Provide appropriate
-                                                                                        exhaust/ventilation</li>
-                                                                                    <li>Pipeline/Tank to be drained</li>
-                                                                                </div>
-                                                                                <div id="check2-Pinfo"
-                                                                                    style="display: none;">
-                                                                                    <li>Provide barricade</li>
-                                                                                    <li>Stacking to be made min 2 feet
-                                                                                    </li>
-                                                                                    <li>Provide safe means of access
-                                                                                    </li>
-                                                                                    <li>Check routes of electrical
-                                                                                        cables</li>
-                                                                                </div>
-                                                                                <div id="check3-Pinfo"
-                                                                                    style="display: none;">
-                                                                                    <li>Provide appropriate
-                                                                                        exhaust/ventilation</li>
-                                                                                    <li>Stacking to be made min 2 feet
-                                                                                    </li>
-                                                                                    <li>Provide safe means of access
-                                                                                    </li>
-                                                                                    <li>Check routes of electrical
-                                                                                        cables</li>
-                                                                                </div>
-                                                                            </ul>
-                                                                            </p>
-                                                                        </div>
-                                                                    </asp:Panel>
-                                                                    <asp:Panel ID="Panel3" runat="server">
-                                                                        <label
-                                                                            class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal
-                                                                            Protective Equipment</label>
-                                                                        <div id="listContainer3"
-                                                                            class="input-group border-1 border-dark mb-1">
-                                                                            <ul>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </asp:Panel>
-                                                                </div>
-                                                                <%--<div class="cont-2">
-                                                                    <label
-                                                                        class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Precautions
-                                                                        taken</label>
-                                                                    <div id="listContainer"
-                                                                        class="input-group border-1 border-dark mb-1">
-                                                                        <ul>
-                                                                            <li>Work to be carried out by trained
-                                                                                manpower</li>
-                                                                            <li>Provide safe means of access</li>
-                                                                            <li>Strict supervision required</li>
-                                                                        </ul>
-                                                                    </div>
-                                                            </div>--%>
-                                                            <%--<div class="cont-3">
-                                                                <label
-                                                                    class="text-wrap form-col-sm-9 m-lg-1 border-bottom-0">Personal
-                                                                    Precautionary Equipment</label>
-                                                                <div id="listContainer2"
-                                                                    class="input-group border-1 border-dark mb-1">
-                                                                    <ul>
-                                                                        <li>Portable ladders</li>
-                                                                        <li>Safety Goggles and kit</li>
-                                                                        <li>Helmet</li>
-                                                                    </ul>
-                                                                </div>
-                                                        </div>--%>
+                                        <div id="page2" class="page2 p-4">
+                                        <div>
+                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
+                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Civil Work(Construction/Excavation & Painting)" /><br />
+                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Hot Works" /><br />
+                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Work on fragile roof" /><br />
+                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" High Tension Electrical Work" /><br />
+                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Low Tension Electrical Work" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)" /><br />
+                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
+                                        </div><br /><hr />
+                                        <div class="d-flex justify-content-around">
+                                            <div class="d-block">
+                                                <h5>Hazards Associated</h5>
+                                                <ul>
+                                                    <div id="check1-Hinfo" style="display: none;">
+                                                        <li>Breathlessness/Fainting</li>
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Fall of Material</li>
+                                                        <li>Poor Visibility</li>
+                                                        <li>InfectionOfViruses</li>
                                                     </div>
-
+                                                    <div id="check2-Hinfo" style="display: none;">
+                                                        <li>Fall of Material</li>
+                                                        <li>Fall from height</li>
+                                                        <li>Tripping over equipment</li>
+                                                        <li>Exposure</li>
+                                                        <li>Unstable Adjacent Struct</li>
+                                                        <li>Mishandled/PoorlyP Materials</li>
+                                                        <li>Hazardous Atmosphere</li>
+                                                        <li>Eye Injury/Irritation</li>
+                                                        <li>Inhalation of fumes</li>
+                                                    </div>
+                                                    <div id="check3-Hinfo" style="display: none;"
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Exposure</li>
+                                                        <li>Eye Injury/Irritation</li>
+                                                        <li>Inhalation of fumes</li>
+                                                        <li>Accumulation of gases</li>
+                                                        <li>Property_Damage</li>
+                                                        <li>Allergies</li>
+                                                        <li>Suffocation</li>
+                                                    </div>
+                                                    <div id="check4-Hinfo" style="display: none;">...</div>
+                                                    <div id="check5-Hinfo" style="display: none;">...</div>
+                                                    <div id="check6-Hinfo" style="display: none;">...</div>
+                                                    <div id="check7-Hinfo" style="display: none;">...</div>
+                                                    <div id="check8-Hinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
+                                            <div class="d-block">
+                                                <h5>Precautions to be taken</h5>
+                                                <ul>
+                                                    <div id="check1-Pinfo" style="display: none;">
+                                                        <li>Remove Flammable/Explosive Materials</li>
+                                                        <li>Breathing apparatus</li>
+                                                        <li>Confirm Electrical equipment kept off</li>
+                                                        <li>Confirm oxygen levels are not below 19.5%</li>
+                                                        <li>Provide appropriate exhaust/ventilation</li>
+                                                        <li>Pipeline/Tank to be drained</li>
+                                                    </div>
+                                                    <div id="check2-Pinfo" style="display: none;">
+                                                        <li>Provide barricade</li>
+                                                        <li>Stacking to be made min 2 feet</li>
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Check routes of electrical cables</li>
+                                                    </div>
+                                                    <div id="check3-Pinfo" style="display: none;">
+                                                        <li>Provide appropriate exhaust/ventilation</li>
+                                                        <li>Check routes of electrical cables</li>
+                                                        <li>Perform hot work in safe location</li>
+                                                        <li>Use appropriate PPEs</li>
+                                                        <li>Check hose pipes</li>
+                                                        <li>Check exhaust</li>
+                                                    </div>
+                                                    <div id="check4-Pinfo" style="display: none;">...</div>
+                                                    <div id="check5-Pinfo" style="display: none;">...</div>
+                                                    <div id="check6-Pinfo" style="display: none;">...</div>
+                                                    <div id="check7-Pinfo" style="display: none;">...</div>
+                                                    <div id="check8-Pinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
+                                            <div class="d-block">
+                                                <h5>PPE's</h5>
+                                                <ul>
+                                                    <div id="check1-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Safety shoes</li>
+                                                        <li>High visibility jackets</li>
+                                                        <li>Dust masks</li>
+                                                        <li>Breathing apparatus</li>
+                                                        <li>Fire extinguisher</li>
+                                                        <li>Portable ladders</li>
+                                                        <li>Belts attached to rope</li>
+                                                        <li>Ear plugs/mufflers</li>
+                                                        <li>Torch</li>
+                                                    </div>
+                                                    <div id="check2-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Safety shoes</li>
+                                                        <li>High visibility jackets</li>
+                                                        <li>Dust masks</li>
+                                                        <li>Portable ladders</li>
+                                                        <li>Provide fall protection</li>
+                                                    </div>
+                                                    <div id="check3-PPEinfo" style="display: none;">
+                                                        <li>Helmets</li>
+                                                        <li>Use appropriate instrument</li>
+                                                        <li>Safety goggles/face shield</li>
+                                                        <li>Safety gloves/apron</li>
+                                                    </div>
+                                                    <div id="check4-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check5-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check6-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check7-PPEinfo" style="display: none;">...</div>
+                                                    <div id="check8-PPEinfo" style="display: none;">...</div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
 
                                     <div id="page3" class="page-3 p-4">

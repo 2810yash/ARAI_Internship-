@@ -208,16 +208,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check1;
-        
-        /// <summary>
-        /// chk1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk1;
+        protected global::System.Web.UI.WebControls.CheckBox check1;
         
         /// <summary>
         /// check2 control.
@@ -226,16 +217,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check2;
-        
-        /// <summary>
-        /// chk2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk2;
+        protected global::System.Web.UI.WebControls.CheckBox check2;
         
         /// <summary>
         /// check3 control.
@@ -244,16 +226,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check3;
-        
-        /// <summary>
-        /// chk3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk3;
+        protected global::System.Web.UI.WebControls.CheckBox check3;
         
         /// <summary>
         /// check4 control.
@@ -262,16 +235,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check4;
-        
-        /// <summary>
-        /// chk4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk4;
+        protected global::System.Web.UI.WebControls.CheckBox check4;
         
         /// <summary>
         /// check5 control.
@@ -280,16 +244,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check5;
-        
-        /// <summary>
-        /// chk5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk5;
+        protected global::System.Web.UI.WebControls.CheckBox check5;
         
         /// <summary>
         /// check6 control.
@@ -298,16 +253,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check6;
-        
-        /// <summary>
-        /// chk6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk6;
+        protected global::System.Web.UI.WebControls.CheckBox check6;
         
         /// <summary>
         /// check7 control.
@@ -316,16 +262,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check7;
-        
-        /// <summary>
-        /// chk7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk7;
+        protected global::System.Web.UI.WebControls.CheckBox check7;
         
         /// <summary>
         /// check8 control.
@@ -334,43 +271,7 @@ namespace AdminTemplate3._1._0 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox check8;
-        
-        /// <summary>
-        /// chk8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chk8;
-        
-        /// <summary>
-        /// Panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
-        
-        /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-        
-        /// <summary>
-        /// Panel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel3;
+        protected global::System.Web.UI.WebControls.CheckBox check8;
         
         /// <summary>
         /// submit control.

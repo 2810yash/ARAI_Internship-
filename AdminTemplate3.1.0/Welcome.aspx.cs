@@ -55,7 +55,7 @@ namespace AdminTemplate3._1._0
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
             sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[WorkPermit] WHERE Spl_License=1", sqlcon);
             sql_command.CommandType = CommandType.Text;
             spl_Licence.DataSource = sql_command.ExecuteReader();
             spl_Licence.DataTextField = "Work_Permit";
@@ -156,24 +156,6 @@ namespace AdminTemplate3._1._0
             workers.Controls.Add(table);
         }
 
-
-        //protected void addWorkPermit_Click(object sender, EventArgs e)
-        //{
-        //    string selectedVal = workPermit.SelectedValue;
-
-        //    // Retrieve previously appended values from ViewState
-        //    string appendedValues = ViewState["AppendedValues"].ToString();
-
-        //    // Append the new selected value
-        //    appendedValues += selectedVal + "<br />";
-
-        //    // Update the ViewState with the new appended values
-        //    ViewState["AppendedValues"] = appendedValues;
-
-        //    // Update the Panel with the appended values
-        //    Panel1.Controls.Clear(); // Clear existing controls
-        //    Panel1.Controls.Add(new LiteralControl(appendedValues));
-        //}
         protected void SubmitFrom(object sender, EventArgs e)
         {
             String siteName = site.SelectedValue;
@@ -198,22 +180,50 @@ namespace AdminTemplate3._1._0
             String engiContact = engiContactNUM.Text.Trim();
             String workDescription = describeWork.Text.Trim();
             String workLocation = locateWork.Text.Trim();
-            String permitsIssued = null;
-
-
-
-
-
-            if (check1.Checked == true)
+            string check1Txt = "";
+            string check2Txt = "";
+            string check3Txt = "";
+            string check4Txt = "";
+            string check5Txt = "";
+            string check6Txt = "";
+            string check7Txt = "";
+            string check8Txt = "";
+            string selectedWorkPer = "";
+            //CheckBox bottons
+            if (check1.Checked)
             {
-                permitsIssued = "Entry into vessels/tanks/manholes/A.C Ducts / Cooling towers / fire fighting equipment";
+                check1Txt = check1.Text;
             }
-            if (check4.Checked == true)
+            if (check2.Checked)
             {
-                permitsIssued = "Work on fragile roof";
-            } 
-
-
+                check2Txt = check2.Text;
+            }
+            if (check3.Checked)
+            {
+                check3Txt = check3.Text;
+            }
+            if (check4.Checked)
+            {
+                check4Txt = check4.Text;
+            }
+            if (check5.Checked)
+            {
+                check5Txt = check5.Text;
+            }
+            if (check6.Checked)
+            {
+                check6Txt = check6.Text;
+            }
+            if (check7.Checked)
+            {
+                check7Txt = check7.Text;
+            }
+            if (check8.Checked)
+            {
+                check8Txt = check8.Text;
+            }
+            selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
+            
             try
             {
                 int result = 0;
@@ -239,7 +249,8 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@DescofWork", workDescription);
                         cmd.Parameters.AddWithValue("@Location", workLocation);
                         cmd.Parameters.AddWithValue("@DeptIssued", deptName);
-                        cmd.Parameters.AddWithValue("@PermitsIssued", permitsIssued);
+                        cmd.Parameters.AddWithValue("@PermitsIssued", selectedWorkPer);
+                        cmd.Parameters.AddWithValue("@SiteName", siteName);
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();

@@ -154,63 +154,37 @@
                 <!-- /.card-tools -->
               </div>
                 <div class="card-body">
-                    <%--<asp:Chart ID="Chart1" runat="server" DataSourceID="demoPie">
-                        <Series>
-                            <asp:Series Name="Series1" ChartType="Pie" YValueMembers="DeptCount"></asp:Series>
-                        </Series>
-                        <ChartAreas>
-                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                        </ChartAreas>
-                    </asp:Chart>--%>
+                  
                     <asp:SqlDataSource ID="demoPie" runat="server" ConnectionString="<%$ ConnectionStrings:strconn %>" SelectCommand="dbo.usp_GetDepartmentDistribution" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
                   <canvas id="deptPieChart" width="600" height="300"></canvas>
                   <asp:HiddenField ID="piechart" runat="server" />
-              <%--<div class="card-body">
-<%--             <div id="world-map" style="height: 250px; width: 100%;"></div>
-                  <canvas id="deptPieChart" width="600" height="300"></canvas>
-                  <asp:HiddenField ID="piechart" runat="server" /> --%>
+
               </div>
               <!-- /.card-body-->
             </div>
             <!-- /.card -->
 
             <!-- Calendar -->
-            <div class="card bg-gradient-success">
+            <div class="card bg-white">
               <div class="card-header border-0">
-
                 <h3 class="card-title">
-                  <i class="far fa-calendar-alt"></i>
-                  Calendar
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Site Wise Issues
                 </h3>
-                <!-- tools card -->
+                <!-- card tools -->
                 <div class="card-tools">
-                  <!-- button with a dropdown -->
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                      <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                      <a href="#" class="dropdown-item">Add new event</a>
-                      <a href="#" class="dropdown-item">Clear events</a>
-                      <div class="dropdown-divider"></div>
-                      <a href="#" class="dropdown-item">View calendar</a>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-                <!-- /. tools -->
+                </div>  
+                <!-- /.card-tools -->
               </div>
-              <!-- /.card-header -->
-              <div class="card-body pt-0">
-                <!--The calendar -->
-                <div id="calendar" style="width: 100%"></div>
+                <div class="card-body">
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:strconn %>" SelectCommand="dbo.usp_GetSiteDistribution" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                  <canvas id="sitePieChart" width="600" height="300"></canvas>
+                  <asp:HiddenField ID="siteChart" runat="server" />
               </div>
-              <!-- /.card-body -->
+              <!-- /.card-body-->
             </div>
             <!-- /.card -->
           </section>
@@ -325,6 +299,46 @@
                     title: {
                         display: true,
                         text: 'Work Permit Distribution by Department'
+                    }
+                }
+            });
+
+             var chartData4 = JSON.parse(document.getElementById('<%= siteChart.ClientID %>').value);
+            var ctx4 = document.getElementById('sitePieChart').getContext('2d');
+            var myChart4 = new Chart(ctx4, {
+                type: '',
+                data: {
+                    labels: chartData4.labels,
+                    datasets: [{
+                        label: 'Department Distribution',
+                        data: chartData4.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Work Permit Distribution by Site'
                     }
                 }
             });
