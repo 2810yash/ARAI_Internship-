@@ -504,7 +504,7 @@
                         <span>Responsible person 3</span>
                     </div>
                     <div class="inputBox">
-                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date3" required="required"></asp:TextBox>
+                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="Completion_date" required="required"></asp:TextBox>
                         <span>Date of Completion 3</span>
                     </div>
                 </div>
@@ -519,7 +519,7 @@
                 </div>
                 <div class="datentime">
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" TextMode="Date" ID="" required="required" runat="server"></asp:TextBox>
                         <span>Completion Date</span>
                     </div>
 
@@ -622,7 +622,7 @@
 
                     function validateDates() {
                         var dateOfIncident = document.getElementById('<%= date_of_incident.ClientID %>').value;
-                        var completionDate = document.getElementById('<%= completion_date.ClientID %>').value;
+                        var completionDate = document.getElementById('<%= Completion_date.ClientID %>').value;
 
                         if (dateOfIncident && completionDate) {
                             var incidentDate = new Date(dateOfIncident);

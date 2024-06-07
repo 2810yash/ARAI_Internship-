@@ -7,38 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0 {
-    
-    
-    public partial class WebForm1 {
-        
-        /// <summary>
-        /// date_of_incident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date_of_incident;
-        
-        /// <summary>
-        /// time_of_incident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox time_of_incident;
-        
-        /// <summary>
-        /// name_of_affected_person control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox name_of_affected_person;
-        
+namespace AdminTemplate3._1._0
+{
+
+
+    public partial class WebForm1
+    {
+
         /// <summary>
         /// incident_id control.
         /// </summary>
@@ -220,60 +195,6 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.TextBox root5;
 
         /// <summary>
-        /// corrective1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox corrective1;
-
-        /// <summary>
-        /// resp1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox resp1;
-
-        /// <summary>
-        /// date1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date1;
-
-        /// <summary>
-        /// corrective2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox corrective2;
-
-        /// <summary>
-        /// resp2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox resp2;
-
-        /// <summary>
-        /// date2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date2;
-
-        /// <summary>
         /// corrective3 control.
         /// </summary>
         /// <remarks>
@@ -292,13 +213,13 @@ namespace AdminTemplate3._1._0 {
         protected global::System.Web.UI.WebControls.TextBox resp3;
 
         /// <summary>
-        /// date3 control.
+        /// Completion_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date3;
+        protected global::System.Web.UI.WebControls.TextBox Completion_date;
 
         /// <summary>
         /// RadioYes control.

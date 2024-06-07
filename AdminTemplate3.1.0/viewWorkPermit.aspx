@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">Name of Supervisor: 
-                                            <asp:Label runat="server" ID="contractorName" Text='<%# Eval("NameofFirm_Agency") %>'></asp:Label>
+                                            <asp:Label runat="server" ID="contractorName" Text='<%# Eval("[NameofFirm/Agency]") %>'></asp:Label>
                                         </h5>
                                         <p class="card-text">
                                             Date of Issue: 

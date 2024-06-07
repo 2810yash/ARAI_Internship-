@@ -288,10 +288,10 @@
                                                                             <asp:TextBox ID="numWorkers"
                                                                                 CssClass="form-control" required runat="server">
                                                                             </asp:TextBox>
-                                                                            <asp:Button ID="confirm" required
+                                                                            <%--<asp:Button ID="confirm" required
                                                                                 CssClass="input-group-text btn btn-info border-1"
                                                                                 OnClick="confirm_Click" runat="server"
-                                                                                Text="Confirm" />
+                                                                                Text="Confirm" />--%>
                                                                         </div>
                                                                         <div id="workers" style="width: auto;"
                                                                             class="mt-2 mb-0 d-flex justify-content-around"

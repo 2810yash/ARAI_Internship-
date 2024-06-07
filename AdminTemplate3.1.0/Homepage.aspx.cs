@@ -51,17 +51,17 @@ namespace AdminTemplate3._1._0
 
         private int FetchNewOrdersCountFromDatabase()
         {
-           /* int count = 0;
-            using (SqlConnection connection = new SqlConnection(strcon))
-            {
-                string query = "SELECT COUNT(*) FROM IncidentReport";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    count = (int)command.ExecuteScalar();
-                }
-            }
-            return count;*/
+            /* int count = 0;
+             using (SqlConnection connection = new SqlConnection(strcon))
+             {
+                 string query = "SELECT COUNT(*) FROM IncidentReport";
+                 using (SqlCommand command = new SqlCommand(query, connection))
+                 {
+                     connection.Open();
+                     count = (int)command.ExecuteScalar();
+                 }
+             } */
+            return 0;
         }
 
         private int FetchBounceRateFromDatabase()

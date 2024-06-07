@@ -54,7 +54,7 @@ namespace AdminTemplate3._1._0
         //}
         private void LoadPermitDetails()
         {
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl";
+            string query = "SELECT PermitNumber, [NameofFirm/Agency], DateofIssue, PermitValidFrom FROM permit_details_tbl";
             SqlConnection con = new SqlConnection(Main_con);
             SqlCommand cmd = new SqlCommand(query, con);
             con.Open();
@@ -175,9 +175,9 @@ namespace AdminTemplate3._1._0
                 PermitValidTill, 
                 SpecialLicense, 
                 SpecialLicenseType, 
-                ESI_InsuranceNo AS InsuranceNo, 
-                ESI_Validity AS InsuranceValidity, 
-                NameofFirm_Agency AS AgencyName, 
+                [ESI/InsuranceNo] AS InsuranceNo, 
+                [ESI/Validity] AS InsuranceValidity, 
+                [NameofFirm/Agency] AS AgencyName, 
                 NumberofWorkers AS WorkerNo, 
                 NameofSupervisor AS ContractorName, 
                 ContractorContactNumber AS ContractorNo, 

@@ -41,7 +41,7 @@ namespace AdminTemplate3._1._0
                 int numberOfWorkers;
                 if (int.TryParse(numWorkers.Text, out numberOfWorkers))
                 {
-                    CreateWorkerTable(numberOfWorkers);
+                    //CreateWorkerTable(numberOfWorkers);
                 }
             }
         }
@@ -77,19 +77,19 @@ namespace AdminTemplate3._1._0
             dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
             dt.Columns.Add(new DataColumn("Column1", typeof(string)));
             dt.Columns.Add(new DataColumn("Column2", typeof(int)));
-            dt.Columns.Add(new DataColumn("Column3", typeof(CheckBox)));
+            dt.Columns.Add(new DataColumn("Column3", typeof(int)));
             dr = dt.NewRow();
             dr["RowNumber"] = 1;
             dr["Column1"] = string.Empty;
-            dr["Column2"] = int.Empty;
-            dr["Column3"] = CheckBox.true;
+            dr["Column2"] = 0;
+            dr["Column3"] = 0;
             dt.Rows.Add(dr);
 
             //dr = dt.NewRow;
             //Store the DataTable in ViewState
             ViewState["CurrentTable"] = dt;
-            Gridview1.DataSource = dt;
-            Gridview1.DataBind();
+            //Gridview1.DataSource = dt;
+            //Gridview1.DataBind();
         }
 
         protected void special_license_CheckedChanged(object sender, EventArgs e) 
@@ -97,88 +97,6 @@ namespace AdminTemplate3._1._0
             spl_Licence.Visible = special_license_yes.Checked;
         }
         protected void WPcheckBox_Load(object sender, EventArgs e) { }
-
-        protected void CreateWorkerTable(int numberOfWorkers)
-        {
-            workers.Controls.Clear();
-            Table table = new Table();
-            table.CssClass = "table table-bordered";
-
-            TableRow tableFirstRow = new TableRow();
-            string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Helmet", "Remarks" };
-            for (int i = 0; i < headerText.Length; i++)
-            {
-                TableCell cell = new TableCell();
-                cell.Text = headerText[i];
-                tableFirstRow.Cells.Add(cell);
-            }
-            table.Rows.Add(tableFirstRow);
-
-            for (int i = 0; i < numberOfWorkers; i++)
-            {
-                TableRow row = new TableRow();
-
-                TableCell srNoCell = new TableCell();
-                srNoCell.Text = (i + 1).ToString();
-                row.Cells.Add(srNoCell);
-
-                TableCell nameCell = new TableCell();
-                nameCell.Controls.Add(new TextBox { ID = "txtName_" + i });
-                row.Cells.Add(nameCell);
-
-                TableCell ageCell = new TableCell();
-                TextBox ageTextBox = new TextBox { ID = "txtAge_" + i };
-                ageCell.Controls.Add(ageTextBox);
-                row.Cells.Add(ageCell);
-
-                RegularExpressionValidator ageValidator = new RegularExpressionValidator();
-                ageValidator.ControlToValidate = ageTextBox.ID;
-                ageValidator.ValidationExpression = @"\d+";
-                ageValidator.ErrorMessage = "Please enter a numeric value for Age.";
-                ageValidator.CssClass = "text-danger";
-                ageCell.Controls.Add(ageValidator);
-
-                TableCell maskCell = new TableCell();
-                maskCell.Controls.Add(new CheckBox { ID = "chkMask_" + i, Checked = true });
-                row.Cells.Add(maskCell);
-
-                TableCell gogglesCell = new TableCell();
-                gogglesCell.Controls.Add(new CheckBox { ID = "chkGoggles_" + i, Checked = true });
-                row.Cells.Add(gogglesCell);
-
-                TableCell safetyShoesCell = new TableCell();
-                safetyShoesCell.Controls.Add(new CheckBox { ID = "chkSafetyShoes_" + i, Checked = true });
-                row.Cells.Add(safetyShoesCell);
-
-                TableCell jacketsCell = new TableCell();
-                jacketsCell.Controls.Add(new CheckBox { ID = "chkJackets_" + i, Checked = true });
-                row.Cells.Add(jacketsCell);
-
-                TableCell glovesCell = new TableCell();
-                glovesCell.Controls.Add(new CheckBox { ID = "chkGloves_" + i, Checked = true });
-                row.Cells.Add(glovesCell);
-
-                TableCell earPlugsCell = new TableCell();
-                earPlugsCell.Controls.Add(new CheckBox { ID = "chkEarPlugs_" + i, Checked = true });
-                row.Cells.Add(earPlugsCell);
-
-                TableCell beltCell = new TableCell();
-                beltCell.Controls.Add(new CheckBox { ID = "chkBelt_" + i, Checked = true });
-                row.Cells.Add(beltCell);
-
-                TableCell helmetCell = new TableCell();
-                helmetCell.Controls.Add(new CheckBox { ID = "chkHelmet_" + i, Checked = true });
-                row.Cells.Add(helmetCell);
-
-                TableCell remarksCell = new TableCell();
-                remarksCell.Controls.Add(new TextBox { ID = "txtRemarks_" + i });
-                row.Cells.Add(remarksCell);
-
-                table.Rows.Add(row);
-            }
-
-            workers.Controls.Add(table);
-        }
 
         protected int validateDates(DateTime dateOfIssue, DateTime validFrom, DateTime validTill)
         {
@@ -316,11 +234,11 @@ namespace AdminTemplate3._1._0
 
                         if (result > 0)
                         {
-                            storeWorkerDetails(workerNum, permitNumber);
+                            //storeWorkerDetails(workerNum, permitNumber);
                             Response.Write("<script>alert('Data added Successfully.');</script>");
                             try
                             {
-                                SendEmail(dateOfIssue);
+                                SendEmail(dateOfIssue, permitNumber);
                             }
                             catch (Exception ex)
                             {
@@ -390,13 +308,10 @@ namespace AdminTemplate3._1._0
             }
             return permitDetails;
         }
-        protected void sendEmail(string permitNumber)
+
+        protected void SendEmail(DateTime dateOfIssue, string permitNumber)
         {
             PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
-
-
-        protected void SendEmail(DateTime dateOfIssue)
-        {
             //Response.Write("<script>alert('Dept Name: " + deptName + "');</script>");
             string email;
             int flag = -1;
