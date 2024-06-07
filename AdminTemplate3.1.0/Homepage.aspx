@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" enableEventValidation="false" CodeBehind="Homepage.aspx.cs" Inherits="AdminTemplate3._1._0.Homepage" %>
     
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
       <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -113,17 +114,20 @@
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active justify-content-center" id="month-chart" style="position: relative; height: 370px;">
-                        <asp:Chart ID="Chart1" CssClass="ms-5" runat="server" Width="500px" Height="350px" DataSourceID="SqlDataSource2">
+                        <%--<asp:Chart ID="Chart1" runat="server" DataSourceID="demoPieChart">
                             <Series>
-                                <asp:Series Name="Series1" XValueMember="Month" YValueMembers="IncidentCount" YValuesPerPoint="2">
-                                </asp:Series>
+                                <asp:Series Name="Series1" ChartType="Pie" YValueMembers="date_of_incident"></asp:Series>
                             </Series>
                             <ChartAreas>
                                 <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                             </ChartAreas>
-                        </asp:Chart>
-                        <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:strconn %>' SelectCommand="SELECT MONTH([Date_of_Incident]) AS Month, COUNT(*) AS IncidentCount FROM [IncidentReport] GROUP BY MONTH([Date_of_Incident])"></asp:SqlDataSource>
+                        </asp:Chart>--%>
+                        
+                        <%--<asp:SqlDataSource runat="server" ID="demoPieChart" ConnectionString='<%$ ConnectionStrings:DemoConnectionString %>' SelectCommand="SELECT [date_of_incident] FROM [accident_incident]"></asp:SqlDataSource>--%>
+                        <canvas id="accidentChart" width="400" height="200"></canvas>
+                        <asp:HiddenField ID="hfChartData" runat="server" />
                     </div>
+     
                 </div>
               </div><!-- /.card-body -->
             </div>
@@ -141,29 +145,10 @@
                 <!-- /.card-tools -->
               </div>
               <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
+                  <canvas id="accidentChart2" width="400" height="200"></canvas>
               </div>
               <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
+              
             </div>
             <!-- /.card -->
 
@@ -216,5 +201,38 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+    
+  <script>
+       
+        window.onload = function () {
+            var chartData1 = JSON.parse(document.getElementById('<%= hfChartData.ClientID %>').value);
+            var ctx = document.getElementById('accidentChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData1.labels,
+                    datasets: [{
+                        label: 'Number of Incident-Accident Forms Issued',
+                        data: chartData1.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+    </script>
+
+
   <!-- /.content-wrapper -->
 </asp:Content>

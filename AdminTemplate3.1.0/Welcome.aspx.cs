@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
@@ -32,13 +29,23 @@ namespace AdminTemplate3._1._0
             {
                 arai_Engineer_list();
                 splWorkPermit_list();
-                if (ViewState["NumberOfWorkers"] != null)
+            }
+
+            if (!Page.IsPostBack)
+            {
+                SetInitialRow();
+            }
+
+            if (IsPostBack)
+            {
+                int numberOfWorkers;
+                if (int.TryParse(numWorkers.Text, out numberOfWorkers))
                 {
-                    int numberOfWorkers = (int)ViewState["NumberOfWorkers"];
                     CreateWorkerTable(numberOfWorkers);
                 }
             }
         }
+
         protected void arai_Engineer_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -50,7 +57,7 @@ namespace AdminTemplate3._1._0
             araiEng.DataBind();
             araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
-        
+
         protected void splWorkPermit_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -62,26 +69,43 @@ namespace AdminTemplate3._1._0
             spl_Licence.DataBind();
             spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
         }
-        protected void special_license_CheckedChanged(object sender, EventArgs e) { }
-        protected void confirm_Click(object sender, EventArgs e)
-        {
-            int numberOfWorkers;
-            if (int.TryParse(numWorkers.Text, out numberOfWorkers))
-            {
-                ViewState["NumberOfWorkers"] = numberOfWorkers;
-                CreateWorkerTable(numberOfWorkers);
-            }
 
+        private void SetInitialRow()
+        {
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+            dt.Columns.Add(new DataColumn("Column1", typeof(string)));
+            dt.Columns.Add(new DataColumn("Column2", typeof(int)));
+            dt.Columns.Add(new DataColumn("Column3", typeof(CheckBox)));
+            dr = dt.NewRow();
+            dr["RowNumber"] = 1;
+            dr["Column1"] = string.Empty;
+            dr["Column2"] = int.Empty;
+            dr["Column3"] = CheckBox.true;
+            dt.Rows.Add(dr);
+
+            //dr = dt.NewRow;
+            //Store the DataTable in ViewState
+            ViewState["CurrentTable"] = dt;
+            Gridview1.DataSource = dt;
+            Gridview1.DataBind();
         }
+
+        protected void special_license_CheckedChanged(object sender, EventArgs e) 
+        {
+            spl_Licence.Visible = special_license_yes.Checked;
+        }
+        protected void WPcheckBox_Load(object sender, EventArgs e) { }
 
         protected void CreateWorkerTable(int numberOfWorkers)
         {
-            //workers.Controls.Clear();
+            workers.Controls.Clear();
             Table table = new Table();
             table.CssClass = "table table-bordered";
 
             TableRow tableFirstRow = new TableRow();
-            string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Goggles", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Helmet", "Remarks" };
+            string[] headerText = { "Sr. No.", "Name of Workers", "AGE", "Mask", "Safety Shoes/ Gum Boots", "Jackets/ Aprons", "Gloves", "Ear plug/ muffs", "Belt/ Harness", "Helmet", "Remarks" };
             for (int i = 0; i < headerText.Length; i++)
             {
                 TableCell cell = new TableCell();
@@ -178,6 +202,7 @@ namespace AdminTemplate3._1._0
 
         protected void SubmitFrom(object sender, EventArgs e)
         {
+            // Obtain values from the permit form
             String siteName = site.SelectedValue;
             String permitNumber = permitNum.Text.Trim();
             DateTime dateOfIssue = Convert.ToDateTime(issueDate.Text.Trim());
@@ -196,7 +221,6 @@ namespace AdminTemplate3._1._0
             {
                 splWork = spl_Licence.SelectedValue;
             }
-            bool hasSpecialLicenseNO = special_license_no.Checked;
             String esiNumber = esiNUM.Text.Trim();
             DateTime esiValidity = Convert.ToDateTime(esiVali.Text.Trim());
             String contractorName = contractorNam.Text.Trim();
@@ -260,6 +284,7 @@ namespace AdminTemplate3._1._0
             try
             {
                 int result = 0;
+                // Insert permit details
                 using (SqlConnection con = new SqlConnection(Main_con))
                 {
                     using (SqlCommand cmd = new SqlCommand("usp_workPermit_tbl", con))
@@ -285,6 +310,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@PermitsIssued", selectedWorkPer);
                         cmd.Parameters.AddWithValue("@SiteName", siteName);
                         con.Open();
+                        // Execute the command and get the result
                         result = cmd.ExecuteNonQuery();
                         con.Close();
 
@@ -310,65 +336,63 @@ namespace AdminTemplate3._1._0
             }
             catch (Exception ex)
             {
-                Response.Write(ex.Message);
+                Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
             }
         }
-        protected void storeWorkerDetails(int workerNum, string permitNumber)
+
+        protected PermitDetails GetPermitDetailsByNumber(string permitNumber)
         {
-            int result;
+            PermitDetails permitDetails = null;
             using (SqlConnection con = new SqlConnection(Main_con))
             {
-                for (int i = 0; i < workerNum; i++)
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM permit_details_tbl WHERE PermitNumber = @PermitNumber", con))
                 {
-                    // Obtain worker details from the form
-                    TextBox txtName = (TextBox)workers.FindControl("txtName_" + i);
-                    TextBox txtAge = (TextBox)workers.FindControl("txtAge_" + i);
-
-                    if (txtName == null || txtAge == null)
-                    {
-                        Response.Write($"<script>console.log('Worker details control not found: txtName_{i}, txtAge_{i}');</script>");
-                        continue; // Skip this iteration if controls are not found
-                    }
-
-                    String workerName = txtName.Text;
-                    int workerAge = 0;
-                    if (!int.TryParse(txtAge.Text, out workerAge))
-                    {
-                        Response.Write($"<script>console.log('Invalid age input for worker {i + 1}');</script>");
-                        continue; // Skip this iteration if age is not a valid integer
-                    }
-
+                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
                     try
                     {
-                        using (SqlCommand cmdWorker = new SqlCommand("InsertWorkerDetails", con))
+                        if (reader.Read())
                         {
-                            cmdWorker.CommandType = CommandType.StoredProcedure;
-                            // Add parameters for worker details
-                            cmdWorker.Parameters.AddWithValue("@PermitID", permitNumber);
-                            cmdWorker.Parameters.AddWithValue("@WorkerName", workerName);
-                            cmdWorker.Parameters.AddWithValue("@WorkerAge", workerAge);
-                            // Add other worker details parameters similarly...
-
-                            // Execute the command to insert worker details
-                            result = cmdWorker.ExecuteNonQuery();
+                            permitDetails = new PermitDetails
+                            {
+                                SiteName = reader["SiteName"].ToString(),
+                                PermitNumber = reader["PermitNumber"].ToString(),
+                                DateofIssue = reader["DateofIssue"].ToString(),
+                                PermitValidFrom = reader["PermitValidFrom"].ToString(),
+                                PermitValidTill = reader["PermitValidTill"].ToString(),
+                                SpecialLicense = reader["SpecialLicense"].ToString(),
+                                SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
+                                InsuranceNo = reader["InsuranceNo"].ToString(),
+                                InsuranceValidity = reader["InsuranceValidity"].ToString(),
+                                AgencyName = reader["AgencyName"].ToString(),
+                                WorkerNo = reader["WorkerNo"].ToString(),
+                                ContractorName = reader["ContractorName"].ToString(),
+                                ContractorNo = reader["ContractorNo"].ToString(),
+                                EngineerName = reader["EngineerName"].ToString(),
+                                EngineerNo = reader["EngineerNo"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                workPermits = reader["workPermits"].ToString()
+                            };
 
                         }
-                        // Insert worker details using the stored procedure
-
-                        if (result>0)
-                        {
-
-                        } else
-                        {
-                            Response.Write("<script>alert('Could not store worker details!) </script>");
-                        }
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
-                        Response.Write("<script> alert(" + ex.Message + "); </script>");
+                        Response.Write("<script>console.log('Error reading from database: " + ex.Message + "');</script>");
+                    }
+                    finally
+                    {
+                        reader.Close();
                     }
                 }
             }
+            return permitDetails;
         }
+        protected void sendEmail(string permitNumber)
+        {
+            PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
 
 
         protected void SendEmail(DateTime dateOfIssue)

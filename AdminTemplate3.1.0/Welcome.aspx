@@ -30,14 +30,13 @@
 
     <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper position-relative">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mt-5">
                             <h1 class="m-0">WorkPermit</h1>
                         </div>
                         <!-- /.col -->
@@ -61,54 +60,45 @@
                 <div class="container-fluid">
                     <%-- Page started here--%>
 
-                        <%--<div data-aos="slide-up">--%>
-                            <div>
-                                <%-- Blinking TEXT --%>
-                                    <div class="headline text-align-center">
-                                        <h6 class="blink-text text-align-center m-1">Security shall check work permit
-                                            and allow
-                                            workers to enter with valid work permit in case of below mentioned works
-                                        </h6>
-                                        <h6 class="blink-text text-align-center m-1">Work permit to be filled by
-                                            contractor in
-                                            consultation with ARAI officials (of work intending dept.)</h6>
-                                        <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays
-                                            will be
-                                            under strict supervision of work intending departments</h6>
-                                    </div>
-                                    <div>
-                                        <%-- Site Name--%>
-                                            <div class="card-header justify-content-between">
-                                                <label>Site: </label>
-                                                <asp:DropDownList ID="site" CssClass="form-control select"
-                                                    runat="server">
-                                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="ARAI-Kothrud">
-                                                    </asp:ListItem>
-                                                    <asp:ListItem Text="ARAI-Chakan" Value="ARAI-Chakan"></asp:ListItem>
-                                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="ARAI-HTC-Chakan">
-                                                    </asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
+                    <%--<div data-aos="slide-up">--%>
+                    <div>
+                        <%-- Blinking TEXT --%>
+                        <div class="headline text-align-center">
+                            <h6 class="blink-text text-align-center m-1">Security shall check work permit and allow
+                                workers to enter with valid work permit in case of below mentioned works</h6>
+                            <h6 class="blink-text text-align-center m-1">Work permit to be filled by contractor in
+                                consultation with ARAI officials (of work intending dept.)</h6>
+                            <h6 class="blink-text text-align-center m-1">Work on Saturday/Sunday & holidays will be
+                                under strict supervision of work intending departments</h6>
+                        </div>
+                        <div>
+                            <%-- Site Name--%>
+                            <div class="card-header justify-content-between">
+                                <label>Site: </label>
+                                <asp:DropDownList ID="site" CssClass="form-control select" runat="server">
+                                    <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="ARAI-Kothrud"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-Chakan" Value="ARAI-Chakan"></asp:ListItem>
+                                    <asp:ListItem Text="ARAI-HTC-Chakan" Value="ARAI-HTC-Chakan"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
 
                                             <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
 
-                                                <%-- Permit Form--%>
-                                                    <div class="position-relative" id="expand">
-                                                        <nav id="navbar-example2"
-                                                            class="navbar navbar-light bg-light px-3">
-                                                            <ul class="nav nav-pills">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#page1">Details</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#page2">Job Safety
-                                                                        Assessment</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#page3">Workers Info</a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
+                            <%-- Permit Form--%>
+                            <div class="position-relative" id="expand">
+                               <%-- <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#page1">Details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#page2">Job Safety Assessment</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#page3">Workers Info</a>
+                                        </li>
+                                    </ul>
+                                </nav>--%>
 
                                                         <div class="bg-light rounded" id="Pages">
 
@@ -310,15 +300,19 @@
                                                                 </div>
                                                             </div>
 
-                                        <div id="page2" class="page2 p-4">
-                                        <div required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="page2" class="page2 p-4">
+                                        <div>
                                             <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
                                             <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Civil Work(Construction/Excavation & Painting)" /><br />
                                             <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Hot Works" /><br />
                                             <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Work on fragile roof" /><br />
                                             <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" High Tension Electrical Work" /><br />
                                             <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Low Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)"  /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Working on height (More than 3 meters)" /><br />
                                             <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
                                         </div><br /><hr />
                                         <div class="d-flex justify-content-around">
@@ -356,11 +350,26 @@
                                                         <li>Allergies</li>
                                                         <li>Suffocation</li>
                                                     </div>
-                                                    <div id="check4-Hinfo" style="display: none;">...</div>
-                                                    <div id="check5-Hinfo" style="display: none;">...</div>
-                                                    <div id="check6-Hinfo" style="display: none;">...</div>
-                                                    <div id="check7-Hinfo" style="display: none;">...</div>
-                                                    <div id="check8-Hinfo" style="display: none;">...</div>
+                                                    <div id="check4-Hinfo" style="display: none;">
+                                                        <li>Fall from height</li>
+                                                    </div>
+                                                    <div id="check5-Hinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Electrical Shock</li>
+                                                    </div>
+                                                    <div id="check6-Hinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Electrical Shock</li>
+                                                    </div>
+                                                    <div id="check7-Hinfo" style="display: none;">
+                                                        <li>Fall from height</li>
+                                                        <li>Fractures and dislocations</li>
+                                                    </div>
+                                                    <div id="check8-Hinfo" style="display: none;"></div>
                                                 </ul>
                                             </div>
                                             <div class="d-block">
@@ -388,10 +397,31 @@
                                                         <li>Check hose pipes</li>
                                                         <li>Check exhaust</li>
                                                     </div>
-                                                    <div id="check4-Pinfo" style="display: none;">...</div>
-                                                    <div id="check5-Pinfo" style="display: none;">...</div>
-                                                    <div id="check6-Pinfo" style="display: none;">...</div>
-                                                    <div id="check7-Pinfo" style="display: none;">...</div>
+                                                    <div id="check4-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Provide ladder attendant</li>
+                                                    </div>
+                                                    <div id="check5-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>First aider available</li>
+                                                    </div>
+                                                    <div id="check6-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Provide fire watch/guard</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>First aider available</li>
+                                                    </div>
+                                                    <div id="check7-Pinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>Use of scaffold</li>
+                                                    </div>
                                                     <div id="check8-Pinfo" style="display: none;">...</div>
                                                 </ul>
                                             </div>
@@ -433,20 +463,49 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Function to toggle visibility of info divs
+                                            function toggleInfoDiv(event) {
+                                                var checkboxId = event.target.id;
+                                                var HcheckboxId = checkboxId + '-Hinfo';  // Get info div ID based on checkbox ID
+                                                var PcheckboxId = checkboxId + '-Pinfo';  // Get info div ID based on checkbox ID
+                                                var PPEcheckboxId = checkboxId + '-PPEinfo';  // Get info div ID based on checkbox ID
 
-                                    <div id="page3" class="page-3 p-4">
-                                        <div class="d-flex justify-content-between mt-3 mb-2">
-                                            <button type="reset"
-                                                class="btn btn-outline-secondary align-self-end invisible"
-                                                onclick="clearFields('workDetails')">
-                                                Back
-                                            </button>
-                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end"
-                                                runat="server" Text="Submit" OnClick="SubmitFrom" />
-                                        </div>
-                                    </div>
+                                                var HinfoDiv = document.getElementById(HcheckboxId);
+                                                var PinfoDiv = document.getElementById(PcheckboxId);
+                                                var PPEinfoDiv = document.getElementById(PPEcheckboxId);
 
+                                                if (HinfoDiv) {
+                                                    HinfoDiv.style.display = HinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                                if (PinfoDiv) {
+                                                    PinfoDiv.style.display = PinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                                if (PPEinfoDiv) {
+                                                    PPEinfoDiv.style.display = PPEinfoDiv.style.display === 'none' ? 'block' : 'none';
+                                                }
+                                            }
+
+                                            // Attach event listener to all checkboxes
+                                            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                                            checkboxes.forEach(function (checkbox) {
+                                                checkbox.addEventListener('click', toggleInfoDiv);
+                                            });
+                                        });
+
+                                    </script>
+
+                                </div>
+
+                                <div id="page3" class="page-3 p-4">
+                                    <div class="d-flex justify-content-between mt-3 mb-2">
+                                        <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
+                                            onclick="clearFields('workDetails')">
+                                            Back</button>
+                                        <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" OnClick="SubmitFrom" />
+                                    </div>
+                                </div>
                             </div>
 
                             <%-- </asp:UpdatePanel>--%>

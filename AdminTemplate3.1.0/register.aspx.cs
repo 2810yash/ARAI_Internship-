@@ -1,43 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace AdminTemplate3._1._0
+﻿namespace AdminTemplate3._1._0
 {
     public partial class register : System.Web.UI.Page
     {
-        string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        private SqlCommand cmd;
+        /* string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+         private SqlCommand cmd;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                dept_list();
-            }
-        }
+         protected void Page_Load(object sender, EventArgs e)
+         {
+             if (!IsPostBack)
+             {
+                 dept_list();
+             }
+         }
 
-        protected void dept_list()
-        {
-            SqlConnection sqlcon = new SqlConnection(strconn2);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[Department_TBL]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            dept.DataSource = sql_command.ExecuteReader();
-            dept.DataTextField = "Dept_Name";
-            //araiEng.DataValueField = "DeptID";
-            dept.DataBind();
-            dept.Items.Insert(0, new ListItem("-- Select Department Name --", "0"));
-        }
+         protected void dept_list()
+         {
+             SqlConnection sqlcon = new SqlConnection(strconn2);
+             sqlcon.Open();
+             SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[Department_TBL]", sqlcon);
+             sql_command.CommandType = CommandType.Text;
+             dept.DataSource = sql_command.ExecuteReader();
+             dept.DataTextField = "Dept_Name";
+             //araiEng.DataValueField = "DeptID";
+             dept.DataBind();
+             dept.Items.Insert(0, new ListItem("-- Select Department Name --", "0"));*/
+    }
+}
         
         // Sign Up Button
-        protected void Button1_Click(object sender, EventArgs e)
+       /* protected void Button1_Click(object sender, EventArgs e)
         {
             String userName = regiName.Text.Trim();
             String email = regiEmail.Text.Trim();
@@ -74,8 +65,8 @@ namespace AdminTemplate3._1._0
 
         protected void SignUpNewUser(String userName, String email, String pass, String selectedRole, String selectedDept)
         {
-            //SqlConnection con = new SqlConnection(strconn2);
-            try
+           /SqlConnection con = new SqlConnection(strconn2);
+            /*try
             {
                 string hashedPassword = PasswordHelper.HashPassword(pass);
                 int result = 0;
@@ -101,18 +92,19 @@ namespace AdminTemplate3._1._0
                         {
                             Response.Write("<script>alert('Register UnSuccessfully. Try Again');</script>");
                         }
-                    }
-                }
+                    }*/
+           /*     }
             }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-        }
+           // catch (Exception ex)
+            //{
+               // Response.Write(ex.Message);
+           // }
+        }*/
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("login.aspx");
+            //Response.Redirect("login.aspx");
         }
     }
+
 }

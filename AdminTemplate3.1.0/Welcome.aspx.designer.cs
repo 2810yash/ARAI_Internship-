@@ -13,15 +13,6 @@ namespace AdminTemplate3._1._0 {
     public partial class Welcome {
         
         /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
-        /// <summary>
         /// site control.
         /// </summary>
         /// <remarks>
@@ -128,7 +119,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox supervisorNam;
-        
+
         /// <summary>
         /// supervisorContactNUM control.
         /// </summary>
@@ -137,7 +128,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox supervisorContactNUM;
-        
+
         /// <summary>
         /// araiEng control.
         /// </summary>
@@ -146,7 +137,7 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList araiEng;
-        
+
         /// <summary>
         /// engiContactNUM control.
         /// </summary>
@@ -155,9 +146,66 @@ namespace AdminTemplate3._1._0 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox engiContactNUM;
-        
+
         /// <summary>
         /// describeWork control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox describeWork;
+
+        /// <summary>
+        /// locateWork control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox locateWork;
+
+        protected global::System.Web.UI.WebControls.TextBox supervisorNam;
+        
+        /// <summary>
+        /// supervisorContactNUM control.
+        /// numWorkers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox supervisorContactNUM;
+        
+        protected global::System.Web.UI.WebControls.TextBox numWorkers;
+
+        /// <summary>
+        /// araiEng control.
+        /// confirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList araiEng;
+        
+        protected global::System.Web.UI.WebControls.Button confirm;
+
+        /// <summary>
+        /// engiContactNUM control.
+        /// workers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox engiContactNUM;
+        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
+
+        /// <summary>
+        /// describeWork control.
+        /// ScriptManager2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -183,8 +231,11 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox numWorkers;
         
+        protected global::System.Web.UI.ScriptManager ScriptManager2;
+
         /// <summary>
         /// confirm control.
+        /// updatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -192,8 +243,11 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button confirm;
         
+        protected global::System.Web.UI.UpdatePanel updatePanel1;
+
         /// <summary>
         /// workers control.
+        /// Gridview1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -201,6 +255,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl workers;
         
+        protected global::System.Web.UI.WebControls.GridView Gridview1;
+
         /// <summary>
         /// check1 control.
         /// </summary>
@@ -210,6 +266,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check1;
         
+        protected global::System.Web.UI.WebControls.CheckBox check1;
+
         /// <summary>
         /// check2 control.
         /// </summary>
@@ -219,6 +277,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check2;
         
+        protected global::System.Web.UI.WebControls.CheckBox check2;
+
         /// <summary>
         /// check3 control.
         /// </summary>
@@ -228,6 +288,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check3;
         
+        protected global::System.Web.UI.WebControls.CheckBox check3;
+
         /// <summary>
         /// check4 control.
         /// </summary>
@@ -237,6 +299,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check4;
         
+        protected global::System.Web.UI.WebControls.CheckBox check4;
+
         /// <summary>
         /// check5 control.
         /// </summary>
@@ -246,6 +310,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check5;
         
+        protected global::System.Web.UI.WebControls.CheckBox check5;
+
         /// <summary>
         /// check6 control.
         /// </summary>
@@ -255,6 +321,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check6;
         
+        protected global::System.Web.UI.WebControls.CheckBox check6;
+
         /// <summary>
         /// check7 control.
         /// </summary>
@@ -264,6 +332,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check7;
         
+        protected global::System.Web.UI.WebControls.CheckBox check7;
+
         /// <summary>
         /// check8 control.
         /// </summary>
@@ -273,6 +343,8 @@ namespace AdminTemplate3._1._0 {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox check8;
         
+        protected global::System.Web.UI.WebControls.CheckBox check8;
+
         /// <summary>
         /// submit control.
         /// </summary>
