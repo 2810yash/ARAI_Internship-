@@ -208,7 +208,6 @@
                 <img src="assets/img3.jpg" alt="Image 3" />
             </div>
 
-
             <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
@@ -279,7 +278,7 @@
                             <asp:ListItem Text="Others" Value="10"></asp:ListItem>
                         </asp:DropDownList>
                         <div id="othersTextBox" style="display: none;">
-                            <input type="text" id="txtOthers" placeholder="Enter details" />
+                            <input type="text" id="txtOthers" placeholder="Enter details" />1
                         </div>
 
                     </div>
@@ -489,37 +488,10 @@
                 <br />
 
 
-                <div class="datentime">
-                  
-                    <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" ID="corrective1" required="required"></asp:TextBox>
-                        <span>Corrective action taken 1</span>
-                    </div>
-                    <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" ID="resp1" required="required"></asp:TextBox>
-                        <span>Responsible person 1</span>
-                    </div>
-                    <div class="inputBox">
-                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date1" required="required"></asp:TextBox>
-                        <span>Date of Completion 1</span>
-                    </div>
-                </div>
 
-                 <div class="datentime">
-                  
-                    <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" ID="corrective2" required="required"></asp:TextBox>
-                        <span>Corrective action taken 2</span>
-                    </div>
-                    <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" ID="resp2" required="required"></asp:TextBox>
-                        <span>Responsible person 2</span>
-                    </div>
-                    <div class="inputBox">
-                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date2" required="required"></asp:TextBox>
-                        <span>Date of Completion 2</span>
-                    </div>
-                </div>
+                
+
+
 
                 <div class="datentime">
                   
