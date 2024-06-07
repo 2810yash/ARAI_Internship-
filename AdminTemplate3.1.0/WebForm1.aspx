@@ -212,6 +212,10 @@
             <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" ID="incident_id" required="required" runat="server"></asp:TextBox>
+                        <span>Enter Incident Id</span>
+                    </div>
+                    <div class="inputBox">
                         <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date_of_incident" required="required"></asp:TextBox>
                         <span>Date of Incident/Accident</span>
                     </div>

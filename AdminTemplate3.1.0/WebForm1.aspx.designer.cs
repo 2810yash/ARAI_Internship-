@@ -15,6 +15,15 @@ namespace AdminTemplate3._1._0
     {
 
         /// <summary>
+        /// incident_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox incident_id;
+
+        /// <summary>
         /// date_of_incident control.
         /// </summary>
         /// <remarks>

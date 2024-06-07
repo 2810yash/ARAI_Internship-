@@ -30,7 +30,6 @@
 
     <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper position-relative">
             <!-- Content Header (Page header) -->
@@ -139,12 +138,7 @@
                                                     <div class="ms-2">
                                                         <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
                                                 </div>
-                                                <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server">
-                                                    <%--<asp:ListItem Text="-- Select Special License Work --" Value=""></asp:ListItem>
-                                                    <asp:ListItem Text="High Tension Electrical Work" Value="elec-contractor"></asp:ListItem>
-                                                    <asp:ListItem Text="Height Work" Value="hgt-work"></asp:ListItem>
-                                                    <asp:ListItem Text="Crane Operator" Value="crn-operator"></asp:ListItem>--%>
-                                                </asp:DropDownList>
+                                                <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server"></asp:DropDownList>
                                             </div>
                                             <!-- ESI/Insurance No & Its Date -->
                                             <div class="d-flex mb-3">
@@ -217,6 +211,43 @@
                                                     <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
                                                 </div>
                                                 <div id="workers" style="width: auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
+
+                                                <div class="card-body p-1 mt-2">
+                                                    <form onsubmit="return false;">
+                                                        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+                                                        <asp:UpdatePanel ID="updatePanel1" runat="server">
+                                                            <ContentTemplate>
+
+                                                                <asp:GridView ID="Gridview1" runat="server" ShowFooter="true" AutoGenerateColumns="false">
+                                                                    <Columns>
+                                                                        <asp:BoundField DataField="RowNumber" HeaderText="Row Number" />
+                                                                        <asp:TemplateField HeaderText="Header 1">
+                                                                            <ItemTemplate>
+                                                                                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Header 2">
+                                                                            <ItemTemplate>
+                                                                                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Header 3">
+                                                                            <ItemTemplate>
+                                                                                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                            <FooterStyle HorizontalAlign="Right" />
+                                                                            <FooterTemplate>
+                                                                                <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_Click" />
+                                                                            </FooterTemplate>
+                                                                        </asp:TemplateField>
+                                                                    </Columns>
+                                                                </asp:GridView>
+
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </form>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -267,11 +298,26 @@
                                                         <li>Allergies</li>
                                                         <li>Suffocation</li>
                                                     </div>
-                                                    <div id="check4-Hinfo" style="display: none;">...</div>
-                                                    <div id="check5-Hinfo" style="display: none;">...</div>
-                                                    <div id="check6-Hinfo" style="display: none;">...</div>
-                                                    <div id="check7-Hinfo" style="display: none;">...</div>
-                                                    <div id="check8-Hinfo" style="display: none;">...</div>
+                                                    <div id="check4-Hinfo" style="display: none;">
+                                                        <li>Fall from height</li>
+                                                    </div>
+                                                    <div id="check5-Hinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Electrical Shock</li>
+                                                    </div>
+                                                    <div id="check6-Hinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Electrical Shock</li>
+                                                    </div>
+                                                    <div id="check7-Hinfo" style="display: none;">
+                                                        <li>Fall from height</li>
+                                                        <li>Fractures and dislocations</li>
+                                                    </div>
+                                                    <div id="check8-Hinfo" style="display: none;"></div>
                                                 </ul>
                                             </div>
                                             <div class="d-block">
@@ -299,10 +345,31 @@
                                                         <li>Check hose pipes</li>
                                                         <li>Check exhaust</li>
                                                     </div>
-                                                    <div id="check4-Pinfo" style="display: none;">...</div>
-                                                    <div id="check5-Pinfo" style="display: none;">...</div>
-                                                    <div id="check6-Pinfo" style="display: none;">...</div>
-                                                    <div id="check7-Pinfo" style="display: none;">...</div>
+                                                    <div id="check4-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Provide ladder attendant</li>
+                                                    </div>
+                                                    <div id="check5-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>First aider available</li>
+                                                    </div>
+                                                    <div id="check6-Pinfo" style="display: none;">
+                                                        <li>Provide safe means of access</li>
+                                                        <li>Provide fire watch/guard</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>First aider available</li>
+                                                    </div>
+                                                    <div id="check7-Pinfo" style="display: none;">
+                                                        <li>Fire</li>
+                                                        <li>Explosion</li>
+                                                        <li>Burns</li>
+                                                        <li>Work to be carried out by trained manpower</li>
+                                                        <li>Strict supervision required</li>
+                                                        <li>Use of scaffold</li>
+                                                    </div>
                                                     <div id="check8-Pinfo" style="display: none;">...</div>
                                                 </ul>
                                             </div>

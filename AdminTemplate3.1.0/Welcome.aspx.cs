@@ -21,6 +21,11 @@ namespace AdminTemplate3._1._0
                 splWorkPermit_list();
             }
 
+            if (!Page.IsPostBack)
+            {
+                SetInitialRow();
+            }
+
             if (IsPostBack)
             {
                 int numberOfWorkers;
@@ -43,7 +48,6 @@ namespace AdminTemplate3._1._0
             araiEng.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
         }
 
-
         protected void splWorkPermit_list()
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -54,6 +58,28 @@ namespace AdminTemplate3._1._0
             spl_Licence.DataTextField = "Work_Permit";
             spl_Licence.DataBind();
             spl_Licence.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+        }
+
+        private void SetInitialRow()
+        {
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+            dt.Columns.Add(new DataColumn("Column1", typeof(string)));
+            dt.Columns.Add(new DataColumn("Column2", typeof(int)));
+            dt.Columns.Add(new DataColumn("Column3", typeof(CheckBox)));
+            dr = dt.NewRow();
+            dr["RowNumber"] = 1;
+            dr["Column1"] = string.Empty;
+            dr["Column2"] = int.Empty;
+            dr["Column3"] = CheckBox.true;
+            dt.Rows.Add(dr);
+
+            //dr = dt.NewRow;
+            //Store the DataTable in ViewState
+            ViewState["CurrentTable"] = dt;
+            Gridview1.DataSource = dt;
+            Gridview1.DataBind();
         }
 
         protected void special_license_CheckedChanged(object sender, EventArgs e) 
@@ -212,7 +238,6 @@ namespace AdminTemplate3._1._0
 
             try
             {
-                string permitID;
                 int result = 0;
                 // Insert permit details
                 using (SqlConnection con = new SqlConnection(Main_con))
@@ -247,62 +272,14 @@ namespace AdminTemplate3._1._0
                         // If the permit details insertion was successful
                         if (result > 0)
                         {
-                            permitID = permitNumber;
-
-                            // Insert worker details for each worker
-                            for (int i = 0; i < workerNum; i++)
-                            {
-                                // Obtain worker details from the form
-                                TextBox txtName = (TextBox)workers.FindControl("txtName_" + i);
-                                TextBox txtAge = (TextBox)workers.FindControl("txtAge_" + i);
-
-                                if (txtName == null || txtAge == null)
-                                {
-                                    Response.Write($"<script>console.log('Worker details control not found: txtName_{i}, txtAge_{i}');</script>");
-                                    continue; // Skip this iteration if controls are not found
-                                }
-
-                                String workerName = txtName.Text;
-                                int workerAge = 0;
-                                if (!int.TryParse(txtAge.Text, out workerAge))
-                                {
-                                    Response.Write($"<script>console.log('Invalid age input for worker {i + 1}');</script>");
-                                    continue; // Skip this iteration if age is not a valid integer
-                                }
-
-                                // Insert worker details using the stored procedure
-                                using (SqlCommand cmdWorker = new SqlCommand("InsertWorkerDetails", con))
-                                {
-                                    cmdWorker.CommandType = CommandType.StoredProcedure;
-                                    // Add parameters for worker details
-                                    cmdWorker.Parameters.AddWithValue("@PermitID", permitID);
-                                    cmdWorker.Parameters.AddWithValue("@WorkerName", workerName);
-                                    cmdWorker.Parameters.AddWithValue("@WorkerAge", workerAge);
-                                    // Add other worker details parameters similarly...
-
-                                    // Execute the command to insert worker details
-                                    result = cmdWorker.ExecuteNonQuery();
-                                }
-                            }
-
-                            // If worker details insertion was successful
-                            if (result > 0)
-                            {
-                                // Inform the user that data was added successfully
-                                Response.Write("<script>alert('Data added Successfully.');</script>");
-                                // Attempt to send email
-                                try
-                                {
-                                    sendEmail(permitNumber);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Response.Write("<script>alert('Error sending email: ' + ex.Message);console.log('" + ex.Message + "')</script>");
-                                }
-                            }
-                            else
-                            {
                                 Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                            try
+                            {
+                                sendEmail(permitNumber);
+                            }
+                            catch (Exception ex)
+                            {
+                                Response.Write("<script>alert('Error sending email: ' + ex.Message);console.log('" + ex.Message + "')</script>");
                             }
                         }
                         else
@@ -432,8 +409,8 @@ namespace AdminTemplate3._1._0
                                         </table>
                                     </p>
                                 </div>
-                            </div>";
-
+                            </div>"
+                        ;
                         mail.Body = body;
                         mail.IsBodyHtml = true;
 
@@ -466,5 +443,66 @@ namespace AdminTemplate3._1._0
             }
         }
 
+        protected void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            AddNewRowToGrid();
+        }
+        private void AddNewRowToGrid()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        //extract the TextBox values
+                        TextBox box1 = (TextBox)Gridview1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
+                        TextBox box2 = (TextBox)Gridview1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
+                        TextBox box3 = (TextBox)Gridview1.Rows[rowIndex].Cells[3].FindControl("TextBox3");
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        drCurrentRow["RowNumber"] = i + 1;
+                        dtCurrentTable.Rows[i - 1]["Column1"] = box1.Text;
+                        dtCurrentTable.Rows[i - 1]["Column2"] = box2.Text;
+                        dtCurrentTable.Rows[i - 1]["Column3"] = box3.Text;
+                        rowIndex++;
+                    }
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTable"] = dtCurrentTable;
+                    Gridview1.DataSource = dtCurrentTable;
+                    Gridview1.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+
+            //Set Previous Data on Postbacks
+            SetPreviousData();
+        }
+        private void SetPreviousData()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTable"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        TextBox box1 = (TextBox)Gridview1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
+                        TextBox box2 = (TextBox)Gridview1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
+                        TextBox box3 = (TextBox)Gridview1.Rows[rowIndex].Cells[3].FindControl("TextBox3");
+                        box1.Text = dt.Rows[i]["Column1"].ToString();
+                        box2.Text = dt.Rows[i]["Column2"].ToString();
+                        box3.Text = dt.Rows[i]["Column3"].ToString();
+                        rowIndex++;
+                    }
+                }
+            }
+        }
     }
 }

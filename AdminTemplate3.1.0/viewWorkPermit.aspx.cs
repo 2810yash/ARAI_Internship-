@@ -38,20 +38,20 @@ namespace AdminTemplate3._1._0
             if (!IsPostBack)
             {
                 LoadPermitDetails();
-                agency_list_toSearch();
+                //agency_list_toSearch();
             }
         }
-        protected void agency_list_toSearch()
-        {
-            SqlConnection sqlcon = new SqlConnection(Main_con);
-            sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT [NameofFirm_Agency] FROM [permit_details_tbl]", sqlcon);
-            sql_command.CommandType = CommandType.Text;
-            agencyNames.DataSource = sql_command.ExecuteReader();
-            agencyNames.DataTextField = "NameofFirm_Agency";
-            agencyNames.DataBind();
-            agencyNames.Items.Insert(0, new ListItem("Search Agency Name here...", "0"));
-        }
+        //protected void agency_list_toSearch()
+        //{
+        //    SqlConnection sqlcon = new SqlConnection(Main_con);
+        //    sqlcon.Open();
+        //    SqlCommand sql_command = new SqlCommand("SELECT [NameofFirm_Agency] FROM [permit_details_tbl]", sqlcon);
+        //    sql_command.CommandType = CommandType.Text;
+        //    agencyNames.DataSource = sql_command.ExecuteReader();
+        //    agencyNames.DataTextField = "NameofFirm_Agency";
+        //    agencyNames.DataBind();
+        //    agencyNames.Items.Insert(0, new ListItem("Search Agency Name here...", "0"));
+        //}
         private void LoadPermitDetails()
         {
             string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl";
@@ -64,30 +64,70 @@ namespace AdminTemplate3._1._0
             con.Close();
         }
 
+        //protected void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    string searchtxt = txtSearch.Value.Trim();
+        //    //string searchAgency = agencyNames.SelectedValue.Trim();
+
+        //    // Construct the SQL query
+        //    string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl WHERE ";
+
+        //    // Check if search text and agency are both provided
+        //    if (!string.IsNullOrEmpty(searchtxt) && !string.IsNullOrEmpty(searchAgency))
+        //    {
+        //        query += " (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND NameofFirm_Agency = @searchAgency";
+        //    }
+        //    else if (!string.IsNullOrEmpty(searchtxt))
+        //    {
+        //        query += " PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
+        //    }
+        //    else if (!string.IsNullOrEmpty(searchAgency))
+        //    {
+        //        query += " NameofFirm_Agency = @searchAgency";
+        //    }
+        //    else
+        //    {
+        //        // Both search text and agency are empty, do nothing
+        //        return;
+        //    }
+
+        //    // Execute the query
+        //    using (SqlConnection con = new SqlConnection(Main_con))
+        //    {
+        //        using (SqlCommand cmd = new SqlCommand(query, con))
+        //        {
+        //            if (!string.IsNullOrEmpty(searchtxt))
+        //            {
+        //                cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
+        //            }
+
+        //            if (!string.IsNullOrEmpty(searchAgency))
+        //            {
+        //                cmd.Parameters.AddWithValue("@searchAgency", searchAgency);
+        //            }
+
+        //            con.Open();
+        //            SqlDataReader reader = cmd.ExecuteReader();
+        //            reptCard.DataSource = reader;
+        //            reptCard.DataBind();
+        //        }
+        //    }
+        //}
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string searchAgency = agencyNames.SelectedValue.Trim();
 
             // Construct the SQL query
             string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl WHERE ";
 
-            // Check if search text and agency are both provided
-            if (!string.IsNullOrEmpty(searchtxt) && !string.IsNullOrEmpty(searchAgency))
+            // Check if search text is provided
+            if (!string.IsNullOrEmpty(searchtxt))
             {
-                query += " (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND NameofFirm_Agency = @searchAgency";
-            }
-            else if (!string.IsNullOrEmpty(searchtxt))
-            {
-                query += " PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
-            }
-            else if (!string.IsNullOrEmpty(searchAgency))
-            {
-                query += " NameofFirm_Agency = @searchAgency";
+                query += "PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
             }
             else
             {
-                // Both search text and agency are empty, do nothing
+                // Search text is empty, do nothing
                 return;
             }
 
@@ -99,11 +139,6 @@ namespace AdminTemplate3._1._0
                     if (!string.IsNullOrEmpty(searchtxt))
                     {
                         cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
-                    }
-
-                    if (!string.IsNullOrEmpty(searchAgency))
-                    {
-                        cmd.Parameters.AddWithValue("@searchAgency", searchAgency);
                     }
 
                     con.Open();

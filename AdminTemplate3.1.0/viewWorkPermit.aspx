@@ -31,7 +31,7 @@
                 <div>
                     <div>
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-secondary m-1 float-end" OnClick="btnSearch_Click" />
-                        <asp:DropDownList ID="agencyNames" runat="server" CssClass="form-control m-1 float-end" style="width:30%;"></asp:DropDownList>
+                        <%--<asp:DropDownList ID="agencyNames" runat="server" CssClass="form-control m-1 float-end" style="width:30%;"></asp:DropDownList>--%>
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1 float-end" style="width:30%;" />
                     </div>
                     <br />
