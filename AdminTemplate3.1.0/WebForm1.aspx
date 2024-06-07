@@ -522,15 +522,16 @@
                         <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
                         <span>Completion Date</span>
                     </div>
+
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsibility"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsible_person"></asp:TextBox>
                         <span>Responsible Person</span>
                     </div>
                 </div>
 
                 <div class="datentime">
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="TextBox3"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="corrective_action_impact"></asp:TextBox>
                         <span>Corrective Action Impact</span>
                     </div>
                 </div>--%>
@@ -561,17 +562,18 @@
                     </div>
                 </div>
 
-                <script>
-                    function toggleFileInput(show) {
-                        var fileUpload = document.getElementById("fileUpload");
-                        if (show) {
-                            fileUpload.style.display = "block";
-                            alert("Please upload a file."); // Popup message
-                        } else {
-                            fileUpload.style.display = "none";
-                        }
-                    }
-                </script>
+<%--<script>
+    function toggleFileInput(show) {
+        var fileUpload = document.getElementById("fileUpload");
+        if (show) {
+            fileUpload.style.display = "block";
+            alert("Please upload a file."); // Popup message
+        } else {
+            fileUpload.style.display = "none";
+        }
+    }
+</script>--%>
+
 
 
 
@@ -617,8 +619,24 @@
                         }
                         return true; // Allow form submission
                     }
-                </script>
 
+                    function validateDates() {
+                        var dateOfIncident = document.getElementById('<%= date_of_incident.ClientID %>').value;
+                        var completionDate = document.getElementById('<%= completion_date.ClientID %>').value;
+
+                        if (dateOfIncident && completionDate) {
+                            var incidentDate = new Date(dateOfIncident);
+                            var compDate = new Date(completionDate);
+
+                            if (compDate < incidentDate) {
+                                alert("Completion date must be greater than or equal to the date of incident.");
+                                return false;
+                            }
+                        }
+
+                        return true;
+                    }
+                </script>
 
 
 

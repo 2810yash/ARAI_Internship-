@@ -44,5 +44,10 @@ namespace BusinessLogic
             //Folder path
              return @"D:\Vinod\LogFile\{0}";          
         }
+        public static string FilePath()
+        {
+            //Folder path
+            return @"D:\arai";
+        }
     }
 }

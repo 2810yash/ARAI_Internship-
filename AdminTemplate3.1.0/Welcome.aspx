@@ -42,7 +42,8 @@
                         <!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a></li>
+                                <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a>
+                                </li>
                                 <li class="breadcrumb-item active">WorkPermit</li>
                             </ol>
                         </div>
@@ -81,8 +82,7 @@
                                 </asp:DropDownList>
                             </div>
 
-                              <%--<asp:UpdatePanel ID
-                                  ="UpdatePanel1" runat="server">--%>
+                                            <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
 
                             <%-- Permit Form--%>
                             <div class="position-relative" id="expand">
@@ -100,153 +100,205 @@
                                     </ul>
                                 </nav>--%>
 
-                                <div class="bg-light rounded" id="Pages">
+                                                        <div class="bg-light rounded" id="Pages">
 
-                                    <div class="page1" id="page1">
-                                        <div class="bg-light">
-                                            <!-- permit number & date of issue: -->
-                                            <div class="d-flex mb-3 mt-3">
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="permitNo0">Permit No:</span>
-                                                    <asp:TextBox ID="permitNum" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center">Date of Issue</span>
-                                                    <asp:TextBox TextMode="DateTimeLocal" ID="issueDate" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Permit Valid From & Permit Valid Till -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="validFrom">Permit Valid From:</span>
-                                                    <asp:TextBox TextMode="Date" ID="perValidFrom" Height="100%" CssClass="form-control datepicker" runat="server"></asp:TextBox>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="validTill">Permit Valid Till:</span>
-                                                    <asp:TextBox TextMode="Date" ID="perValidTill" Height="100%" CssClass="form-control " runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Special License & DropDown list -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2 icheck-primary d-flex align-items-center" style="width: 50%;">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center" id="splLicense0">Special License:</span>
-                                                    <div class="ms-2 me-2">
-                                                        <asp:RadioButton ID="special_license_yes" Text="Yes" runat="server" GroupName="Special-License" OnCheckedChanged="special_license_CheckedChanged" /></div>
-                                                    <div class="ms-2">
-                                                        <asp:RadioButton ID="special_license_no" Text="No" runat="server" GroupName="Special-License" /></div>
-                                                </div>
-                                                <asp:DropDownList ID="spl_Licence" CssClass="form-select" Style="display: none; width: 50%;" runat="server"></asp:DropDownList>
-                                            </div>
-                                            <!-- ESI/Insurance No & Its Date -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="esiNum0">ESI/Insurance No: </span>
-                                                    <asp:TextBox ID="esiNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="esiVal">ESI/Insurance Validity: </span>
-                                                    <asp:TextBox TextMode="Date" ID="esiVali" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Name of Vendor or Contractor Firm/Agency -->
-                                            <div class="mb-3 d-flex">
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="vendors0">Name of Vendor or Contractor Firm/Agency:</span>
-                                                    <asp:TextBox ID="contractorNam" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="supervisor0">Name of Vendor/Contractor Supervisor: </span>
-                                                    <asp:TextBox ID="supervisorNam" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="supervisorContact0">Contact Number (Contractor):</span>
-                                                    <asp:TextBox ID="supervisorContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- ARAI Engineer & contact number -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2">
-                                                    <label class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        for="araiEng">
-                                                        ARAI Engineer:
-                                                    </label>
-                                                    <asp:DropDownList ID="araiEng" Height="100%" CssClass="form-select" runat="server"></asp:DropDownList>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="araiEngContact0">Contact Number (Engineer):</span>
-                                                    <asp:TextBox ID="engiContactNUM" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Brief Description of Work & Location of Work -->
-                                            <div class="d-flex mb-3">
-                                                <div class="input-group me-2">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="desc0">Brief Description of Work:</span>
-                                                    <asp:TextBox ID="describeWork" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="location0">Location of Work:</span>
-                                                    <asp:TextBox ID="locateWork" Height="100%" CssClass="form-control" runat="server"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <!-- Number of Workers -->
-                                            <div class="mb-3 d-block">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="numWorkers0">Number of Workers:</span>
-                                                    <asp:TextBox ID="numWorkers" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:Button ID="confirm" CssClass="input-group-text btn btn-info border-1" OnClick="confirm_Click" runat="server" Text="Confirm" />
-                                                </div>
-                                                <div id="workers" style="width: auto;" class="mt-2 mb-0 d-flex justify-content-around" runat="server"></div>
+                                                            <div class="page1" id="page1">
+                                                                <div class="bg-light">
+                                                                    <!-- permit number & date of issue: -->
+                                                                    <div class="d-flex mb-3 mt-3">
+                                                                            <div class="input-group me-2">
+                                                                                <span
+                                                                                    class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                    id="permitNo0">Permit No:</span>
+                                                                                <asp:TextBox ID="permitNum" Height="100%"
+                                                                                    CssClass="form-control" required runat="server">
+                                                                                </asp:TextBox>
+                                                                            </div>
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center">Date
+                                                                                of Issue</span>
+                                                                            <asp:TextBox TextMode="DateTimeLocal"
+                                                                                ID="issueDate" Height="100%"
+                                                                                CssClass="form-control" required runat="server">
+                                                                            </asp:TextBox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Permit Valid From & Permit Valid Till -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="validFrom">Permit Valid From:</span>
+                                                                            <asp:TextBox TextMode="Date"
+                                                                                ID="perValidFrom" Height="100%"
+                                                                                CssClass="form-control datepicker" required
+                                                                                runat="server"></asp:TextBox>
+                                                                        </div>
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="validTill">Permit Valid Till:</span>
+                                                                            <asp:TextBox TextMode="Date"
+                                                                                ID="perValidTill" Height="100%"
+                                                                                CssClass="form-control " required runat="server">
+                                                                            </asp:TextBox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Special License & DropDown list -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2 icheck-primary d-flex align-items-center"
+                                                                            style="width: 50%;">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="splLicense0">Special License:</span>
+                                                                            <div class="ms-2 me-2">
+                                                                                <asp:RadioButton
+                                                                                    ID="special_license_yes" Text="Yes"
+                                                                                    runat="server" 
+                                                                                    GroupName="Special-License"
+                                                                                    OnCheckedChanged="special_license_CheckedChanged" />
+                                                                            </div>
+                                                                            <div class="ms-2">
+                                                                                <asp:RadioButton ID="special_license_no"
+                                                                                    Text="No" runat="server"
+                                                                                    GroupName="Special-License" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <asp:DropDownList ID="spl_Licence"
+                                                                            CssClass="form-select"
+                                                                            Style="display: none; width: 50%;"
+                                                                            runat="server">
+                                                                            <asp:ListItem
+                                                                                Text="-- Select Special License Work --"
+                                                                                Value=""></asp:ListItem>
+                                                                            <asp:ListItem
+                                                                                Text="High Tension Electrical Work"
+                                                                                Value="elec-contractor"></asp:ListItem>
+                                                                            <asp:ListItem Text="Height Work"
+                                                                                Value="hgt-work"></asp:ListItem>
+                                                                            <asp:ListItem Text="Crane Operator"
+                                                                                Value="crn-operator"></asp:ListItem>
+                                                                        </asp:DropDownList>
+                                                                    </div>
+                                                                    <!-- ESI/Insurance No & Its Date -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="esiNum0">ESI/Insurance No: </span>
+                                                                            <asp:TextBox ID="esiNUM" Height="100%"
+                                                                                CssClass="form-control" required runat="server">
+                                                                            </asp:TextBox>
+                                                                        </div>
+                                                                        <div class="input-group me-2">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="esiVal">ESI/Insurance Validity:
+                                                                            </span>
+                                                                            <asp:TextBox TextMode="Date" ID="esiVali"
+                                                                                Height="100%" CssClass="form-control" required
+                                                                                runat="server"></asp:TextBox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Name of Vendor or Contractor Firm/Agency -->
+                                                                    <div class="mb-3 d-flex">
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="vendors0">Name of Vendor or
+                                                                                Contractor Firm/Agency:</span>
+                                                                            <asp:TextBox ID="contractorNam"
+                                                                                Height="100%" CssClass="form-control" required
+                                                                                runat="server"></asp:TextBox>
+                                                                        </div>
+                                                                    </div>
 
-                                                <div class="card-body p-1 mt-2">
-                                                    <form onsubmit="return false;">
-                                                        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
-                                                        <asp:UpdatePanel ID="updatePanel1" runat="server">
-                                                            <ContentTemplate>
+                                                                    <!-- Name of Vendor/Contractor Supervisor & Contact Number -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="supervisor0">Name of
+                                                                                Vendor/Contractor Supervisor: </span>
+                                                                            <asp:TextBox ID="supervisorNam"
+                                                                                Height="100%" CssClass="form-control" required
+                                                                                runat="server"></asp:TextBox>
+                                                                        </div>
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="supervisorContact0">Contact
+                                                                                Number:</span>
+                                                                            <asp:TextBox ID="supervisorContactNUM" required
+                                                                                Height="100%" CssClass="form-control"
+                                                                                runat="server" MaxLength="10" TextMode="Phone"></asp:TextBox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- ARAI Engineer & contact number -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2">
+                                                                            <label
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                for="araiEng">
+                                                                                ARAI Engineer:
+                                                                            </label>
+                                                                            <asp:DropDownList ID="araiEng" Height="100%" required
+                                                                                CssClass="form-select" runat="server">
+                                                                            </asp:DropDownList>
+                                                                        </div>
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="araiEngContact0">Contact
+                                                                                Number:</span>
+                                                                            <asp:TextBox ID="engiContactNUM"
+                                                                                Height="100%" CssClass="form-control" required
+                                                                                runat="server"></asp:TextBox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Brief Description of Work & Location of Work -->
+                                                                    <div class="d-flex mb-3">
+                                                                        <div class="input-group me-2">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="desc0">Brief Description of
+                                                                                Work:</span>
+                                                                            <asp:TextBox ID="describeWork" Height="100%" required
+                                                                                CssClass="form-control" runat="server">
+                                                                            </asp:TextBox>
+                                                                        </div>
+                                                                        <div class="input-group">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="location0">Location of Work:</span>
+                                                                            <asp:TextBox ID="locateWork" Height="100%" required
+                                                                                CssClass="form-control" runat="server">
+                                                                            </asp:TextBox>
+                                                                        </div>
+                                                                    </div>
 
-                                                                <asp:GridView ID="Gridview1" runat="server" ShowFooter="true" AutoGenerateColumns="false">
-                                                                    <Columns>
-                                                                        <asp:BoundField DataField="RowNumber" HeaderText="Row Number" />
-                                                                        <asp:TemplateField HeaderText="Header 1">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Header 2">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Header 3">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                            <FooterStyle HorizontalAlign="Right" />
-                                                                            <FooterTemplate>
-                                                                                <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_Click" />
-                                                                            </FooterTemplate>
-                                                                        </asp:TemplateField>
-                                                                    </Columns>
-                                                                </asp:GridView>
-
-                                                            </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                                    </form>
-                                                </div>
+                                                                    <!-- Number of Workers -->
+                                                                    <div class="mb-3 d-block">
+                                                                        <div class="input-group mb-3">
+                                                                            <span
+                                                                                class="input-group-text text-wrap col-sm-3 justify-content-center"
+                                                                                id="numWorkers0">Number of
+                                                                                Workers:</span>
+                                                                            <asp:TextBox ID="numWorkers"
+                                                                                CssClass="form-control" required runat="server">
+                                                                            </asp:TextBox>
+                                                                            <asp:Button ID="confirm" required
+                                                                                CssClass="input-group-text btn btn-info border-1"
+                                                                                OnClick="confirm_Click" runat="server"
+                                                                                Text="Confirm" />
+                                                                        </div>
+                                                                        <div id="workers" style="width: auto;"
+                                                                            class="mt-2 mb-0 d-flex justify-content-around"
+                                                                            runat="server"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                             </div>
                                         </div>
@@ -456,14 +508,14 @@
                                 </div>
                             </div>
 
-                       <%--   </asp:UpdatePanel>--%>
+                            <%-- </asp:UpdatePanel>--%>
 
-                        </div>
-                    </div>
+                </div>
+        </div>
 
-                    </div>
+        </div>
 
-            </section>
+        </section>
 
         </div>
         <!-- /.content-wrapper -->
@@ -486,6 +538,38 @@
                     splLicenceDropDown.style.display = specialLicenseNo.checked ? 'none' : 'block';
                 });
             });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Function to toggle visibility of info divs
+                function toggleInfoDiv(event) {
+                    var checkboxId = event.target.id;
+                    var HcheckboxId = checkboxId + '-Hinfo';  // Get info div ID based on checkbox ID
+                    var PcheckboxId = checkboxId + '-Pinfo';  // Get info div ID based on checkbox ID
+                    var PPEcheckboxId = checkboxId + '-PPEinfo';  // Get info div ID based on checkbox ID
+
+                    var HinfoDiv = document.getElementById(HcheckboxId);
+                    var PinfoDiv = document.getElementById(PcheckboxId);
+                    var PPEinfoDiv = document.getElementById(PPEcheckboxId);
+
+                    if (HinfoDiv) {
+                        HinfoDiv.style.display = HinfoDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                    if (PinfoDiv) {
+                        PinfoDiv.style.display = PinfoDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                    if (PPEinfoDiv) {
+                        PPEinfoDiv.style.display = PPEinfoDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                }
+
+                // Attach event listener to all checkboxes
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('click', toggleInfoDiv);
+                });
+            });
+
         </script>
+
 
     </asp:Content>

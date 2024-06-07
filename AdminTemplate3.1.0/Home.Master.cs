@@ -9,12 +9,41 @@ namespace AdminTemplate3._1._0
 {
     public partial class SiteMaster : MasterPage
     {
+        public string userDisplayName { get; set; }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                //GetFunc();            
+                if (!IsPostBack)
+                {
+                    if (Session["Username"] != null)
+                    {
+                        userDisplayName = Session["Username"].ToString().ToUpperInvariant();
+                    }
+
+                    if (Session["Role"].Equals("user"))
+                    {
+                        createWP.Visible = true;
+                        createReport.Visible = true;
+                    }
+                    //GetFunc();            
+                }
+            } catch
+            {
+                Response.Write("<script> alert('Please login first!')</script>");
+                Response.Redirect("login.aspx");
+
             }
+            
+        }
+        protected void Create_Report(object sender, EventArgs e)
+        {
+            Response.Redirect("WebForm1.aspx");
+        }
+        protected void Create_WP(object sender, EventArgs e)
+        {
+            Response.Redirect("Welcome.aspx");
         }
         protected void Active_WP(object sender, EventArgs e)
         {
