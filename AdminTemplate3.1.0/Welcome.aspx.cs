@@ -12,9 +12,19 @@ namespace AdminTemplate3._1._0
     public partial class Welcome : System.Web.UI.Page
     {
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-
+        public string deptName;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Role"].Equals("admin"))
+            {
+                Response.Redirect("Homepage.aspx");
+            }
+
+            if (Session["deptName"] != null)
+            {
+                deptName = Session["deptName"].ToString();
+            }
+
             if (!IsPostBack)
             {
                 arai_Engineer_list();
@@ -52,7 +62,7 @@ namespace AdminTemplate3._1._0
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
             sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[WorkPermit] WHERE Spl_License=1", sqlcon);
             sql_command.CommandType = CommandType.Text;
             spl_Licence.DataSource = sql_command.ExecuteReader();
             spl_Licence.DataTextField = "Work_Permit";
@@ -132,6 +142,10 @@ namespace AdminTemplate3._1._0
                 maskCell.Controls.Add(new CheckBox { ID = "chkMask_" + i, Checked = true });
                 row.Cells.Add(maskCell);
 
+                TableCell gogglesCell = new TableCell();
+                gogglesCell.Controls.Add(new CheckBox { ID = "chkGoggles_" + i, Checked = true });
+                row.Cells.Add(gogglesCell);
+
                 TableCell safetyShoesCell = new TableCell();
                 safetyShoesCell.Controls.Add(new CheckBox { ID = "chkSafetyShoes_" + i, Checked = true });
                 row.Cells.Add(safetyShoesCell);
@@ -166,13 +180,24 @@ namespace AdminTemplate3._1._0
             workers.Controls.Add(table);
         }
 
-        protected void confirm_Click(object sender, EventArgs e)
+        protected int validateDates(DateTime dateOfIssue, DateTime validFrom, DateTime validTill)
         {
-            int numberOfWorkers;
-            if (int.TryParse(numWorkers.Text, out numberOfWorkers))
+            int flag = 0;
+            TimeSpan diff = validTill.Subtract(validFrom);
+            if(dateOfIssue > validTill)
             {
-                CreateWorkerTable(numberOfWorkers);
+                flag = -1;
+                Response.Write("<script> alert('Valid Till Date cannot be earlier than Date of Issue!'); </script>");
+            } else if (dateOfIssue.Date > validFrom)
+            {
+                flag = -1;
+                Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
+            } else if (diff.Days > 15) 
+            {
+                flag = -1;
+                Response.Write("<script> alert('Valid Till Date cannot exceed 15 days!'); </script>");
             }
+            return flag;
         }
 
         protected void SubmitFrom(object sender, EventArgs e)
@@ -183,6 +208,13 @@ namespace AdminTemplate3._1._0
             DateTime dateOfIssue = Convert.ToDateTime(issueDate.Text.Trim());
             DateTime validFrom = Convert.ToDateTime(perValidFrom.Text.Trim());
             DateTime validTill = Convert.ToDateTime(perValidTill.Text.Trim());
+            int flag = validateDates(dateOfIssue, validFrom, validTill);
+
+            if(flag<0)
+            {
+                return;
+            }
+
             bool hasSpecialLicenseYES = special_license_yes.Checked;
             String splWork = "NO SPL Licence";
             if (hasSpecialLicenseYES == true)
@@ -211,31 +243,44 @@ namespace AdminTemplate3._1._0
             //CheckBox bottons
             if (check1.Checked)
             {
+                
                 check1Txt = check1.Text;
-            }if (check2.Checked)
+            }
+            if (check2.Checked)
             {
                 check2Txt = check2.Text;
-            }if (check3.Checked)
+            }
+            if (check3.Checked)
             {
                 check3Txt = check3.Text;
-            }if (check4.Checked)
+            }
+            if (check4.Checked)
             {
                 check4Txt = check4.Text;
-            }if (check5.Checked)
+            }
+            if (check5.Checked)
             {
                 check5Txt = check5.Text;
-            }if (check6.Checked)
+            }
+            if (check6.Checked)
             {
                 check6Txt = check6.Text;
-            }if (check7.Checked)
+            }
+            if (check7.Checked)
             {
                 check7Txt = check7.Text;
-            }if (check8.Checked)
+            }
+            if (check8.Checked)
             {
                 check8Txt = check8.Text;
             }
+            if(!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
+            {
+                Response.Write("<script>alert('Please select a work permit!');</script>");
+                return;
+            }
             selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
-
+            
             try
             {
                 int result = 0;
@@ -245,8 +290,6 @@ namespace AdminTemplate3._1._0
                     using (SqlCommand cmd = new SqlCommand("usp_workPermit_tbl", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        // Add parameters for permit details
-                        cmd.Parameters.AddWithValue("@SiteName", siteName);
                         cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
                         cmd.Parameters.AddWithValue("@DateOfIssue", dateOfIssue);
                         cmd.Parameters.AddWithValue("@PermitValidFrom", validFrom);
@@ -263,23 +306,25 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@EngineerContact", engiContact);
                         cmd.Parameters.AddWithValue("@DescofWork", workDescription);
                         cmd.Parameters.AddWithValue("@Location", workLocation);
-                        cmd.Parameters.AddWithValue("@workPermits", selectedWorkPer);
-
+                        cmd.Parameters.AddWithValue("@DeptIssued", deptName);
+                        cmd.Parameters.AddWithValue("@PermitsIssued", selectedWorkPer);
+                        cmd.Parameters.AddWithValue("@SiteName", siteName);
                         con.Open();
                         // Execute the command and get the result
                         result = cmd.ExecuteNonQuery();
+                        con.Close();
 
-                        // If the permit details insertion was successful
                         if (result > 0)
                         {
-                                Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                            storeWorkerDetails(workerNum, permitNumber);
+                            Response.Write("<script>alert('Data added Successfully.');</script>");
                             try
                             {
-                                sendEmail(permitNumber);
+                                SendEmail(dateOfIssue);
                             }
                             catch (Exception ex)
                             {
-                                Response.Write("<script>alert('Error sending email: ' + ex.Message);console.log('" + ex.Message + "')</script>");
+                                Response.Write("<script> alert("+ex.Message+"); </script>");
                             }
                         }
                         else
@@ -349,159 +394,53 @@ namespace AdminTemplate3._1._0
         {
             PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
 
-            if (permitDetails != null)
-            {
-                string from = "yash2810203@gmail.com";
-                string to = "yash2810203@gmail.com";
-                try
-                {
-                    using (MailMessage mail = new MailMessage(from, to))
-                    {
-                        mail.Subject = "New Work Permit Created";
 
-                        string body = $@"
-                            <div class='card'>
-                                <div>
-                                    <h3>Permit Details</h3>
-                                    <h6 style='color:gray;'>{permitDetails.SiteName}</h6>
-                                    <h6 style='color:gray;'><b>Date of Issue: </b>{permitDetails.DateofIssue:dd-MM-yyyy}</h6>
-                                </div>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>
-                                        <strong>Permit Number:</strong> {permitDetails.PermitNumber}
-                                    </h5>
-                                    <p class='card-text d-block'>
-                                        <table class='table table-bordered' style='width: 100%;'>
-                                            <tr>
-                                                <td><p><strong>Permit Valid From:</strong> {permitDetails.PermitValidFrom:dd-MM-yyyy}</p></td>
-                                                <td><p><strong>Permit Valid Till:</strong> {permitDetails.PermitValidTill:dd-MM-yyyy}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>Special License:</strong> {permitDetails.SpecialLicense}</p></td>
-                                                <td><p><strong>Special License Type:</strong> {permitDetails.SpecialLicenseType}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>ESI/Insurance No:</strong> {permitDetails.InsuranceNo}</p></td>
-                                                <td><p><strong>ESI/Insurance Validity:</strong> {permitDetails.InsuranceValidity:dd-MM-yyyy}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>Name of Vendor or Contractor Firm/Agency:</strong> {permitDetails.AgencyName}</p></td>
-                                                <td><p><strong>Number of workers:</strong> {permitDetails.WorkerNo}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>Worker Details:</strong> permitDetails.WorkerDetails</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>Name of Vendor/Contractor Supervisor:</strong> {permitDetails.ContractorName}</p></td>
-                                                <td><p><strong>Contact Number (Contractor):</strong> {permitDetails.ContractorNo}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>ARAI Engineer:</strong> {permitDetails.EngineerName}</p></td>
-                                                <td><p><strong>Contact Number (Engineer):</strong> {permitDetails.EngineerNo}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td><p><strong>Brief Description of Work:</strong> {permitDetails.Description}</p></td>
-                                                <td><p><strong>Location of Work:</strong> {permitDetails.Location}</p></td>
-                                            </tr>
-                                            <tr>
-                                                <td>WorkPermits selected: {permitDetails.workPermits}</td>
-                                            </tr>
-                                        </table>
-                                    </p>
-                                </div>
-                            </div>"
-                        ;
-                        mail.Body = body;
-                        mail.IsBodyHtml = true;
-
-                        SmtpClient smtp = new SmtpClient
-                        {
-                            Host = "smtp.gmail.com",
-                            EnableSsl = true,
-                            UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential(from, "ohfm hsdv qgxq vmej"),
-                            Port = 587
-                        };
-
-                        smtp.Send(mail);
-
-                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
-                    }
-                }
-                catch (SmtpException smtpEx)
-                {
-                    Response.Write($"<script>alert('SMTP Exception: {smtpEx.Message}');</script>");
-                }
-                catch (Exception ex)
-                {
-                    Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('Permit details not found.');</script>");
-            }
-        }
-
-        protected void ButtonAdd_Click(object sender, EventArgs e)
+        protected void SendEmail(DateTime dateOfIssue)
         {
-            AddNewRowToGrid();
-        }
-        private void AddNewRowToGrid()
-        {
-            int rowIndex = 0;
-            if (ViewState["CurrentTable"] != null)
+            //Response.Write("<script>alert('Dept Name: " + deptName + "');</script>");
+            string email;
+            int flag = -1;
+            using (SqlConnection con = new SqlConnection(Main_con))
             {
-                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
-                DataRow drCurrentRow = null;
-                if (dtCurrentTable.Rows.Count > 0)
+                using (SqlCommand cmd = new SqlCommand("usp_fetchEmail", con))
                 {
-                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-                    {
-                        //extract the TextBox values
-                        TextBox box1 = (TextBox)Gridview1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
-                        TextBox box2 = (TextBox)Gridview1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
-                        TextBox box3 = (TextBox)Gridview1.Rows[rowIndex].Cells[3].FindControl("TextBox3");
-                        drCurrentRow = dtCurrentTable.NewRow();
-                        drCurrentRow["RowNumber"] = i + 1;
-                        dtCurrentTable.Rows[i - 1]["Column1"] = box1.Text;
-                        dtCurrentTable.Rows[i - 1]["Column2"] = box2.Text;
-                        dtCurrentTable.Rows[i - 1]["Column3"] = box3.Text;
-                        rowIndex++;
-                    }
-                    dtCurrentTable.Rows.Add(drCurrentRow);
-                    ViewState["CurrentTable"] = dtCurrentTable;
-                    Gridview1.DataSource = dtCurrentTable;
-                    Gridview1.DataBind();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Dept_Name", deptName);
+                    cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
+                    con.Open();
+                    flag = cmd.ExecuteNonQuery();
+
+                    // Fetch the output 
+                    email = cmd.Parameters["@EmailID"].Value.ToString();
+                    //Response.Write("<script>alert('Email: " + email + "');</script>");
+
+                    con.Close();
+
                 }
-            }
-            else
-            {
-                Response.Write("ViewState is null");
             }
 
-            //Set Previous Data on Postbacks
-            SetPreviousData();
-        }
-        private void SetPreviousData()
-        {
-            int rowIndex = 0;
-            if (ViewState["CurrentTable"] != null)
+            string from = "adityaraut1003@gmail.com";
+            //string to = email; //Use exception handling here!
+            using (MailMessage mail = new MailMessage(from, email))
             {
-                DataTable dt = (DataTable)ViewState["CurrentTable"];
-                if (dt.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        TextBox box1 = (TextBox)Gridview1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
-                        TextBox box2 = (TextBox)Gridview1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
-                        TextBox box3 = (TextBox)Gridview1.Rows[rowIndex].Cells[3].FindControl("TextBox3");
-                        box1.Text = dt.Rows[i]["Column1"].ToString();
-                        box2.Text = dt.Rows[i]["Column2"].ToString();
-                        box3.Text = dt.Rows[i]["Column3"].ToString();
-                        rowIndex++;
-                    }
-                }
+                mail.Subject = "New Work Permit Created";
+                mail.Body = "Check out the new work permit created! \nAt: " + dateOfIssue;
+                //if (fileUploader.HasFile)
+                //{
+                //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);
+                //    mail.Attachments.Add(new Attachment(fileUploader.PostedFile.InputStream, fileName));
+                //}
+                mail.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential networkCredential = new NetworkCredential(from, "jgcb dmvu boae jfhh");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCredential;
+                smtp.Port = 587;
+                smtp.Send(mail);
+                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                Response.Redirect("Welcome.aspx");
             }
         }
     }

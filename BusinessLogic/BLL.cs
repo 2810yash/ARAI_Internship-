@@ -44,5 +44,17 @@ namespace BusinessLogic
                 throw ex;
             }
         }
+
+        public int SaveAccidentIncident(SaveBO ObjSaveIncidentBO)
+        {
+            try
+            {
+                return objDAL.SaveAccidentIncident(ObjSaveIncidentBO);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

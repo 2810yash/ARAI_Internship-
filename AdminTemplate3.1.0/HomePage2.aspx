@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="HomePage2.aspx.cs" Inherits="AdminTemplate3._1._0.HomePage2" %>
+﻿                    <%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="HomePage2.aspx.cs" Inherits="AdminTemplate3._1._0.HomePage2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -21,6 +21,8 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -32,13 +34,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>1500</h3>
+                <h3><sup style="font-size: 25px"><asp:Label ID ="lblCurrentMonthPermitCount" runat="server"></asp:Label></sup></h3>
 
-                <p>New Orders</p>
+                <p>Work Permits This Month</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-pie-graph"></i>
               </div>
+                <!-- Link to the View Permits page here-->
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
@@ -47,9 +50,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>530<sup style="font-size: 20px">%</sup></h3>
+                <h3><sup style="font-size: 25px"><asp:Label ID ="lblTotalPermitCount" runat="server"></asp:Label> </sup></h3>
 
-                <p>Bounce Rate</p>
+                <p> Total Work Permits</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -98,30 +101,32 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
+                  <i class="fas fa-chart-bar mr-1"></i>
+                  Work Permit Details
                 </h3>
                 <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
                     <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                      <a class="nav-link active" href="#permit-chart1" data-toggle="tab">Permits Issued</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                      <a class="nav-link" href="#permit-chart2" data-toggle="tab">Distribution</a>
                     </li>
                   </ul>
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  <div class="chart tab-pane active" id="permit-chart1"
+                       style="position: relative; height: 500px;">
+                      <canvas id="workPermitChart1" width="600" height="400"></canvas>
+                      <asp:HiddenField ID="hfChartData1" runat="server" />
                    </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
+                    <div class="chart tab-pane active" id="permit-chart2"
+                       style="position: relative; height: 500px;">
+                      <canvas id="workPermitChart2" width="600" height="300"></canvas>
+                      
+                   </div>
                 </div>
               </div><!-- /.card-body -->
             </div>
@@ -133,87 +138,51 @@
           <section class="col-lg-5 connectedSortable">
 
             <!-- Map card -->
-            <div class="card bg-gradient-primary">
+
+            <div class="card bg-white">
               <div class="card-header border-0">
                 <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Visitors
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Department Wise Issues
                 </h3>
                 <!-- card tools -->
                 <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
                   <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                </div>
+                </div>  
                 <!-- /.card-tools -->
               </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
+                <div class="card-body">
+                  <canvas id="deptPieChart" width="600" height="300"></canvas>
+                  <asp:HiddenField ID="piechart" runat="server" />
+
               </div>
               <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
             </div>
             <!-- /.card -->
 
             <!-- Calendar -->
-            <div class="card bg-gradient-success">
+            <div class="card bg-white">
               <div class="card-header border-0">
-
                 <h3 class="card-title">
-                  <i class="far fa-calendar-alt"></i>
-                  Calendar
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Site Wise Issues
                 </h3>
-                <!-- tools card -->
+                <!-- card tools -->
                 <div class="card-tools">
-                  <!-- button with a dropdown -->
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                      <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                      <a href="#" class="dropdown-item">Add new event</a>
-                      <a href="#" class="dropdown-item">Clear events</a>
-                      <div class="dropdown-divider"></div>
-                      <a href="#" class="dropdown-item">View calendar</a>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-                <!-- /. tools -->
+                </div>  
+                <!-- /.card-tools -->
               </div>
-              <!-- /.card-header -->
-              <div class="card-body pt-0">
-                <!--The calendar -->
-                <div id="calendar" style="width: 100%"></div>
+                <div class="card-body">
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:strconn %>" SelectCommand="dbo.usp_GetSiteDistribution" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                  <canvas id="sitePieChart" width="600" height="300"></canvas>
+                  <asp:HiddenField ID="siteChart" runat="server" />
               </div>
-              <!-- /.card-body -->
+              <!-- /.card-body-->
             </div>
             <!-- /.card -->
           </section>
@@ -224,5 +193,160 @@
     </section>
     <!-- /.content -->
   </div>
+
+    <script>
+        window.onload = function () {
+            var chartData1 = JSON.parse(document.getElementById('<%= hfChartData1.ClientID %>').value);
+            var ctx = document.getElementById('workPermitChart1').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData1.labels,
+                    datasets: [{
+                        label: 'Number of Work Permits Issued',
+                        data: chartData1.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var chartData2 = JSON.parse(document.getElementById('<%= hfChartData1.ClientID %>').value);
+            var ctx2 = document.getElementById('workPermitChart2').getContext('2d');
+            var myChart2 = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: chartData2.labels,
+                    datasets: [{
+                        label: 'Permit Distribution',
+                        data: chartData2.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Work Permit Distribution by Month'
+                    }
+                }
+            });
+
+            var chartData3 = JSON.parse(document.getElementById('<%= piechart.ClientID %>').value);
+            var ctx3 = document.getElementById('deptPieChart').getContext('2d');
+            var myChart3 = new Chart(ctx3, {
+                type: 'pie',
+                data: {
+                    labels: chartData3.labels,
+                    datasets: [{
+                        label: 'Department Distribution',
+                        data: chartData3.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Work Permit Distribution by Department'
+                    }
+                }
+            });
+
+             var chartData4 = JSON.parse(document.getElementById('<%= siteChart.ClientID %>').value);
+            var ctx4 = document.getElementById('sitePieChart').getContext('2d');
+            var myChart4 = new Chart(ctx4, {
+                type: 'pie',
+                data: {
+                    labels: chartData4.labels,
+                    datasets: [{
+                        label: 'Department Distribution',
+                        data: chartData4.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Work Permit Distribution by Site'
+                    }
+                }
+            });
+        };
+    </script>
+     
+    <script>
+        window.onload = function1() {
+            
+        };
+    </script>
   <!-- /.content-wrapper -->
 </asp:Content>

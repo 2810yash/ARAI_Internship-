@@ -103,7 +103,7 @@
                             <img src="dist/img/user.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block text-decoration-none">ARAI Kothrud</a>
+                            <a id="userDisplayName" href="#" class="d-block text-decoration-none"><%= userDisplayName %></a>
                         </div>
                     </div>
 
@@ -123,16 +123,16 @@
                                     <i class="nav-icon fas fa-copy"></i>
                                     <p>
                                         Incident Accident
-                                        <i class="fas fa-angle-left right"></i>
+                                        <i class="fas fa-angle-left right" aria-expanded="true"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./WebForm1.aspx" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                        <%--<a href="Welcome.aspx" class="nav-link">
+                                            
                                             <p>Create Report</p>
-                                        </a>
-                                        
+                                        </a>--%>
+                                        <asp:LinkButton ID="createReport" CssClass="nav-link  fa-circle nav-icon" runat="server" OnClick="Create_Report" Visible="false">Create Report</asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
                                         <a href="viewReport.aspx" class="nav-link">
@@ -146,15 +146,16 @@
                                 <a href="#" class="nav-link" id="workpermit">
                                     <i class="nav-icon fas fa-chart-pie"></i>
                                     <p> Work Permit
-                                        <i class="right fas fa-angle-left"></i>
+                                        <i class="right fas fa-angle-left" aria-expanded="true" aria-multiselectable="True" aria-pressed="true"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./Welcome.aspx" class="nav-link" onclick="Active_WP">
+                                        <%--<a href="Welcome.aspx" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Create Work Permit</p>
-                                        </a>
+                                        </a>--%>
+                                        <asp:LinkButton ID="createWP"  CssClass ="nav-link  fa-circle nav-icon" runat="server" OnClick="Create_WP" Visible="false">Create Work Permit</asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
                                         <a href="viewWorkPermit.aspx" class="nav-link">
@@ -197,11 +198,11 @@
 
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="#">AdminLTE.io</a>.</strong>
+                <strong>Copyright &copy; 2014-2021 <a href="#">ARAI Pune</a>.</strong>
                 All rights reserved.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 3.1.0
-                </div>
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.0
+    </div>
             </footer>
 
             <!-- Control Sidebar -->

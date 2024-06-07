@@ -200,6 +200,59 @@ namespace DataAccess
             }
         }
         #endregion "First"
+
+        public int SaveAccidentIncident(SaveBO ObjSaveIncidentBO)
+        {
+            int result = 0;
+            try
+            {
+                using (con = new SqlConnection(constr))
+                {
+                    using (cmd = new SqlCommand("sp_SaveAccidentIncident", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@date_of_incident", SqlDbType.Date).Value = ObjSaveIncidentBO.date_of_incident;
+                        cmd.Parameters.Add("@time_of_incident", SqlDbType.Time).Value = ObjSaveIncidentBO.time_of_incident;
+                        cmd.Parameters.Add("@name_of_affected_person", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.name_of_affected_person;
+                        cmd.Parameters.Add("@name_of_department", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.name_of_department;
+                        cmd.Parameters.Add("@location_of_incident", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.location_of_incident;
+                        cmd.Parameters.Add("@nature_of_incident", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.nature_of_incident;
+                        cmd.Parameters.Add("@drop_down_1", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_1;
+                        cmd.Parameters.Add("@drop_down_2", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_2;
+                        cmd.Parameters.Add("@drop_down_3", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_3;
+                        cmd.Parameters.Add("@drop_down_4", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_4;
+                        cmd.Parameters.Add("@drop_down_5", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_5;
+                        cmd.Parameters.Add("@drop_down_6", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.drop_down_6;
+                        cmd.Parameters.Add("@describe_incident", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.describe_incident;
+                        cmd.Parameters.Add("@immediate_action_taken", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.immediate_action_taken;
+                        cmd.Parameters.Add("@root_cause_analysis", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.root_cause_analysis;
+                        cmd.Parameters.Add("@corrective_action_plan", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.corrective_action_plan;
+                        cmd.Parameters.Add("@completion_date", SqlDbType.Date).Value = ObjSaveIncidentBO.completion_date;
+                        cmd.Parameters.Add("@responsible_person", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.responsible_person;
+                        cmd.Parameters.Add("@corrective_action_impact", SqlDbType.NVarChar).Value = ObjSaveIncidentBO.corrective_action_impact;
+                        cmd.Parameters.Add("@FName", SqlDbType.NVarChar, 250).Value = ObjSaveIncidentBO.FName;
+                        cmd.Parameters.Add("@FExtension", SqlDbType.NVarChar, 10).Value = ObjSaveIncidentBO.FExtension;
+                        cmd.Parameters.Add("@FilePath", SqlDbType.NVarChar, 350).Value = ObjSaveIncidentBO.FilePath;
+                        cmd.Parameters.Add("@FileAttachment", SqlDbType.NVarChar, 2).Value = ObjSaveIncidentBO.FileAttachment;
+                        con.Open();
+                        result = cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+
+                cmd.Dispose();
+                con.Close();
+            }
+        }
+
     }
 }
 
