@@ -71,8 +71,8 @@ namespace AdminTemplate3._1._0
             dr = dt.NewRow();
             dr["RowNumber"] = 1;
             dr["Column1"] = string.Empty;
-            dr["Column2"] = int.Empty;
-            dr["Column3"] = CheckBox.true;
+            dr["Column2"] = 0;
+            dr["Column3"] = true;
             dt.Rows.Add(dr);
 
             //dr = dt.NewRow;

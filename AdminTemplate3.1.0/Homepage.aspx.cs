@@ -51,6 +51,7 @@ namespace AdminTemplate3._1._0
 
         private int FetchNewOrdersCountFromDatabase()
         {
+            return 30;
            /* int count = 0;
             using (SqlConnection connection = new SqlConnection(strcon))
             {
