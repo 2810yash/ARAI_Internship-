@@ -7,38 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminTemplate3._1._0 {
-    
-    
-    public partial class WebForm1 {
-        
-        /// <summary>
-        /// date_of_incident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox date_of_incident;
-        
-        /// <summary>
-        /// time_of_incident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox time_of_incident;
-        
-        /// <summary>
-        /// name_of_affected_person control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox name_of_affected_person;
-        
+namespace AdminTemplate3._1._0
+{
+
+
+    public partial class WebForm1
+    {
+
         /// <summary>
         /// incident_id control.
         /// </summary>

@@ -229,7 +229,7 @@
                                                                             <span
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="supervisorContact0">Contact
-                                                                                Number:</span>
+                                                                                Number (Supervisor):</span>
                                                                             <asp:TextBox ID="supervisorContactNUM" required
                                                                                 Height="100%" CssClass="form-control"
                                                                                 runat="server" MaxLength="10" TextMode="Phone"></asp:TextBox>
@@ -251,7 +251,7 @@
                                                                             <span
                                                                                 class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                                                 id="araiEngContact0">Contact
-                                                                                Number:</span>
+                                                                                Number (Engineer):</span>
                                                                             <asp:TextBox ID="engiContactNUM"
                                                                                 Height="100%" CssClass="form-control" required
                                                                                 runat="server"></asp:TextBox>
@@ -288,14 +288,82 @@
                                                                             <asp:TextBox ID="numWorkers"
                                                                                 CssClass="form-control" required runat="server">
                                                                             </asp:TextBox>
-                                                                            <asp:Button ID="confirm" required
+                                                                            <%--<asp:Button ID="confirm" required
                                                                                 CssClass="input-group-text btn btn-info border-1"
                                                                                 OnClick="confirm_Click" runat="server"
-                                                                                Text="Confirm" />
+                                                                                Text="Confirm" />--%>
                                                                         </div>
                                                                         <div id="workers" style="width: auto;"
                                                                             class="mt-2 mb-0 d-flex justify-content-around"
                                                                             runat="server"></div>
+
+                                                                        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                                                                        
+                                                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                                            <ContentTemplate>
+                                                                                <asp:GridView ID="GridView1" runat="server" ShowFooter="true" AutoGenerateColumns="false">
+                                                                                    <Columns>
+                                                                                        <asp:BoundField DataField="RowNumber" HeaderText="Row Number" />
+                                                                                        <asp:TemplateField HeaderText="Name of Workers">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="AGE">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:TextBox ID="TextBox2" TextMode="Number" runat="server"></asp:TextBox>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Mask">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox1" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Safety Shoes/ Gum Boots">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox2" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Jackets/ Aprons">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox3" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Gloves">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox4" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Ear plug/ muffs">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox5" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Belt/ Harness">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox6" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Helmet">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:CheckBox ID="CheckBox7" runat="server" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Remark">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                                                                            </ItemTemplate>
+                                                                                            <FooterStyle HorizontalAlign="Right" />
+                                                                                            <FooterTemplate>
+                                                                                                <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_Click" />
+                                                                                            </FooterTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                    </Columns>
+                                                                                </asp:GridView>
+
+                                                                            </ContentTemplate>
+                                                                        </asp:UpdatePanel>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -304,7 +372,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="page2" class="page2 p-4">
+                                   <div id="page2" class="page2 p-4">
                                         <div>
                                             <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
                                             <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" OnChange="toggleLabel()" Text=" Civil Work(Construction/Excavation & Painting)" /><br />
@@ -495,7 +563,6 @@
                                         });
 
                                     </script>
-
                                 </div>
 
                                 <div id="page3" class="page-3 p-4">

@@ -36,7 +36,23 @@
                     </div>
                     <br />
                     <br />
-                    <div id="detailsContainer" class="d-none"></div>
+                    <div id="detailsContainer" class="d-none">
+                        <!-- GridView for displaying worker details -->
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="NameOfWorkers" HeaderText="Name Of Workers" SortExpression="NameOfWorkers" />
+                                <asp:BoundField DataField="Age" HeaderText="Age" SortExpression="Age" />
+                                <asp:CheckBoxField DataField="Mask" HeaderText="Mask" SortExpression="Mask" />
+                                <asp:CheckBoxField DataField="SafetyShoesGumBoots" HeaderText="Safety Shoes/Gum Boots" SortExpression="SafetyShoesGumBoots" />
+                                <asp:CheckBoxField DataField="JacketsAprons" HeaderText="Jackets/Aprons" SortExpression="JacketsAprons" />
+                                <asp:CheckBoxField DataField="Gloves" HeaderText="Gloves" SortExpression="Gloves" />
+                                <asp:CheckBoxField DataField="EarPlugMuffs" HeaderText="Ear Plug/Muffs" SortExpression="EarPlugMuffs" />
+                                <asp:CheckBoxField DataField="BeltHarness" HeaderText="Belt/Harness" SortExpression="BeltHarness" />
+                                <asp:CheckBoxField DataField="Helmet" HeaderText="Helmet" SortExpression="Helmet" />
+                                <asp:BoundField DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
                     <div>
                         <asp:Repeater ID="reptCard" runat="server">
                             <ItemTemplate>
@@ -61,6 +77,7 @@
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>
+                        
                     </div>
                 </div>
             </div>
@@ -119,6 +136,9 @@
                                     <td><p><strong>Worker Details:</strong> ${details.WorkerDeatials}</p></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="2" id="workerDetailsContainer"></td>
+                                </tr>
+                                <tr>
                                     <td><p><strong>Name of Vendor/Contractor Supervisor:</strong> ${details.ContractorName}</p></td>
                                     <td><p><strong>Contact Number (Contractor):</strong> ${details.ContractorNo}</p></td>
                                 </tr>
@@ -144,6 +164,8 @@
             detailsContainer.classList.remove('d-none');
             searchBox.style.display = 'none';
             repeater.style.display = 'none';
+
+            __doPostBack('LoadWorkerDetails', details.PermitNumber);
         }
 
         function hidePermitDetails() {

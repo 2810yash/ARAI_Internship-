@@ -26,6 +26,7 @@ namespace AdminTemplate3._1._0
         public string EngineerNo { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
+        public string DeptIssued { get; set; }
         public string workPermits { get; set; }
     }
 
@@ -40,7 +41,35 @@ namespace AdminTemplate3._1._0
                 LoadPermitDetails();
                 //agency_list_toSearch();
             }
+            if (IsPostBack)
+            {
+                string eventTarget = Request["__EVENTTARGET"];
+                if (eventTarget == "LoadWorkerDetails")
+                {
+                    string permitNumber = Request["__EVENTARGUMENT"];
+                    BindWorkerDetails(permitNumber);
+                }
+            }
         }
+        private void BindWorkerDetails(string permitNumber)
+        {
+            string query = "SELECT NameOfWorkers, Age, Mask, SafetyShoesGumBoots, JacketsAprons, Gloves, EarPlugMuffs, BeltHarness, Helmet, Remarks FROM Workers WHERE PermitNumber = @PermitNumber";
+            using (SqlConnection conn = new SqlConnection(Main_con))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        GridView1.DataSource = dt;
+                        GridView1.DataBind();
+                    }
+                }
+            }
+        }
+
         //protected void agency_list_toSearch()
         //{
         //    SqlConnection sqlcon = new SqlConnection(Main_con);
@@ -154,7 +183,11 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "ViewDetails")
             {
                 string permitNumber = e.CommandArgument.ToString();
-                var permitDetails = GetPermitDetailsByNumber(permitNumber);
+                var permitDetails = GetPermitDetailsByPermitNumber(permitNumber);
+                var workerDetails = GetWorkerDetailsByPermitNumber(permitNumber);
+
+                GridView1.DataSource = workerDetails;
+                GridView1.DataBind();
 
                 if (permitDetails != null)
                 {
@@ -163,7 +196,7 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        private PermitDetails GetPermitDetailsByNumber(string permitNumber)
+        private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
             string query = @"
@@ -225,6 +258,26 @@ namespace AdminTemplate3._1._0
                 }
             }
             return permitDetails;
+        }
+
+        private DataTable GetWorkerDetailsByPermitNumber(string permitNumber)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(Main_con))
+            {
+                string query = "SELECT NameOfWorkers, Age, Mask, SafetyShoesGumBoots, JacketsAprons, Gloves, EarPlugMuffs, BeltHarness, Helmet, Remarks FROM Workers WHERE PermitNumber = @PermitNumber";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            return dt;
         }
 
         private void DisplayPermitDetails(PermitDetails details)

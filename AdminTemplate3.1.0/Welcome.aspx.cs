@@ -62,7 +62,7 @@ namespace AdminTemplate3._1._0
         {
             SqlConnection sqlcon = new SqlConnection(Main_con);
             sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[WorkPermit] WHERE Spl_License=1", sqlcon);
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
             sql_command.CommandType = CommandType.Text;
             spl_Licence.DataSource = sql_command.ExecuteReader();
             spl_Licence.DataTextField = "Work_Permit";
@@ -75,24 +75,185 @@ namespace AdminTemplate3._1._0
             DataTable dt = new DataTable();
             DataRow dr = null;
             dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-            dt.Columns.Add(new DataColumn("Column1", typeof(string)));
-            dt.Columns.Add(new DataColumn("Column2", typeof(int)));
-            dt.Columns.Add(new DataColumn("Column3", typeof(CheckBox)));
+            dt.Columns.Add(new DataColumn("Name of Workers", typeof(string)));
+            dt.Columns.Add(new DataColumn("AGE", typeof(int)));
+            dt.Columns.Add(new DataColumn("Mask", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Safety Shoes/ Gum Boots", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Jackets/ Aprons", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Gloves", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Ear plug/ muffs", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Belt/ Harness", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Helmet", typeof(bool)));
+            dt.Columns.Add(new DataColumn("Remarks", typeof(string)));
+
             dr = dt.NewRow();
             dr["RowNumber"] = 1;
-            dr["Column1"] = string.Empty;
-            dr["Column2"] = 0;
-            dr["Column3"] = true;
+            dr["Name of Workers"] = string.Empty;
+            dr["AGE"] = 0;
+            dr["Mask"] = true;
+            dr["Safety Shoes/ Gum Boots"] = true;
+            dr["Jackets/ Aprons"] = true;
+            dr["Gloves"] = true;
+            dr["Ear plug/ muffs"] = true;
+            dr["Belt/ Harness"] = true;
+            dr["Helmet"] = true;
+            dr["Remarks"] = string.Empty;
+
             dt.Rows.Add(dr);
 
-            //dr = dt.NewRow;
-            //Store the DataTable in ViewState
             ViewState["CurrentTable"] = dt;
-            Gridview1.DataSource = dt;
-            Gridview1.DataBind();
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
         }
 
-        protected void special_license_CheckedChanged(object sender, EventArgs e) 
+        private void AddNewRowToGrid()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        TextBox box1 = (TextBox)GridView1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
+                        TextBox box2 = (TextBox)GridView1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
+                        CheckBox chk1 = (CheckBox)GridView1.Rows[rowIndex].Cells[3].FindControl("CheckBox1");
+                        CheckBox chk2 = (CheckBox)GridView1.Rows[rowIndex].Cells[4].FindControl("CheckBox2");
+                        CheckBox chk3 = (CheckBox)GridView1.Rows[rowIndex].Cells[5].FindControl("CheckBox3");
+                        CheckBox chk4 = (CheckBox)GridView1.Rows[rowIndex].Cells[6].FindControl("CheckBox4");
+                        CheckBox chk5 = (CheckBox)GridView1.Rows[rowIndex].Cells[7].FindControl("CheckBox5");
+                        CheckBox chk6 = (CheckBox)GridView1.Rows[rowIndex].Cells[8].FindControl("CheckBox6");
+                        CheckBox chk7 = (CheckBox)GridView1.Rows[rowIndex].Cells[9].FindControl("CheckBox7");
+                        TextBox box3 = (TextBox)GridView1.Rows[rowIndex].Cells[10].FindControl("TextBox3");
+
+                        dtCurrentTable.Rows[i - 1]["Name of Workers"] = box1.Text;
+                        dtCurrentTable.Rows[i - 1]["AGE"] = box2.Text;
+                        dtCurrentTable.Rows[i - 1]["Mask"] = chk1.Checked;
+                        dtCurrentTable.Rows[i - 1]["Safety Shoes/ Gum Boots"] = chk2.Checked;
+                        dtCurrentTable.Rows[i - 1]["Jackets/ Aprons"] = chk3.Checked;
+                        dtCurrentTable.Rows[i - 1]["Gloves"] = chk4.Checked;
+                        dtCurrentTable.Rows[i - 1]["Ear plug/ muffs"] = chk5.Checked;
+                        dtCurrentTable.Rows[i - 1]["Belt/ Harness"] = chk6.Checked;
+                        dtCurrentTable.Rows[i - 1]["Helmet"] = chk7.Checked;
+                        dtCurrentTable.Rows[i - 1]["Remarks"] = box3.Text;
+
+                        rowIndex++;
+                    }
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = dtCurrentTable.Rows.Count + 1;
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTable"] = dtCurrentTable;
+                    GridView1.DataSource = dtCurrentTable;
+                    GridView1.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+            SetPreviousData();
+        }
+
+        private void SetPreviousData()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTable"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        TextBox box1 = (TextBox)GridView1.Rows[rowIndex].Cells[1].FindControl("TextBox1");
+                        TextBox box2 = (TextBox)GridView1.Rows[rowIndex].Cells[2].FindControl("TextBox2");
+                        CheckBox chk1 = (CheckBox)GridView1.Rows[rowIndex].Cells[3].FindControl("CheckBox1");
+                        CheckBox chk2 = (CheckBox)GridView1.Rows[rowIndex].Cells[4].FindControl("CheckBox2");
+                        CheckBox chk3 = (CheckBox)GridView1.Rows[rowIndex].Cells[5].FindControl("CheckBox3");
+                        CheckBox chk4 = (CheckBox)GridView1.Rows[rowIndex].Cells[6].FindControl("CheckBox4");
+                        CheckBox chk5 = (CheckBox)GridView1.Rows[rowIndex].Cells[7].FindControl("CheckBox5");
+                        CheckBox chk6 = (CheckBox)GridView1.Rows[rowIndex].Cells[8].FindControl("CheckBox6");
+                        CheckBox chk7 = (CheckBox)GridView1.Rows[rowIndex].Cells[9].FindControl("CheckBox7");
+                        TextBox box3 = (TextBox)GridView1.Rows[rowIndex].Cells[10].FindControl("TextBox3");
+
+                        box1.Text = dt.Rows[i]["Name of Workers"].ToString();
+                        box2.Text = dt.Rows[i]["AGE"].ToString();
+                        chk1.Checked = dt.Rows[i]["Mask"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Mask"]) : false;
+                        chk2.Checked = dt.Rows[i]["Safety Shoes/ Gum Boots"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Safety Shoes/ Gum Boots"]) : false;
+                        chk3.Checked = dt.Rows[i]["Jackets/ Aprons"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Jackets/ Aprons"]) : false;
+                        chk4.Checked = dt.Rows[i]["Gloves"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Gloves"]) : false;
+                        chk5.Checked = dt.Rows[i]["Ear plug/ muffs"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Ear plug/ muffs"]) : false;
+                        chk6.Checked = dt.Rows[i]["Belt/ Harness"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Belt/ Harness"]) : false;
+                        chk7.Checked = dt.Rows[i]["Helmet"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[i]["Helmet"]) : false;
+                        box3.Text = dt.Rows[i]["Remarks"].ToString();
+
+                        rowIndex++;
+                    }
+                }
+            }
+        }
+        private int SaveDataToDatabase(string permitNumber)
+        {
+            using (SqlConnection conn = new SqlConnection(Main_con))
+            {
+                conn.Open();
+
+                foreach (GridViewRow row in GridView1.Rows)
+                {
+                    if (row.RowType == DataControlRowType.DataRow)
+                    {
+                        TextBox box1 = (TextBox)row.Cells[1].FindControl("TextBox1");
+                        TextBox box2 = (TextBox)row.Cells[2].FindControl("TextBox2");
+                        CheckBox chk1 = (CheckBox)row.Cells[3].FindControl("CheckBox1");
+                        CheckBox chk2 = (CheckBox)row.Cells[4].FindControl("CheckBox2");
+                        CheckBox chk3 = (CheckBox)row.Cells[5].FindControl("CheckBox3");
+                        CheckBox chk4 = (CheckBox)row.Cells[6].FindControl("CheckBox4");
+                        CheckBox chk5 = (CheckBox)row.Cells[7].FindControl("CheckBox5");
+                        CheckBox chk6 = (CheckBox)row.Cells[8].FindControl("CheckBox6");
+                        CheckBox chk7 = (CheckBox)row.Cells[9].FindControl("CheckBox7");
+                        TextBox box3 = (TextBox)row.Cells[10].FindControl("TextBox3");
+
+                        using (SqlCommand cmd = new SqlCommand("InsertWorkerData", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                            cmd.Parameters.AddWithValue("@RowNumber", int.Parse(row.Cells[0].Text));
+                            cmd.Parameters.AddWithValue("@NameOfWorkers", box1.Text);
+                            cmd.Parameters.AddWithValue("@Age", int.Parse(box2.Text));
+                            cmd.Parameters.AddWithValue("@Mask", chk1.Checked);
+                            cmd.Parameters.AddWithValue("@SafetyShoesGumBoots", chk2.Checked);
+                            cmd.Parameters.AddWithValue("@JacketsAprons", chk3.Checked);
+                            cmd.Parameters.AddWithValue("@Gloves", chk4.Checked);
+                            cmd.Parameters.AddWithValue("@EarPlugMuffs", chk5.Checked);
+                            cmd.Parameters.AddWithValue("@BeltHarness", chk6.Checked);
+                            cmd.Parameters.AddWithValue("@Helmet", chk7.Checked);
+                            cmd.Parameters.AddWithValue("@Remarks", box3.Text);
+
+                            try
+                            {
+                                cmd.ExecuteNonQuery();
+                            }
+                            catch (Exception ex)
+                            {
+                                Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+            return 1;
+        }
+
+        protected void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            AddNewRowToGrid();
+        }
+
+
+        protected void special_license_CheckedChanged(object sender, EventArgs e)
         {
             spl_Licence.Visible = special_license_yes.Checked;
         }
@@ -184,7 +345,7 @@ namespace AdminTemplate3._1._0
         {
             int flag = 0;
             TimeSpan diff = validTill.Subtract(validFrom);
-            if(dateOfIssue > validTill)
+            if (dateOfIssue > validTill)
             {
                 flag = -1;
                 Response.Write("<script> alert('Valid Till Date cannot be earlier than Date of Issue!'); </script>");
@@ -192,7 +353,7 @@ namespace AdminTemplate3._1._0
             {
                 flag = -1;
                 Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
-            } else if (diff.Days > 15) 
+            } else if (diff.Days > 15)
             {
                 flag = -1;
                 Response.Write("<script> alert('Valid Till Date cannot exceed 15 days!'); </script>");
@@ -209,8 +370,9 @@ namespace AdminTemplate3._1._0
             DateTime validFrom = Convert.ToDateTime(perValidFrom.Text.Trim());
             DateTime validTill = Convert.ToDateTime(perValidTill.Text.Trim());
             int flag = validateDates(dateOfIssue, validFrom, validTill);
+            int WDdone = 0;
 
-            if(flag<0)
+            if (flag < 0)
             {
                 return;
             }
@@ -243,7 +405,6 @@ namespace AdminTemplate3._1._0
             //CheckBox bottons
             if (check1.Checked)
             {
-                
                 check1Txt = check1.Text;
             }
             if (check2.Checked)
@@ -274,13 +435,13 @@ namespace AdminTemplate3._1._0
             {
                 check8Txt = check8.Text;
             }
-            if(!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
+            if (!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
             {
                 Response.Write("<script>alert('Please select a work permit!');</script>");
                 return;
             }
             selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
-            
+
             try
             {
                 int result = 0;
@@ -313,23 +474,29 @@ namespace AdminTemplate3._1._0
                         // Execute the command and get the result
                         result = cmd.ExecuteNonQuery();
                         con.Close();
-
-                        if (result > 0)
+                        WDdone = SaveDataToDatabase(permitNumber);
+                        if (WDdone == 1)
                         {
-                            storeWorkerDetails(workerNum, permitNumber);
-                            Response.Write("<script>alert('Data added Successfully.');</script>");
-                            try
+                            if (result > 0)
                             {
-                                SendEmail(dateOfIssue);
+                                Response.Write("<script>alert('Data added Successfully.');</script>");
+                                try
+                                {
+                                    sendEmail(permitNumber);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Response.Write("<script> alert(" + ex.Message + "); </script>");
+                                }
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                Response.Write("<script> alert("+ex.Message+"); </script>");
+                                Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
                             }
                         }
                         else
                         {
-                            Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                            Response.Write("<script>alert('Error storing Workers Data');</script>");
                         }
                     }
                 }
@@ -363,16 +530,17 @@ namespace AdminTemplate3._1._0
                                 PermitValidTill = reader["PermitValidTill"].ToString(),
                                 SpecialLicense = reader["SpecialLicense"].ToString(),
                                 SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
-                                InsuranceNo = reader["InsuranceNo"].ToString(),
-                                InsuranceValidity = reader["InsuranceValidity"].ToString(),
-                                AgencyName = reader["AgencyName"].ToString(),
-                                WorkerNo = reader["WorkerNo"].ToString(),
-                                ContractorName = reader["ContractorName"].ToString(),
-                                ContractorNo = reader["ContractorNo"].ToString(),
-                                EngineerName = reader["EngineerName"].ToString(),
-                                EngineerNo = reader["EngineerNo"].ToString(),
-                                Description = reader["Description"].ToString(),
-                                Location = reader["Location"].ToString(),
+                                InsuranceNo = reader["ESI_InsuranceNo"].ToString(),
+                                InsuranceValidity = reader["ESI_Validity"].ToString(),
+                                AgencyName = reader["NameofFirm_Agency"].ToString(),
+                                WorkerNo = reader["NumberofWorkers"].ToString(),
+                                ContractorName = reader["NameofSupervisor"].ToString(),
+                                ContractorNo = reader["ContractorContactNumber"].ToString(),
+                                EngineerName = reader["ARAIEngineer"].ToString(),
+                                EngineerNo = reader["EngineerContactNumber"].ToString(),
+                                Description = reader["BriefDescriptionofWork"].ToString(),
+                                Location = reader["LocationofWork"].ToString(),
+                                DeptIssued = reader["DeptIssued"].ToString(),
                                 workPermits = reader["workPermits"].ToString()
                             };
 
@@ -394,54 +562,119 @@ namespace AdminTemplate3._1._0
         {
             PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
 
-
-        protected void SendEmail(DateTime dateOfIssue)
-        {
-            //Response.Write("<script>alert('Dept Name: " + deptName + "');</script>");
-            string email;
-            int flag = -1;
-            using (SqlConnection con = new SqlConnection(Main_con))
+            if (permitDetails != null)
             {
-                using (SqlCommand cmd = new SqlCommand("usp_fetchEmail", con))
+                string email;
+                int flag = -1;
+                using (SqlConnection con = new SqlConnection(Main_con))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Dept_Name", deptName);
-                    cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
-                    con.Open();
-                    flag = cmd.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand("usp_fetchEmail", con))
+                    {
 
-                    // Fetch the output 
-                    email = cmd.Parameters["@EmailID"].Value.ToString();
-                    //Response.Write("<script>alert('Email: " + email + "');</script>");
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Dept_Name", deptName);
+                        cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
+                        con.Open();
+                        flag = cmd.ExecuteNonQuery();
 
-                    con.Close();
+                        // Fetch the output 
+                        email = cmd.Parameters["@EmailID"].Value.ToString();
+                        //Response.Write("<script>alert('Email: " + email + "');</script>");
 
+                        con.Close();
+
+                    }
+                }
+                string from = "yash2810203@gmail.com";
+                // string to = "yash2810203@gmail.com";
+                try
+                {
+                    using (MailMessage mail = new MailMessage(from, email))
+                    {
+                        mail.Subject = "New Work Permit Created";
+
+                        string body = $@"
+                            <div class='card'>
+                                <div>
+                                    <h3>Permit Details</h3>
+                                    <h6 style='color:gray;'>{permitDetails.SiteName}</h6>
+                                    <h6 style='color:gray;'><b>Date of Issue: </b>{permitDetails.DateofIssue:dd-MM-yyyy}</h6>
+                                </div>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>
+                                        <strong>Permit Number:</strong> {permitDetails.PermitNumber}
+                                    </h5>
+                                    <p class='card-text d-block'>
+                                        <table class='table table-bordered' style='width: 100%;'>
+                                            <tr>
+                                                <td><p><strong>Permit Valid From:</strong> {permitDetails.PermitValidFrom:dd-MM-yyyy}</p></td>
+                                                <td><p><strong>Permit Valid Till:</strong> {permitDetails.PermitValidTill:dd-MM-yyyy}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>Special License:</strong> {permitDetails.SpecialLicense}</p></td>
+                                                <td><p><strong>Special License Type:</strong> {permitDetails.SpecialLicenseType}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>ESI/Insurance No:</strong> {permitDetails.InsuranceNo}</p></td>
+                                                <td><p><strong>ESI/Insurance Validity:</strong> {permitDetails.InsuranceValidity:dd-MM-yyyy}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>Name of Vendor or Contractor Firm/Agency:</strong> {permitDetails.AgencyName}</p></td>
+                                                <td><p><strong>Number of workers:</strong> {permitDetails.WorkerNo}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>Worker Details:</strong> permitDetails.WorkerDetails</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>Name of Vendor/Contractor Supervisor:</strong> {permitDetails.ContractorName}</p></td>
+                                                <td><p><strong>Contact Number (Contractor):</strong> {permitDetails.ContractorNo}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>ARAI Engineer:</strong> {permitDetails.EngineerName}</p></td>
+                                                <td><p><strong>Contact Number (Engineer):</strong> {permitDetails.EngineerNo}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p><strong>Brief Description of Work:</strong> {permitDetails.Description}</p></td>
+                                                <td><p><strong>Location of Work:</strong> {permitDetails.Location}</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td>WorkPermits selected: {permitDetails.workPermits}</td>
+                                            </tr>
+                                        </table>
+                                    </p>
+                                </div>
+                            </div>";
+
+                        mail.Body = body;
+                        mail.IsBodyHtml = true;
+
+                        SmtpClient smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            EnableSsl = true,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(from, "ohfm hsdv qgxq vmej"),
+                            Port = 587
+                        };
+
+                        smtp.Send(mail);
+
+                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                    }
+                }
+                catch (SmtpException smtpEx)
+                {
+                    Response.Write($"<script>alert('SMTP Exception: {smtpEx.Message}');</script>");
+                }
+                catch (Exception ex)
+                {
+                    Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
                 }
             }
-
-            string from = "adityaraut1003@gmail.com";
-            //string to = email; //Use exception handling here!
-            using (MailMessage mail = new MailMessage(from, email))
+            else
             {
-                mail.Subject = "New Work Permit Created";
-                mail.Body = "Check out the new work permit created! \nAt: " + dateOfIssue;
-                //if (fileUploader.HasFile)
-                //{
-                //    string fileName = Path.GetFileName(fileUploader.PostedFile.FileName);
-                //    mail.Attachments.Add(new Attachment(fileUploader.PostedFile.InputStream, fileName));
-                //}
-                mail.IsBodyHtml = false;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential networkCredential = new NetworkCredential(from, "jgcb dmvu boae jfhh");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = networkCredential;
-                smtp.Port = 587;
-                smtp.Send(mail);
-                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
-                Response.Redirect("Welcome.aspx");
+                Response.Write("<script>alert('Permit details not found.');</script>");
             }
         }
     }
-}
+} 

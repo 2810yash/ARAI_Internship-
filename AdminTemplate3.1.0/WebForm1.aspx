@@ -208,6 +208,7 @@
                 <img src="assets/img3.jpg" alt="Image 3" />
             </div>
 
+
             <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
@@ -278,7 +279,7 @@
                             <asp:ListItem Text="Others" Value="10"></asp:ListItem>
                         </asp:DropDownList>
                         <div id="othersTextBox" style="display: none;">
-                            <input type="text" id="txtOthers" placeholder="Enter details" />1
+                            <input type="text" id="txtOthers" placeholder="Enter details" />
                         </div>
 
                     </div>
@@ -488,10 +489,37 @@
                 <br />
 
 
+                <div class="datentime">
+                  
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" ID="corrective1" required="required"></asp:TextBox>
+                        <span>Corrective action taken 1</span>
+                    </div>
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" ID="resp1" required="required"></asp:TextBox>
+                        <span>Responsible person 1</span>
+                    </div>
+                    <div class="inputBox">
+                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date1" required="required"></asp:TextBox>
+                        <span>Date of Completion 1</span>
+                    </div>
+                </div>
 
-                
-
-
+                 <div class="datentime">
+                  
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" ID="corrective2" required="required"></asp:TextBox>
+                        <span>Corrective action taken 2</span>
+                    </div>
+                    <div class="inputBox">
+                        <asp:TextBox CssClass="date-input" runat="server" ID="resp2" required="required"></asp:TextBox>
+                        <span>Responsible person 2</span>
+                    </div>
+                    <div class="inputBox">
+                        <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date2" required="required"></asp:TextBox>
+                        <span>Date of Completion 2</span>
+                    </div>
+                </div>
 
                 <div class="datentime">
                   
@@ -522,16 +550,15 @@
                         <asp:TextBox CssClass="date-input" TextMode="Date" ID="completion_date" required="required" runat="server"></asp:TextBox>
                         <span>Completion Date</span>
                     </div>
-
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsible_person"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" required="required" runat="server" ID="responsibility"></asp:TextBox>
                         <span>Responsible Person</span>
                     </div>
                 </div>
 
                 <div class="datentime">
                     <div class="inputBox">
-                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="corrective_action_impact"></asp:TextBox>
+                        <asp:TextBox CssClass="date-input" runat="server" required="required" ID="TextBox3"></asp:TextBox>
                         <span>Corrective Action Impact</span>
                     </div>
                 </div>--%>
@@ -562,18 +589,17 @@
                     </div>
                 </div>
 
-<%--<script>
-    function toggleFileInput(show) {
-        var fileUpload = document.getElementById("fileUpload");
-        if (show) {
-            fileUpload.style.display = "block";
-            alert("Please upload a file."); // Popup message
-        } else {
-            fileUpload.style.display = "none";
-        }
-    }
-</script>--%>
-
+                <script>
+                    function toggleFileInput(show) {
+                        var fileUpload = document.getElementById("fileUpload");
+                        if (show) {
+                            fileUpload.style.display = "block";
+                            alert("Please upload a file."); // Popup message
+                        } else {
+                            fileUpload.style.display = "none";
+                        }
+                    }
+                </script>
 
 
 
@@ -619,24 +645,8 @@
                         }
                         return true; // Allow form submission
                     }
-
-                    function validateDates() {
-                        var dateOfIncident = document.getElementById('<%= date_of_incident.ClientID %>').value;
-                        var completionDate = document.getElementById('<%= completion_date.ClientID %>').value;
-
-                        if (dateOfIncident && completionDate) {
-                            var incidentDate = new Date(dateOfIncident);
-                            var compDate = new Date(completionDate);
-
-                            if (compDate < incidentDate) {
-                                alert("Completion date must be greater than or equal to the date of incident.");
-                                return false;
-                            }
-                        }
-
-                        return true;
-                    }
                 </script>
+
 
 
 
@@ -649,4 +659,3 @@
 
 
 </asp:Content>
-

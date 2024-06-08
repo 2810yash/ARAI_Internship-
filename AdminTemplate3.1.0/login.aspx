@@ -113,7 +113,9 @@
                     <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
                     <br />
                     <asp:Button ID="Button1" runat="server" CssClass="sub-btn" OnClick="Button1_Click" Text="Login" />
-
+                    <br />
+                    <br />
+                    <p style="font-size:medium; text-align:left;">Don't have an Account <a href="register.aspx"><b>Sign Up</b></a></p>
                 </div>
             </div>
         </form>
