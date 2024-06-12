@@ -20,6 +20,7 @@ namespace AdminTemplate3._1._0
             if (!IsPostBack)
             {
                 dept_list();
+                role_list();
             }
         }
 
@@ -27,15 +28,27 @@ namespace AdminTemplate3._1._0
         {
             SqlConnection sqlcon = new SqlConnection(strconn2);
             sqlcon.Open();
-            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[Department_TBL]", sqlcon);
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[ICSS_DeptMaster]", sqlcon);
             sql_command.CommandType = CommandType.Text;
             dept.DataSource = sql_command.ExecuteReader();
-            dept.DataTextField = "Dept_Name";
+            dept.DataTextField = "DEPT_NAME";
             //araiEng.DataValueField = "DeptID";
             dept.DataBind();
             dept.Items.Insert(0, new ListItem("-- Select Department Name --", "0"));
         }
 
+        protected void role_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(strconn2);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[Role_Master_TBL]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            roles.DataSource = sql_command.ExecuteReader();
+            roles.DataTextField = "Role";
+            roles.DataBind();
+            roles.Items.Insert(0, new ListItem("-- Select Role --", "0"));
+        }
+    
         // Sign Up Button
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -43,19 +56,20 @@ namespace AdminTemplate3._1._0
             String email = regiEmail.Text.Trim();
             String pass = regiPass.Text.Trim();
             String rePass = regiRepass.Text.Trim();
-            String selectedRole = roles.SelectedValue;
+            String selectedRole = roles.SelectedValue.ToString();
             String selectedDept = dept.SelectedValue;
+            
 
-            if (pass == rePass && selectedRole != "role" && selectedDept != "0")
+            if (pass == rePass && selectedRole != null && selectedDept != "0")
             {
                 SignUpNewUser(userName, email, pass, selectedRole, selectedDept);
-                if (selectedRole == "admin")
+                if (selectedRole.Equals("Admin"))
                 {
                     Response.Redirect("Homepage.aspx");
                 }
-                else if (selectedRole == "user")
+                else if (selectedRole.Equals("User"))
                 {
-                    Response.Redirect("Welcome.aspx");
+                    Response.Redirect("Homepage.aspx");
                 }
                 else
                 {
@@ -72,12 +86,81 @@ namespace AdminTemplate3._1._0
             }
         }
 
+        protected int getRoleID(String selectedRole)
+        {
+            int roleID;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(strconn2))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_getRoleCode", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Role", selectedRole);
+                        cmd.Parameters.Add("@RoleID", SqlDbType.Int, 100).Direction = ParameterDirection.Output;
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        roleID = (int)cmd.Parameters["@RoleID"].Value;
+                        //Response.Write("<script> alert('Dept Code = '" + roleID + "'); </script>");
+                        con.Close();
+                        return roleID;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script> alert('" + ex.Message + "'); </script>");
+                return 0;
+            }
+        }
+
+        protected int GetDeptCode(String selectedDept)
+        {
+            int deptCode;
+            try {
+                using (SqlConnection con = new SqlConnection(strconn2))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_getDeptCode", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@DeptName", selectedDept);
+                        cmd.Parameters.Add("@DeptCode", SqlDbType.Int, 100).Direction = ParameterDirection.Output;
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        deptCode = (int)cmd.Parameters["@DeptCode"].Value;
+                        Response.Write("<script> alert('Dept Code = '" + deptCode + "'); </script>");
+                        con.Close();
+                        return deptCode;
+                    }
+                }
+            } catch (Exception ex)
+            {
+                Response.Write("<script> alert('" + ex.Message + "'); </script>");
+                return 0;
+            }
+        }
+
         protected void SignUpNewUser(String userName, String email, String pass, String selectedRole, String selectedDept)
         {
             //SqlConnection con = new SqlConnection(strconn2);
             try
             {
-                string hashedPassword = PasswordHelper.HashPassword(pass);
+
+                int deptCode = GetDeptCode(selectedDept);
+                int roleID = getRoleID(selectedRole);
+                if (deptCode == 0 || roleID == 0)
+                {
+                    Response.Write("<script> alert('Could not store details! Please try again') </script>");
+                    Response.Redirect("register.aspx");
+                    return;
+                }
+
+                Session["DeptID"] = deptCode;
+                Session["RoleID"] = roleID;
+
+                //string hashedPassword = PasswordHelper.HashPassword(pass);
                 int result = 0;
                 using (SqlConnection con = new SqlConnection(strconn2))
                 {
@@ -85,11 +168,14 @@ namespace AdminTemplate3._1._0
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Username", userName);
-                        cmd.Parameters.AddWithValue("@EmailID", email);
-                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        cmd.Parameters.AddWithValue("@EmailID", email); 
+                        cmd.Parameters.AddWithValue("@Password", pass);
                         cmd.Parameters.AddWithValue("@Role", selectedRole);
+                        cmd.Parameters.AddWithValue("@RoleID", roleID);
                         cmd.Parameters.AddWithValue("@Dept", selectedDept);
+                        cmd.Parameters.AddWithValue("@DeptCode", deptCode);
                         Session["deptName"] = selectedDept;
+                        //Session["Role"] = selectedRole;
                         con.Open();
                         result = cmd.ExecuteNonQuery();
                         con.Close();

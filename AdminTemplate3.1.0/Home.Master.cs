@@ -22,12 +22,12 @@ namespace AdminTemplate3._1._0
                         userDisplayName = Session["Username"].ToString().ToUpperInvariant();
                     }
 
-                    if (Session["Role"].Equals("user"))
+                    if ((int)Session["RoleID"] == 2)
                     {
                         createWP.Visible = true;
                         createReport.Visible = true;
                     }
-                    //GetFunc();            
+                    //GetFunc();
                 }
             } catch
             {

@@ -11,7 +11,7 @@ namespace AdminTemplate3._1._0
 {
 
 
-    public partial class WebForm1
+    public partial class EditReport
     {
 
         /// <summary>

@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="AdminTemplate3._1._0.WebForm1" %>
-
-<asp:Content ContentPlaceHolderID="head" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="EditReport.aspx.cs" Inherits="AdminTemplate3._1._0.EditReport" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -41,52 +40,56 @@
         }
 
         .area {
-            background-color:eff4f7;
+            background-color: blanchedalmond;
         }
 
-        /*.carousel-item img {
+        .carousel-item img {
             width: 100%;
             height: auto;
             max-height: 500px; /* Adjust this value as needed */
             object-fit: contain;
-        }*/
+        }
 
         .position-relative form {
             background-color: #778899; /* grey background */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow to the container */
         }
 
-        
+        .radioinput {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .radio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .hazard-study {
             font-weight: bold;
             margin-bottom: 10px;
         }
 
-        .radio input[type="radio"] {
-                display: none;
-            }
+        input[type="radio"] {
+            display: none;
+        }
 
-            .radio label {
-                display: inline-block;
-                padding: 10px 20px;
-                margin: 5px;
+            input[type="radio"] + label {
                 cursor: pointer;
-                border: 2px solid #007bff;
+                padding: 8px 20px;
+                border: 2px solid #ccc;
                 border-radius: 5px;
-                background-color: #f8f9fa;
-                color: #007bff;
+                margin-bottom: 5px;
                 font-size: 16px;
-                transition: background-color 0.3s, color 0.3s;
             }
 
-            .radio input[type="radio"]:checked + label {
+            input[type="radio"]:checked + label {
                 background-color: #007bff;
-                color: #ffffff;
-            }
-
-            .radio label:hover {
-                background-color: #e2e6ea;
+                color: #fff;
+                border-color: #007bff;
             }
 
         .container1 {
@@ -97,10 +100,25 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        
+        .gridview input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .gridview th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+        }
+
+        .gridview td {
+            padding: 10px;
+        }
 
         content-wrapper position-relative main {
-            background-color:aliceblue
+            background-color: antiquewhite;
         }
 
         .question-container {
@@ -126,364 +144,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        /new front end style Begins here/
-
-
-        .marquee-container {
-            /*border: 1px solid red;
-            padding: 5px;
-            background-color: #f9f9f9;*/
-             border: 1px solid red;
-            padding: 5px;
-            background-color:blanchedalmond;
-            overflow: hidden;
-            white-space: nowrap;
-            text-align: center;
-        }
-
-        .marquee-text {
-            
-             color: red;
-            font-size: 16px;
-            animation: blink 1s step-start infinite;
-        }
-        .navbar-container {
-    width: 100%;
-    background-color: #003366;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-}
-
-.nav-item .nav-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-}
-
-.nav-arrow {
-    padding: 0 10px;
-}
-
-.nav-text {
-    color: white;
-    font-size: 16px;
-}
-body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            background-color: #003399;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .header-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .header-subtitle {
-            font-size: 14px;
-        }
-        .header-icons {
-            display: flex;
-            align-items: center;
-        }
-        .header-icons img {
-            margin: 0 5px;
-            height: 30px;
-        }
-        .header-links {
-            margin-left: 20px;
-        }
-        .header-links a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-        .header-links a:hover {
-            text-decoration: underline;
-        }
-        
-        .radio input[type="radio"] {
-                display: none;
-            }
-
-            .radio label {
-                display: inline-block;
-                padding: 10px 20px;
-                margin: 5px;
-                cursor: pointer;
-                border: 2px solid #007bff;
-                border-radius: 5px;
-                background-color: #f8f9fa;
-                color: #007bff;
-                font-size: 16px;
-                transition: background-color 0.3s, color 0.3s;
-            }
-
-            .radio input[type="radio"]:checked + label {
-                background-color: #007bff;
-                color: #ffffff;
-            }
-
-            .radio label:hover {
-                background-color: #e2e6ea;
-            }
-
-            .file {
-                display: none;
-                margin-top: 10px;
-            }
-
-            .upload-arrow {
-                font-size: 20px;
-                margin-right: 10px;
-            }
-
-
-
-            .navbar-container {
-    position: relative;
-}
-
-.nav-item {
-    display: inline-block;
-    position: relative;
-}
-
-.tooltip {
-    position: absolute;
-    background-color:black;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: none;
-    z-index: 1000;
-    white-space: nowrap;
-}
-
-.tooltip::after {
-    content: '';
-    position: absolute;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #333 transparent;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* styles.css */
-body {
-    transition: background-color 0.5s, color 0.5s;
-}
-
-/* Day Theme */
-.day-theme {
-    background-color: white;
-    color: black;
-}
-
-/* Night Theme */
-.night-theme {
-    background-color: #222222;
-    color: white;
-}
-
-/* Toggle Switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 20px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
-/new front end style ends here/
-
-
-
-
-
-
     </style>
 </asp:Content>
-
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="content-wrapper position-relative main">
-         <div class="header">
-            <div>
-                 <div class="header-title">Automotive Research Association of India</div>
-                <div class="header-subtitle">Research Institute of the Automotive Industry with the Ministry of Heavy Industries, Govt. of India</div>
-            </div>
-            <div class="header-icons">
-                
-                <img src="assets/motorcycle.png" />
-                <img src="assets/car.png" />
-                <img src="assets/bus.png" />
-                <img src="assets/construction.png" />
-                <img src="assets/cargo-truck.png" />
-                <label class="switch">
-                <input type="checkbox" onclick="toggleTheme()">
-                <span class="slider round"></span>
-            </label>
-                <script>
-                    function toggleTheme() {
-                        var body = document.body;
-                        if (body.classList.contains('day-theme')) {
-                            body.classList.remove('day-theme');
-                            body.classList.add('night-theme');
-                        } else {
-                            body.classList.remove('night-theme');
-                            body.classList.add('day-theme');
-                        }
-                    }
-</script>
-
-</div>
-                   </div>
-            
-            <br />
-
-             <div class="marquee-container">
-            <marquee class="marquee-text" behavior="scroll" direction="left" scrollamount="5">
-                
-                Welcome to the online reporting portal of INCIDENT-ACCIDENT Analysis of ARAI.
-                    
-            </marquee>
-        </div>
-         
-        <br />
-        
-
-         <div class="navbar-container">
-    <div class="navbar">
-        <%--<div class="nav-item">
-            <img src="Content/report.png" class="nav-icon" />
-            <span class="nav-text">Incident-Accident Online Report</span>
-        </div>--%>
-        <%--<div class="nav-arrow">></div>--%>
-        <div class="nav-item" data-tooltip="Finding Better Methods to Deal Accident cases.">
-            <span class="nav-text">Methodologies</span>
-        </div>
-        <div class="nav-arrow"><</div>
-        <div class="nav-item" data-tooltip="Adding Detailed Description helps better analysis.">
-            <img src="assets/edit-info.png" class="nav-icon" />
-            <span class="nav-text">Incident Description</span>
-        </div>
-        <div class="nav-item" data-tooltip="Reporting Dynamics of the Accident is important.">
-            <img src="assets/insurance.png" class="nav-icon" />
-            <span class="nav-text">Accident Dynamics</span>
-        </div>
-        <div class="nav-item" data-tooltip="It is a 5 WHY? analysis step.">
-            <img src="assets/root-cause.png" class="nav-icon" />
-            <span class="nav-text">Root Cause Analysis</span>
-        </div>
-        <div class="nav-item" data-tooltip=" Recommendations for better work environments can be added in remarks section.">
-            <img src="assets/guidelines.png" class="nav-icon" />
-            <span class="nav-text">Recommendations</span>
-        </div>
-        <div class="nav-item" data-tooltip="Concluding report to avoid further scenarioes">
-            <img src="assets/lightbulb.png" class="nav-icon" />
-            <span class="nav-text">Conclusions</span>
-        </div>
-        <div class="nav-arrow">></div>
-
-    </div>
-</div>
-
-<div class="tooltip" id="tooltip"></div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const tooltip = document.getElementById('tooltip');
-                const navItems = document.querySelectorAll('.nav-item');
-
-                navItems.forEach(item => {
-                    item.addEventListener('mouseenter', function () {
-                        const tooltipText = this.getAttribute('data-tooltip');
-                        tooltip.textContent = tooltipText;
-                        tooltip.style.display = 'block';
-
-                        const rect = this.getBoundingClientRect();
-                        tooltip.style.top = ${ rect.bottom + window.scrollY } px;
-                        tooltip.style.left = ${ rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + window.scrollX } px;
-                    });
-
-                    item.addEventListener('mouseleave', function () {
-                        tooltip.style.display = 'none';
-                    });
-                });
-            });
-
-        </script>
-
- 
-       
-
         <div class="position-relative form">
-
             <div class="heading">
                 <h1>ACCIDENT-INCIDENT</h1>
             </div>
@@ -534,7 +199,7 @@ input:checked + .slider:before {
             
             <br />
             <br />
-            <div class="area">
+
             <div class="image-row">
                 <img src="assets/im1.jpg" alt="Image 1" />
                 <img src="assets/img2.jpg" alt="Image 2" />
@@ -542,7 +207,7 @@ input:checked + .slider:before {
             </div>
 
 
-            
+            <div class="area">
                 <div class="datentime">
                     <div class="inputBox">
                         <asp:TextBox TextMode="Date" CssClass="date-input" runat="server" ID="date_of_incident" required="required"></asp:TextBox>
@@ -596,16 +261,16 @@ input:checked + .slider:before {
                     <div class="inputBox">
                         <asp:DropDownList CssClass="dropdown-input" ID="nature_of_incident" runat="server" onchange="toggleSubDropdown(this)" required="required">
                             <asp:ListItem Text="-- Select Nature of Incident/Accident --" Value="" Disabled="true" Selected="true"></asp:ListItem>
-                            <asp:ListItem Text="Injury" Value="Injury"></asp:ListItem>
-                            <asp:ListItem Text="Explosions" Value="Explosions"></asp:ListItem>
-                            <asp:ListItem Text="Fall of Persons" Value="Fall of Persons"></asp:ListItem>
-                            <asp:ListItem Text="Fall of Objects" Value="Fall of Objects"></asp:ListItem>
-                            <asp:ListItem Text="Over-Exertion" Value="Over-Exertion"></asp:ListItem>
-                            <asp:ListItem Text="Contact with electric current" Value="Contact with electric current"></asp:ListItem>
-                            <asp:ListItem Text="Caught between objects" Value="Caught between Objects"></asp:ListItem>
-                            <asp:ListItem Text="Striking against moving objects" Value="Striking against moving objects"></asp:ListItem>
-                            <asp:ListItem Text="Stepping on objects" Value="Stepping on objects"></asp:ListItem>
-                            <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                            <asp:ListItem Text="Injury" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Explosions" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Fall of Persons" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Fall of Objects" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="Over-Exertion" Value="5"></asp:ListItem>
+                            <asp:ListItem Text="Contact with electric current" Value="6"></asp:ListItem>
+                            <asp:ListItem Text="Caught between objects" Value="7"></asp:ListItem>
+                            <asp:ListItem Text="Striking against moving objects" Value="8"></asp:ListItem>
+                            <asp:ListItem Text="Stepping on objects" Value="9"></asp:ListItem>
+                            <asp:ListItem Text="Others" Value="10"></asp:ListItem>
                         </asp:DropDownList>
                         <div id="othersTextBox" style="display: none;">
                             <input type="text" id="txtOthers" placeholder="Enter details" />
@@ -620,10 +285,10 @@ input:checked + .slider:before {
                 <div class="inputBox" id="subDropdown1" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_1" runat="server" >
                         <asp:ListItem Text="-- Select Incident Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="Fractures" Value="Fractures"></asp:ListItem>
-                        <asp:ListItem Text="Dislocations" Value="Dislocations"></asp:ListItem>
-                        <asp:ListItem Text="Sprains & Strains" Value="Sprains & Strains"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text="Fractures" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Dislocations" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="Sprains & Strains" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
 
                     </asp:DropDownList>
 
@@ -631,22 +296,22 @@ input:checked + .slider:before {
                 <div class="inputBox" id="subDropdown2" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_2" runat="server" >
                         <asp:ListItem Text="-- Select Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="Gas " Value="Gas"></asp:ListItem>
-                        <asp:ListItem Text="Dust " Value="Dust"></asp:ListItem>
-                        <asp:ListItem Text="Explosions" Value="Explosion"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text="Gas " Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Dust " Value="2"></asp:ListItem>
+                        <asp:ListItem Text="Explosions" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
                         <%--new--%>
                     </asp:DropDownList>
-                   
+                    <span>TYPE</span>
                 </div>
 
                 <div class="inputBox" id="subDropdown3" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_3" runat="server" >
                         <asp:ListItem Text="-- Select Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="heights" Value="Heights"></asp:ListItem>
-                        <asp:ListItem Text=" Depths" Value="Depths"></asp:ListItem>
-                        <asp:ListItem Text="person" Value="Person"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text="heights" Value="1"></asp:ListItem>
+                        <asp:ListItem Text=" Depths" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="person" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
 
                     </asp:DropDownList>
                     <span>TYPE</span>
@@ -656,10 +321,10 @@ input:checked + .slider:before {
                 <div class="inputBox" id="subDropdown4" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_4" runat="server" >
                         <asp:ListItem Text="-- Select Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="Cave-Ins" Value="Cave-Ins"></asp:ListItem>
-                        <asp:ListItem Text="Slides" Value="Slides"></asp:ListItem>
-                        <asp:ListItem Text="collapses" Value="Collapses"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text="Cave-Ins" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Slides" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="collapses" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
 
                     </asp:DropDownList>
                     <span>TYPE</span>
@@ -667,10 +332,10 @@ input:checked + .slider:before {
                 <div class="inputBox" id="subDropdown5" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_5" runat="server">
                         <asp:ListItem Text="-- Select Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="Lifting  " Value="Lifting"></asp:ListItem>
-                        <asp:ListItem Text="Pushing " Value="Pushing"></asp:ListItem>
-                        <asp:ListItem Text="Wrong Movements" Value="Wrong Movements"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text="Lifting  "> Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Pushing " Value="2"></asp:ListItem>
+                        <asp:ListItem Text="Wrong Movements" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
 
                     </asp:DropDownList>
                     <span>TYPE</span>
@@ -678,10 +343,10 @@ input:checked + .slider:before {
                 <div class="inputBox" id="subDropdown7" style="display: none;">
                     <asp:DropDownList CssClass="dropdown-input" ID="drop_down_6" runat="server">
                         <asp:ListItem Text="-- Select Type --" Value="" Disabled="false" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text=" object" Value="Object"></asp:ListItem>
-                        <asp:ListItem Text=" Stationary " Value="Stationary"></asp:ListItem>
-                        <asp:ListItem Text=" Moving" Value="Moving"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                        <asp:ListItem Text=" object" Value="1"></asp:ListItem>
+                        <asp:ListItem Text=" Stationary " Value="2"></asp:ListItem>
+                        <asp:ListItem Text=" Moving" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="Others" Value="4"></asp:ListItem>
 
                     </asp:DropDownList>
                     <span>TYPE</span>
@@ -796,8 +461,7 @@ input:checked + .slider:before {
                         <span>Root Cause Analysis why 2</span>
                     </div>
                 </div>
-           
-            
+            </div>
             <div class="datentime">
                     <div class="inputBox">
                         <asp:TextBox CssClass="date-input" ID="root3" runat="server" required="required"></asp:TextBox>
@@ -815,7 +479,7 @@ input:checked + .slider:before {
                         <asp:TextBox CssClass="date-input" ID="root5" runat="server" required="required"></asp:TextBox>
                         <span>Root Cause Analysis why 5</span>
                     </div>
-             </div>
+                </div>
                 <br />
 
 
@@ -868,7 +532,6 @@ input:checked + .slider:before {
                 </div>
 
 
-
                 <div class="radioinput">
                     <div class="radio">
                         <div class="hazard-study">IS HAZARD STUDY UPDATED?</div>
@@ -906,17 +569,12 @@ input:checked + .slider:before {
                     }
                 </script>
 
-                <div class="datentime">
-                    <div class="inputBox">
-                        <asp:TextBox CssClass="date-input remarks" ID="remarks" TextMode="MultiLine" required="required" runat="server" ></asp:TextBox>
-                        <span>Remarks</span>
-                    </div>
-                </div>
 
-               <%-- <div class="new block">
+
+                <div class="new block">
                     <div class="inputBox">
                         <asp:TextBox
-                            CssClass="date-input"
+                            CssClass="date-input text-area"
                             TextMode="MultiLine"
                             required="required"
                             runat="server"
@@ -924,33 +582,25 @@ input:checked + .slider:before {
                         </asp:TextBox>
                         <span>Remarks(If Any)</span>
                     </div>
-                </div>--%>
+                </div>
 
                 <style>
-                    .remarks {
-                        width: 95%;  /*Adjust the width as needed */
-                        height: 100px;  /*Adjust the height as needed */
-                        overflow-y: auto;  /*Adds a vertical scrollbar */
-                        white-space: pre-wrap;  /Ensures text wraps to the next line/ 
-                        word-wrap: break-word;  /Breaks long words and wraps to the next line/ 
-                        padding: 10px;  /*Adds padding inside the textarea */
-                        box-sizing: border-box;  /Ensures padding and border are included in the width and height/
-                        resize: vertical;  /Allows the user to resize the height of the textarea/
+                    .date-input.text-area {
+                        width: 95%; /* Adjust the width as needed */
+                        height: 100px; /* Adjust the height as needed */
+                        overflow-y: auto; /* Adds a vertical scrollbar */
+                        white-space: pre-wrap; /* Ensures text wraps to the next line */
+                        word-wrap: break-word; /* Breaks long words and wraps to the next line */
+                        padding: 10px; /* Adds padding inside the textarea */
+                        box-sizing: border-box; /* Ensures padding and border are included in the width and height */
+                        resize: vertical; /* Allows the user to resize the height of the textarea */
                     }
-
-                    /*.remarks {
-                        width: 100%;
-                        height: 80px !important;
-                    }*/
-                       
                 </style>
 
 
                 <div class="subbtn">
                 <asp:Button OnClick="submitForm" Text="SUBMIT" CssClass="submit btn btn-primary" runat="server" onsubmit="return validateForm();"/>
                 </div>
-
-             </div>
 
                 <script>
                     function validateForm() {
@@ -973,7 +623,5 @@ input:checked + .slider:before {
 
             </div>
         </div>
-    
-
 
 </asp:Content>

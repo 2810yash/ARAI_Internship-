@@ -11,6 +11,7 @@ namespace AdminTemplate3._1._0
     {
         public string SiteName { get; set; }
         public string PermitNumber { get; set; }
+        public static string PermitNUM { get; set; }
         public string DateofIssue { get; set; }
         public string PermitValidFrom { get; set; }
         public string PermitValidTill { get; set; }
@@ -26,11 +27,25 @@ namespace AdminTemplate3._1._0
         public string EngineerNo { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
+        public string DeptIssued { get; set; }
         public string workPermits { get; set; }
+        public string workerName { get; set; }
+        public string workerAge { get; set; }
+        public string maskIssued { get; set; }
+        public string shoesIssued { get; set; }
+        public string jacketIssued { get; set; }
+        public string glovesIssued { get; set; }
+        public string earplugIssued { get; set; }
+        public string beltIssued { get; set; }
+        public string helmetIssued { get; set; }
+        public string Remarks { get; set; }
+
+
     }
 
     public partial class viewWorkPermit : System.Web.UI.Page
     {
+        string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -38,113 +53,73 @@ namespace AdminTemplate3._1._0
             if (!IsPostBack)
             {
                 LoadPermitDetails();
-                //agency_list_toSearch();
             }
         }
-        //protected void agency_list_toSearch()
-        //{
-        //    SqlConnection sqlcon = new SqlConnection(Main_con);
-        //    sqlcon.Open();
-        //    SqlCommand sql_command = new SqlCommand("SELECT [NameofFirm_Agency] FROM [permit_details_tbl]", sqlcon);
-        //    sql_command.CommandType = CommandType.Text;
-        //    agencyNames.DataSource = sql_command.ExecuteReader();
-        //    agencyNames.DataTextField = "NameofFirm_Agency";
-        //    agencyNames.DataBind();
-        //    agencyNames.Items.Insert(0, new ListItem("Search Agency Name here...", "0"));
-        //}
+
         private void LoadPermitDetails()
         {
-            string query = "SELECT PermitNumber, [NameofFirm/Agency], DateofIssue, PermitValidFrom FROM permit_details_tbl";
-            SqlConnection con = new SqlConnection(Main_con);
-            SqlCommand cmd = new SqlCommand(query, con);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            reptCard.DataSource = reader;
-            reptCard.DataBind();
-            con.Close();
+            string query;
+            string loginID = Session["LoginID"].ToString();
+            string deptName = Session["DeptName"].ToString();
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                //if ((int)Session["RoleID"] == 2)
+                //{
+                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where CreatedBy  " + loginID;
+                //    using (SqlCommand cmd = new SqlCommand(query, con))
+                //    {
+                //        //Dataset 
+                //        con.Open();
+                //        //cmd.Parameters.AddWithValue("@CreatedBy", loginID);
+                //        SqlDataReader reader = cmd.ExecuteReader();
+                //        reptCard.DataSource = reader;
+                //        reptCard.DataBind();
+                //        con.Close();
+                //    }
+                //}
+                //else
+                //{
+                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where DeptIssued = " + deptName;
+                //}
+                //using (SqlCommand cmd = new SqlCommand(query, con))
+                //{
+                //    con.Open();
+                //    //cmd.Parameters.AddWithValue("@DeptName", deptName);
+                //    SqlDataReader reader = cmd.ExecuteReader();
+                //    reptCard.DataSource = reader;
+                //    reptCard.DataBind();
+                //    con.Close();
+                //}
+
+                query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    //Dataset 
+                    con.Open();
+                    //cmd.Parameters.AddWithValue("@CreatedBy", loginID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    reptCard.DataSource = reader;
+                    reptCard.DataBind();
+                    con.Close();
+                }
+            }
         }
 
-        //protected void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    string searchtxt = txtSearch.Value.Trim();
-        //    //string searchAgency = agencyNames.SelectedValue.Trim();
-
-        //    // Construct the SQL query
-        //    string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl WHERE ";
-
-        //    // Check if search text and agency are both provided
-        //    if (!string.IsNullOrEmpty(searchtxt) && !string.IsNullOrEmpty(searchAgency))
-        //    {
-        //        query += " (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND NameofFirm_Agency = @searchAgency";
-        //    }
-        //    else if (!string.IsNullOrEmpty(searchtxt))
-        //    {
-        //        query += " PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
-        //    }
-        //    else if (!string.IsNullOrEmpty(searchAgency))
-        //    {
-        //        query += " NameofFirm_Agency = @searchAgency";
-        //    }
-        //    else
-        //    {
-        //        // Both search text and agency are empty, do nothing
-        //        return;
-        //    }
-
-        //    // Execute the query
-        //    using (SqlConnection con = new SqlConnection(Main_con))
-        //    {
-        //        using (SqlCommand cmd = new SqlCommand(query, con))
-        //        {
-        //            if (!string.IsNullOrEmpty(searchtxt))
-        //            {
-        //                cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
-        //            }
-
-        //            if (!string.IsNullOrEmpty(searchAgency))
-        //            {
-        //                cmd.Parameters.AddWithValue("@searchAgency", searchAgency);
-        //            }
-
-        //            con.Open();
-        //            SqlDataReader reader = cmd.ExecuteReader();
-        //            reptCard.DataSource = reader;
-        //            reptCard.DataBind();
-        //        }
-        //    }
-        //}
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
 
-            // Construct the SQL query
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl WHERE ";
-
-            // Check if search text is provided
-            if (!string.IsNullOrEmpty(searchtxt))
-            {
-                query += "PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
-            }
-            else
-            {
-                // Search text is empty, do nothing
-                return;
-            }
-
-            // Execute the query
             using (SqlConnection con = new SqlConnection(Main_con))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    if (!string.IsNullOrEmpty(searchtxt))
-                    {
-                        cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
-                    }
-
+                    cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     reptCard.DataSource = reader;
                     reptCard.DataBind();
+                    con.Close();
                 }
             }
         }
@@ -154,16 +129,23 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "ViewDetails")
             {
                 string permitNumber = e.CommandArgument.ToString();
-                var permitDetails = GetPermitDetailsByNumber(permitNumber);
+                permitNum = permitNumber;
+                var permitDetails = GetPermitDetailsByPermitNumber(permitNumber);
 
                 if (permitDetails != null)
                 {
+                    GetData();
                     DisplayPermitDetails(permitDetails);
                 }
             }
         }
 
-        private PermitDetails GetPermitDetailsByNumber(string permitNumber)
+        protected void EditViewPermit_Click(object sender, CommandEventArgs e)
+        {
+            Response.Redirect("editWorkPermit.aspx");
+        }
+
+        private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
             string query = @"
@@ -175,9 +157,9 @@ namespace AdminTemplate3._1._0
                 PermitValidTill, 
                 SpecialLicense, 
                 SpecialLicenseType, 
-                [ESI/InsuranceNo] AS InsuranceNo, 
-                [ESI/Validity] AS InsuranceValidity, 
-                [NameofFirm/Agency] AS AgencyName, 
+                ESI_InsuranceNo AS InsuranceNo, 
+                ESI_Validity AS InsuranceValidity, 
+                NameofFirm_Agency AS AgencyName, 
                 NumberofWorkers AS WorkerNo, 
                 NameofSupervisor AS ContractorName, 
                 ContractorContactNumber AS ContractorNo, 
@@ -185,8 +167,8 @@ namespace AdminTemplate3._1._0
                 EngineerContactNumber AS EngineerNo, 
                 BriefDescriptionofWork AS Description, 
                 LocationofWork AS Location,
-                workPermits
-            FROM permit_details_tbl 
+                PermitsIssued
+            FROM permit_details_tbl_backup 
             WHERE PermitNumber = @PermitNumber";
 
             using (SqlConnection con = new SqlConnection(Main_con))
@@ -218,7 +200,7 @@ namespace AdminTemplate3._1._0
                                 EngineerNo = reader["EngineerNo"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Location = reader["Location"].ToString(),
-                                workPermits = reader["workPermits"].ToString()
+                                workPermits = reader["PermitsIssued"].ToString()
                             };
                         }
                     }
@@ -227,15 +209,38 @@ namespace AdminTemplate3._1._0
             return permitDetails;
         }
 
-        private void DisplayPermitDetails(PermitDetails details)
+        private void DisplayPermitDetails(PermitDetails permitDetails)
         {
-            if (details != null)
-            {
-                string detailsJson = Newtonsoft.Json.JsonConvert.SerializeObject(details);
-                string script = $"showPermitDetails({detailsJson});";
-                ScriptManager.RegisterStartupScript(this, GetType(), "ShowDetailsScript", script, true);
-            }
+            string permitDetailsJson = Newtonsoft.Json.JsonConvert.SerializeObject(permitDetails);
+            string script = $"showPermitDetails({permitDetailsJson});";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ShowDetailsScript", script, true);
         }
+        private void GetData()
+        {
+            string permitNumber = permitNum;
+            DataTable table = new DataTable();
+
+            // Replace with your connection string information
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                string sql = "SELECT * FROM [Demo].[dbo].[Workers] WHERE PermitNumber = @PermitNumber";
+
+                using (SqlCommand command = new SqlCommand(sql, con))
+                {
+                    command.Parameters.AddWithValue("@PermitNumber", permitNumber); // Add parameter for permit number
+
+                    con.Open();
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(table);
+                    }
+                }
+            }
+
+            workerDetails.DataSource = table;
+            workerDetails.DataBind();
+        }
+
 
         protected void deleteViewPermit_Click(object sender, CommandEventArgs e)
         {
@@ -243,16 +248,15 @@ namespace AdminTemplate3._1._0
             {
                 string permitNumber = e.CommandArgument.ToString();
 
-                if (permitNumber != null)
+                if (!string.IsNullOrEmpty(permitNumber))
                 {
-                    string query = "DELETE FROM permit_details_tbl WHERE PermitNumber = @PermitNumber";
+                    string query = "DELETE FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber";
 
                     using (SqlConnection con = new SqlConnection(Main_con))
                     {
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
-
                             try
                             {
                                 con.Open();

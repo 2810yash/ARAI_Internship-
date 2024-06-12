@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 <div>
                     <div>
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-secondary m-1 float-end" OnClick="btnSearch_Click" />
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary m-1 float-end" OnClick="btnSearch_Click" />
                         <%--<asp:DropDownList ID="agencyNames" runat="server" CssClass="form-control m-1 float-end" style="width:30%;"></asp:DropDownList>--%>
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1 float-end" style="width:30%;" />
                     </div>
@@ -34,26 +34,29 @@
                             <ItemTemplate>
                                 <div class="card repeater-item">
                                     <div class="card-header">
-                                        Permit Number: 
+                                        Incident ID: 
                                         <asp:Label runat="server" ID="permitNUM" Text='<%# Eval("incident_id") %>'></asp:Label>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Name of Supervisor: 
+                                        <h5 class="card-title">Date of Incident: 
                                             <asp:Label runat="server" ID="contractorName" Text='<%# Eval("date_of_incident") %>'></asp:Label>
                                         </h5>
                                         <p class="card-text">
-                                            Date of Issue: 
+                                            Name of Affected Person: 
                                              <asp:Label runat="server" ID="dateIssue" Text='<%# Eval("name_of_affected_person") %>'></asp:Label><br />
-                                            Permit Valid From: 
+                                            Location of Incident: 
                                             <asp:Label runat="server" ID="validFrom" Text='<%# Eval("location_of_incident") %>'></asp:Label>
                                         </p>
-                                        <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("incident_id") %>' OnCommand="ViewPermit_Click" />
-<%--                                        <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />--%>
+                                        <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Report" CommandName="ViewDetails" CommandArgument='<%# Eval("incident_id") %>' OnCommand="ViewPermit_Click" />
+                                        <asp:Button ID="EditReport" runat="server" CssClass="btn btn-outline-secondary" Text="Edit Report" CommandName="EditReport" CommandArgument='<%# Eval("incident_id") %>' OnCommand="EditReport_Click" />
+                                        <asp:Button ID="Download" runat="server" CssClass="btn btn-success" Text="Download" CommandName="Download" CommandArgument='<%# Eval("incident_id") %>' OnCommand="Download_Click" />
+                                        <asp:Button ID="excel" runat="server" CssClass="btn btn-success" Text="Export to Excel" CommandName="excel" CommandArgument='<%# Eval("incident_id") %>' OnCommand="Excel_Click" />
+                                        <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete" CommandName="DeleteDetails" CommandArgument='<%# Eval("incident_id") %>' OnCommand="deleteReport" OnClientClick="return confirmDelete();" />
                                     </div>
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:strconn %>" SelectCommand="SELECT [incident_id], [date_of_incident], [name_of_affected_person], [location_of_incident] FROM [accident_incident]"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:accidentConnectionString %>" SelectCommand="SELECT [incident_id], [date_of_incident], [name_of_affected_person], [location_of_incident] FROM [accident_incident]"></asp:SqlDataSource>
                     </div>
                 </div>
             </div>
@@ -102,16 +105,16 @@
                                 </tr>
                                 <tr>
                                     <td><p><strong>Type of Incident:</strong> ${details.drop_down_1}</p></td>
-                                    <td><p><strong>ESI/Insurance Validity:</strong> ${details.drop_down_2}</p></td>
+                                    <td><p><strong>Type of Incident:</strong> ${details.drop_down_2}</p></td>
                                 </tr>
                                 <tr>
-                                    <td><p><strong>Name of Vendor or Contractor Firm/Agency:</strong> ${details.drop_down_3}</p></td>
-                                    <td><p><strong>Number of workers:</strong> ${details.drop_down_4}</p></td>
+                                    <td><p><strong>Type of Incident:</strong> ${details.drop_down_3}</p></td>
+                                    <td><p><strong>Type of Incident:</strong> ${details.drop_down_4}</p></td>
                                 </tr>
                                 
                                 <tr>
-                                    <td><p><strong>Name of Vendor/Contractor Supervisor:</strong> ${details.drop_down_5}</p></td>
-                                    <td><p><strong>Contact Number (Contractor):</strong> ${details.drop_down_6}</p></td>
+                                    <td><p><strong>Type of Incident:</strong> ${details.drop_down_5}</p></td>
+                                    <td><p><strong>Type of Incident:</strong> ${details.drop_down_6}</p></td>
                                 </tr>
 <tr>
                                     <td><p><strong>Description of Incident:</strong> ${details.describe_incident}</p></td>
@@ -121,48 +124,47 @@
                                     <td><p><strong>Hazard Study Updated(Yes/No):</strong> ${details.hazard_study}</p></td>
                                 </tr>
                                 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.FName}</p></td>
-                                    <td><p><strong>:</strong> ${details.FExtension}</p></td>
+                                    <td><p><strong>File Name:</strong> ${details.FName}</p></td>
+                                    <td><p><strong>File extension:</strong> ${details.FExtension}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.FilePath}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.created_date}</p></td>
+                                    <td><p><strong>Created Date:</strong> ${details.created_date}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.remakrs}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.IPAddress}</p></td>
+                                    <td><p><strong>Remarks:</strong> ${details.remakrs}</p></td>
+                                    <td><p><strong>IP Address:</strong> ${details.IPAddress}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.root_cause_1}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.root_cause_2}</p></td>
+                                    <td><p><strong>Root Cause 1:</strong> ${details.root_cause_1}</p></td>
+                                    <td><p><strong>Root Cause 2:</strong> ${details.root_cause_2}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.root_cause_3}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.root_cause_4}</p></td>
+                                    <td><p><strong>Root Cause 3:</strong> ${details.root_cause_3}</p></td>
+                                    <td><p><strong>Root Cause 4:</strong> ${details.root_cause_4}</p></td>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.root_cause_5}</p></td>
+                                    <td><p><strong>Root Cause 5:</strong> ${details.root_cause_5}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.corrective_action_1}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.corective_action_2}</p></td>
+                                    <td><p><strong>Corrective Action 1:</strong> ${details.corrective_action_1}</p></td>
+                                    <td><p><strong>Corrective Action 2:</strong> ${details.corective_action_2}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.corrective_action_3}</p></td>
+                                    <td><p><strong>Corrective Action 3:</strong> ${details.corrective_action_3}</p></td>
                                     
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.responsible_person_1}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.responsible_person_2}</p></td>
+                                    <td><p><strong>Responsible Person 1:</strong> ${details.responsible_person_1}</p></td>
+                                    <td><p><strong>Responsible Person 2:</strong> ${details.responsible_person_2}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.responsible_person_3}</p></td>
+                                    <td><p><strong>Responsible Person 3:</strong> ${details.responsible_person_3}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.date_of_completion_1}</p></td>
-                                    <td><p><strong>Location of Work:</strong> ${details.date_of_completion_2}</p></td>
+                                    <td><p><strong>Date of Completion 1:</strong> ${details.date_of_completion_1}</p></td>
+                                    <td><p><strong>Date of Completion 2:</strong> ${details.date_of_completion_2}</p></td>
                                 </tr>
 <tr>
-                                    <td><p><strong>Brief Description of Work:</strong> ${details.date_of_completion_3}</p></td>
+                                    <td><p><strong>Date of Completion 3:</strong> ${details.date_of_completion_3}</p></td>
                                    
                                 </tr>
                             </table>

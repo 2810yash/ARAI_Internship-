@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web;
@@ -71,7 +72,7 @@ namespace AdminTemplate3._1._0
                 {
                     filename = Path.GetFileName(FileUpload1.FileName);
                     extension = Path.GetExtension(FileUpload1.FileName);
-                    customUploadPath = @"D:\Uploads\";
+                    customUploadPath = @"D:\ARAIUploads\";
 
 
                     // Ensure the custom directory exists
@@ -99,13 +100,10 @@ namespace AdminTemplate3._1._0
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open(); // Ensure the connection is open
-                    string query = "INSERT INTO accident_incident (incident_id, date_of_incident, time_of_incident, name_of_affected_person, name_of_department, location_of_incident, nature_of_incident, drop_down_1, drop_down_2, drop_down_3, drop_down_4, drop_down_5, drop_down_6,describe_incident,  immediate_action, hazard_study, FName, FExtension, FilePath, CreatedDate, remarks, IPAddress, root_cause_1, root_cause_2, root_cause_3, root_cause_4, root_cause_5, corrective_action_1, corrective_action_2, corrective_action_3, responsible_person_1, responsible_person_2, responsible_person_3, date_of_completion_1, date_of_completion_2, date_of_completion_3) " +
-                        "VALUES (@incident_id, @date_of_incident, @time_of_incident, @name_of_affected_person, @name_of_department, @location_of_incident, @nature_of_incident, @drop_down_1, @drop_down_2, @drop_down_3, @drop_down_4, @drop_down_5, @drop_down_6, @describe_incident, @immediate_action, @hazard_study, @FName, @FExtension, @FilePath, @CreatedDate, @remarks, @IPAddress, @root_cause_1, @root_cause_2, @root_cause_3, @root_cause_4, @root_cause_5, @corrective_action_1, @corrective_action_2, @corrective_action_3, @responsible_person_1, @responsible_person_2, @responsible_person_3, @date_of_completion_1, @date_of_completion_2, @date_of_completion_3)";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("insert_accident", conn))
                     {
-                        // Add the text properties of TextBox controls
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@incident_id", incident_id.Trim());
                         cmd.Parameters.AddWithValue("@date_of_incident", date_of_incident.Text.Trim());
                         cmd.Parameters.AddWithValue("@time_of_incident", time_of_incident.Text.Trim());
@@ -126,15 +124,15 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@root_cause_3", root3.Text.Trim());
                         cmd.Parameters.AddWithValue("@root_cause_4", root4.Text.Trim());
                         cmd.Parameters.AddWithValue("@root_cause_5", root5.Text.Trim());
-                       // cmd.Parameters.AddWithValue("@corrective_action_1", corrective1.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@corrective_action_2", corrective2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@corrective_action_1", corrective1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@corrective_action_2", corrective2.Text.Trim());
                         cmd.Parameters.AddWithValue("@corrective_action_3", corrective3.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@responsible_person_1", resp1.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@responsible_person_2", resp2.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@responsible_person_3", resp3.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@date_of_completion_1", date1.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@date_of_completion_2", date2.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@date_of_completion_3", date3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_1", resp1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_2", resp2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@responsible_person_3", resp3.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_1", date1.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_2", date2.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_of_completion_3", date3.Text.Trim());
                         cmd.Parameters.AddWithValue("@hazard_study", hazardStudy);
                         cmd.Parameters.AddWithValue("@FName", filename);
                         cmd.Parameters.AddWithValue("@FExtension", extension);
@@ -153,8 +151,7 @@ namespace AdminTemplate3._1._0
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message + "');</script>");
-                Response.Write(" *********************************************************************************************" + ex.Message + "");
+                Response.Write("<script>alert('" + Server.HtmlEncode(ex.Message) + "');</script>");
             }
 
         }

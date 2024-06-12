@@ -86,10 +86,11 @@ namespace AdminTemplate3._1._0
 
         protected void signInUser(string email, string pass)
         {
-            string deptCode = string.Empty;
+            int deptCode;
             string deptName = string.Empty;
             string username = string.Empty;
             string role = string.Empty;
+            int roleID;
 
             try
             {
@@ -100,30 +101,33 @@ namespace AdminTemplate3._1._0
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@EmailID", email);
                         cmd.Parameters.AddWithValue("@Password", pass);
-                        cmd.Parameters.Add("@DeptCode", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@DeptCode", SqlDbType.Int, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@DeptName", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Role", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@RoleID", SqlDbType.Int, 50).Direction = ParameterDirection.Output;
 
                         con.Open();
                         cmd.ExecuteNonQuery();
 
                         // Retrieve output parameters
-                        deptCode = cmd.Parameters["@DeptCode"].Value.ToString();
+                        deptCode = (int)cmd.Parameters["@DeptCode"].Value;
                         deptName = cmd.Parameters["@DeptName"].Value.ToString();
                         username = cmd.Parameters["@Username"].Value.ToString();
                         role = cmd.Parameters["@Role"].Value.ToString();
+                        roleID = (int)cmd.Parameters["@RoleID"].Value;
+                        //Response.Redirect("<script> alert('Role ID = '" + roleID + "'); </script>");
 
                         con.Close();
                     }
                 }
 
-                if (!string.IsNullOrEmpty(deptCode) && !string.IsNullOrEmpty(deptName) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role))
+                if (deptCode != 0 && !string.IsNullOrEmpty(deptName) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role) && roleID != 0)
                 {
                     // Successful login
                     try
                     {
-                        storeDetails(deptCode, deptName, username, email, pass, role);
+                        storeDetails(deptCode, deptName, username, email, pass, role, roleID);
                     } catch (Exception ex)
                     {
                         Response.Write(ex.Message);
@@ -142,9 +146,10 @@ namespace AdminTemplate3._1._0
             }
         }
 
-        protected void storeDetails(string deptCode, string deptName, string username, string email, string pass, string role)
+        protected void storeDetails(int deptCode, string deptName, string username, string email, string pass, string role, int roleID)
         {
-            Session["Role"] = role; 
+            //int roleID = (int)Session["RoleID"];
+           
             string clientIPAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (clientIPAddress == "" || clientIPAddress == null)
                 clientIPAddress = Request.ServerVariables["REMOTE_ADDR"];
@@ -175,7 +180,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@HashedPass", hashedPassword);
                         cmd.Parameters.AddWithValue("@Date", currentDate);
                         cmd.Parameters.AddWithValue("@IPAddress", clientIPAddress);
-                        cmd.Parameters.AddWithValue("@UserRoleID", role);
+                        cmd.Parameters.AddWithValue("@UserRoleID", roleID);
 
                         con.Open();
                         flag = cmd.ExecuteNonQuery();
@@ -192,7 +197,10 @@ namespace AdminTemplate3._1._0
             if (flag >= 0)
             {
                 Response.Write("<script>alert('Login Successfully.');</script>");
-                Session["deptName"] = deptName;
+                Session["DeptCode"] = deptCode;
+                Session["DeptName"] = deptName;
+                Session["RoleID"] = roleID;
+                Session["LoginID"] = email;
                 // Redirect user to a dashboard page or any other page
                 Response.Redirect("Homepage.aspx");
             } else

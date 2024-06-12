@@ -9,6 +9,7 @@
     <!-- AOS CSS (CDN) -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="content-wrapper position-relative">
         <div class="content-header">
@@ -26,43 +27,68 @@
                 </div>
             </div>
         </div>
+
         <section class="content">
             <div class="container-fluid">
                 <div>
                     <div>
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-secondary m-1 float-end" OnClick="btnSearch_Click" />
-                        <%--<asp:DropDownList ID="agencyNames" runat="server" CssClass="form-control m-1 float-end" style="width:30%;"></asp:DropDownList>--%>
-                        <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1 float-end" style="width:30%;" />
+                        <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1 float-end" style="width: 30%;" />
                     </div>
                     <br />
                     <br />
-                    <div id="detailsContainer" class="d-none"></div>
-                    <div>
-                        <asp:Repeater ID="reptCard" runat="server">
-                            <ItemTemplate>
-                                <div class="card repeater-item">
-                                    <div class="card-header">
-                                        Permit Number: 
-                                        <asp:Label runat="server" ID="permitNUM" Text='<%# Eval("PermitNumber") %>'></asp:Label>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Name of Supervisor: 
-                                            <asp:Label runat="server" ID="contractorName" Text='<%# Eval("[NameofFirm/Agency]") %>'></asp:Label>
-                                        </h5>
-                                        <p class="card-text">
-                                            Date of Issue: 
-                                             <asp:Label runat="server" ID="dateIssue" Text='<%# Eval("DateofIssue") %>'></asp:Label><br />
-                                            Permit Valid From: 
-                                            <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
-                                        </p>
-                                        <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-                                        <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </div>
                 </div>
+            </div>
+
+            <div id="detailsContainer" class="d-none"></div>
+            <div id="WdetailsContainer" class="d-none p-3 bg-light shadow-sm rounded mb-3">
+                <strong>Workers Details:</strong> 
+                <asp:GridView ID="workerDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                    <Columns>
+                        <asp:BoundField DataField="PermitNumber" HeaderText="PermitNumber" SortExpression="PermitNumber" />
+                        <asp:BoundField DataField="RowNumber" HeaderText="RowNumber" SortExpression="RowNumber" />
+                        <asp:BoundField DataField="NameOfWorkers" HeaderText="NameOfWorkers" SortExpression="NameOfWorkers" />
+                        <asp:BoundField DataField="Age" HeaderText="Age" SortExpression="Age" />
+                        <asp:CheckBoxField DataField="Mask" HeaderText="Mask" SortExpression="Mask" />
+                        <asp:CheckBoxField DataField="SafetyShoesGumBoots" HeaderText="SafetyShoesGumBoots" SortExpression="SafetyShoesGumBoots" />
+                        <asp:CheckBoxField DataField="JacketsAprons" HeaderText="JacketsAprons" SortExpression="JacketsAprons" />
+                        <asp:CheckBoxField DataField="Gloves" HeaderText="Gloves" SortExpression="Gloves" />
+                        <asp:CheckBoxField DataField="EarPlugMuffs" HeaderText="EarPlugMuffs" SortExpression="EarPlugMuffs" />
+                        <asp:CheckBoxField DataField="BeltHarness" HeaderText="BeltHarness" SortExpression="BeltHarness" />
+                        <asp:CheckBoxField DataField="Helmet" HeaderText="Helmet" SortExpression="Helmet" />
+                        <asp:BoundField DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks" />
+                    </Columns>
+                </asp:GridView>
+                <div class="justify-content-between">
+                    <button class="btn btn-primary" onclick="hidePermitDetails()">View Less</button>
+                </div>
+            </div>
+
+            <div>
+                <asp:Repeater ID="reptCard" runat="server">
+                    <ItemTemplate>
+                        <div class="card repeater-item">
+                            <div class="card-header">
+                                Permit Number: 
+                                <asp:Label runat="server" ID="permitNUM" Text='<%# Eval("PermitNumber") %>'></asp:Label>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Name of Supervisor: 
+                                    <asp:Label runat="server" ID="contractorName" Text='<%# Eval("NameofFirm_Agency") %>'></asp:Label>
+                                </h5>
+                                <p class="card-text">
+                                    Date of Issue: 
+                                    <asp:Label runat="server" ID="dateIssue" Text='<%# Eval("DateofIssue") %>'></asp:Label><br />
+                                    Permit Valid From: 
+                                    <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
+                                </p>
+                                <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
+                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
+                                <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </section>
     </div>
@@ -79,9 +105,9 @@
             AOS.init();
         });
 
-        function showPermitDetails(details) {
-            const repeater = document.querySelector('.repeater-item').parentElement;
+        function showPermitDetails(details, workerDetails) {
             const detailsContainer = document.getElementById('detailsContainer');
+            const WdetailsContainer = document.getElementById('WdetailsContainer');
             const detailsBox = document.createElement('div');
             const searchBox = document.getElementById('txtSearch');
             detailsBox.style.width = '100%';
@@ -116,9 +142,6 @@
                                     <td><p><strong>Number of workers:</strong> ${details.WorkerNo}</p></td>
                                 </tr>
                                 <tr>
-                                    <td><p><strong>Worker Details:</strong> ${details.WorkerDeatials}</p></td>
-                                </tr>
-                                <tr>
                                     <td><p><strong>Name of Vendor/Contractor Supervisor:</strong> ${details.ContractorName}</p></td>
                                     <td><p><strong>Contact Number (Contractor):</strong> ${details.ContractorNo}</p></td>
                                 </tr>
@@ -131,28 +154,27 @@
                                     <td><p><strong>Location of Work:</strong> ${details.Location}</p></td>
                                 </tr>
                             </table>
-                            <p><strong>WorkPermits selected:</strong> ${details.workPermits}</p>
+                            <p><strong>WorkPermits selected:</strong> ${details.PermitsIssued}</p>
                         </p>
-                        <div class="justify-content-between">
-                            <button class="btn btn-primary" onclick="hidePermitDetails()">View Less</button>
-                        <div>
                     </div>
                 </div>
             `;
             detailsContainer.innerHTML = '';
             detailsContainer.appendChild(detailsBox);
             detailsContainer.classList.remove('d-none');
+            WdetailsContainer.classList.remove('d-none');
             searchBox.style.display = 'none';
-            repeater.style.display = 'none';
+            document.querySelector('.repeater-item').parentElement.style.display = 'none';
         }
 
         function hidePermitDetails() {
-            const repeater = document.querySelector('.repeater-item').parentElement;
             const detailsContainer = document.getElementById('detailsContainer');
+            const WdetailsContainer = document.getElementById('WdetailsContainer');
             const searchBox = document.getElementById('txtSearch');
             detailsContainer.classList.add('d-none');
+            WdetailsContainer.classList.add('d-none');
             searchBox.style.display = 'block';
-            repeater.style.display = 'block';
+            document.querySelector('.repeater-item').parentElement.style.display = 'block';
         }
 
         function confirmDelete() {

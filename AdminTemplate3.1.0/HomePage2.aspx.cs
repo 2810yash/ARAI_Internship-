@@ -76,19 +76,7 @@ namespace AdminTemplate3._1._0
             try {
 
                 string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-                string query = @"
-            SELECT 
-                YEAR(dateOfIssue) AS Year, 
-                DATENAME(MONTH, DATEADD(MONTH, MONTH(dateOfIssue) - 1, '1900-01-01')) AS MonthName, 
-                COUNT(*) AS PermitCount
-            FROM 
-                permit_details_tbl
-            GROUP BY 
-                YEAR(dateOfIssue), 
-                MONTH(dateOfIssue)
-            ORDER BY 
-                YEAR(dateOfIssue), 
-                MONTH(dateOfIssue);";
+                string query = "EXEC dbo.usp_GetMonthlyDistribution";
 
 
                 DataTable dt = new DataTable();

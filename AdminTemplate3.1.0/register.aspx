@@ -181,9 +181,9 @@
                         <div class="d-block me-1 txt-box">
                             Role:
                         <asp:DropDownList ID="roles" CssClass="drop-down" runat="server">
-                            <asp:ListItem Text="-- Select Role --" Selected="false" Value="role"></asp:ListItem>
+                            <%--<asp:ListItem Text="-- Select Role --" Selected="false" Value="role"></asp:ListItem>
                             <asp:ListItem Text="Admin" Value="admin"></asp:ListItem>
-                            <asp:ListItem Text="User" Value="user"></asp:ListItem>
+                            <asp:ListItem Text="User" Value="user"></asp:ListItem>--%>
                         </asp:DropDownList>
                         </div>
                         <br />
