@@ -108,7 +108,8 @@ namespace AdminTemplate3._1._0
 
             if (CurrentTableCount.Rows.Count >= workerNum)
             {
-                Response.Write($"<script>alert('You cannot add more than {workerNum} worker details. Please check number of workers!');</script>");
+                //Response.Write($"<script>alert('You cannot add more than {workerNum} worker details. Please check number of workers!');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('You cannot add more than "+workerNum+" worker details. Please check number of workers!');", true);
             }
             else
             {
@@ -241,7 +242,8 @@ namespace AdminTemplate3._1._0
                             }
                             catch (Exception ex)
                             {
-                                Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+                                //Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Exception " + ex.Message + "');", true);
                                 return 0;
                             }
                         }
@@ -270,17 +272,20 @@ namespace AdminTemplate3._1._0
             if (dateOfIssue > validTill)
             {
                 flag = -1;
-                Response.Write("<script> alert('Valid Till Date cannot be earlier than Date of Issue!'); </script>");
+                //Response.Write("<script> alert('Valid Till Date cannot be earlier than Date of Issue!'); </script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Valid Till Date cannot be earlier than Date of Issue!');", true);
             }
             else if (dateOfIssue.Date > validFrom)
             {
                 flag = -1;
-                Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
+                //Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Valid From Date cannot be earlier than Date of Issue!');", true);
             }
             else if (diff.Days > 15)
             {
                 flag = -1;
-                Response.Write("<script> alert('Valid Till Date cannot exceed 15 days!'); </script>");
+                //Response.Write("<script> alert('Valid Till Date cannot exceed 15 days!'); </script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Valid Till Date cannot exceed 15 days!');", true);
             }
             return flag;
         }
@@ -363,7 +368,8 @@ namespace AdminTemplate3._1._0
             }
             if (!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
             {
-                Response.Write("<script>alert('Please select a work permit!');</script>");
+                //Response.Write("<script>alert('Please select a work permit!');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Please select a work permit!');", true);
                 return;
             }
             selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
@@ -397,6 +403,7 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@PermitsIssued", selectedWorkPer);
                         cmd.Parameters.AddWithValue("@SiteName", siteName);
                         cmd.Parameters.AddWithValue("@CreatedBy", createdBy);
+                        cmd.Parameters.AddWithValue("@DeptIssuedCode", deptCode);
                         con.Open();
                         // Execute the command and get the result
                         result = cmd.ExecuteNonQuery();
@@ -406,31 +413,37 @@ namespace AdminTemplate3._1._0
                         {
                             if (result > 0)
                             {
-                                Response.Write("<script>alert('Data added Successfully.');</script>");
+                                //Response.Write("<script>alert('Data added Successfully.');</script>");
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Data Added Successfully');", true);
                                 try
                                 {
                                     SendEmail(dateOfIssue, permitNumber);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Response.Write("<script> alert(" + ex.Message + "); </script>");
+                                    //Response.Write("<script> alert(" + ex.Message + "); </script>");
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('" + ex.Message + "!');", true);
                                 }
                             }
                             else
                             {
-                                Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                                //Response.Write("<script>alert('Data updatation UnSuccessfully. Try Again');</script>");
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Data Updation Unsuccessful. Try again');", true);
+
                             }
                         }
                         else
                         {
-                            Response.Write("<script>alert('Error storing Workers Data');</script>");
+                            //Response.Write("<script>alert('Error storing Workers Data');</script>");
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error storing worker data');", true);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+                //Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Exception " + ex.Message +"');", true);
             }
         }
         public void SubmitFrom(object sender, EventArgs e)
@@ -479,7 +492,8 @@ namespace AdminTemplate3._1._0
                     }
                     catch (Exception ex)
                     {
-                        Response.Write("<script>console.log('Error reading from database: " + ex.Message + "');</script>");
+                        //Response.Write("<script>console.log('Error reading from database: " + ex.Message + "');</script>");
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error reading from database: " + ex.Message + "');", true);
                     }
                     finally
                     {
@@ -520,26 +534,26 @@ namespace AdminTemplate3._1._0
 
                     }
 
-                    using (SqlCommand cmd = new SqlCommand("usp_getSMTPDetails", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@EmailFrom", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@IsBodyHTML", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@SMTP_Host", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@SMTP_EnableSSL", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@NetworkCredentials", SqlDbType.NVarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@UseDefaultCredentials", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@SMTP_Port", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    DataTable dt = new DataTable();
 
-                        //fetch outputs
-                        emailFrom = cmd.Parameters["@EmailFrom"].Value.ToString();
-                        isBodyHTML = (bool)cmd.Parameters["@IsBodyHTML"].Value;
-                        smtp_host = cmd.Parameters["@SMTP_Host"].Value.ToString();
-                        enableSSL = (bool)cmd.Parameters["@SMTP_EnableSSL"].Value;
-                        networkCredentials = cmd.Parameters["@NetworkCredentials"].Value.ToString();
-                        useDefaultCredentials = (bool)cmd.Parameters["@UseDefaultCredentials"].Value;
-                        smtp_port = (int)cmd.Parameters["@SMTP_Port"].Value;
+                    using (SqlCommand cmd = new SqlCommand("exec usp_getSMTPDetails", con))
+                    {
+                        
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                            
+                        DataRow row = dt.Rows[0];
+                        emailFrom = row["EmailFrom"].ToString();
+                        isBodyHTML = (Boolean)row["IsBodyHTML"];
+                        smtp_host = row["SMTP_HOST"].ToString();
+                        enableSSL = (Boolean)row["SMTP_EnableSSL"];
+                        networkCredentials = row["NetworkCredentials"].ToString();
+                        useDefaultCredentials = (Boolean)row["UseDefaultCredentials"];
+                        smtp_port = Convert.ToInt32(row["SMTP_Port"]);
+
                     }
+                  
                 }
 
                 //string from = "adityaraut1003@gmail.com";
@@ -619,16 +633,19 @@ namespace AdminTemplate3._1._0
                 }
                 catch (SmtpException smtpEx)
                 {
-                    Response.Write($"<script>alert('SMTP Exception: {smtpEx.Message}');</script>");
+                    //Response.Write($"<script>alert('SMTP Exception: {smtpEx.Message}');</script>");
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('SMTP Exception : "+ smtpEx.Message +"');", true);
                 }
                 catch (Exception ex)
                 {
-                    Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
+                    //Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('General Exception : " + ex.Message + "');", true);
                 }
             }
             else
             {
-                Response.Write("<script>alert('Permit details not found.');</script>");
+                //Response.Write("<script>alert('Permit details not found.');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Permit Details not found');", true);
             }
 
         }

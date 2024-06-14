@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="approvedPermit.aspx" />
     <Content Include="assets\arai.png" />
     <Content Include="assets\im1.jpg" />
     <Content Include="assets\img2.jpg" />
@@ -6111,9 +6112,17 @@
     <Content Include="Web.config" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="pendingPermit.aspx" />
     <Content Include="Welcome.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="approvedPermit.aspx.cs">
+      <DependentUpon>approvedPermit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="approvedPermit.aspx.designer.cs">
+      <DependentUpon>approvedPermit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Class1.cs" />
@@ -6196,6 +6205,13 @@
     </Compile>
     <Compile Include="WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pendingPermit.aspx.cs">
+      <DependentUpon>pendingPermit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pendingPermit.aspx.designer.cs">
+      <DependentUpon>pendingPermit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Welcome.aspx.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>

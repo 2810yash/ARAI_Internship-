@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="viewWorkPermit.aspx.cs" Inherits="AdminTemplate3._1._0.viewWorkPermit" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="approvedPermit.aspx.cs" Inherits="AdminTemplate3._1._0.approvedPermit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,8 +32,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
-                        <asp:Button ID="approvedBtn" runat="server" Text="Approved Permits" CssClass="btn btn-success m-1" OnClick="approvePermit_btn" />
-                        <asp:Button ID="pendingBtn" runat="server" Text="Pending Permits" CssClass="btn btn-warning m-1" OnClick="pendingBtn_Click" />
+                        <asp:Button ID="pendingBtn" runat="server" Text="Pending Permits" CssClass="btn btn-warning m-1" OnClick="pendingPermit_btn" />
+                        <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1" style="width: 50%;" />
@@ -70,7 +70,7 @@
             </div>
 
             <div>
-                <h3 class="ms-2">All Work Permits</h3>
+                <h3 class="ms-2">Approved Work Permits</h3>
                 <asp:Repeater ID="reptCard" runat="server">
                     <ItemTemplate>
                         <div class="card repeater-item">
@@ -89,7 +89,7 @@
                                     <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
+                                
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
                             </div>
                         </div>
@@ -106,19 +106,19 @@
     <!-- AOS JS (CDN) -->
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            AOS.init();
-        });
+   <script>
+       $(document).ready(function () {
+           AOS.init();
+       });
 
-        function showPermitDetails(details, workerDetails) {
-            const detailsContainer = document.getElementById('detailsContainer');
-            const WdetailsContainer = document.getElementById('WdetailsContainer');
-            const detailsBox = document.createElement('div');
-            const searchBox = document.getElementById('txtSearch');
-            detailsBox.style.width = '100%';
+       function showPermitDetails(details, workerDetails) {
+           const detailsContainer = document.getElementById('detailsContainer');
+           const WdetailsContainer = document.getElementById('WdetailsContainer');
+           const detailsBox = document.createElement('div');
+           const searchBox = document.getElementById('txtSearch');
+           detailsBox.style.width = '100%';
 
-            detailsBox.innerHTML = `
+           detailsBox.innerHTML = `
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h3>Permit Details</h3>
@@ -165,26 +165,26 @@
                     </div>
                 </div>
             `;
-            detailsContainer.innerHTML = '';
-            detailsContainer.appendChild(detailsBox);
-            detailsContainer.classList.remove('d-none');
-            WdetailsContainer.classList.remove('d-none');
-            searchBox.style.display = 'none';
-            document.querySelector('.repeater-item').parentElement.style.display = 'none';
-        }
+           detailsContainer.innerHTML = '';
+           detailsContainer.appendChild(detailsBox);
+           detailsContainer.classList.remove('d-none');
+           WdetailsContainer.classList.remove('d-none');
+           searchBox.style.display = 'none';
+           document.querySelector('.repeater-item').parentElement.style.display = 'none';
+       }
 
-        function hidePermitDetails() {
-            const detailsContainer = document.getElementById('detailsContainer');
-            const WdetailsContainer = document.getElementById('WdetailsContainer');
-            const searchBox = document.getElementById('txtSearch');
-            detailsContainer.classList.add('d-none');
-            WdetailsContainer.classList.add('d-none');
-            searchBox.style.display = 'block';
-            document.querySelector('.repeater-item').parentElement.style.display = 'block';
-        }
+       function hidePermitDetails() {
+           const detailsContainer = document.getElementById('detailsContainer');
+           const WdetailsContainer = document.getElementById('WdetailsContainer');
+           const searchBox = document.getElementById('txtSearch');
+           detailsContainer.classList.add('d-none');
+           WdetailsContainer.classList.add('d-none');
+           searchBox.style.display = 'block';
+           document.querySelector('.repeater-item').parentElement.style.display = 'block';
+       }
 
-        function confirmDelete() {
-            return confirm("Are you sure you want to delete this permit?");
-        }
-    </script>
+       function confirmDelete() {
+           return confirm("Are you sure you want to delete this permit?");
+       }
+   </script>
 </asp:Content>

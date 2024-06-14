@@ -7,99 +7,29 @@ using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
-    public class PermitDetails
-    {
-        public string SiteName { get; set; }
-        public string PermitNumber { get; set; }
-        public static string PermitNUM { get; set; }
-        public string DateofIssue { get; set; }
-        public string PermitValidFrom { get; set; }
-        public string PermitValidTill { get; set; }
-        public string SpecialLicense { get; set; }
-        public string SpecialLicenseType { get; set; }
-        public string InsuranceNo { get; set; }
-        public string InsuranceValidity { get; set; }
-        public string AgencyName { get; set; }
-        public string WorkerNo { get; set; }
-        public string ContractorName { get; set; }
-        public string ContractorNo { get; set; }
-        public string EngineerName { get; set; }
-        public string EngineerNo { get; set; }
-        public string Description { get; set; }
-        public string Location { get; set; }
-        public string DeptIssued { get; set; }
-        public string workPermits { get; set; }
-        public string workerName { get; set; }
-        public string workerAge { get; set; }
-        public string maskIssued { get; set; }
-        public string shoesIssued { get; set; }
-        public string jacketIssued { get; set; }
-        public string glovesIssued { get; set; }
-        public string earplugIssued { get; set; }
-        public string beltIssued { get; set; }
-        public string helmetIssued { get; set; }
-        public string Remarks { get; set; }
-
-
-    }
-
-    public partial class viewWorkPermit : System.Web.UI.Page
+    public partial class approvedPermit : System.Web.UI.Page
     {
         string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        public string deptName;
+        public string deptName; 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 LoadPermitDetails();
                 deptName = Session["DeptName"].ToString();
+
             }
         }
-
         private void LoadPermitDetails()
         {
-            string query;
-            string loginID = Session["LoginID"].ToString();
-            
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 1 and DeptIssued = '" + deptName + "'";
             using (SqlConnection con = new SqlConnection(Main_con))
             {
-                //if ((int)Session["RoleID"] == 2)
-                //{
-                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where CreatedBy  " + loginID;
-                //    using (SqlCommand cmd = new SqlCommand(query, con))
-                //    {
-                //        //Dataset 
-                //        con.Open();
-                //        //cmd.Parameters.AddWithValue("@CreatedBy", loginID);
-                //        SqlDataReader reader = cmd.ExecuteReader();
-                //        reptCard.DataSource = reader;
-                //        reptCard.DataBind();
-                //        con.Close();
-                //    }
-                //}
-                //else
-                //{
-                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where DeptIssued = " + deptName;
-                //}
-                //using (SqlCommand cmd = new SqlCommand(query, con))
-                //{
-                //    con.Open();
-                //    //cmd.Parameters.AddWithValue("@DeptName", deptName);
-                //    SqlDataReader reader = cmd.ExecuteReader();
-                //    reptCard.DataSource = reader;
-                //    reptCard.DataBind();
-                //    con.Close();
-                //}
-
-                query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE DeptIssued = '" + deptName + "'";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    //Dataset 
                     con.Open();
-                    //cmd.Parameters.AddWithValue("@CreatedBy", loginID);
                     SqlDataReader reader = cmd.ExecuteReader();
                     reptCard.DataSource = reader;
                     reptCard.DataBind();
@@ -107,20 +37,10 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-
-        protected void pendingBtn_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("pendingPermit.aspx");
-        }
-        protected void approvePermit_btn(object sender, EventArgs e)
-        {
-            Response.Redirect("approvedPermit.aspx");
-        }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND IsClosed = 1";
 
             using (SqlConnection con = new SqlConnection(Main_con))
             {
@@ -135,7 +55,14 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-
+        protected void allPermits_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("viewWorkPermit.aspx");
+        }
+        protected void pendingPermit_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("pendingPermit.aspx");
+        }
         protected void ViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "ViewDetails")
@@ -151,7 +78,6 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-
         protected void EditViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "EditDetails")
@@ -160,7 +86,6 @@ namespace AdminTemplate3._1._0
                 Response.Redirect("editWorkPermit.aspx?permitNumber=" + permitNum);
             }
         }
-
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
@@ -216,7 +141,7 @@ namespace AdminTemplate3._1._0
                                 EngineerNo = reader["EngineerNo"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Location = reader["Location"].ToString(),
-                                workPermits = reader["PermitsIssued"].ToString()
+                                workPermits = reader["workPermits"].ToString()
                             };
                         }
                     }
@@ -224,7 +149,6 @@ namespace AdminTemplate3._1._0
             }
             return permitDetails;
         }
-
         private void DisplayPermitDetails(PermitDetails permitDetails)
         {
             string permitDetailsJson = Newtonsoft.Json.JsonConvert.SerializeObject(permitDetails);
@@ -256,8 +180,6 @@ namespace AdminTemplate3._1._0
             workerDetails.DataSource = table;
             workerDetails.DataBind();
         }
-
-
         protected void deleteViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "DeleteDetails")

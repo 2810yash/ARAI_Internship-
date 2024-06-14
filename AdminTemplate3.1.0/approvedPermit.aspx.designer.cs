@@ -11,17 +11,8 @@ namespace AdminTemplate3._1._0
 {
 
 
-    public partial class viewWorkPermit
+    public partial class approvedPermit
     {
-
-        /// <summary>
-        /// approvedBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button approvedBtn;
 
         /// <summary>
         /// pendingBtn control.
@@ -31,6 +22,15 @@ namespace AdminTemplate3._1._0
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button pendingBtn;
+
+        /// <summary>
+        /// allBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button allBtn;
 
         /// <summary>
         /// txtSearch control.
