@@ -181,6 +181,11 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@Date", currentDate);
                         cmd.Parameters.AddWithValue("@IPAddress", clientIPAddress);
                         cmd.Parameters.AddWithValue("@UserRoleID", roleID);
+                        
+                        Session["DeptCode"] = deptCode;
+                        Session["DeptName"] = deptName;
+                        Session["RoleID"] = roleID;
+                        Session["LoginID"] = email;
 
                         con.Open();
                         flag = cmd.ExecuteNonQuery();

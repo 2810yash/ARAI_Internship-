@@ -12,18 +12,19 @@ namespace AdminTemplate3._1._0
         string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         public string deptName;
+        public int deptCode;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                deptCode = (int)Session["DeptCode"];
                 LoadPermitDetails();
-                deptName = Session["DeptName"].ToString();
             }
         }
         private void LoadPermitDetails()
         {
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 0 and DeptIssued = '" + deptName + "'";
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 0 and DeptIssuedCode = " + deptCode;
             using (SqlConnection con = new SqlConnection(Main_con))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
@@ -39,7 +40,7 @@ namespace AdminTemplate3._1._0
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND IsClosed = 0";
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND IsClosed = 0 AND DeptIssuedCode = " + deptCode;
 
             using (SqlConnection con = new SqlConnection(Main_con))
             {

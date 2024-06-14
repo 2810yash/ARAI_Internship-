@@ -48,14 +48,17 @@ namespace AdminTemplate3._1._0
         string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         public string deptName;
+        public int deptCode;
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack)
             {
-                LoadPermitDetails();
+
                 deptName = Session["DeptName"].ToString();
+                deptCode = (int)Session["DeptCode"];
+                LoadPermitDetails();
             }
         }
 
@@ -82,7 +85,7 @@ namespace AdminTemplate3._1._0
                 //}
                 //else
                 //{
-                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where DeptIssued = " + deptName;
+                //    query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup where DeptIssuedCode = " + deptCode;
                 //}
                 //using (SqlCommand cmd = new SqlCommand(query, con))
                 //{
@@ -94,7 +97,7 @@ namespace AdminTemplate3._1._0
                 //    con.Close();
                 //}
 
-                query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE DeptIssued = '" + deptName + "'";
+                query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE DeptIssuedCode = " + deptCode;
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     //Dataset 
@@ -120,7 +123,7 @@ namespace AdminTemplate3._1._0
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
+            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE  DeptIssuedCode = " + deptCode + " AND PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
 
             using (SqlConnection con = new SqlConnection(Main_con))
             {
