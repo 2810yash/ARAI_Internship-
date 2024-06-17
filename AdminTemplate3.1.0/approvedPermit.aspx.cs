@@ -11,50 +11,118 @@ namespace AdminTemplate3._1._0
     {
         string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        public string deptName;
-        public int deptCode;
+        public string deptName, loginID;
+        public int deptCode, roleID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            loginID = Session["LoginID"].ToString();
+            deptName = Session["DeptName"].ToString();
+            deptCode = (int)Session["DeptCode"];
+            roleID = (int)Session["RoleID"];
+
             if (!IsPostBack)
             {
+                loginID = Session["LoginID"].ToString();
+                deptName = Session["DeptName"].ToString();
                 deptCode = (int)Session["DeptCode"];
+                roleID = (int)Session["RoleID"];
                 LoadPermitDetails();
             }
         }
         private void LoadPermitDetails()
         {
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 1 and DeptIssuedCode = " + deptCode;
+            //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 1 and DeptIssuedCode = " + deptCode;
             using (SqlConnection con = new SqlConnection(Main_con))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                //using (SqlCommand cmd = new SqlCommand(query, con))
+                //{
+                //    con.Open();
+                //    SqlDataReader reader = cmd.ExecuteReader();
+                //    reptCard.DataSource = reader;
+                //    reptCard.DataBind();
+                //    con.Close();
+                //}
+
+                using (SqlCommand cmd = new SqlCommand("usp_fetchPermitDetails", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RoleID", roleID);
+                    cmd.Parameters.AddWithValue("@PermitType", "Approved");
+
+                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
+                    {
+                        cmd.Parameters.AddWithValue("@Dept_Code", deptCode);
+                    }
+                    else if (roleID == 2)
+                    {
+                        cmd.Parameters.AddWithValue("@LoginID", loginID);
+                    }
+
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    reptCard.DataSource = reader;
-                    reptCard.DataBind();
-                    con.Close();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        reptCard.DataSource = reader;
+                        reptCard.DataBind();
+                        con.Close();
+                    }
                 }
+
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND IsClosed = 1 and DeptIssuedCode = " + deptCode;
+            string permitType = "Approved";
+            SearchPermitDetails(roleID, deptCode, loginID, searchtxt, permitType);
+            //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND IsClosed = 1 and DeptIssuedCode = " + deptCode;
+
+            //using (SqlConnection con = new SqlConnection(Main_con))
+            //{
+            //    using (SqlCommand cmd = new SqlCommand(query, con))
+            //    {
+            //        cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
+            //        con.Open();
+            //        SqlDataReader reader = cmd.ExecuteReader();
+            //        reptCard.DataSource = reader;
+            //        reptCard.DataBind();
+            //        con.Close();
+            //    }
+            //}
+        }
+
+        protected void SearchPermitDetails(int roleID, int deptCode, string loginID, string searchQuery, string permitType)
+        {
 
             using (SqlConnection con = new SqlConnection(Main_con))
+            using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@RoleID", roleID);
+                cmd.Parameters.AddWithValue("@PermitType", permitType);
+
+                if (roleID == 1)
                 {
-                    cmd.Parameters.AddWithValue("@searchQuery", searchtxt);
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@DeptCode", deptCode);
+                }
+                else if (roleID == 2)
+                {
+                    cmd.Parameters.AddWithValue("@LoginID", loginID);
+                }
+
+                cmd.Parameters.AddWithValue("@SearchQuery", searchQuery);
+
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
                     reptCard.DataSource = reader;
                     reptCard.DataBind();
                     con.Close();
                 }
             }
         }
+
+
         protected void allPermits_btn(object sender, EventArgs e)
         {
             Response.Redirect("viewWorkPermit.aspx");
