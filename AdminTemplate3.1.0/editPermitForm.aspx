@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="Welcome.aspx.cs"
-    Inherits="AdminTemplate3._1._0.Welcome" %>
-    <asp:Content ContentPlaceHolderID="head" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="editPermitForm.aspx.cs" Inherits="AdminTemplate3._1._0.editPermitForm" %>
+ 
+<asp:Content ContentPlaceHolderID="head" runat="server">
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,8 +25,30 @@
         <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+        <style>
+            .scroll-horizontal-div {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .scroll-horizontal-div::-webkit-scrollbar {
+                width: 0.5em;
+                height: 0.5em
+            }
+
+            .scroll-horizontal-div::-webkit-scrollbar-track {
+                background-color: #c6ccd4;
+                border-radius: 5em;
+            }
+
+            .scroll-horizontal-div::-webkit-scrollbar-thumb {
+                background-color: #748290;
+                border-radius: 5em;
+            }
+        </style>
     </asp:Content>
-    <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper position-relative">
@@ -75,7 +97,7 @@
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
-                                <asp:DropDownList ID="site" CssClass="form-control select" runat="server">
+                                <asp:DropDownList ID="siteName" CssClass="form-control select" runat="server">
                                     <asp:ListItem Text="ARAI-Kothrud" Selected="false" Value="ARAI-Kothrud"></asp:ListItem>
                                     <asp:ListItem Text="ARAI-Chakan" Value="ARAI-Chakan"></asp:ListItem>
                                     <asp:ListItem Text="ARAI-HTC-Chakan" Value="ARAI-HTC-Chakan"></asp:ListItem>
@@ -91,21 +113,12 @@
                                             <!-- permit number & date of issue: -->
                                             <div class="d-flex mb-3 mt-3">
                                                 <div class="input-group me-2">
-                                                    <span
-                                                        class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="permitNo0">Permit No:</span>
-                                                    <asp:TextBox ID="permitNum" Height="100%"
-                                                        CssClass="form-control" required runat="server">
-                                                    </asp:TextBox>
+                                                    <span id="permitNo0" class="input-group-text text-wrap col-sm-3 justify-content-center">Permit No:</span>
+                                                    <asp:TextBox ID="permitNum1" CssClass="form-control" Height="100%" required="required" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="input-group">
-                                                    <span
-                                                        class="input-group-text text-wrap col-sm-3 justify-content-center">Date
-                                                                                of Issue</span>
-                                                    <asp:TextBox TextMode="DateTimeLocal"
-                                                        ID="issueDate" Height="100%"
-                                                        CssClass="form-control" required runat="server">
-                                                    </asp:TextBox>
+                                                    <span id="dateIssue" class="input-group-text text-wrap col-sm-3 justify-content-center">Date of Issue</span>
+                                                    <asp:TextBox TextMode="DateTimeLocal" ID="issueDate1" CssClass="form-control" Height="100%" required="required" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <!-- Permit Valid From & Permit Valid Till -->
@@ -115,7 +128,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="validFrom">Permit Valid From:</span>
                                                     <asp:TextBox TextMode="Date"
-                                                        ID="perValidFrom" Height="100%"
+                                                        ID="perValidFrom1" Height="100%"
                                                         CssClass="form-control datepicker" required
                                                         runat="server"></asp:TextBox>
                                                 </div>
@@ -124,7 +137,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="validTill">Permit Valid Till:</span>
                                                     <asp:TextBox TextMode="Date"
-                                                        ID="perValidTill" Height="100%"
+                                                        ID="perValidTill1" Height="100%"
                                                         CssClass="form-control " required runat="server">
                                                     </asp:TextBox>
                                                 </div>
@@ -138,26 +151,26 @@
                                                         id="splLicense0">Special License:</span>
                                                     <div class="ms-2 me-2">
                                                         <asp:RadioButton
-                                                            ID="special_license_yes" Text="Yes"
+                                                            ID="special_license_yes1" Text="Yes"
                                                             runat="server"
                                                             GroupName="Special-License"
-                                                            OnCheckedChanged="special_license_CheckedChanged" />
+                                                            OnCheckedChanged="special_license_CheckedChanged1" />
                                                     </div>
                                                     <div class="ms-2">
-                                                        <asp:RadioButton ID="special_license_no"
+                                                        <asp:RadioButton ID="special_license_no1"
                                                             Text="No" runat="server"
                                                             GroupName="Special-License" />
                                                     </div>
                                                 </div>
-                                                <asp:DropDownList ID="spl_Licence"
+                                                <asp:DropDownList ID="spl_Licence1"
                                                     CssClass="form-select"
                                                     Style="display: none; width: 50%;"
-                                                    runat="server">
+                                                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropdownSelectedSplIndexChanged">
                                                 </asp:DropDownList>
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function () {
-                                                        var specialLicenseYes = document.getElementById('<%= special_license_yes.ClientID %>');
-                                                        var splLicenceDropDown = document.getElementById('<%= spl_Licence.ClientID %>');
+                                                        var specialLicenseYes = document.getElementById('<%= special_license_yes1.ClientID %>');
+                                                        var splLicenceDropDown = document.getElementById('<%= spl_Licence1.ClientID %>');
                                                         // Function to toggle dropdown visibility
                                                         function toggleDropdownVisibility() {
                                                             splLicenceDropDown.style.display = specialLicenseYes.checked ? 'block' : 'none';
@@ -167,7 +180,7 @@
                                                         // Event listener for radio button change
                                                         specialLicenseYes.addEventListener('change', toggleDropdownVisibility);
                                                         // Additional logic for "No" selection
-                                                        var specialLicenseNo = document.getElementById('<%= special_license_no.ClientID %>');
+                                                        var specialLicenseNo = document.getElementById('<%= special_license_no1.ClientID %>');
                                                         specialLicenseNo.addEventListener('change', function () {
                                                             splLicenceDropDown.style.display = specialLicenseNo.checked ? 'none' : 'block';
                                                         });
@@ -181,7 +194,7 @@
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="esiNum0">ESI/Insurance No: </span>
-                                                    <asp:TextBox ID="esiNUM" Height="100%"
+                                                    <asp:TextBox ID="esiNUM1" Height="100%"
                                                         CssClass="form-control" required runat="server">
                                                     </asp:TextBox>
                                                 </div>
@@ -190,7 +203,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="esiVal">ESI/Insurance Validity:
                                                     </span>
-                                                    <asp:TextBox TextMode="Date" ID="esiVali"
+                                                    <asp:TextBox TextMode="Date" ID="esiVali1"
                                                         Height="100%" CssClass="form-control" required
                                                         runat="server"></asp:TextBox>
                                                 </div>
@@ -202,7 +215,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="vendors0">Name of Vendor or
                                                                                 Contractor Firm/Agency:</span>
-                                                    <asp:TextBox ID="contractorNam"
+                                                    <asp:TextBox ID="contractorNam1"
                                                         Height="100%" CssClass="form-control" required
                                                         runat="server"></asp:TextBox>
                                                 </div>
@@ -211,7 +224,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="numWorkers0">Number of
                                                                                 Workers:</span>
-                                                    <asp:TextBox ID="numWorkers"
+                                                    <asp:TextBox ID="numWorkers1"
                                                         CssClass="form-control" Height="100%" required runat="server" TextMode="Number">
                                                     </asp:TextBox>
                                                 </div>
@@ -224,7 +237,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="supervisor0">Name of
                                                                                 Vendor/Contractor Supervisor: </span>
-                                                    <asp:TextBox ID="supervisorNam"
+                                                    <asp:TextBox ID="supervisorNam1"
                                                         Height="100%" CssClass="form-control" required
                                                         runat="server"></asp:TextBox>
                                                 </div>
@@ -233,7 +246,7 @@
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="supervisorContact0">Contact
                                                                                 Number (Supervisor):</span>
-                                                    <asp:TextBox ID="supervisorContactNUM" required
+                                                    <asp:TextBox ID="supervisorContactNUM1" required
                                                         Height="100%" CssClass="form-control"
                                                         runat="server" MaxLength="10" TextMode="Phone"></asp:TextBox>
                                                 </div>
@@ -246,16 +259,15 @@
                                                         for="araiEng">
                                                         ARAI Engineer:
                                                     </label>
-                                                    <asp:DropDownList ID="araiEng" Height="100%" required
+                                                    <asp:DropDownList ID="araiEng1" Height="100%" required
                                                         CssClass="form-select" runat="server">
                                                     </asp:DropDownList>
                                                 </div>
                                                 <div class="input-group">
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="araiEngContact0">Contact
-                                                                                Number (Engineer):</span>
-                                                    <asp:TextBox ID="engiContactNUM"
+                                                        id="araiEngContact0">Contact Number (Engineer):</span>
+                                                    <asp:TextBox ID="engiContactNUM1"
                                                         Height="100%" CssClass="form-control" required
                                                         runat="server" TextMode="Phone"></asp:TextBox>
                                                 </div>
@@ -265,9 +277,8 @@
                                                 <div class="input-group me-2">
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="desc0">Brief Description of
-                                                                                Work:</span>
-                                                    <asp:TextBox ID="describeWork" Height="100%" required
+                                                        id="desc0">Brief Description of Work:</span>
+                                                    <asp:TextBox ID="describeWork1" Height="100%" required
                                                         CssClass="form-control" runat="server">
                                                     </asp:TextBox>
                                                 </div>
@@ -275,68 +286,69 @@
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
                                                         id="location0">Location of Work:</span>
-                                                    <asp:TextBox ID="locateWork" Height="100%" required
+                                                    <asp:TextBox ID="locateWork1" Height="100%" required
                                                         CssClass="form-control" runat="server">
                                                     </asp:TextBox>
                                                 </div>
                                             </div>
 
                                             <!-- Workers Details -->
-                                            <div class="mb-3 d-block">
+                                            <div class="mb-3 d-block scroll-horizontal-div">
                                                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:GridView ID="GridView1" runat="server" CssClass="table table-bordered" ShowFooter="True" AutoGenerateColumns="False">
+                                                        <asp:GridView ID="workerDetails" runat="server" CssClass="table table-bordered" ShowFooter="True" AutoGenerateColumns="False">
                                                             <Columns>
                                                                 <asp:BoundField DataField="RowNumber" HeaderText="Sr. No." />
                                                                 <asp:TemplateField HeaderText="Name of Workers">
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("NameOfWorkers") %>'></asp:TextBox>
+                                                                        <asp:HiddenField ID="hfWorkerID" runat="server" Value='<%# Eval("Id") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="AGE">
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="TextBox2" TextMode="Number" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="TextBox2" TextMode="Number" runat="server" Text='<%# Eval("Age") %>'></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Mask">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Eval("Mask") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Safety Shoes/Gum Boots">
+                                                                <asp:TemplateField HeaderText="Safety Shoes / Gum Boots">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox2" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox2" runat="server" Checked='<%# Eval("SafetyShoesGumBoots") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Jackets/Aprons">
+                                                                <asp:TemplateField HeaderText="Jackets / Aprons">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox3" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox3" runat="server" Checked='<%# Eval("JacketsAprons") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Gloves">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox4" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox4" runat="server" Checked='<%# Eval("Gloves") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Ear plug/muffs">
+                                                                <asp:TemplateField HeaderText="Ear Plug / Muffs">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox5" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox5" runat="server" Checked='<%# Eval("EarPlugMuffs") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Belt/Harness">
+                                                                <asp:TemplateField HeaderText="Belt / Harness">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox6" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox6" runat="server" Checked='<%# Eval("BeltHarness") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Helmet">
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="CheckBox7" runat="server" />
+                                                                        <asp:CheckBox ID="CheckBox7" runat="server" Checked='<%# Eval("Helmet") %>' />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Remark">
+                                                                <asp:TemplateField HeaderText="Remarks">
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Eval("Remarks") %>'></asp:TextBox>
                                                                     </ItemTemplate>
                                                                     <FooterStyle HorizontalAlign="Right" />
                                                                     <FooterTemplate>
@@ -345,10 +357,8 @@
                                                                 </asp:TemplateField>
                                                             </Columns>
                                                         </asp:GridView>
-
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-
                                             </div>
                                         </div>
                                     </div>
@@ -564,10 +574,8 @@
                                     </div>
                                     <div id="page3" class="page-3 p-4">
                                         <div class="d-flex justify-content-between mt-3 mb-2">
-                                            <button type="reset" class="btn btn-outline-secondary align-self-end invisible"
-                                                onclick="clearFields('workDetails')">
-                                                Back</button>
-                                            <asp:Button ID="submit" CssClass="btn btn-success align-self-end" runat="server" Text="Submit" OnClick="SubmitFrom" />
+                                            <a href="viewWorkPermit.aspx" class="btn btn-danger align-self-start">Cancel</a>
+                                            <asp:Button ID="Update" CssClass="btn btn-success align-self-end" runat="server" Text="Update" OnClick="submitForm" />
                                         </div>
                                     </div>
 

@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -27,6 +29,7 @@ namespace AdminTemplate3._1._0
                 deptName = Session["DeptName"].ToString();
                 deptCode = (int)Session["DeptCode"];
                 roleID = (int)Session["RoleID"];
+
                 LoadPermitDetails();
             }
         }
@@ -50,7 +53,7 @@ namespace AdminTemplate3._1._0
                     cmd.Parameters.AddWithValue("@RoleID", roleID);
                     cmd.Parameters.AddWithValue("@PermitType", "Pending");
 
-                    if (roleID == 1)
+                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
                     {
                         cmd.Parameters.AddWithValue("@Dept_Code", deptCode);
                     }
@@ -62,6 +65,7 @@ namespace AdminTemplate3._1._0
                     con.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
+
                         reptCard.DataSource = reader;
                         reptCard.DataBind();
                         con.Close();
@@ -69,6 +73,81 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
+
+        protected void hideButtons(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // Find the button within the Repeater item
+                Button approvePermit = (Button)e.Item.FindControl("approvePermit");
+                Button rejectPermit = (Button)e.Item.FindControl("rejectPermit");
+                if (approvePermit != null && rejectPermit != null)
+                {
+
+                    // Set the visibility based on the role ID
+                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
+                    {
+                        approvePermit.Visible = true;
+                        rejectPermit.Visible = true;
+                    }
+                }
+            }
+        }
+
+        public PermitDetails GetPermitDetailsByNumber(string permitNumber)
+        {
+            string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+            PermitDetails permitDetails = null;
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber", con))
+                {
+                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            permitDetails = new PermitDetails
+                            {
+                                SiteName = reader["SiteName"].ToString(),
+                                PermitNumber = reader["PermitNumber"].ToString(),
+                                DateofIssue = reader["DateofIssue"].ToString(),
+                                PermitValidFrom = reader["PermitValidFrom"].ToString(),
+                                PermitValidTill = reader["PermitValidTill"].ToString(),
+                                SpecialLicense = reader["SpecialLicense"].ToString(),
+                                SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
+                                InsuranceNo = reader["ESI_InsuranceNo"].ToString(),
+                                InsuranceValidity = reader["ESI_Validity"].ToString(),
+                                AgencyName = reader["NameofFirm_Agency"].ToString(),
+                                WorkerNo = reader["NumberofWorkers"].ToString(),
+                                ContractorName = reader["NameofSupervisor"].ToString(),
+                                ContractorNo = reader["ContractorContactNumber"].ToString(),
+                                EngineerName = reader["ARAIEngineer"].ToString(),
+                                EngineerNo = reader["EngineerContactNumber"].ToString(),
+                                Description = reader["BriefDescriptionofWork"].ToString(),
+                                Location = reader["LocationofWork"].ToString(),
+                                DeptIssued = reader["DeptIssued"].ToString(),
+                                workPermits = reader["PermitsIssued"].ToString()
+                            };
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Response.Write("<script>console.log('Error reading from database: " + ex.Message + "');</script>");
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error reading from database: " + ex.Message + "');", true);
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+                }
+            }
+            return permitDetails;
+        }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
@@ -94,31 +173,34 @@ namespace AdminTemplate3._1._0
         {
 
             using (SqlConnection con = new SqlConnection(Main_con))
-            using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
             {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RoleID", roleID);
-                cmd.Parameters.AddWithValue("@PermitType", permitType);
-
-                if (roleID == 1)
+                using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
                 {
-                    cmd.Parameters.AddWithValue("@DeptCode", deptCode);
-                }
-                else if (roleID == 2)
-                {
-                    cmd.Parameters.AddWithValue("@LoginID", loginID);
-                }
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RoleID", roleID);
+                    cmd.Parameters.AddWithValue("@PermitType", permitType);
 
-                cmd.Parameters.AddWithValue("@SearchQuery", searchQuery);
+                    if (roleID == 1)
+                    {
+                        cmd.Parameters.AddWithValue("@DeptCode", deptCode);
+                    }
+                    else if (roleID == 2)
+                    {
+                        cmd.Parameters.AddWithValue("@LoginID", loginID);
+                    }
 
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    reptCard.DataSource = reader;
-                    reptCard.DataBind();
-                    con.Close();
+                    cmd.Parameters.AddWithValue("@SearchQuery", searchQuery);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        reptCard.DataSource = reader;
+                        reptCard.DataBind();
+                        con.Close();
+                    }
                 }
             }
+            
         }
 
 
@@ -135,40 +217,223 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "ApproveDetails")
             {
                 string permitNumber = e.CommandArgument.ToString();
-                string query = "UPDATE permit_details_tbl_backup SET IsClosed = 1 WHERE PermitNumber = @permitNum";
 
                 using (SqlConnection con = new SqlConnection(Main_con))
                 {
-                    SqlCommand command = new SqlCommand(query, con);
-                    command.Parameters.AddWithValue("@permitNum", permitNumber);
-
-                    try
+                    using (SqlCommand command = new SqlCommand("usp_approvePermits", con))
                     {
-                        con.Open();
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@RoleID", roleID);
+                        command.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                        command.Parameters.AddWithValue("@Date", DateTime.Today.Date);
+                        try
                         {
-                            Response.Write($"<script>alert('Update successful. Number of rows affected: {rowsAffected}');</script>");
+                            con.Open();
+
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                //SendMail(permitNumber);
+                                //Response.Write($"<script>alert('Update successful. Number of rows affected: {rowsAffected}');</script>");
+                                try
+                                {
+                                    //var welcome = new Welcome();
+                                    SendEmail(permitNumber, "Approved", "");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Response.Write("<script> alert('" + ex.Message + "'); </script>");
+                                }
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('No rows were updated.');</script>");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Response.Write($"<script>alert('An error occurred: {ex.Message}');</script>");
+                        }
+                        finally
+                        {
+                            con.Close();
+                            Response.Redirect("pendingPermit.aspx");
+                        }
+                    }
+                    
+
+                }
+
+            }
+        }
+
+        protected void SendEmail(string permitNumber, string permitType, string remark)
+        {
+            string emailTo;
+            int flag;
+            PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
+            string emailFrom, smtp_host, networkCredentials;
+            Boolean isBodyHTML, enableSSL, useDefaultCredentials;
+            int smtp_port;
+
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_fetchEmail", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FormStatus", permitType);
+                    cmd.Parameters.AddWithValue("@Dept_Code", deptCode);
+                    cmd.Parameters.AddWithValue("RoleID", (int)Session["RoleID"]);
+
+                    if (permitType.Equals("Rejected"))
+                    {
+                        cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    }
+                    cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
+                    con.Open();
+                    flag = cmd.ExecuteNonQuery();
+
+                    // Fetch the output 
+                    emailTo = cmd.Parameters["@EmailID"].Value.ToString();
+                    //Response.Write("<script>alert('Email: " + email + "');</script>");
+                    con.Close();
+
+                }
+
+                DataTable dt = new DataTable();
+                
+                using (SqlCommand cmd = new SqlCommand("exec usp_getSMTPDetails", con))
+                {
+
+                    con.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    DataRow row = dt.Rows[0];
+                    emailFrom = row["EmailFrom"].ToString();
+                    isBodyHTML = (Boolean)row["IsBodyHTML"];
+                    smtp_host = row["SMTP_HOST"].ToString();
+                    enableSSL = (Boolean)row["SMTP_EnableSSL"];
+                    networkCredentials = row["NetworkCredentials"].ToString();
+                    useDefaultCredentials = (Boolean)row["UseDefaultCredentials"];
+                    smtp_port = Convert.ToInt32(row["SMTP_Port"]);
+
+                }
+
+            }
+
+            //string from = "adityaraut1003@gmail.com";
+            //string to = email; //Use exception handling here!
+            try
+            {
+                using (MailMessage mail = new MailMessage(emailFrom, emailTo))
+                {
+                    mail.Subject = "New Work Permit Created";
+                    
+                    string body;
+                    if (permitType.Equals("Approved"))
+                    {
+                        body = "Permit Number: " + permitNumber + " Approved! Check it out!";
+                        mail.Body = body;
+                    } else if (permitType.Equals("Rejected"))
+                    {
+                        body = "Permit Number:  " + permitNumber + " Rejected! \nRemark: " + remark + "\nPlease fill it again";
+                        mail.Body = body;
+                    }
+
+                    mail.IsBodyHtml = isBodyHTML; //false
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = smtp_host; //"smtp.gmail.com"
+                    smtp.EnableSsl = enableSSL; //true
+                    NetworkCredential networkCredential = new NetworkCredential(emailFrom, networkCredentials);
+                    smtp.UseDefaultCredentials = useDefaultCredentials; //true
+                    smtp.Credentials = networkCredential;
+                    smtp.Port = smtp_port; //587
+                    smtp.Send(mail);
+                    ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
+                    Response.Redirect("Welcome.aspx");
+                }
+            }
+            catch (SmtpException smtpEx)
+            {
+                //Response.Write($"<script>alert('SMTP Exception: {smtpEx.Message}');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('SMTP Exception : " + smtpEx.Message + "');", true);
+            }
+            catch (Exception ex)
+            {
+                //Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('General Exception : " + ex.Message + "');", true);
+            }
+        }
+
+
+        protected void rejectPermit_btn(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "RejectDetails")
+            {
+                string permitNumber = e.CommandArgument.ToString();
+                ViewState["PermitNumber"] = permitNumber;
+                permitNum = permitNumber;
+                remarkContaineer.Visible = true;
+                reptCard.Visible = false;
+                permitnumPara.InnerHtml = $"<storng>Reject Permit:</storng> {permitNum}";
+            }
+        }
+        protected void submitRemarkBtn_Click(object sender, EventArgs e)
+        {
+            string remark = remarkText.InnerText.Trim();
+            string permitNumber = ViewState["PermitNumber"] as String;
+            SubmitRemark(permitNumber, remark);
+            //SendEmail(permitNumber, "Rejected");
+
+        }
+
+        protected void SubmitRemark(string permitNumber, string remark)
+        {
+            try
+            {
+                int result = 0;
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_updateRemark", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@permitNum", permitNumber);
+                        cmd.Parameters.AddWithValue("@Remark", remark);
+                        con.Open();
+                        result = cmd.ExecuteNonQuery();
+                        con.Close();
+                        if (result > 0)
+                        {
+                            Response.Write($"<script>alert('Selected Permit has been Rejected. Permit Number: {permitNumber}');</script>");
+                            SendEmail(permitNumber, "Rejected", remark);
+                            Response.Redirect("pendingPermit.aspx");
                         }
                         else
                         {
-                            Response.Write("<script>alert('No rows were updated.');</script>");
+                            Response.Write("<script>alert('Data updatation UnSuccessfully.');</script>");
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Response.Write($"<script>alert('An error occurred: {ex.Message}');</script>");
-                    }
-                    finally
-                    {
-                        con.Close();
-                        Response.Redirect("pendingPermit.aspx");
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Response.Write($"<script>alert('Exception: {ex.Message}');</script>");
+            }
         }
+
+        protected void closeBtn_Click(object sender, EventArgs e)
+        {
+            remarkContaineer.Visible = false;
+            reptCard.Visible = true;
+        }
+
+        protected void rejectedPermit_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("rejected.aspx");
+        }
+
         protected void ViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "ViewDetails")
@@ -189,7 +454,7 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
-                Response.Redirect("editWorkPermit.aspx?permitNumber=" + permitNum);
+                Response.Redirect("editPermitForm.aspx");
             }
         }
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
@@ -247,7 +512,7 @@ namespace AdminTemplate3._1._0
                                 EngineerNo = reader["EngineerNo"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Location = reader["Location"].ToString(),
-                                workPermits = reader["workPermits"].ToString()
+                                workPermits = reader["PermitsIssued"].ToString()
                             };
                         }
                     }

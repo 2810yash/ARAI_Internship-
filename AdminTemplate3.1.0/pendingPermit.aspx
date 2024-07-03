@@ -33,7 +33,8 @@
                 <div class="row">
                     <div class="col">
                         <asp:Button ID="approvedBtn" runat="server" Text="Approved Permits" CssClass="btn btn-success m-1" OnClick="approvePermit_btn" />
-                        <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />
+                        <asp:Button ID="rejectedBtn" runat="server" Text="Rejected Permits" CssClass="btn btn-danger m-1" OnClick="rejectedPermit_btn" />
+<%--                        <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />--%>
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1" style="width: 50%;" />
@@ -42,6 +43,28 @@
                     <br />
                     <br />
                     <br />
+                </div>
+            </div>
+
+            <h3 class="ms-2" style="color:orange;">Pending Work Permits</h3><br />
+
+            <div runat="server" id="remarkContaineer" Visible ="false" class="d-flex justify-content-center align-items-center">
+                <div class="card" style="width:70%;">
+                    <div class="card-header">
+                        <asp:Button ID="closeBtn" runat="server" CssClass="close btn btn-danger" Text="X" OnClick="closeBtn_Click" />
+                        <p runat="server" id="permitnumPara" style="color: red; font-weight:bold; font-size:large;"></p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Remark:
+                        </h5>
+                        <p class="card-text">
+                            <textarea id="remarkText" runat="server" cols="20" rows="10" style="width: 100%;"></textarea>
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <asp:Button runat="server" ID="remarkBtn" CssClass="btn btn-primary" Text="Submit" OnClick="submitRemarkBtn_Click" />
+                    </div>
                 </div>
             </div>
 
@@ -70,8 +93,7 @@
             </div>
 
             <div>
-                <h3 class="ms-2">Pending Work Permits</h3>
-                <asp:Repeater ID="reptCard" runat="server">
+                <asp:Repeater ID="reptCard" runat="server" OnItemDataBound="hideButtons">
                     <ItemTemplate>
                         <div class="card repeater-item">
                             <div class="card-header">
@@ -91,7 +113,8 @@
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
                                 <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
-                                <asp:Button ID="approvePemit" runat="server" CssClass="btn btn-success" Text="Approve?" CommandName="ApproveDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="approvePermit_btn" />
+                                <asp:Button ID="approvePermit" runat="server" CssClass="btn btn-success" Text="Approve?" CommandName="ApproveDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="approvePermit_btn" Visible ="false" />
+                                <asp:Button ID="rejectPermit" runat="server" CssClass="btn btn-outline-danger" Text="Reject ?" CommandName="RejectDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="rejectPermit_btn" Visible="false" />
                             </div>
                         </div>
                     </ItemTemplate>

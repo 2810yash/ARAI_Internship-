@@ -1,0 +1,491 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace AdminTemplate3._1._0
+{
+    public partial class editPermitForm : System.Web.UI.Page
+    {
+        string permitNUM;
+        string remark;
+        int? workernum;
+        int rowCount = 0;
+        public string deptName;
+        string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["deptName"] != null)
+            {
+                deptName = Session["deptName"].ToString();
+            }
+
+            if (!IsPostBack)
+            {
+                if (string.IsNullOrEmpty(Request.QueryString["permitNumber"]))
+                {
+                    // Handle the case when incident_id is not available, e.g., redirect to an error page or display a message
+                    Response.Redirect("viewWorkPermit.aspx");
+                }
+                else
+                {
+                    string permitNumber = Request.QueryString["permitNumber"];
+                    //loadIncidentID();
+                    loadFormData(permitNumber);
+                    GetData(permitNumber);
+                }
+            }
+            if (!IsPostBack)
+            {
+                //arai_Engineer_list();
+                splWorkPermit_list();
+                arai_Engineer_list();
+            }
+
+            //if (!Page.IsPostBack)
+            //{
+            //    SetInitialRow();
+            //}
+        }
+        public void arai_Engineer_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT * FROM [dbo].[engineer_name_tbl]", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            araiEng1.DataSource = sql_command.ExecuteReader();
+            araiEng1.DataTextField = "EngineerName";
+            araiEng1.DataBind();
+            araiEng1.Items.Insert(0, new ListItem("-- Select Engineer Name --", "0"));
+        }
+
+        public void splWorkPermit_list()
+        {
+            SqlConnection sqlcon = new SqlConnection(Main_con);
+            sqlcon.Open();
+            SqlCommand sql_command = new SqlCommand("SELECT Work_Permit FROM [dbo].[JobSafetyAssessment_TBL] WHERE Spl_License=1", sqlcon);
+            sql_command.CommandType = CommandType.Text;
+            spl_Licence1.DataSource = sql_command.ExecuteReader();
+            spl_Licence1.DataTextField = "Work_Permit";
+            spl_Licence1.DataBind();
+            spl_Licence1.Items.Insert(0, new ListItem("-- Select Special Work Permit --", "0"));
+        }
+
+        private void GetData(string permitNumber)
+        {
+            DataTable table = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                string sql = "SELECT * FROM [dbo].[Workers] WHERE PermitNumber = @PermitNumber";
+
+                using (SqlCommand command = new SqlCommand(sql, con))
+                {
+                    command.Parameters.AddWithValue("@PermitNumber", permitNumber);
+
+                    con.Open();
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(table);
+                    }
+                }
+            }
+
+            ViewState["WorkerDetails"] = table;
+            workerDetails.DataSource = table;
+            workerDetails.DataBind();
+        }
+
+        private void loadIncidentID()
+        {
+            // Retrieve the incident_id from the session
+            permitNUM = Session["PermitNumber"].ToString();
+
+            // If incident_id is null or empty, handle it accordingly
+            if (string.IsNullOrEmpty(permitNUM))
+            {
+                // Handle the case when incident_id is not available, e.g., redirect to an error page or display a message
+                Response.Redirect("viewWorkPermit.aspx");
+            }
+        }
+        protected void dropdownSelectedSplIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = spl_Licence1.SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Uncheck all checkboxes for default selection
+                    check1.Checked = false;
+                    check2.Checked = false;
+                    check3.Checked = false;
+                    check4.Checked = false;
+                    break;
+                case 1:
+                    check1.Checked = true;  // Check the first checkbox
+                    break;
+                case 2:
+                    check2.Checked = true;  // Check the second checkbox
+                    break;
+                case 3:
+                    check3.Checked = true;  // Check the third checkbox
+                    break;
+                case 4:
+                    check4.Checked = true;  // Check the fourth checkbox
+                    break;
+                default:
+                    // Handle unexpected index values (optional)
+                    break;
+            }
+        }
+
+        protected void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)ViewState["WorkerDetails"];
+
+            DataRow dr = dt.NewRow();
+            dr["NameOfWorkers"] = string.Empty;
+            dr["Age"] = DBNull.Value;
+            dr["Mask"] = false;
+            dr["SafetyShoesGumBoots"] = false;
+            dr["JacketsAprons"] = false;
+            dr["Gloves"] = false;
+            dr["EarPlugMuffs"] = false;
+            dr["BeltHarness"] = false;
+            dr["Helmet"] = false;
+            dr["Remarks"] = string.Empty;
+
+            dt.Rows.Add(dr);
+
+            ViewState["WorkerDetails"] = dt;
+            workerDetails.DataSource = dt;
+            workerDetails.DataBind();
+            rowCount += 1;
+        }
+
+
+        private void loadFormData(string permitNumber)
+        {
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                SqlCommand cmd1 = new SqlCommand("SELECT * FROM permit_details_tbl WHERE PermitNumber = @permitNumber", con);
+                SqlCommand cmd2 = new SqlCommand("SELECT * FROM selectedWorkpermit_TBL WHERE PermitNumber = @permitNumber", con);
+                cmd1.Parameters.AddWithValue("@PermitNumber", permitNumber); // Replace with your PermitNumber parameter
+                cmd2.Parameters.AddWithValue("@PermitNumber", permitNumber); // Replace with your PermitNumber parameter
+
+                con.Open();
+                using (SqlDataReader reader = cmd1.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        siteName.Text = reader["SiteName"] != DBNull.Value ? reader["SiteName"].ToString() : "";
+                        permitNum1.Text = reader["PermitNumber"] != DBNull.Value ? reader["PermitNumber"].ToString() : "";
+                        issueDate1.Text = reader["DateofIssue"] != DBNull.Value ? Convert.ToDateTime(reader["DateofIssue"]).ToString("yyyy-MM-dd") : "";
+                        perValidFrom1.Text = reader["PermitValidFrom"] != DBNull.Value ? Convert.ToDateTime(reader["PermitValidFrom"]).ToString("yyyy-MM-dd") : "";
+                        perValidTill1.Text = reader["PermitValidTill"] != DBNull.Value ? Convert.ToDateTime(reader["PermitValidTill"]).ToString("yyyy-MM-dd") : "";
+
+                        if (reader["SpecialLicense"] != DBNull.Value && Convert.ToBoolean(reader["SpecialLicense"]))
+                        {
+                            special_license_yes1.Checked = true;
+                            special_license_no1.Checked = false;
+                            if (reader["SpecialLicenseType"] != DBNull.Value)
+                            {
+                                spl_Licence1.SelectedValue = reader["SpecialLicenseType"].ToString();
+                            }
+                        }
+                        else
+                        {
+                            special_license_yes1.Checked = false;
+                            special_license_no1.Checked = true;
+                            spl_Licence1.SelectedIndex = 0;
+                        }
+
+                        esiNUM1.Text = reader["ESI_InsuranceNo"] != DBNull.Value ? reader["ESI_InsuranceNo"].ToString() : "";
+                        esiVali1.Text = reader["ESI_Validity"] != DBNull.Value ? Convert.ToDateTime(reader["ESI_Validity"]).ToString("yyyy-MM-dd") : "";
+                        contractorNam1.Text = reader["NameofFirm_Agency"] != DBNull.Value ? reader["NameofFirm_Agency"].ToString() : "";
+                        numWorkers1.Text = reader["NumberofWorkers"] != DBNull.Value ? reader["NumberofWorkers"].ToString() : "";
+                        supervisorNam1.Text = reader["NameofSupervisor"] != DBNull.Value ? reader["NameofSupervisor"].ToString() : "";
+                        supervisorContactNUM1.Text = reader["ContractorContactNumber"] != DBNull.Value ? reader["ContractorContactNumber"].ToString() : "";
+                        araiEng1.Text = reader["ARAIEngineer"] != DBNull.Value ? reader["ARAIEngineer"].ToString() : "";
+                        engiContactNUM1.Text = reader["EngineerContactNumber"] != DBNull.Value ? reader["EngineerContactNumber"].ToString() : "";
+                        describeWork1.Text = reader["BriefDescriptionofWork"] != DBNull.Value ? reader["BriefDescriptionofWork"].ToString() : "";
+                        locateWork1.Text = reader["LocationofWork"] != DBNull.Value ? reader["LocationofWork"].ToString() : "";
+                        remark = reader["Rejected_Remark"] != DBNull.Value ? reader["Remark"].ToString() : "";
+                    }
+                    else
+                    {
+                        Response.Redirect("viewWorkPermit.aspx");
+                    }
+                }
+                using (SqlDataReader reader2 = cmd2.ExecuteReader())
+                {
+                    if (reader2.Read())
+                    {
+                        if (reader2["workPermit1"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit1"]))
+                        {
+                            check1.Checked = true;
+                        }
+                        if (reader2["workPermit2"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit2"]))
+                        {
+                            check2.Checked = true;
+                        }
+                        if (reader2["workPermit3"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit3"]))
+                        {
+                            check3.Checked = true;
+                        }
+                        if (reader2["workPermit4"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit4"]))
+                        {
+                            check4.Checked = true;
+                        }
+                        if (reader2["workPermit5"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit5"]))
+                        {
+                            check5.Checked = true;
+                        }
+                        if (reader2["workPermit6"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit6"]))
+                        {
+                            check6.Checked = true;
+                        }
+                        if (reader2["workPermit7"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit7"]))
+                        {
+                            check7.Checked = true;
+                        }
+                        if (reader2["workPermit8"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit8"]))
+                        {
+                            check8.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        // Handle case where no record is found
+                        Response.Redirect("viewWorkPermit.aspx");
+                    }
+                }
+            }
+        }
+
+        private string GetClientIpAddress()
+        {
+            string ipAddress = HttpContext.Current.Request.UserHostAddress;
+
+            // Check for X-Forwarded-For header for cases where the server is behind a proxy
+            string xForwardedFor = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (!string.IsNullOrEmpty(xForwardedFor))
+            {
+                string[] ipAddresses = xForwardedFor.Split(',');
+                if (ipAddresses.Length > 0)
+                {
+                    ipAddress = ipAddresses[0];
+                }
+            }
+
+            // Handle IPv6 loopback address (::1) for local testing
+            if (ipAddress == "::1")
+            {
+                ipAddress = "127.0.0.1";
+            }
+
+            return ipAddress;
+        }
+        public void special_license_CheckedChanged1(object sender, EventArgs e)
+        {
+            spl_Licence1.Visible = special_license_yes1.Checked;
+        }
+        protected void submitForm(object sender, EventArgs e)
+        {
+            string permitNumber = permitNum1.Text;
+            string siteNameValue = siteName.Text;
+            DateTime? dateOfIssueValue = string.IsNullOrEmpty(issueDate1.Text) ? (DateTime?)null : Convert.ToDateTime(issueDate1.Text);
+            DateTime? permitValidFromValue = string.IsNullOrEmpty(perValidFrom1.Text) ? (DateTime?)null : Convert.ToDateTime(perValidFrom1.Text);
+            DateTime? permitValidTillValue = string.IsNullOrEmpty(perValidTill1.Text) ? (DateTime?)null : Convert.ToDateTime(perValidTill1.Text);
+            bool specialLicenseValue = special_license_yes1.Checked;
+            string specialLicenseTypeValue = specialLicenseValue ? spl_Licence1.SelectedValue : null;
+            string esiNumValue = esiNUM1.Text;
+            DateTime? esiValiValue = string.IsNullOrEmpty(esiVali1.Text) ? (DateTime?)null : Convert.ToDateTime(esiVali1.Text);
+            string contractorNamValue = contractorNam1.Text;
+            int? numWorkersValue = string.IsNullOrEmpty(numWorkers1.Text) ? (int?)null : Convert.ToInt32(numWorkers1.Text);
+            numWorkersValue = numWorkersValue + rowCount;
+            string supervisorNamValue = supervisorNam1.Text;
+            string supervisorContactNumValue = supervisorContactNUM1.Text;
+            string araiEngValue = araiEng1.Text;
+            string engiContactNumValue = engiContactNUM1.Text;
+            string describeWorkValue = describeWork1.Text;
+            string locateWorkValue = locateWork1.Text;
+            string deptIssuedValue = deptName;
+            string remarkValue = remark;
+            bool isCloseValue = false;
+            bool rejectedValue = false;
+            string check1Txt = "";
+            string check2Txt = "";
+            string check3Txt = "";
+            string check4Txt = "";
+            string check5Txt = "";
+            string check6Txt = "";
+            string check7Txt = "";
+            string check8Txt = "";
+            string selectedWorkPer = "";
+
+            //CheckBox bottons
+            if (check1.Checked)
+            {
+                check1Txt = check1.Text;
+            }
+            if (check2.Checked)
+            {
+                check2Txt = check2.Text;
+            }
+            if (check3.Checked)
+            {
+                check3Txt = check3.Text;
+            }
+            if (check4.Checked)
+            {
+                check4Txt = check4.Text;
+            }
+            if (check5.Checked)
+            {
+                check5Txt = check5.Text;
+            }
+            if (check6.Checked)
+            {
+                check6Txt = check6.Text;
+            }
+            if (check7.Checked)
+            {
+                check7Txt = check7.Text;
+            }
+            if (check8.Checked)
+            {
+                check8Txt = check8.Text;
+            }
+            if (!check1.Checked && !check2.Checked && !check3.Checked && !check4.Checked && !check5.Checked && !check6.Checked && !check7.Checked && !check8.Checked)
+            {
+                Response.Write("<script>alert('Please select a work permit!');</script>");
+                return;
+            }
+            selectedWorkPer = "|" + check1Txt + "|" + check2Txt + "|" + check3Txt + "|" + check4Txt + "|" + check5Txt + "|" + check6Txt + "|" + check7Txt + "|" + check8Txt + "|";
+
+            workernum = numWorkersValue;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    SqlCommand cmd = new SqlCommand("SaveOrUpdatePermitDetails", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    cmd.Parameters.AddWithValue("@SiteName", (object)siteNameValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DateofIssue", (object)dateOfIssueValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PermitValidFrom", (object)permitValidFromValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PermitValidTill", (object)permitValidTillValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@SpecialLicense", specialLicenseValue);
+                    cmd.Parameters.AddWithValue("@SpecialLicenseType", (object)specialLicenseTypeValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ESI_InsuranceNo", (object)esiNumValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ESI_Validity", (object)esiValiValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@NameofFirm_Agency", (object)contractorNamValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@NumberofWorkers", (object)numWorkersValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@NameofSupervisor", (object)supervisorNamValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ContractorContactNumber", (object)supervisorContactNumValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ARAIEngineer", (object)araiEngValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@EngineerContactNumber", (object)engiContactNumValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BriefDescriptionofWork", (object)describeWorkValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LocationofWork", (object)locateWorkValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DeptIssued", (object)deptIssuedValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Today.Date);
+                  
+                    cmd.Parameters.AddWithValue("@workPermit1", check1.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit2", check2.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit3", check3.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit4", check4.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit5", check5.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit6", check6.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit7", check7.Checked);
+                    cmd.Parameters.AddWithValue("@workPermit8", check8.Checked);
+                    submitWorkerDetails(permitNumber);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Redirect or show a message after successful submission
+                Response.Redirect("viewWorkPermit.aspx"); // Redirect to a success page or any other appropriate action
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"<script>alert({ex.Message});</script>");
+            }
+        }
+        protected void submitWorkerDetails(string permitNumber)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
+
+                    foreach (GridViewRow row in workerDetails.Rows)
+                    {
+                        TextBox txtName = (TextBox)row.FindControl("TextBox1");
+                        TextBox txtAge = (TextBox)row.FindControl("TextBox2");
+                        CheckBox chkMask = (CheckBox)row.FindControl("CheckBox1");
+                        CheckBox chkSafetyShoes = (CheckBox)row.FindControl("CheckBox2");
+                        CheckBox chkJacketsAprons = (CheckBox)row.FindControl("CheckBox3");
+                        CheckBox chkGloves = (CheckBox)row.FindControl("CheckBox4");
+                        CheckBox chkEarPlugMuffs = (CheckBox)row.FindControl("CheckBox5");
+                        CheckBox chkBeltHarness = (CheckBox)row.FindControl("CheckBox6");
+                        CheckBox chkHelmet = (CheckBox)row.FindControl("CheckBox7");
+                        TextBox txtRemarks = (TextBox)row.FindControl("TextBox3");
+
+                        HiddenField hfWorkerID = (HiddenField)row.FindControl("hfWorkerID");
+
+                        string workerID = hfWorkerID.Value;
+
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.Connection = con;
+                        cmd.Transaction = transaction;
+
+                        if (!string.IsNullOrEmpty(workerID))
+                        {
+                            // Update existing worker details
+                            cmd.CommandText = "UPDATE [dbo].[Workers] SET NameOfWorkers = @Name, Age = @Age, Mask = @Mask, SafetyShoesGumBoots = @SafetyShoes, JacketsAprons = @JacketsAprons, Gloves = @Gloves, EarPlugMuffs = @EarPlugMuffs, BeltHarness = @BeltHarness, Helmet = @Helmet, Remarks = @Remarks WHERE Id = @WorkerID";
+                            cmd.Parameters.AddWithValue("@WorkerID", workerID);
+                        }
+                        else
+                        {
+                            // Insert new worker details
+                            cmd.CommandText = "INSERT INTO [dbo].[Workers] (PermitNumber, NameOfWorkers, Age, Mask, SafetyShoesGumBoots, JacketsAprons, Gloves, EarPlugMuffs, BeltHarness, Helmet, Remarks) VALUES (@PermitNumber, @Name, @Age, @Mask, @SafetyShoes, @JacketsAprons, @Gloves, @EarPlugMuffs, @BeltHarness, @Helmet, @Remarks)";
+                            cmd.Parameters.AddWithValue("@PermitNumber", permitNumber); // Assuming permitNumber is a class-level variable
+                        }
+
+                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
+                        cmd.Parameters.AddWithValue("@Age", string.IsNullOrEmpty(txtAge.Text) ? (object)DBNull.Value : Convert.ToInt32(txtAge.Text));
+                        cmd.Parameters.AddWithValue("@Mask", chkMask.Checked);
+                        cmd.Parameters.AddWithValue("@SafetyShoes", chkSafetyShoes.Checked);
+                        cmd.Parameters.AddWithValue("@JacketsAprons", chkJacketsAprons.Checked);
+                        cmd.Parameters.AddWithValue("@Gloves", chkGloves.Checked);
+                        cmd.Parameters.AddWithValue("@EarPlugMuffs", chkEarPlugMuffs.Checked);
+                        cmd.Parameters.AddWithValue("@BeltHarness", chkBeltHarness.Checked);
+                        cmd.Parameters.AddWithValue("@Helmet", chkHelmet.Checked);
+                        cmd.Parameters.AddWithValue("@Remarks", txtRemarks.Text);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"<script>alert('{ex.Message}');</script>");
+            }
+        }
+
+    }
+}

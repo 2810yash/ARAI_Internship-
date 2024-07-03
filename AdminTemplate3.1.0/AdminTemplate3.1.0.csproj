@@ -2174,6 +2174,7 @@
     <Content Include="AT3.1.0\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="AT3.1.0\plugins\uplot\uPlot.min.css" />
     <Content Include="chartjs.html" />
+    <Content Include="editPermitForm.aspx" />
     <Content Include="EditReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -4269,6 +4270,7 @@
     <Content Include="plugins\uplot\uPlot.iife.min.js" />
     <Content Include="plugins\uplot\uPlot.min.css" />
     <Content Include="register.aspx" />
+    <Content Include="rejected.aspx" />
     <Content Include="Scripts\search_function.js" />
     <Content Include="Styles\accident.css" />
     <Content Include="Styles\login.css" />
@@ -6126,6 +6128,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="SendMail.cs" />
+    <Compile Include="editPermitForm.aspx.cs">
+      <DependentUpon>editPermitForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="editPermitForm.aspx.designer.cs">
+      <DependentUpon>editPermitForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EditReport.aspx.cs">
       <DependentUpon>EditReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6171,6 +6181,13 @@
     </Compile>
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="rejected.aspx.cs">
+      <DependentUpon>rejected.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rejected.aspx.designer.cs">
+      <DependentUpon>rejected.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>

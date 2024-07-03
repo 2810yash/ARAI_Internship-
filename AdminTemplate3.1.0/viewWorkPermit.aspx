@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="viewWorkPermit.aspx.cs" Inherits="AdminTemplate3._1._0.viewWorkPermit" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="viewWorkPermit.aspx.cs" Inherits="AdminTemplate3._1._0.viewWorkPermit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -34,6 +34,7 @@
                     <div class="col">
                         <asp:Button ID="approvedBtn" runat="server" Text="Approved Permits" CssClass="btn btn-success m-1" OnClick="approvePermit_btn" />
                         <asp:Button ID="pendingBtn" runat="server" Text="Pending Permits" CssClass="btn btn-warning m-1" OnClick="pendingBtn_Click" />
+                        <asp:Button ID="rejectedBtn" runat="server" Text="Rejected Permits" CssClass="btn  btn-danger m-1" OnClick="rejectedBtn_Click" />
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1" style="width: 50%;" />

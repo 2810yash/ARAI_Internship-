@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
+
     public partial class Welcome : System.Web.UI.Page
     {
         public int deptCode;
@@ -16,7 +17,7 @@ namespace AdminTemplate3._1._0
         public string deptName;
         public void Page_Load(object sender, EventArgs e)
         {
-            if ((int)Session["RoleID"] == 1)
+            if ((int)Session["RoleID"] == 1 || (int)Session["RoleID"] == 3 || (int)Session["RoleID"] == 4 || (int)Session["RoleID"] == 5)
             {
                 Response.Redirect("Homepage.aspx");
             }
@@ -404,6 +405,16 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@SiteName", siteName);
                         cmd.Parameters.AddWithValue("@CreatedBy", createdBy);
                         cmd.Parameters.AddWithValue("@DeptIssuedCode", deptCode);
+                        cmd.Parameters.AddWithValue("@Created_Date", DateTime.Today.Date);
+                        cmd.Parameters.AddWithValue("@workPermit1", check1.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit2", check2.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit3", check3.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit4", check4.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit5", check5.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit6", check6.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit7", check7.Checked);
+                        cmd.Parameters.AddWithValue("@workPermit8", check8.Checked);
+
                         con.Open();
                         // Execute the command and get the result
                         result = cmd.ExecuteNonQuery();
@@ -417,7 +428,7 @@ namespace AdminTemplate3._1._0
                                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Data Added Successfully');", true);
                                 try
                                 {
-                                    SendEmail(dateOfIssue, permitNumber);
+                                    SendEmail(permitNumber);
                                 }
                                 catch (Exception ex)
                                 {
@@ -503,7 +514,7 @@ namespace AdminTemplate3._1._0
             }
             return permitDetails;
         }
-        protected void SendEmail(DateTime dateOfIssue, string permitNumber)
+        public void SendEmail(string permitNumber)
         {
             PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
             if (permitDetails != null)
@@ -522,6 +533,8 @@ namespace AdminTemplate3._1._0
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Dept_Code", deptCode);
+                        cmd.Parameters.AddWithValue("RoleID", (int)Session["RoleID"]);
+                        cmd.Parameters.AddWithValue("@FormStatus", "Approved");
                         cmd.Parameters.Add("@EmailID", SqlDbType.NVarChar, 150).Direction = ParameterDirection.Output;
                         con.Open();
                         flag = cmd.ExecuteNonQuery();
@@ -628,7 +641,7 @@ namespace AdminTemplate3._1._0
                         smtp.Port = smtp_port; //587
                         smtp.Send(mail);
                         ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
-                        Response.Redirect("Welcome.aspx");
+                        //Response.Redirect("Welcome.aspx");
                     }
                 }
                 catch (SmtpException smtpEx)

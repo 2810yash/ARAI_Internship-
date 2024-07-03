@@ -70,6 +70,25 @@ namespace AdminTemplate3._1._0
 
             }
         }
+
+        protected void hideButtons(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // Find the button within the Repeater item
+                Button deletePermit = (Button)e.Item.FindControl("deletePermit");
+                if (deletePermit != null)
+                {
+
+                    // Set the visibility based on the role ID
+                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
+                    {
+                        deletePermit.Visible = true;
+                    }
+                }
+            }
+        }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
@@ -95,29 +114,31 @@ namespace AdminTemplate3._1._0
         {
 
             using (SqlConnection con = new SqlConnection(Main_con))
-            using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
             {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RoleID", roleID);
-                cmd.Parameters.AddWithValue("@PermitType", permitType);
-
-                if (roleID == 1)
+                using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
                 {
-                    cmd.Parameters.AddWithValue("@DeptCode", deptCode);
-                }
-                else if (roleID == 2)
-                {
-                    cmd.Parameters.AddWithValue("@LoginID", loginID);
-                }
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RoleID", roleID);
+                    cmd.Parameters.AddWithValue("@PermitType", permitType);
 
-                cmd.Parameters.AddWithValue("@SearchQuery", searchQuery);
+                    if (roleID == 1)
+                    {
+                        cmd.Parameters.AddWithValue("@DeptCode", deptCode);
+                    }
+                    else if (roleID == 2)
+                    {
+                        cmd.Parameters.AddWithValue("@LoginID", loginID);
+                    }
 
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    reptCard.DataSource = reader;
-                    reptCard.DataBind();
-                    con.Close();
+                    cmd.Parameters.AddWithValue("@SearchQuery", searchQuery);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        reptCard.DataSource = reader;
+                        reptCard.DataBind();
+                        con.Close();
+                    }
                 }
             }
         }
@@ -131,6 +152,12 @@ namespace AdminTemplate3._1._0
         {
             Response.Redirect("pendingPermit.aspx");
         }
+        
+        protected void rejectedPermit_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("rejected.aspx");
+        }
+
         protected void ViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "ViewDetails")
@@ -151,7 +178,7 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
-                Response.Redirect("editWorkPermit.aspx?permitNumber=" + permitNum);
+                //Response.Redirect("editPermitForm.aspx?permitNumber=" + permitNum);
             }
         }
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
@@ -209,7 +236,7 @@ namespace AdminTemplate3._1._0
                                 EngineerNo = reader["EngineerNo"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Location = reader["Location"].ToString(),
-                                workPermits = reader["workPermits"].ToString()
+                                workPermits = reader["PermitsIssued"].ToString()
                             };
                         }
                     }

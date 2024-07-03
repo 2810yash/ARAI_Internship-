@@ -182,10 +182,12 @@ namespace AdminTemplate3._1._0
                         if (result > 0)
                         {
                             Response.Write("<script>alert('Register Successfully. Go for Login Page to Login.');</script>");
+                            Response.Redirect("login.aspx");
                         }
-                        else
+                        else 
                         {
-                            Response.Write("<script>alert('Register UnSuccessfully. Try Again');</script>");
+                            Response.Write("<script>alert('Register Unsuccessfully. Try Again');</script>");
+                            Response.Redirect("register.aspx");
                         }
                     }
                 }

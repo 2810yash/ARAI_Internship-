@@ -7,97 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
-    public class PermitDetails
-    {
-        public string SiteName { get; set; }
-        public string PermitNumber { get; set; }
-        public static string PermitNUM { get; set; }
-        public string DateofIssue { get; set; }
-        public string PermitValidFrom { get; set; }
-        public string PermitValidTill { get; set; }
-        public string SpecialLicense { get; set; }
-        public string SpecialLicenseType { get; set; }
-        public string InsuranceNo { get; set; }
-        public string InsuranceValidity { get; set; }
-        public string AgencyName { get; set; }
-        public string WorkerNo { get; set; }
-        public string ContractorName { get; set; }
-        public string ContractorNo { get; set; }
-        public string EngineerName { get; set; }
-        public string EngineerNo { get; set; }
-        public string Description { get; set; }
-        public string Location { get; set; }
-        public string DeptIssued { get; set; }
-        public string workPermits { get; set; }
-        public string workerName { get; set; }
-        public string workerAge { get; set; }
-        public string maskIssued { get; set; }
-        public string shoesIssued { get; set; }
-        public string jacketIssued { get; set; }
-        public string glovesIssued { get; set; }
-        public string earplugIssued { get; set; }
-        public string beltIssued { get; set; }
-        public string helmetIssued { get; set; }
-        public string Rejected_Remark { get; set; }
-    
-        public PermitDetails GetPermitDetailsByNumber(string permitNumber)
-        {
-            string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-            PermitDetails permitDetails = null;
-            using (SqlConnection con = new SqlConnection(Main_con))
-            {
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber", con))
-                {
-                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    try
-                    {
-                        if (reader.Read())
-                        {
-                            permitDetails = new PermitDetails
-                            {
-                                SiteName = reader["SiteName"].ToString(),
-                                PermitNumber = reader["PermitNumber"].ToString(),
-                                DateofIssue = reader["DateofIssue"].ToString(),
-                                PermitValidFrom = reader["PermitValidFrom"].ToString(),
-                                PermitValidTill = reader["PermitValidTill"].ToString(),
-                                SpecialLicense = reader["SpecialLicense"].ToString(),
-                                SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
-                                InsuranceNo = reader["ESI_InsuranceNo"].ToString(),
-                                InsuranceValidity = reader["ESI_Validity"].ToString(),
-                                AgencyName = reader["NameofFirm_Agency"].ToString(),
-                                WorkerNo = reader["NumberofWorkers"].ToString(),
-                                ContractorName = reader["NameofSupervisor"].ToString(),
-                                ContractorNo = reader["ContractorContactNumber"].ToString(),
-                                EngineerName = reader["ARAIEngineer"].ToString(),
-                                EngineerNo = reader["EngineerContactNumber"].ToString(),
-                                Description = reader["BriefDescriptionofWork"].ToString(),
-                                Location = reader["LocationofWork"].ToString(),
-                                DeptIssued = reader["DeptIssued"].ToString(),
-                                workPermits = reader["PermitsIssued"].ToString()
-                            };
-
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        //Response.Write("<script>console.log('Error reading from database: " + ex.Message + "');</script>");
-                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error reading from database: " + ex.Message + "');", true);
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-                }
-            }
-            return permitDetails;
-        }
-
-
-    }
-
-    public partial class viewWorkPermit : System.Web.UI.Page
+    public partial class rejected : System.Web.UI.Page
     {
         string permitNum;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
@@ -110,42 +20,35 @@ namespace AdminTemplate3._1._0
             deptName = Session["DeptName"].ToString();
             deptCode = (int)Session["DeptCode"];
             roleID = (int)Session["RoleID"];
-
-            if (Session["LoginID"] != null && Session["DeptName"] != null && Session["DeptCode"] != null && Session["RoleID"] != null)
+            if (!IsPostBack)
             {
-                if (!IsPostBack)
-                {
-                    loginID = Session["LoginID"].ToString();
-                    deptName = Session["DeptName"].ToString();
-                    deptCode = (int)Session["DeptCode"];
-                    roleID = (int)Session["RoleID"];
-                    LoadPermitDetails();
-                }
-            }
-            else
-            {
-                
-                Response.Redirect("Login.aspx");           
+                LoadPermitDetails();
             }
         }
-
         private void LoadPermitDetails()
         {
-            //string query;
-            
+            //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom, Remark FROM permit_details_tbl_backup WHERE Rejected = 1";
             using (SqlConnection con = new SqlConnection(Main_con))
             {
-
+                //using (SqlCommand cmd = new SqlCommand(query, con))
+                //{
+                //    con.Open();
+                //    SqlDataReader reader = cmd.ExecuteReader();
+                //    reptCard.DataSource = reader;
+                //    reptCard.DataBind();
+                //    con.Close();
+                //}
                 using (SqlCommand cmd = new SqlCommand("usp_fetchPermitDetails", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@RoleID", roleID);
-                    cmd.Parameters.AddWithValue("@PermitType", "All");
+                    cmd.Parameters.AddWithValue("@PermitType", "Rejected");
 
-                    if(roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
+                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
                     {
                         cmd.Parameters.AddWithValue("@Dept_Code", deptCode);
-                    } else if (roleID == 2)
+                    }
+                    else if (roleID == 2)
                     {
                         cmd.Parameters.AddWithValue("@LoginID", loginID);
                     }
@@ -155,34 +58,17 @@ namespace AdminTemplate3._1._0
                     {
                         reptCard.DataSource = reader;
                         reptCard.DataBind();
-                        //con.Close();
+                        con.Close();
                     }
                 }
-
             }
         }
-
-        protected void pendingBtn_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("pendingPermit.aspx");
-        }
-        protected void approvePermit_btn(object sender, EventArgs e)
-        {
-            Response.Redirect("approvedPermit.aspx");
-        }
-
-        protected void rejectedBtn_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("rejected.aspx");
-        }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
-            string permitType = "All";
+            string permitType = "Rejected";
             SearchPermitDetails(roleID, deptCode, loginID, searchtxt, permitType);
-
-            //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE  DeptIssuedCode = " + deptCode + " AND PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%'";
+            //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom, Remark FROM permit_details_tbl_backup WHERE (PermitNumber LIKE '%' + @searchQuery + '%' OR NameofFirm_Agency LIKE '%' + @searchQuery + '%') AND Rejected = 1";
 
             //using (SqlConnection con = new SqlConnection(Main_con))
             //{
@@ -200,7 +86,7 @@ namespace AdminTemplate3._1._0
 
         protected void SearchPermitDetails(int roleID, int deptCode, string loginID, string searchQuery, string permitType)
         {
-            
+
             using (SqlConnection con = new SqlConnection(Main_con))
             {
                 using (SqlCommand cmd = new SqlCommand("usp_SearchPermitDetails", con))
@@ -232,6 +118,60 @@ namespace AdminTemplate3._1._0
             
         }
 
+
+        protected void allPermits_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("viewWorkPermit.aspx");
+        }
+        protected void approvePermit_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("approvedPermit.aspx");
+        }
+
+        protected void pendingPermit_btn(object sender, EventArgs e)
+        {
+            Response.Redirect("pendingPermit.aspx");
+        }
+
+        protected void approvePermit_btn(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "ApproveDetails")
+            {
+                string permitNumber = e.CommandArgument.ToString();
+                string query = "UPDATE permit_details_tbl_backup SET Rejected = 1 WHERE PermitNumber = @permitNum";
+
+                using (SqlConnection con = new SqlConnection(Main_con))
+                {
+                    SqlCommand command = new SqlCommand(query, con);
+                    command.Parameters.AddWithValue("@permitNum", permitNumber);
+
+                    try
+                    {
+                        con.Open();
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Response.Write($"<script>alert('Update successful. Number of rows affected: {rowsAffected}');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('No rows were updated.');</script>");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write($"<script>alert('An error occurred: {ex.Message}');</script>");
+                    }
+                    finally
+                    {
+                        con.Close();
+                        Response.Redirect("pendingPermit.aspx");
+                    }
+                }
+            }
+        }
         protected void ViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "ViewDetails")
@@ -247,16 +187,14 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-
         protected void EditViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
-                Response.Redirect("editPermitForm.aspx");
+               // Response.Redirect("editPermitForm.aspx?permitNumber=" + permitNum);
             }
         }
-
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
@@ -279,7 +217,8 @@ namespace AdminTemplate3._1._0
                 EngineerContactNumber AS EngineerNo, 
                 BriefDescriptionofWork AS Description, 
                 LocationofWork AS Location,
-                PermitsIssued
+                PermitsIssued,
+                Remark
             FROM permit_details_tbl_backup 
             WHERE PermitNumber = @PermitNumber";
 
@@ -312,21 +251,22 @@ namespace AdminTemplate3._1._0
                                 EngineerNo = reader["EngineerNo"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Location = reader["Location"].ToString(),
-                                workPermits = reader["PermitsIssued"].ToString()
-                            };
+                                workPermits = reader["PermitsIssued"].ToString(),
+                                Rejected_Remark = reader["Rejected_Remark"].ToString()
+                        };
                         }
                     }
                 }
             }
             return permitDetails;
         }
-
         private void DisplayPermitDetails(PermitDetails permitDetails)
         {
             string permitDetailsJson = Newtonsoft.Json.JsonConvert.SerializeObject(permitDetails);
             string script = $"showPermitDetails({permitDetailsJson});";
             ScriptManager.RegisterStartupScript(this, GetType(), "ShowDetailsScript", script, true);
         }
+
         private void GetData()
         {
             string permitNumber = permitNum;
@@ -352,8 +292,6 @@ namespace AdminTemplate3._1._0
             workerDetails.DataSource = table;
             workerDetails.DataBind();
         }
-
-
         protected void deleteViewPermit_Click(object sender, CommandEventArgs e)
         {
             if (e.CommandName == "DeleteDetails")
@@ -362,7 +300,7 @@ namespace AdminTemplate3._1._0
 
                 if (!string.IsNullOrEmpty(permitNumber))
                 {
-                    string query = "DELETE FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber";
+                    string query = "DELETE FROM permit_details_tbl WHERE PermitNumber = @PermitNumber";
 
                     using (SqlConnection con = new SqlConnection(Main_con))
                     {
