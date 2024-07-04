@@ -180,9 +180,11 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
-                //Response.Redirect("editPermitForm.aspx?permitNumber=" + permitNum);
+                Session["PermitNumber"] = permitNum;
+                Response.Redirect("editPermitForm.aspx");
             }
         }
+
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;

@@ -231,7 +231,7 @@ namespace AdminTemplate3._1._0
                         engiContactNUM1.Text = reader["EngineerContactNumber"] != DBNull.Value ? reader["EngineerContactNumber"].ToString() : "";
                         describeWork1.Text = reader["BriefDescriptionofWork"] != DBNull.Value ? reader["BriefDescriptionofWork"].ToString() : "";
                         locateWork1.Text = reader["LocationofWork"] != DBNull.Value ? reader["LocationofWork"].ToString() : "";
-                        remark = reader["Rejected_Remark"] != DBNull.Value ? reader["Remark"].ToString() : "";
+                        remark = reader["Rejected_Remark"] != DBNull.Value ? reader["Rejected_Remark"].ToString() : "";
                     }
                     else
                     {

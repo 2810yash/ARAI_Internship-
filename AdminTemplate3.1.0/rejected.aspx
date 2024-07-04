@@ -65,7 +65,7 @@
 
             <div>
                 
-                <asp:Repeater ID="reptCard" runat="server">
+                <asp:Repeater ID="reptCard" runat="server" OnItemDataBound="hideButtons">
                     <ItemTemplate>
                         <div class="card repeater-item">
                             <div class="card-header">
@@ -85,7 +85,7 @@
                                     <asp:Label runat="server" ID="remarks" Text ='<%# Eval("Rejected_Remark") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-                                <%--<asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />--%>
+                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" Visible="false" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
                                 <%--<asp:Button ID="approvePemit" runat="server" CssClass="btn btn-success" Text="Approve ?" CommandName="ApproveDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="approvePermit_btn" />--%>
                             </div>

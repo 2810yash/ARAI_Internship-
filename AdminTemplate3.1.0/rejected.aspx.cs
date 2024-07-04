@@ -20,6 +20,7 @@ namespace AdminTemplate3._1._0
             deptName = Session["DeptName"].ToString();
             deptCode = (int)Session["DeptCode"];
             roleID = (int)Session["RoleID"];
+            
             if (!IsPostBack)
             {
                 LoadPermitDetails();
@@ -63,6 +64,26 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
+
+        protected void hideButtons(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // Find the button within the Repeater item
+                Button editPermit = (Button)e.Item.FindControl("editPermit");
+                if (editPermit != null)
+                {
+
+                    // Set the visibility based on the role ID
+                    if (roleID == 2)
+                    {
+                        editPermit.Visible = true;
+                    }
+                }
+            }
+        }
+
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchtxt = txtSearch.Value.Trim();
@@ -192,9 +213,11 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
-               // Response.Redirect("editPermitForm.aspx?permitNumber=" + permitNum);
+                Session["PermitNumber"] = permitNum;
+                Response.Redirect("editPermitForm.aspx");
             }
         }
+
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
