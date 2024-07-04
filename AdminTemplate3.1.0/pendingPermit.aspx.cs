@@ -329,16 +329,16 @@ namespace AdminTemplate3._1._0
             {
                 using (MailMessage mail = new MailMessage(emailFrom, emailTo))
                 {
-                    mail.Subject = "New Work Permit Created";
+                    mail.Subject = "New Work Permit Created: " + permitNumber;
                     
                     string body;
                     if (permitType.Equals("Approved"))
                     {
-                        body = "Permit Number: " + permitNumber + " Approved! Check it out!";
+                        body = "Dear User, \nYour permit " + permitNumber + " has been approved/closed. \nRegards";
                         mail.Body = body;
                     } else if (permitType.Equals("Rejected"))
                     {
-                        body = "Permit Number:  " + permitNumber + " Rejected! \nRemark: " + remark + "\nPlease fill it again";
+                        body = "Dear User, \nYour permit " + permitNumber + "has been rejected. \nKindly take further action. \nRegards";
                         mail.Body = body;
                     }
 
@@ -454,6 +454,7 @@ namespace AdminTemplate3._1._0
             if (e.CommandName == "EditDetails")
             {
                 string permitNum = e.CommandArgument.ToString();
+                Session["PermitNumber"] = permitNum;
                 Response.Redirect("editPermitForm.aspx");
             }
         }

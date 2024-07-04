@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.Reporting.WinForms;
+
 
 namespace AdminTemplate3._1._0
 {
@@ -310,5 +312,6 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
+
     }
 }

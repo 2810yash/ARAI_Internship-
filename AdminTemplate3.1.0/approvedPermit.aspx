@@ -46,6 +46,7 @@
                 </div>
             </div>
 
+            
             <div id="detailsContainer" class="d-none"></div>
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
@@ -95,7 +96,8 @@
                             </div>
                         </div>
                     </ItemTemplate>
-                </asp:Repeater>
+                
+
             </div>
         </section>
     </div>

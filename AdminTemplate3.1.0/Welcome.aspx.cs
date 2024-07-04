@@ -33,12 +33,41 @@ namespace AdminTemplate3._1._0
             {
                 arai_Engineer_list();
                 splWorkPermit_list();
+                setInitialVal();
             }
 
             if (!Page.IsPostBack)
             {
                 SetInitialRow();
             }
+        }
+
+        public void setInitialVal()
+        {
+            check1_Hinfo.Visible = false;
+            check1_Pinfo.Visible = false;
+            check1_PPEinfo.Visible = false;
+            check2_Hinfo.Visible = false;
+            check2_Pinfo.Visible = false;
+            check2_PPEinfo.Visible = false;
+            check3_Hinfo.Visible = false;
+            check3_Pinfo.Visible = false;
+            check3_PPEinfo.Visible = false;
+            check4_Hinfo.Visible = false;
+            check4_Pinfo.Visible = false;
+            check4_PPEinfo.Visible = false;
+            check5_Hinfo.Visible = false;
+            check5_Pinfo.Visible = false;
+            check5_PPEinfo.Visible = false;
+            check6_Hinfo.Visible = false;
+            check6_Pinfo.Visible = false;
+            check6_PPEinfo.Visible = false;
+            check7_Hinfo.Visible = false;
+            check7_Pinfo.Visible = false;
+            check7_PPEinfo.Visible = false;
+            check8_Hinfo.Visible = false;
+            check8_Pinfo.Visible = false;
+            check8_PPEinfo.Visible = false;
         }
 
         public void arai_Engineer_list()
@@ -629,7 +658,7 @@ namespace AdminTemplate3._1._0
                         </div>
                     </div>";
 
-                        mail.Body = body;
+                        mail.Body = "Dear DGM, \nUser " + Session["LoginID"].ToString() + " has created a new permit "+ permitNumber +". \nKindly take further action.. \nRegards";
 
                         mail.IsBodyHtml = isBodyHTML; //false
                         SmtpClient smtp = new SmtpClient();
@@ -659,6 +688,47 @@ namespace AdminTemplate3._1._0
             {
                 //Response.Write("<script>alert('Permit details not found.');</script>");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Permit Details not found');", true);
+            }
+
+        }
+
+        public void dropdownSelectedSplIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = spl_Licence.SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Uncheck all checkboxes for default selection
+                    check1.Checked = false;
+                    check2.Checked = false;
+                    check3.Checked = false;
+                    check4.Checked = false;
+                    check5.Checked = false;
+                    setInitialVal();
+                    break;
+                case 1:
+                    check5.Checked = true;  // Check the first checkbox
+                    check5.Enabled = false;
+                    check1_Hinfo.Visible = true;
+                    check1_Pinfo.Visible = true;
+                    check1_PPEinfo.Visible = true;
+                    break;
+                case 2:
+                    check6.Checked = true;  // Check the second checkbox
+                    check6.Enabled = false;
+                    break;
+                case 3:
+                    check7.Checked = true;  // Check the third checkbox
+                    check7.Enabled = false;
+                    break;
+                case 4:
+                    check8.Checked = true;  // Check the fourth checkbox
+                    check8.Enabled = false;
+                    break;
+                default:
+                    // Handle unexpected index values (optional)
+                    break;
             }
 
         }

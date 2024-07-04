@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="editPermitForm.aspx.cs" Inherits="AdminTemplate3._1._0.editPermitForm" %>
- 
 <asp:Content ContentPlaceHolderID="head" runat="server">
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet"
