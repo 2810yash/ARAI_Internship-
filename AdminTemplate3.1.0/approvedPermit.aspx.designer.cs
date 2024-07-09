@@ -24,13 +24,13 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.Button pendingBtn;
 
         /// <summary>
-        /// rejectedBtn control.
+        /// allBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button rejectedBtn;
+        protected global::System.Web.UI.WebControls.Button allBtn;
 
         /// <summary>
         /// txtSearch control.

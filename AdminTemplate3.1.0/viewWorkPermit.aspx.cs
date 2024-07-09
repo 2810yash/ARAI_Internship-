@@ -243,19 +243,20 @@ namespace AdminTemplate3._1._0
                 if (permitDetails != null)
                 {
                     GetData();
+                    GetJSAData();
                     DisplayPermitDetails(permitDetails);
                 }
             }
         }
 
-        protected void EditViewPermit_Click(object sender, CommandEventArgs e)
-        {
-            if (e.CommandName == "EditDetails")
-            {
-                string permitNum = e.CommandArgument.ToString();
-                Response.Redirect("editPermitForm.aspx");
-            }
-        }
+        //protected void EditViewPermit_Click(object sender, CommandEventArgs e)
+        //{
+        //    if (e.CommandName == "EditDetails")
+        //    {
+        //        string permitNum = e.CommandArgument.ToString();
+        //        Response.Redirect("editPermitForm.aspx");
+        //    }
+        //}
 
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
@@ -353,41 +354,139 @@ namespace AdminTemplate3._1._0
             workerDetails.DataBind();
         }
 
-
-        protected void deleteViewPermit_Click(object sender, CommandEventArgs e)
+        private void GetJSAData()
         {
-            if (e.CommandName == "DeleteDetails")
+            string permitNumber = permitNum;
+            int flag;
+            string workPermits;
+            DataTable hazards = new DataTable();
+            DataTable precautions = new DataTable();
+            DataTable ppes = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(Main_con))
             {
-                string permitNumber = e.CommandArgument.ToString();
-
-                if (!string.IsNullOrEmpty(permitNumber))
+                using (SqlCommand command = new SqlCommand("usp_fetchWorkPermits", con))
                 {
-                    string query = "DELETE FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    command.Parameters.Add("@WorkPermits", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
 
-                    using (SqlConnection con = new SqlConnection(Main_con))
+                    con.Open();
+                    flag = command.ExecuteNonQuery();
+
+                    workPermits = command.Parameters["@WorkPermits"].Value.ToString();
+                    con.Close();
+                }
+
+                string[] parts = workPermits.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Trim each part to remove any leading or trailing whitespace
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    parts[i] = parts[i].Trim();
+                }
+
+                // Initialize variables to hold up to 8 parts
+                string wp1 = parts.Length > 0 ? parts[0] : string.Empty;
+                string wp2 = parts.Length > 1 ? parts[1] : string.Empty;
+                string wp3 = parts.Length > 2 ? parts[2] : string.Empty;
+                string wp4 = parts.Length > 3 ? parts[3] : string.Empty;
+                string wp5 = parts.Length > 4 ? parts[4] : string.Empty;
+                string wp6 = parts.Length > 5 ? parts[5] : string.Empty;
+                string wp7 = parts.Length > 6 ? parts[6] : string.Empty;
+                string wp8 = parts.Length > 7 ? parts[7] : string.Empty;
+
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("usp_showHazardsAndAll", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@WP1", wp1);
+                        command.Parameters.AddWithValue("@WP2", wp2);
+                        command.Parameters.AddWithValue("@WP3", wp3);
+                        command.Parameters.AddWithValue("@WP4", wp4);
+                        command.Parameters.AddWithValue("@WP5", wp5);
+                        command.Parameters.AddWithValue("@WP6", wp6);
+                        command.Parameters.AddWithValue("@WP7", wp7);
+                        command.Parameters.AddWithValue("@WP8", wp8);
+
+                        con.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
-                            try
+                            // Load hazards DataTable
+                            hazards.Load(reader);
+
+                            // Move to the next result set
+                            if (!reader.IsClosed && reader.NextResult())
                             {
-                                con.Open();
-                                cmd.ExecuteNonQuery();
+                                // Load precautions DataTable
+                                precautions.Load(reader);
                             }
-                            catch (Exception ex)
+
+                            // Move to the next result set
+                            if (!reader.IsClosed && reader.NextResult())
                             {
-                                // Log or handle the exception as needed
-                                throw; // or handle the error appropriately
-                            }
-                            finally
-                            {
-                                con.Close();
-                                Response.Redirect("viewWorkPermit.aspx");
+                                // Load ppes DataTable
+                                ppes.Load(reader);
                             }
                         }
+
+                        con.Close();
+
+                        hazardDetails.DataSource = hazards;
+                        hazardDetails.DataBind();
+
+                        //precautionsDetails.DataSource = precautions;
+                        //precautionsDetails.DataBind();
+
+                        //ppeDetails.DataSource = ppes;
+                        //ppeDetails.DataBind();
+
                     }
+                } catch (Exception ex)
+                {
+                    Response.Redirect("Error Occured: " + ex + ". Please try again!");
                 }
+                
             }
         }
+
+
+        //protected void deleteViewPermit_Click(object sender, CommandEventArgs e)
+        //{
+        //    if (e.CommandName == "DeleteDetails")
+        //    {
+        //        string permitNumber = e.CommandArgument.ToString();
+
+        //        if (!string.IsNullOrEmpty(permitNumber))
+        //        {
+        //            string query = "DELETE FROM permit_details_tbl_backup WHERE PermitNumber = @PermitNumber";
+
+        //            using (SqlConnection con = new SqlConnection(Main_con))
+        //            {
+        //                using (SqlCommand cmd = new SqlCommand(query, con))
+        //                {
+        //                    cmd.Parameters.AddWithValue("@PermitNumber", permitNumber);
+        //                    try
+        //                    {
+        //                        con.Open();
+        //                        cmd.ExecuteNonQuery();
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        // Log or handle the exception as needed
+        //                        throw; // or handle the error appropriately
+        //                    }
+        //                    finally
+        //                    {
+        //                        con.Close();
+        //                        Response.Redirect("viewWorkPermit.aspx");
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

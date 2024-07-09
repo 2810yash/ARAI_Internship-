@@ -268,7 +268,7 @@
                 data: {
                     labels: chartData3.labels,
                     datasets: [{
-                        label: 'Department Distribution',
+                        label: 'Permits Issued per Department',
                         data: chartData3.data,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
@@ -276,13 +276,12 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Work Permit Distribution by Department'
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             });

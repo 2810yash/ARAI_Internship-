@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.Reporting.WinForms;
-
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace AdminTemplate3._1._0
 {
@@ -30,6 +32,16 @@ namespace AdminTemplate3._1._0
                 deptCode = (int)Session["DeptCode"];
                 roleID = (int)Session["RoleID"];
                 LoadPermitDetails();
+            }
+        }
+        public char trueFalseCHeck(string sttus)
+        {
+            if(sttus.Equals("True"))
+            {
+                return '\u2713';
+            } else
+            {
+                return '-';
             }
         }
         private void LoadPermitDetails()
@@ -78,14 +90,19 @@ namespace AdminTemplate3._1._0
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 // Find the button within the Repeater item
-                Button deletePermit = (Button)e.Item.FindControl("deletePermit");
-                if (deletePermit != null)
+                //Button editPermit = (Button)e.Item.FindControl("editPermit");
+                Button downloadPermit = (Button)e.Item.FindControl("downloadPemit");
+                if (downloadPermit != null)
                 {
 
                     // Set the visibility based on the role ID
-                    if (roleID == 1 || roleID == 3 || roleID == 4 || roleID == 5)
+                    if (roleID ==  2)
                     {
-                        deletePermit.Visible = true;
+                        //editPermit.Visible = true;
+                    }
+                    if(roleID == 5)
+                    {
+                        downloadPermit.Visible = true;
                     }
                 }
             }
@@ -315,5 +332,500 @@ namespace AdminTemplate3._1._0
             }
         }
 
+        protected void downloadViewPermit_Click(object sender, CommandEventArgs e)
+        {
+            string permitNumber = e.CommandArgument.ToString();
+            string pdfPath = Server.MapPath($"~/uploads/{permitNumber}.pdf");
+            List<PermitDetails> permit = new List<PermitDetails>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Main_con))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("get_PermitDetails", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@permitNumber", permitNumber);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PermitDetails permitdel = new PermitDetails
+                                {
+                                    SiteName = reader["SiteName"].ToString(),
+                                    PermitNumber = reader["PermitNumber"].ToString(),
+                                    DateofIssue = reader["DateofIssue"].ToString(),
+                                    PermitValidFrom = reader["PermitValidFrom"].ToString(),
+                                    PermitValidTill = reader["PermitValidTill"].ToString(),
+                                    SpecialLicense = reader["SpecialLicense"].ToString(),
+                                    SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
+                                    InsuranceNo = reader["ESI_InsuranceNo"].ToString(),
+                                    InsuranceValidity = reader["ESI_Validity"].ToString(),
+                                    AgencyName = reader["NameofFirm_Agency"].ToString(),
+                                    WorkerNo = reader["NumberofWorkers"].ToString(),
+                                    ContractorName = reader["NameofSupervisor"].ToString(),
+                                    ContractorNo = reader["ContractorContactNumber"].ToString(),
+                                    EngineerName = reader["ARAIEngineer"].ToString(),
+                                    EngineerNo = reader["EngineerContactNumber"].ToString(),
+                                    Description = reader["BriefDescriptionofWork"].ToString(),
+                                    Location = reader["LocationofWork"].ToString(),
+                                    workPermits = reader["PermitsIssued"].ToString()
+                                };
+                                permit.Add(permitdel);
+                            }
+
+                        }
+                    }
+                }
+
+                ExportToPdf(permit, pdfPath);
+                Response.Write("<script>alert('Successfully converted to PDF.');</script>");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + Server.HtmlEncode(ex.Message) + "');</script>");
+            }
+        }
+        public static List<PermitDetails> GetWorkerDetails(string permitNumber)
+        {
+            string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+
+            List<PermitDetails> workerInfoList = new List<PermitDetails>();
+
+            // Replace with your actual connection string details
+
+            using (SqlConnection connection = new SqlConnection(Main_con))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string sqlQuery = "SELECT * FROM Workers WHERE PermitNumber = @permitNumber";
+                    SqlParameter permitNumberParam = new SqlParameter("@permitNumber", permitNumber);
+
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    command.Parameters.Add(permitNumberParam);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable workerTable = new DataTable();
+                    adapter.Fill(workerTable);
+
+                    foreach (DataRow row in workerTable.Rows)
+                    {
+                        PermitDetails workerInfo = new PermitDetails();
+                        workerInfo.workerName = row["NameOfWorkers"].ToString();
+                        workerInfo.workerAge = row["Age"].ToString();
+                        workerInfo.maskIssued = row["Mask"].ToString();
+                        workerInfo.shoesIssued = row["SafetyShoesGumBoots"].ToString();
+                        workerInfo.jacketIssued = row["JacketsAprons"].ToString();
+                        workerInfo.glovesIssued = row["Gloves"].ToString();
+                        workerInfo.earplugIssued = row["EarPlugMuffs"].ToString();
+                        workerInfo.beltIssued = row["BeltHarness"].ToString();
+                        workerInfo.helmetIssued = row["Helmet"].ToString();
+                        workerInfo.Rejected_Remark = row["Remarks"].ToString();
+                        workerInfoList.Add(workerInfo);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    // Handle SQL exceptions here (e.g., connection errors, invalid queries)
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
+            return workerInfoList;
+        }
+        static void ExportToPdf(List<PermitDetails> permits, string pdfPath)
+        {
+            using (FileStream fs = new FileStream(pdfPath, FileMode.Create))
+            {
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                document.Open();
+
+                foreach (var permit in permits)
+                {
+                    // Permit details section
+                    PdfPTable permitDetailsTable = new PdfPTable(2);  // Two main columns
+
+                    // Permit details title
+                    PdfPCell titleCell = new PdfPCell(new Phrase("Work Permit", FontFactory.GetFont(FontFactory.TIMES_BOLD, 20)));
+                    titleCell.Colspan = 2;  // Span across both main columns
+                    titleCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    titleCell.VerticalAlignment = Element.ALIGN_CENTER;
+                    titleCell.Border = Rectangle.NO_BORDER;
+                    permitDetailsTable.AddCell(titleCell);
+                    PdfPCell emptyCell1 = new PdfPCell();
+                    emptyCell1.Colspan = 2;
+                    emptyCell1.MinimumHeight = 30f;  // Set a minimum height for spacing
+                    emptyCell1.Border = Rectangle.NO_BORDER;  // Remove borders (optional)
+                    permitDetailsTable.AddCell(emptyCell1);
+
+                    // Site Name
+                    PdfPCell siteName = new PdfPCell(new Phrase(permit.SiteName, FontFactory.GetFont(FontFactory.TIMES_BOLD, 16)));
+                    siteName.Colspan = 2;  // Span across both main columns
+                    siteName.HorizontalAlignment = Element.ALIGN_CENTER;
+                    siteName.VerticalAlignment = Element.ALIGN_CENTER;
+                    siteName.Border = Rectangle.NO_BORDER;
+                    permitDetailsTable.AddCell(siteName);
+                    PdfPCell emptyCell2 = new PdfPCell();
+                    emptyCell2.Colspan = 2;
+                    emptyCell2.MinimumHeight = 10f;  // Set a minimum height for spacing
+                    emptyCell2.Border = Rectangle.NO_BORDER;  // Remove borders (optional)
+                    permitDetailsTable.AddCell(emptyCell2);
+
+                    // Date Of Issue
+                    PdfPCell issueDate = new PdfPCell(new Phrase("Date of Issue: " + permit.DateofIssue, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    issueDate.Colspan = 2;  // Span across both main columns
+                    issueDate.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    issueDate.VerticalAlignment = Element.ALIGN_CENTER;
+                    issueDate.Border = Rectangle.NO_BORDER;
+                    permitDetailsTable.AddCell(issueDate);
+                    PdfPCell emptyCell3 = new PdfPCell();
+                    emptyCell3.Colspan = 2;
+                    emptyCell3.MinimumHeight = 10f;  // Set a minimum height for spacing
+                    emptyCell3.Border = Rectangle.NO_BORDER;  // Remove borders (optional)
+                    permitDetailsTable.AddCell(emptyCell3);
+
+                    // Permit Number
+                    PdfPCell permitNumberCell = new PdfPCell(new Phrase("Permit Number:", FontFactory.GetFont(FontFactory.TIMES_BOLD, 13)));
+                    permitNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT; // Align label to the right
+                    permitNumberCell.VerticalAlignment = Element.ALIGN_CENTER; // Align label to the right
+                    permitNumberCell.Border = Rectangle.LEFT_BORDER | Rectangle.TOP_BORDER | Rectangle.BOTTOM_BORDER; // Set left, top, and bottom borders
+                    permitDetailsTable.AddCell(permitNumberCell);
+                    PdfPCell permitNumberValueCell = new PdfPCell(new Phrase(permit.PermitNumber, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11)));
+                    permitNumberValueCell.HorizontalAlignment = Element.ALIGN_LEFT; // Align value to the left
+                    permitNumberValueCell.VerticalAlignment = Element.ALIGN_CENTER; // Align value to the left
+                    permitNumberValueCell.Border = Rectangle.RIGHT_BORDER | Rectangle.TOP_BORDER | Rectangle.BOTTOM_BORDER; // Set right, top, and bottom borders
+                    permitDetailsTable.AddCell(permitNumberValueCell);
+
+                    // Left column (nested two columns)
+                    PdfPTable leftColumnTable = new PdfPTable(2);  // Two columns for left side
+
+                    // Permit Valid From
+                    PdfPCell validFrom = new PdfPCell(new Phrase("Permit Valid From: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    validFrom.Border = Rectangle.NO_BORDER;
+                    validFrom.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    validFrom.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(validFrom);
+                    PdfPCell validFromValue = new PdfPCell(new Phrase(permit.PermitValidFrom, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    validFromValue.Border = Rectangle.NO_BORDER;
+                    validFromValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    validFromValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(validFromValue);
+
+                    // Special License
+                    PdfPCell splLicense = new PdfPCell(new Phrase("Special License: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    splLicense.Border = Rectangle.NO_BORDER;
+                    splLicense.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    splLicense.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(splLicense);
+                    PdfPCell splLicenseValue = new PdfPCell(new Phrase(permit.SpecialLicense, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    splLicenseValue.Border = Rectangle.NO_BORDER;
+                    splLicenseValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    splLicenseValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(splLicenseValue);
+
+                    // ESI/Insurance No
+                    PdfPCell esiNo = new PdfPCell(new Phrase("ESI/Insurance No: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    esiNo.Border = Rectangle.NO_BORDER;
+                    esiNo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    esiNo.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(esiNo);
+                    PdfPCell esiNoValue = new PdfPCell(new Phrase(permit.InsuranceNo, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    esiNoValue.Border = Rectangle.NO_BORDER;
+                    esiNoValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    esiNoValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(esiNoValue);
+
+                    // AgencyName
+                    PdfPCell agencyName = new PdfPCell(new Phrase("Name of Vendor or Contractor Firm/Agency: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    agencyName.Border = Rectangle.NO_BORDER;
+                    agencyName.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    agencyName.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(agencyName);
+                    PdfPCell agencyNameValue = new PdfPCell(new Phrase(permit.AgencyName, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    agencyNameValue.Border = Rectangle.NO_BORDER;
+                    agencyNameValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    agencyNameValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(agencyNameValue);
+
+                    // ContractorName
+                    PdfPCell contractorName = new PdfPCell(new Phrase("Name of Vendor/Contractor Supervisor: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    contractorName.Border = Rectangle.NO_BORDER;
+                    contractorName.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    contractorName.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(contractorName);
+                    PdfPCell contractorNameValue = new PdfPCell(new Phrase(permit.ContractorName, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    contractorNameValue.Border = Rectangle.NO_BORDER;
+                    contractorNameValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    contractorNameValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(contractorNameValue);
+
+                    // ARAI Engineer
+                    PdfPCell engiName = new PdfPCell(new Phrase("ARAI Engineer: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    engiName.Border = Rectangle.NO_BORDER;
+                    engiName.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    engiName.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(engiName);
+                    PdfPCell engiNameValue = new PdfPCell(new Phrase(permit.EngineerName, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    engiNameValue.Border = Rectangle.NO_BORDER;
+                    engiNameValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    engiNameValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(engiNameValue);
+
+                    // Brief Description of Work
+                    PdfPCell discription = new PdfPCell(new Phrase("Brief Description of Work: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    discription.Border = Rectangle.NO_BORDER;
+                    discription.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    discription.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(discription);
+                    PdfPCell discriptionValue = new PdfPCell(new Phrase(permit.Description, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    discriptionValue.Border = Rectangle.NO_BORDER;
+                    discriptionValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    discriptionValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    leftColumnTable.AddCell(discriptionValue);
+
+                    permitDetailsTable.AddCell(leftColumnTable);  // Add left column to main table
+
+                    // Right column
+                    PdfPTable rightColumnTable = new PdfPTable(2);  // two column for right side
+
+                    // Permit Valid Till
+                    PdfPCell validTill = new PdfPCell(new Phrase("Permit Valid Till: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    validTill.Border = Rectangle.NO_BORDER;
+                    validTill.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    validTill.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(validTill);
+                    PdfPCell validTillValue = new PdfPCell(new Phrase(permit.PermitValidTill, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    validTillValue.Border = Rectangle.NO_BORDER;
+                    validTillValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    validTillValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(validTillValue);
+
+                    // Special License Type
+                    PdfPCell splLicenseType = new PdfPCell(new Phrase("Special License Type: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    splLicenseType.Border = Rectangle.NO_BORDER;
+                    splLicenseType.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    splLicenseType.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(splLicenseType);
+                    PdfPCell splLicenseTypeValue = new PdfPCell(new Phrase(permit.SpecialLicenseType, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    splLicenseTypeValue.Border = Rectangle.NO_BORDER;
+                    splLicenseTypeValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    splLicenseTypeValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(splLicenseTypeValue);
+
+                    // ESI/Insurance Validity
+                    PdfPCell esiValidity = new PdfPCell(new Phrase("ESI/Insurance Validity: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    esiValidity.Border = Rectangle.NO_BORDER;
+                    esiValidity.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    esiValidity.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(esiValidity);
+                    PdfPCell esiValidityValue = new PdfPCell(new Phrase(permit.InsuranceValidity, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    esiValidityValue.Border = Rectangle.NO_BORDER;
+                    esiValidityValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    esiValidityValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(esiValidityValue);
+
+                    // Number of workers
+                    PdfPCell workerNo = new PdfPCell(new Phrase("Number of workers: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    workerNo.Border = Rectangle.NO_BORDER;
+                    workerNo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    workerNo.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(workerNo);
+                    PdfPCell workerNoValue = new PdfPCell(new Phrase(permit.WorkerNo, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    workerNoValue.Border = Rectangle.NO_BORDER;
+                    workerNoValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    workerNoValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(workerNoValue);
+
+                    // Contact Number (Contractor)
+                    PdfPCell contractorNo = new PdfPCell(new Phrase("Contact Number (Contractor): ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    contractorNo.Border = Rectangle.NO_BORDER;
+                    contractorNo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    contractorNo.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(contractorNo);
+                    PdfPCell contractorNoValue = new PdfPCell(new Phrase(permit.ContractorNo, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    contractorNoValue.Border = Rectangle.NO_BORDER;
+                    contractorNoValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    contractorNoValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(contractorNoValue);
+
+                    // Contact Number (Engineer)
+                    PdfPCell engiNo = new PdfPCell(new Phrase("Contact Number (Engineer): ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    engiNo.Border = Rectangle.NO_BORDER;
+                    engiNo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    engiNo.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(engiNo);
+                    PdfPCell engiNoValue = new PdfPCell(new Phrase(permit.EngineerNo, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    engiNoValue.Border = Rectangle.NO_BORDER;
+                    engiNoValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    engiNoValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(engiNoValue);
+
+                    // Location of Work
+                    PdfPCell location = new PdfPCell(new Phrase("Location of Work: ", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    location.Border = Rectangle.NO_BORDER;
+                    location.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    location.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(location);
+                    PdfPCell locationValue = new PdfPCell(new Phrase(permit.EngineerNo, FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10)));
+                    locationValue.Border = Rectangle.NO_BORDER;
+                    locationValue.HorizontalAlignment = Element.ALIGN_LEFT;
+                    locationValue.VerticalAlignment = Element.ALIGN_CENTER;
+                    rightColumnTable.AddCell(locationValue);
+
+                    permitDetailsTable.AddCell(rightColumnTable);  // Add right column to main table
+                    document.Add(permitDetailsTable);  // Add permit details to current page
+
+                    document.NewPage();  // Start new page for worker details
+                    PdfPTable workerDetails = new PdfPTable(11);    // workers details table
+
+                    PdfPCell SrNo = new PdfPCell(new Phrase("Sr. No.", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    SrNo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    SrNo.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(SrNo);
+
+                    PdfPCell WorkerName = new PdfPCell(new Phrase("Name Of Worker", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    WorkerName.HorizontalAlignment = Element.ALIGN_CENTER;
+                    WorkerName.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(WorkerName);
+
+                    PdfPCell WorkerAge = new PdfPCell(new Phrase("Age", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    WorkerAge.HorizontalAlignment = Element.ALIGN_CENTER;
+                    WorkerAge.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(WorkerAge);
+
+                    PdfPCell Mask = new PdfPCell(new Phrase("Mask", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Mask.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Mask.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Mask);
+
+                    PdfPCell Shoes = new PdfPCell(new Phrase("Safety Shoes/ GumBoots", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Shoes.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Shoes.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Shoes);
+
+                    PdfPCell Jacket = new PdfPCell(new Phrase("Jackets/ Aprons", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Jacket.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Jacket.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Jacket);
+
+                    PdfPCell Gloves = new PdfPCell(new Phrase("Gloves", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Gloves.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Gloves.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Gloves);
+
+                    PdfPCell Plug = new PdfPCell(new Phrase("Ear Plug/ Muffs", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Plug.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Plug.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Plug);
+
+                    PdfPCell Belt = new PdfPCell(new Phrase("Belt/ Harness", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Belt.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Belt.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Belt);
+
+                    PdfPCell Heltmet = new PdfPCell(new Phrase("Helmet", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Heltmet.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Heltmet.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Heltmet);
+
+                    PdfPCell Remark = new PdfPCell(new Phrase("Remark", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    Remark.HorizontalAlignment = Element.ALIGN_CENTER;
+                    Remark.VerticalAlignment = Element.ALIGN_CENTER;
+                    workerDetails.AddCell(Remark);
+
+                    //PdfPCell Remark1 = new PdfPCell(new Phrase("Remarkhnjkad", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    //Remark1.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //Remark1.VerticalAlignment = Element.ALIGN_CENTER;
+                    //permitDetailsTable.AddCell(Remark1);
+
+
+                    List<PermitDetails> workerList = GetWorkerDetails(permit.PermitNumber);
+                    if (workerList.Count > 0)
+                    {
+                        int i = 1;
+                        // Iterate through worker details in the list
+                        foreach (PermitDetails workerInfo in workerList)
+                        {
+                            PdfPCell srno = new PdfPCell(new Phrase(i.ToString(), FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            srno.HorizontalAlignment = Element.ALIGN_CENTER;
+                            srno.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(srno);
+                            i++;
+
+                            PdfPCell WorkerNameValue = new PdfPCell(new Phrase(workerInfo.workerName, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            WorkerNameValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            WorkerNameValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(WorkerNameValue);
+
+                            PdfPCell WorkerAgeValue = new PdfPCell(new Phrase(workerInfo.workerAge, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            WorkerAgeValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            WorkerAgeValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(WorkerAgeValue);
+
+
+                            //workerInfo.maskIssued = trueFalseCHeck(workerInfo.maskIssued);
+                            PdfPCell MaskValue = new PdfPCell(new Phrase(workerInfo.maskIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            MaskValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            MaskValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(MaskValue);
+
+                            PdfPCell ShoesValue = new PdfPCell(new Phrase(workerInfo.shoesIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            ShoesValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            ShoesValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(ShoesValue);
+
+                            PdfPCell JacketValue = new PdfPCell(new Phrase(workerInfo.jacketIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            JacketValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            JacketValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(JacketValue);
+
+                            PdfPCell GlovesValue = new PdfPCell(new Phrase(workerInfo.glovesIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            GlovesValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            GlovesValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(GlovesValue);
+
+                            PdfPCell PlugValue = new PdfPCell(new Phrase(workerInfo.earplugIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            PlugValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            PlugValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(PlugValue);
+
+                            PdfPCell BeltValue = new PdfPCell(new Phrase(workerInfo.beltIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            BeltValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            BeltValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(BeltValue);
+
+                            PdfPCell HeltmetValue = new PdfPCell(new Phrase(workerInfo.helmetIssued, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            HeltmetValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            HeltmetValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(HeltmetValue);
+
+                            PdfPCell RemarkValue = new PdfPCell(new Phrase(workerInfo.Rejected_Remark, FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                            RemarkValue.HorizontalAlignment = Element.ALIGN_CENTER;
+                            RemarkValue.VerticalAlignment = Element.ALIGN_CENTER;
+                            workerDetails.AddCell(RemarkValue);
+                        }
+                    }
+                    else
+                    {
+                        PdfPCell noWorkerCell = new PdfPCell(new Phrase("No Worker Details Found", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                        noWorkerCell.Colspan = 11; // Span across all columns
+                        noWorkerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        noWorkerCell.VerticalAlignment = Element.ALIGN_CENTER;
+                        workerDetails.AddCell(noWorkerCell);
+                    }
+
+
+
+                    document.Add(workerDetails);
+                    document.Add(Chunk.NEWLINE);  // Add some space between permits
+                }
+                document.Close();
+            }
+        }
     }
 }

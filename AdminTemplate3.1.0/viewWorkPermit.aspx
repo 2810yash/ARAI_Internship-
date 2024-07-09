@@ -47,6 +47,37 @@
             </div>
 
             <div id="detailsContainer" class="d-none"></div>
+
+            <div id="JSAContainers" class="d-flex">
+                <div id="HazardsContainer" class="d-none p-3 bg-light card rounded mb-3">
+                    <strong>Hazard Details:</strong>
+                    <asp:GridView ID="hazardDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PrecautionsContainer" class="d-none p-3 bg-light card rounded mb-3">
+                    <strong>Precautions Details:</strong>
+                    <asp:GridView ID="precautionsDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PPEsContainer" class="d-none p-3 bg-light card rounded mb-3">
+                    <strong>PPEs Details:</strong>
+                    <asp:GridView ID="ppeDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="PPE" HeaderText="PPEs" SortExpression="PPEs" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+           
+
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
                 <asp:GridView ID="workerDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
@@ -90,8 +121,8 @@
                                     <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
-                                <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
+                               <%-- <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
+                                <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />--%>
                             </div>
                         </div>
                     </ItemTemplate>

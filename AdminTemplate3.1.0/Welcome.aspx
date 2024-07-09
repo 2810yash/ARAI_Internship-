@@ -46,27 +46,58 @@
                 background-color: #748290;
                 border-radius: 5em;
             }
+
+            .heading {
+                    text-align: center;
+                    font-weight: 500;
+                    padding: 50px;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px rgb(56, 111, 111);
+                    background-color: aliceblue;
+                    width:100%;
+            }
+
+            .heading h1 {
+                     margin: 0;
+                     font-family: 'sans-serif';
+                     color: #00000;
+                     font-weight: 1000;
+                     text-shadow: 20px 20px 40px rgb(56, 111, 111);
+            }
+
+            .blink-headline{
+                border:2px solid orange;
+                background-color:#fbe3b7;
+            }
+
+            .main-page{
+                background-color:#82cefd;
+            }
+
+            .content-wrapper{
+                background-color:#55b6e6;
+            }
         </style>
     </asp:Content>
     <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper position-relative">
+        <div class="content-wrapper position-relative p-2">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6 mt-5">
-                            <h1 class="m-0">WorkPermit</h1>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="mt-5 heading">
+                            <h1>WORK-PERMIT</h1>
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-6">
+                        <%--<div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active">WorkPermit</li>
                             </ol>
-                        </div>
+                        </div>--%>
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
@@ -83,8 +114,8 @@
                     <%--<div data-aos="slide-up">--%>
                     <div>
                         <%-- Blinking TEXT --%>
-                        <marquee>
-                        <div class="headline text-center">
+                        <marquee class="blink-headline rounded">
+                        <div class="headline text-center p-3">
                             <h6 class="blink-text m-1">Security shall check work permit and allow
                                 workers to enter with valid work permit in case of below mentioned works</h6>
                             <h6 class="blink-text m-1">Work permit to be filled by contractor in
@@ -93,7 +124,7 @@
                                 under strict supervision of work intending departments</h6>
                         </div>
                         </marquee>
-                        <div>
+                        <div class="main-page rounded">
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
@@ -106,10 +137,10 @@
 
                             <%-- Permit Form--%>
                             <div class="position-relative" id="expand">
-                                <div class="bg-light rounded" id="Pages">
+                                <div class="p-2" id="Pages">
 
                                     <div class="page1" id="page1">
-                                        <div class="bg-light">
+                                        <div>
                                             <!-- permit number & date of issue: -->
                                             <div class="d-flex mb-3 mt-3">
                                                 <div class="input-group me-2">
@@ -153,13 +184,18 @@
                                                         <asp:RadioButton
                                                             ID="special_license_yes" Text="Yes"
                                                             runat="server"
+                                                            AutoPostBack="True"
                                                             GroupName="Special-License"
-                                                            OnCheckedChanged="special_license_CheckedChanged" AutoPostBack="true" />
+                                                            OnCheckedChanged="special_license_CheckedChanged" />
                                                     </div>
                                                     <div class="ms-2">
-                                                        <asp:RadioButton ID="special_license_no"
-                                                            Text="No" runat="server"
-                                                            GroupName="Special-License" />
+                                                        <asp:RadioButton
+                                                            ID="special_license_no"
+                                                            Text="No"
+                                                            runat="server"
+                                                            AutoPostBack="True"
+                                                            GroupName="Special-License"
+                                                            OnCheckedChanged="special_license_CheckedChangedNo" />
                                                     </div>
                                                 </div>
                                                 <asp:DropDownList ID="spl_Licence"
@@ -222,8 +258,7 @@
                                                 <div class="input-group">
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="numWorkers0">Number of
-                                                                                Workers:</span>
+                                                        id="numWorkers0">Number of Workers:</span>
                                                     <asp:TextBox ID="numWorkers"
                                                         CssClass="form-control" Height="100%" required runat="server" TextMode="Number">
                                                     </asp:TextBox>
@@ -264,8 +299,7 @@
                                                 <div class="input-group">
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="araiEngContact0">Contact
-                                                                                Number (Engineer):</span>
+                                                        id="araiEngContact0">Contact Number (Engineer):</span>
                                                     <asp:TextBox ID="engiContactNUM"
                                                         Height="100%" CssClass="form-control" required
                                                         runat="server" TextMode="Phone"></asp:TextBox>
@@ -276,8 +310,7 @@
                                                 <div class="input-group me-2">
                                                     <span
                                                         class="input-group-text text-wrap col-sm-3 justify-content-center"
-                                                        id="desc0">Brief Description of
-                                                                                Work:</span>
+                                                        id="desc0">Brief Description of Work:</span>
                                                     <asp:TextBox ID="describeWork" Height="100%" required
                                                         CssClass="form-control" runat="server">
                                                     </asp:TextBox>
@@ -359,20 +392,25 @@
 
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-
                                             </div>
                                         </div>
+                                        <%--file upload--%>
+                                        <div class="container-fluid p-3">
+                                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="float-right" />
+                                        </div>
+                                        <%--./fil upload--%>
                                     </div>
                                     <div id="page2" class="page2 p-4">
+                                        <h4>Job-Safety Assessment</h4>
                                         <div>
-                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
-                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" /><br />
-                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" /><br />
-                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" /><br />
-                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" /><br />
-                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
+                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" OnCheckedChanged="checkChnage1" /><br />
+                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" OnCheckedChanged="checkChnage2" /><br />
+                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" OnCheckedChanged="checkChnage3" /><br />
+                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" OnCheckedChanged="checkChnage4" /><br />
+                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" OnCheckedChanged="checkChnage5" /><br />
+                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" OnCheckedChanged="checkChnage6" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" OnCheckedChanged="checkChnage7" /><br />
+                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" OnCheckedChanged="checkChnage8" /><br />
                                         </div>
                                         <br />
                                         <hr />
@@ -380,7 +418,7 @@
                                             <div class="d-block">
                                                 <h5>Hazards Associated</h5>
                                                 <ul>
-                                                    <div runat="server" id="check1_Hinfo">
+                                                    <div id="check1_Hinfo" runat="server">
                                                         <li>Breathlessness/Fainting</li>
                                                         <li>Fire</li>
                                                         <li>Explosion</li>
@@ -388,7 +426,7 @@
                                                         <li>Poor Visibility</li>
                                                         <li>InfectionOfViruses</li>
                                                     </div>
-                                                    <div runat="server" id="check2_Hinfo">
+                                                    <div id="check2_Hinfo" runat="server">
                                                         <li>Fall of Material</li>
                                                         <li>Fall from height</li>
                                                         <li>Tripping over equipment</li>
@@ -541,37 +579,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function () {
-                                                // Function to toggle visibility of info divs
-                                                function toggleInfoDiv(event) {
-                                                    var checkboxId = event.target.id;
-                                                    var HcheckboxId = checkboxId + '-Hinfo';  // Get info div ID based on checkbox ID
-                                                    var PcheckboxId = checkboxId + '-Pinfo';  // Get info div ID based on checkbox ID
-                                                    var PPEcheckboxId = checkboxId + '-PPEinfo';  // Get info div ID based on checkbox ID
-
-                                                    var HinfoDiv = document.getElementById(HcheckboxId);
-                                                    var PinfoDiv = document.getElementById(PcheckboxId);
-                                                    var PPEinfoDiv = document.getElementById(PPEcheckboxId);
-
-                                                    if (HinfoDiv) {
-                                                        HinfoDiv.style.display = HinfoDiv.style.display === 'none' ? 'block' : 'none';
-                                                    }
-                                                    if (PinfoDiv) {
-                                                        PinfoDiv.style.display = PinfoDiv.style.display === 'none' ? 'block' : 'none';
-                                                    }
-                                                    if (PPEinfoDiv) {
-                                                        PPEinfoDiv.style.display = PPEinfoDiv.style.display === 'none' ? 'block' : 'none';
-                                                    }
-                                                }
-
-                                                // Attach event listener to all checkboxes
-                                                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                                                checkboxes.forEach(function (checkbox) {
-                                                    checkbox.addEventListener('click', toggleInfoDiv);
-                                                });
-                                            });
-                                        </script>
                                     </div>
                                     <div id="page3" class="page-3 p-4">
                                         <div class="d-flex justify-content-between mt-3 mb-2">

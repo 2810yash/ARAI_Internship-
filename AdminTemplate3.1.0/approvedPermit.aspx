@@ -33,8 +33,7 @@
                 <div class="row">
                     <div class="col">
                         <asp:Button ID="pendingBtn" runat="server" Text="Pending Permits" CssClass="btn btn-warning m-1" OnClick="pendingPermit_btn" />
-                        <asp:Button ID="rejectedBtn" runat="server" Text="Rejected Permits" CssClass="btn btn-danger m-1" OnClick="rejectedPermit_btn" />
-<%--                        <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />--%>
+                        <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
                         <input type="text" placeholder="Search here..." id="txtSearch" runat="server" class="form-control m-1" style="width: 50%;" />
@@ -46,7 +45,8 @@
                 </div>
             </div>
 
-            
+            <h3 class="ms-2">Approved Work Permits</h3><br />
+
             <div id="detailsContainer" class="d-none"></div>
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
@@ -72,7 +72,7 @@
             </div>
 
             <div>
-                <h3 class="ms-2" style="color:forestgreen;">Approved Work Permits</h3>
+                
                 <asp:Repeater ID="reptCard" runat="server" OnItemDataBound="hideButtons">
                     <ItemTemplate>
                         <div class="card repeater-item">
@@ -91,12 +91,13 @@
                                     <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-                                
-                                <asp:Button ID="deletePermit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" Visible="false" />
+<%--                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info d-none" Text="Edit Permit" Visible ="false" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />--%>
+                                <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit"  CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
+                                <asp:Button ID="downloadPemit" runat="server" CssClass="btn btn-info" Text="Download PDF" Visible="false" CommandName="DownloadForm" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="downloadViewPermit_Click" />
                             </div>
                         </div>
                     </ItemTemplate>
-                
+                </asp:Repeater>
 
             </div>
         </section>

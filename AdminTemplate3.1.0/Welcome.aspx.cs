@@ -34,6 +34,7 @@ namespace AdminTemplate3._1._0
                 arai_Engineer_list();
                 splWorkPermit_list();
                 setInitialVal();
+                setInitialCheck();
             }
 
             if (!Page.IsPostBack)
@@ -41,6 +42,43 @@ namespace AdminTemplate3._1._0
                 SetInitialRow();
             }
         }
+
+        public void setInitialCheck()
+        {
+            check1.Checked = false;
+            check1_Hinfo.Visible = false;
+            check1_Pinfo.Visible = false;
+            check1_PPEinfo.Visible = false;
+            check2.Checked = false;
+            check2_Hinfo.Visible = false;
+            check2_Pinfo.Visible = false;
+            check2_PPEinfo.Visible = false;
+            check3.Checked = false;
+            check3_Hinfo.Visible = false;
+            check3_Pinfo.Visible = false;
+            check3_PPEinfo.Visible = false;
+            check4.Checked = false;
+            check4_Hinfo.Visible = false;
+            check4_Pinfo.Visible = false;
+            check4_PPEinfo.Visible = false;
+            check5.Checked = false;
+            check5_Hinfo.Visible = false;
+            check5_Pinfo.Visible = false;
+            check5_PPEinfo.Visible = false;
+            check6.Checked = false;
+            check6_Hinfo.Visible = false;
+            check6_Pinfo.Visible = false;
+            check6_PPEinfo.Visible = false;
+            check7.Checked = false;
+            check7_Hinfo.Visible = false;
+            check7_Pinfo.Visible = false;
+            check7_PPEinfo.Visible = false;
+            check8.Checked = false;
+            check8_Hinfo.Visible = false;
+            check8_Pinfo.Visible = false;
+            check8_PPEinfo.Visible = false;
+        }
+
 
         public void setInitialVal()
         {
@@ -68,6 +106,208 @@ namespace AdminTemplate3._1._0
             check8_Hinfo.Visible = false;
             check8_Pinfo.Visible = false;
             check8_PPEinfo.Visible = false;
+        }
+
+        public void special_license_CheckedChanged(object sender, EventArgs e)
+        {
+            spl_Licence.Visible = special_license_yes.Checked;
+            check5.Enabled = true;
+            check6.Enabled = true;
+            check7.Enabled = true;
+            check8.Enabled = true;
+        }
+        public void special_license_CheckedChangedNo(object sender, EventArgs e)
+        {
+            spl_Licence.Visible = special_license_yes.Checked;
+            check1.Enabled = true;
+            check2.Enabled = true;
+            check3.Enabled = true;
+            check4.Enabled = true;
+            check5.Enabled = true;
+            check6.Enabled = true;
+            check7.Enabled = true;
+            check8.Enabled = true;
+        }
+
+
+        protected void checkChnage1(object sender, EventArgs e)
+        {
+            if (check1.Checked == true)
+            {
+                check1_Hinfo.Visible = true;
+                check1_Pinfo.Visible = true;
+                check1_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check1_Hinfo.Visible = false;
+                check1_Pinfo.Visible = false;
+                check1_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage2(object sender, EventArgs e)
+        {
+            if (check2.Checked == true)
+            {
+                check2_Hinfo.Visible = true;
+                check2_Pinfo.Visible = true;
+                check2_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check2_Hinfo.Visible = false;
+                check2_Pinfo.Visible = false;
+                check2_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage3(object sender, EventArgs e)
+        {
+            if (check3.Checked == true)
+            {
+                check3_Hinfo.Visible = true;
+                check3_Pinfo.Visible = true;
+                check3_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check3_Hinfo.Visible = false;
+                check3_Pinfo.Visible = false;
+                check3_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage4(object sender, EventArgs e)
+        {
+            if (check4.Checked == true)
+            {
+                check4_Hinfo.Visible = true;
+                check4_Pinfo.Visible = true;
+                check4_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check4_Hinfo.Visible = false;
+                check4_Pinfo.Visible = false;
+                check4_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage5(object sender, EventArgs e)
+        {
+            if (check5.Checked == true)
+            {
+                check5_Hinfo.Visible = true;
+                check5_Pinfo.Visible = true;
+                check5_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check5_Hinfo.Visible = false;
+                check5_Pinfo.Visible = false;
+                check5_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage6(object sender, EventArgs e)
+        {
+            if (check6.Checked == true)
+            {
+                check6_Hinfo.Visible = true;
+                check6_Pinfo.Visible = true;
+                check6_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check6_Hinfo.Visible = false;
+                check6_Pinfo.Visible = false;
+                check6_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage7(object sender, EventArgs e)
+        {
+            if (check7.Checked == true)
+            {
+                check7_Hinfo.Visible = true;
+                check7_Pinfo.Visible = true;
+                check7_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check7_Hinfo.Visible = false;
+                check7_Pinfo.Visible = false;
+                check7_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChnage8(object sender, EventArgs e)
+        {
+            if (check8.Checked == true)
+            {
+                check8_Hinfo.Visible = true;
+                check8_Pinfo.Visible = true;
+                check8_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check8_Hinfo.Visible = false;
+                check8_Pinfo.Visible = false;
+                check8_PPEinfo.Visible = false;
+            }
+        }
+        protected void dropdownSelectedSplIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = spl_Licence.SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Uncheck all checkboxes for default selection
+                    setInitialCheck();
+                    break;
+                case 1:
+                    setInitialCheck();
+                    check5.Checked = true;  // Check the first checkbox
+                    check5.Enabled = false;
+                    check6.Enabled = true;
+                    check7.Enabled = true;
+                    check8.Enabled = true;
+                    check5_Hinfo.Visible = true;
+                    check5_Pinfo.Visible = true;
+                    check5_PPEinfo.Visible = true;
+                    break;
+                case 2:
+                    setInitialCheck();
+                    check6.Checked = true;
+                    check6.Enabled = false;
+                    check5.Enabled = true;
+                    check8.Enabled = true;
+                    check7.Enabled = true;
+                    check6_Hinfo.Visible = true;
+                    check6_Pinfo.Visible = true;
+                    check6_PPEinfo.Visible = true;  // Check the second checkbox
+                    break;
+                case 3:
+                    setInitialCheck();
+                    check7.Checked = true;
+                    check7.Enabled = false;
+                    check5.Enabled = true;
+                    check6.Enabled = true;
+                    check8.Enabled = true;
+                    check7_Hinfo.Visible = true;
+                    check7_Pinfo.Visible = true;
+                    check7_PPEinfo.Visible = true;  // Check the third checkbox
+                    break;
+                case 4:
+                    setInitialCheck();
+                    check8.Checked = true;
+                    check8.Enabled = false;
+                    check5.Enabled = true;
+                    check6.Enabled = true;
+                    check7.Enabled = true;
+                    check8_Hinfo.Visible = true;
+                    check8_Pinfo.Visible = true;
+                    check8_PPEinfo.Visible = true;  // Check the fourth checkbox
+                    break;
+                default:
+                    setInitialCheck();
+                    break;
+            }
         }
 
         public void arai_Engineer_list()
@@ -289,10 +529,10 @@ namespace AdminTemplate3._1._0
         }
 
 
-        public void special_license_CheckedChanged(object sender, EventArgs e)
-        {
-            spl_Licence.Visible = special_license_yes.Checked;
-        }
+        //public void special_license_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    spl_Licence.Visible = special_license_yes.Checked;
+        //}
         public void WPcheckBox_Load(object sender, EventArgs e) { }
 
         public int validateDates(DateTime dateOfIssue, DateTime validFrom, DateTime validTill)
@@ -688,47 +928,6 @@ namespace AdminTemplate3._1._0
             {
                 //Response.Write("<script>alert('Permit details not found.');</script>");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Permit Details not found');", true);
-            }
-
-        }
-
-        public void dropdownSelectedSplIndexChanged(object sender, EventArgs e)
-        {
-            int selectedIndex = spl_Licence.SelectedIndex;
-
-            switch (selectedIndex)
-            {
-                case 0:
-                    // Uncheck all checkboxes for default selection
-                    check1.Checked = false;
-                    check2.Checked = false;
-                    check3.Checked = false;
-                    check4.Checked = false;
-                    check5.Checked = false;
-                    setInitialVal();
-                    break;
-                case 1:
-                    check5.Checked = true;  // Check the first checkbox
-                    check5.Enabled = false;
-                    check1_Hinfo.Visible = true;
-                    check1_Pinfo.Visible = true;
-                    check1_PPEinfo.Visible = true;
-                    break;
-                case 2:
-                    check6.Checked = true;  // Check the second checkbox
-                    check6.Enabled = false;
-                    break;
-                case 3:
-                    check7.Checked = true;  // Check the third checkbox
-                    check7.Enabled = false;
-                    break;
-                case 4:
-                    check8.Checked = true;  // Check the fourth checkbox
-                    check8.Enabled = false;
-                    break;
-                default:
-                    // Handle unexpected index values (optional)
-                    break;
             }
 
         }

@@ -272,10 +272,11 @@ namespace AdminTemplate3._1._0
         {
             string emailTo;
             int flag;
-            PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
+            //PermitDetails permitDetails = GetPermitDetailsByNumber(permitNumber);
             string emailFrom, smtp_host, networkCredentials;
             Boolean isBodyHTML, enableSSL, useDefaultCredentials;
             int smtp_port;
+            string role = Session["Role"].ToString();
 
             using (SqlConnection con = new SqlConnection(Main_con))
             {
@@ -329,16 +330,26 @@ namespace AdminTemplate3._1._0
             {
                 using (MailMessage mail = new MailMessage(emailFrom, emailTo))
                 {
-                    mail.Subject = "New Work Permit Created: " + permitNumber;
+                   
                     
                     string body;
                     if (permitType.Equals("Approved"))
                     {
-                        body = "Dear User, \nYour permit " + permitNumber + " has been approved/closed. \nRegards";
-                        mail.Body = body;
+                        if (roleID == 5)
+                        {
+                            mail.Subject = "Work Permit: " + permitNumber + " Closed";
+                            body = "\nWork permit " + permitNumber + " has been closed by " + role + ". \nRegards";
+                            mail.Body = body;
+                        } else
+                        {
+                            mail.Subject = "Work Permit: " + permitNumber + " Approved";
+                            body = "\nWork permit " + permitNumber + " has been approved by " + role + ". \nKindly take further action if necessary. \nRegards";
+                            mail.Body = body;
+                        }
                     } else if (permitType.Equals("Rejected"))
                     {
-                        body = "Dear User, \nYour permit " + permitNumber + "has been rejected. \nKindly take further action. \nRegards";
+                        mail.Subject = "Work Permit: " + permitNumber + " Rejected";
+                        body = "Dear User, \nYour permit " + permitNumber + " has been rejected by " + role + ". \nKindly take further action. \nRegards";
                         mail.Body = body;
                     }
 
@@ -352,7 +363,7 @@ namespace AdminTemplate3._1._0
                     smtp.Port = smtp_port; //587
                     smtp.Send(mail);
                     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
-                    Response.Redirect("Welcome.aspx");
+                    Response.Redirect("pendingPermit.aspx");
                 }
             }
             catch (SmtpException smtpEx)

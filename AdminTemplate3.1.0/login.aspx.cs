@@ -206,8 +206,9 @@ namespace AdminTemplate3._1._0
                 Session["DeptName"] = deptName;
                 Session["RoleID"] = roleID;
                 Session["LoginID"] = email;
+                Session["Role"] = role;
                 // Redirect user to a dashboard page or any other page
-                Response.Redirect("Homepage.aspx");
+                Response.Redirect("HomePage2.aspx");
             } else
             {
                 Response.Write("<script> alert('Could not store login details!');</script>");
