@@ -12,9 +12,9 @@ namespace AdminTemplate3._1._0
         public string SiteName { get; set; }
         public string PermitNumber { get; set; }
         public static string PermitNUM { get; set; }
-        public string DateofIssue { get; set; }
-        public string PermitValidFrom { get; set; }
-        public string PermitValidTill { get; set; }
+        public DateTime DateofIssue { get; set; }
+        public DateTime PermitValidFrom { get; set; }
+        public DateTime PermitValidTill { get; set; }
         public string SpecialLicense { get; set; }
         public string SpecialLicenseType { get; set; }
         public string InsuranceNo { get; set; }
@@ -59,9 +59,9 @@ namespace AdminTemplate3._1._0
                             {
                                 SiteName = reader["SiteName"].ToString(),
                                 PermitNumber = reader["PermitNumber"].ToString(),
-                                DateofIssue = reader["DateofIssue"].ToString(),
-                                PermitValidFrom = reader["PermitValidFrom"].ToString(),
-                                PermitValidTill = reader["PermitValidTill"].ToString(),
+                                DateofIssue = (DateTime)reader["DateofIssue"],
+                                PermitValidFrom = (DateTime)reader["PermitValidFrom"],
+                                PermitValidTill = (DateTime)reader["PermitValidTill"],
                                 SpecialLicense = reader["SpecialLicense"].ToString(),
                                 SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
                                 InsuranceNo = reader["ESI_InsuranceNo"].ToString(),
@@ -110,6 +110,8 @@ namespace AdminTemplate3._1._0
             deptName = Session["DeptName"].ToString();
             deptCode = (int)Session["DeptCode"];
             roleID = (int)Session["RoleID"];
+            JSAContainers.Visible = false;
+
 
             if (Session["LoginID"] != null && Session["DeptName"] != null && Session["DeptCode"] != null && Session["RoleID"] != null)
             {
@@ -236,6 +238,7 @@ namespace AdminTemplate3._1._0
         {
             if (e.CommandName == "ViewDetails")
             {
+                JSAContainers.Visible = true;
                 string permitNumber = e.CommandArgument.ToString();
                 permitNum = permitNumber;
                 var permitDetails = GetPermitDetailsByPermitNumber(permitNumber);
@@ -298,9 +301,9 @@ namespace AdminTemplate3._1._0
                             {
                                 SiteName = reader["SiteName"].ToString(),
                                 PermitNumber = reader["PermitNumber"].ToString(),
-                                DateofIssue = reader["DateofIssue"].ToString(),
-                                PermitValidFrom = reader["PermitValidFrom"].ToString(),
-                                PermitValidTill = reader["PermitValidTill"].ToString(),
+                                DateofIssue = (DateTime)reader["DateofIssue"],
+                                PermitValidFrom = (DateTime)reader["PermitValidFrom"],
+                                PermitValidTill = (DateTime)reader["PermitValidTill"],
                                 SpecialLicense = reader["SpecialLicense"].ToString(),
                                 SpecialLicenseType = reader["SpecialLicenseType"].ToString(),
                                 InsuranceNo = reader["InsuranceNo"].ToString(),
@@ -354,14 +357,14 @@ namespace AdminTemplate3._1._0
             workerDetails.DataBind();
         }
 
-        private void GetJSAData()
+        private void GetJSAData()   
         {
             string permitNumber = permitNum;
             int flag;
             string workPermits;
-            DataTable hazards = new DataTable();
-            DataTable precautions = new DataTable();
-            DataTable ppes = new DataTable();
+            //DataTable hazards = new DataTable();
+            //DataTable precautions = new DataTable();
+            //DataTable ppes = new DataTable();
 
             using (SqlConnection con = new SqlConnection(Main_con))
             {
@@ -412,30 +415,77 @@ namespace AdminTemplate3._1._0
 
                         con.Open();
 
+                        //using (SqlDataReader reader = command.ExecuteReader())
+                        //{
+                        //    // Load hazards DataTable
+                        //    DataTable hazards = new DataTable();
+                        //    hazards.Load(reader);
+                        //    Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
+
+                        //    // Move to the next result set and load precautions DataTable
+                        //    DataTable precautions = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        precautions.Load(reader);
+                        //        Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                        //    }
+
+                        //    // Move to the next result set and load ppes DataTable
+                        //    DataTable ppes = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        ppes.Load(reader);
+                        //        Console.WriteLine("Loaded ppes: " + ppes.Rows.Count + " rows");
+                        //    }
+
+                        //    // Display DataTables
+                        //    DisplayDataTable("Hazards", hazards);
+                        //    DisplayDataTable("Precautions", precautions);
+                        //    DisplayDataTable("PPEs", ppes);
+                        //}
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             // Load hazards DataTable
+                            DataTable hazards = new DataTable();
                             hazards.Load(reader);
+                            hazardDetails.DataSource = hazards;
+                            hazardDetails.DataBind();
+                            Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
 
-                            // Move to the next result set
-                            if (!reader.IsClosed && reader.NextResult())
-                            {
-                                // Load precautions DataTable
-                                precautions.Load(reader);
-                            }
+                            // Move to the next result set and load precautions DataTable
+                            DataTable precautions = new DataTable();
+                            precautions.Load(reader);
+                            precautionsDetails.DataSource = precautions;
+                            precautionsDetails.DataBind();
+                            Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    precautions.Load(reader);
+                            //    precautionsDetails.DataSource = precautions;
+                            //    precautionsDetails.DataBind();
+                            //    Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //}
 
-                            // Move to the next result set
-                            if (!reader.IsClosed && reader.NextResult())
-                            {
-                                // Load ppes DataTable
-                                ppes.Load(reader);
-                            }
+                            // Move to the next result set and load ppes DataTable
+                            DataTable ppes = new DataTable();
+                            ppes.Load(reader);
+                            ppeDetails.DataSource = ppes;
+                            ppeDetails.DataBind();
+                            Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    ppes.Load(reader);
+                            //    ppeDetails.DataSource = ppes;
+                            //    ppeDetails.DataBind();
+                            //    Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //}
                         }
 
                         con.Close();
 
-                        hazardDetails.DataSource = hazards;
-                        hazardDetails.DataBind();
+                        //hazardDetails.DataSource = hazards;
+                        //hazardDetails.DataBind();
 
                         //precautionsDetails.DataSource = precautions;
                         //precautionsDetails.DataBind();
@@ -446,9 +496,17 @@ namespace AdminTemplate3._1._0
                     }
                 } catch (Exception ex)
                 {
-                    Response.Redirect("Error Occured: " + ex + ". Please try again!");
+                    Response.Write("<script>alert('Error Occured: '" + ex + "'. Please try again!');</script>");
                 }
                 
+            }
+        }
+        static void DisplayDataTable(string title, DataTable table)
+        {
+            Console.WriteLine($"\n{title} DataTable:");
+            foreach (DataRow row in table.Rows)
+            {
+                Console.WriteLine(string.Join(", ", row.ItemArray));
             }
         }
 

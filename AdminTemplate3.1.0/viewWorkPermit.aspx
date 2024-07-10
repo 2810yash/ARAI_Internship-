@@ -48,9 +48,8 @@
 
             <div id="detailsContainer" class="d-none"></div>
 
-            <div id="JSAContainers" class="d-flex">
-                <div id="HazardsContainer" class="d-none p-3 bg-light card rounded mb-3">
-                    <strong>Hazard Details:</strong>
+            <div id="JSAContainers" runat="server" class="d-flex" style="width:100%;">
+                <div id="HazardsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
                     <asp:GridView ID="hazardDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
                         <Columns>
                             <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
@@ -58,8 +57,7 @@
                     </asp:GridView>
                 </div>
 
-                <div id="PrecautionsContainer" class="d-none p-3 bg-light card rounded mb-3">
-                    <strong>Precautions Details:</strong>
+                <div id="PrecautionsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
                     <asp:GridView ID="precautionsDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
                         <Columns>
                             <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
@@ -67,16 +65,14 @@
                     </asp:GridView>
                 </div>
 
-                <div id="PPEsContainer" class="d-none p-3 bg-light card rounded mb-3">
-                    <strong>PPEs Details:</strong>
+                <div id="PPEsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
                     <asp:GridView ID="ppeDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
                         <Columns>
-                            <asp:BoundField DataField="PPE" HeaderText="PPEs" SortExpression="PPEs" />
+                            <asp:BoundField DataField="PPE" HeaderText="PPEs" SortExpression="PPE" />
                         </Columns>
                     </asp:GridView>
                 </div>
             </div>
-           
 
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
