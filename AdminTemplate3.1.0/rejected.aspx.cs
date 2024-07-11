@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,7 +21,9 @@ namespace AdminTemplate3._1._0
             deptName = Session["DeptName"].ToString();
             deptCode = (int)Session["DeptCode"];
             roleID = (int)Session["RoleID"];
-            
+            JSAContainers.Visible = false;
+
+
             if (!IsPostBack)
             {
                 LoadPermitDetails();
@@ -197,6 +200,7 @@ namespace AdminTemplate3._1._0
         {
             if (e.CommandName == "ViewDetails")
             {
+                JSAContainers.Visible = true;
                 string permitNumber = e.CommandArgument.ToString();
                 permitNum = permitNumber;
                 var permitDetails = GetPermitDetailsByPermitNumber(permitNumber);
@@ -204,6 +208,7 @@ namespace AdminTemplate3._1._0
                 if (permitDetails != null)
                 {
                     GetData();
+                    GetJSAData();
                     DisplayPermitDetails(permitDetails);
                 }
             }
@@ -241,7 +246,7 @@ namespace AdminTemplate3._1._0
                 BriefDescriptionofWork AS Description, 
                 LocationofWork AS Location,
                 PermitsIssued,
-                Remark
+                Rejected_Remark
             FROM permit_details_tbl_backup 
             WHERE PermitNumber = @PermitNumber";
 
@@ -283,12 +288,167 @@ namespace AdminTemplate3._1._0
             }
             return permitDetails;
         }
+        protected void downloadFile_Click(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "DownloadFile")
+            {
+                string filePath = e.CommandArgument.ToString();
+                Process.Start(filePath);
+            }
+        }
         private void DisplayPermitDetails(PermitDetails permitDetails)
         {
             string permitDetailsJson = Newtonsoft.Json.JsonConvert.SerializeObject(permitDetails);
             string script = $"showPermitDetails({permitDetailsJson});";
             ScriptManager.RegisterStartupScript(this, GetType(), "ShowDetailsScript", script, true);
         }
+
+        private void GetJSAData()
+        {
+            string permitNumber = permitNum;
+            int flag;
+            string workPermits;
+            //DataTable hazards = new DataTable();
+            //DataTable precautions = new DataTable();
+            //DataTable ppes = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                using (SqlCommand command = new SqlCommand("usp_fetchWorkPermits", con))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    command.Parameters.Add("@WorkPermits", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
+
+                    con.Open();
+                    flag = command.ExecuteNonQuery();
+
+                    workPermits = command.Parameters["@WorkPermits"].Value.ToString();
+                    con.Close();
+                }
+
+                string[] parts = workPermits.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Trim each part to remove any leading or trailing whitespace
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    parts[i] = parts[i].Trim();
+                }
+
+                // Initialize variables to hold up to 8 parts
+                string wp1 = parts.Length > 0 ? parts[0] : string.Empty;
+                string wp2 = parts.Length > 1 ? parts[1] : string.Empty;
+                string wp3 = parts.Length > 2 ? parts[2] : string.Empty;
+                string wp4 = parts.Length > 3 ? parts[3] : string.Empty;
+                string wp5 = parts.Length > 4 ? parts[4] : string.Empty;
+                string wp6 = parts.Length > 5 ? parts[5] : string.Empty;
+                string wp7 = parts.Length > 6 ? parts[6] : string.Empty;
+                string wp8 = parts.Length > 7 ? parts[7] : string.Empty;
+
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("usp_showHazardsAndAll", con))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@WP1", wp1);
+                        command.Parameters.AddWithValue("@WP2", wp2);
+                        command.Parameters.AddWithValue("@WP3", wp3);
+                        command.Parameters.AddWithValue("@WP4", wp4);
+                        command.Parameters.AddWithValue("@WP5", wp5);
+                        command.Parameters.AddWithValue("@WP6", wp6);
+                        command.Parameters.AddWithValue("@WP7", wp7);
+                        command.Parameters.AddWithValue("@WP8", wp8);
+
+                        con.Open();
+
+                        //using (SqlDataReader reader = command.ExecuteReader())
+                        //{
+                        //    // Load hazards DataTable
+                        //    DataTable hazards = new DataTable();
+                        //    hazards.Load(reader);
+                        //    Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
+
+                        //    // Move to the next result set and load precautions DataTable
+                        //    DataTable precautions = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        precautions.Load(reader);
+                        //        Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                        //    }
+
+                        //    // Move to the next result set and load ppes DataTable
+                        //    DataTable ppes = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        ppes.Load(reader);
+                        //        Console.WriteLine("Loaded ppes: " + ppes.Rows.Count + " rows");
+                        //    }
+
+                        //    // Display DataTables
+                        //    DisplayDataTable("Hazards", hazards);
+                        //    DisplayDataTable("Precautions", precautions);
+                        //    DisplayDataTable("PPEs", ppes);
+                        //}
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            // Load hazards DataTable
+                            DataTable hazards = new DataTable();
+                            hazards.Load(reader);
+                            hazardDetails.DataSource = hazards;
+                            hazardDetails.DataBind();
+                            Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
+
+                            // Move to the next result set and load precautions DataTable
+                            DataTable precautions = new DataTable();
+                            precautions.Load(reader);
+                            precautionsDetails.DataSource = precautions;
+                            precautionsDetails.DataBind();
+                            Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    precautions.Load(reader);
+                            //    precautionsDetails.DataSource = precautions;
+                            //    precautionsDetails.DataBind();
+                            //    Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //}
+
+                            // Move to the next result set and load ppes DataTable
+                            DataTable ppes = new DataTable();
+                            ppes.Load(reader);
+                            ppeDetails.DataSource = ppes;
+                            ppeDetails.DataBind();
+                            Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    ppes.Load(reader);
+                            //    ppeDetails.DataSource = ppes;
+                            //    ppeDetails.DataBind();
+                            //    Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //}
+                        }
+
+                        con.Close();
+
+                        //hazardDetails.DataSource = hazards;
+                        //hazardDetails.DataBind();
+
+                        //precautionsDetails.DataSource = precautions;
+                        //precautionsDetails.DataBind();
+
+                        //ppeDetails.DataSource = ppes;
+                        //ppeDetails.DataBind();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Error Occured: '" + ex + "'. Please try again!');</script>");
+                }
+
+            }
+        }
+
 
         private void GetData()
         {

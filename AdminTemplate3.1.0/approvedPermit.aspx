@@ -33,6 +33,7 @@
                 <div class="row">
                     <div class="col">
                         <asp:Button ID="pendingBtn" runat="server" Text="Pending Permits" CssClass="btn btn-warning m-1" OnClick="pendingPermit_btn" />
+                        <asp:Button ID="rejectedBtn" runat="server" Text="Rejected Permits" CssClass="btn btn-danger m-1" OnClick="rejectedPermit_btn" />
                         <asp:Button ID="allBtn" runat="server" Text="All Permits" CssClass="btn btn-primary m-1" OnClick="allPermits_btn" />
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
@@ -48,6 +49,33 @@
             <h3 class="ms-2">Approved Work Permits</h3><br />
 
             <div id="detailsContainer" class="d-none"></div>
+
+            <div id="JSAContainers" runat="server" class="d-flex" style="width:100%;">
+                <div id="HazardsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="hazardDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PrecautionsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="precautionsDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PPEsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="ppeDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="PPE" HeaderText="PPEs" SortExpression="PPE" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
                 <asp:GridView ID="workerDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
@@ -91,9 +119,10 @@
                                     <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
-<%--                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info d-none" Text="Edit Permit" Visible ="false" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />--%>
+                                <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info d-none" Text="Edit Permit" Visible ="false" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit"  CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
                                 <asp:Button ID="downloadPemit" runat="server" CssClass="btn btn-info" Text="Download PDF" Visible="false" CommandName="DownloadForm" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="downloadViewPermit_Click" />
+                                <asp:Button ID="downloadFile" runat="server" CssClass="btn btn-outline-info" Text="Download File" CommandName="DownloadFile" CommandArgument='<%# Eval("FilePath") %>' OnCommand="downloadFile_Click" />
                             </div>
                         </div>
                     </ItemTemplate>

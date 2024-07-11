@@ -9,12 +9,12 @@ using System.Web.UI.WebControls;
 
 namespace AdminTemplate3._1._0
 {
-
     public partial class Welcome : System.Web.UI.Page
     {
         public int deptCode;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
         public string deptName;
+        PermitDetails fileParts = new PermitDetails();
         public void Page_Load(object sender, EventArgs e)
         {
             if ((int)Session["RoleID"] == 1 || (int)Session["RoleID"] == 3 || (int)Session["RoleID"] == 4 || (int)Session["RoleID"] == 5)
@@ -565,6 +565,9 @@ namespace AdminTemplate3._1._0
             // Obtain values from the permit form
             String siteName = site.SelectedValue;
             String permitNumber = permitNum.Text.Trim();
+            String fileName = fileParts.fileName;
+            String filePath = fileParts.filePath;
+            String fileExtention = fileParts.fIleExtention;
             DateTime dateOfIssue = Convert.ToDateTime(issueDate.Text.Trim());
             DateTime validFrom = Convert.ToDateTime(perValidFrom.Text.Trim());
             DateTime validTill = Convert.ToDateTime(perValidTill.Text.Trim());
@@ -675,6 +678,9 @@ namespace AdminTemplate3._1._0
                         cmd.Parameters.AddWithValue("@CreatedBy", createdBy);
                         cmd.Parameters.AddWithValue("@DeptIssuedCode", deptCode);
                         cmd.Parameters.AddWithValue("@Created_Date", DateTime.Today.Date);
+                        cmd.Parameters.AddWithValue("@FileName", fileName);
+                        cmd.Parameters.AddWithValue("@FilePath", filePath);
+                        cmd.Parameters.AddWithValue("@FileExtention", fileExtention);
                         cmd.Parameters.AddWithValue("@workPermit1", check1.Checked);
                         cmd.Parameters.AddWithValue("@workPermit2", check2.Checked);
                         cmd.Parameters.AddWithValue("@workPermit3", check3.Checked);
@@ -728,7 +734,16 @@ namespace AdminTemplate3._1._0
         }
         public void SubmitFrom(object sender, EventArgs e)
         {
-            FormOpreations();
+            string filePath = fileUpload();
+            if (filePath != null)
+            {
+                FormOpreations();
+            }
+            else
+            {
+                Response.Write("<script>alert('Error in file upload, Try again.');</script>");
+            }
+            
         }
 
         public PermitDetails GetPermitDetailsByNumber(string permitNumber)
@@ -930,6 +945,26 @@ namespace AdminTemplate3._1._0
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Permit Details not found');", true);
             }
 
+        }
+        public string fileUpload()
+        {
+            if (FileUpload1.HasFile)
+            {
+                string FileName = FileUpload1.FileName;
+                string FilePath = Server.MapPath($"~/FileUploads/{FileName}");
+                string FileExtension = System.IO.Path.GetExtension(FileName);
+                FileUpload1.SaveAs(FilePath);
+                Response.Write("<script>alert('File Uploaded.');</script>");
+                fileParts.fileName = FileName;
+                fileParts.filePath = FilePath;
+                fileParts.fIleExtention = FileExtension;
+                return FilePath;
+            }
+            else
+            {
+                Response.Write("<script>alert('Please select a file to upload');</script>");
+            }
+            return null;
         }
     }
 }

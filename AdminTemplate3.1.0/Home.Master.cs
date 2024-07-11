@@ -49,5 +49,11 @@ namespace AdminTemplate3._1._0
         {
             // dashboard.Atri
         }
+        protected void logoutBTN_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon(); // Add this line to abandon the session
+            Response.Redirect("login.aspx");
+        }
     }
 }

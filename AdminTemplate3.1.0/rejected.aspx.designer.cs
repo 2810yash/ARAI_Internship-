@@ -51,6 +51,42 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
+        /// JSAContainers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl JSAContainers;
+
+        /// <summary>
+        /// hazardDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView hazardDetails;
+
+        /// <summary>
+        /// precautionsDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView precautionsDetails;
+
+        /// <summary>
+        /// ppeDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ppeDetails;
+
+        /// <summary>
         /// workerDetails control.
         /// </summary>
         /// <remarks>

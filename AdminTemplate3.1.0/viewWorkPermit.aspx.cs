@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -39,6 +41,15 @@ namespace AdminTemplate3._1._0
         public string beltIssued { get; set; }
         public string helmetIssued { get; set; }
         public string Rejected_Remark { get; set; }
+        public string fileName { get; set; }
+        public string filePath { get; set; }
+        public string fIleExtention { get; set; }
+
+        public List<string> hazards { get; set; }
+        public List<string> precautions { get; set; }
+        public List<string> ppes { get; set; }
+
+
     
         public PermitDetails GetPermitDetailsByNumber(string permitNumber)
         {
@@ -251,7 +262,14 @@ namespace AdminTemplate3._1._0
                 }
             }
         }
-
+        protected void downloadFile_Click(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "DownloadFile")
+            {
+                string filePath = e.CommandArgument.ToString();
+                Process.Start(filePath);
+            }
+        }
         //protected void EditViewPermit_Click(object sender, CommandEventArgs e)
         //{
         //    if (e.CommandName == "EditDetails")

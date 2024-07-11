@@ -46,6 +46,7 @@
                 </div>
             </div>
 
+
             <h3 class="ms-2" style="color:orange;">Pending Work Permits</h3><br />
 
             <div runat="server" id="remarkContaineer" Visible ="false" class="d-flex justify-content-center align-items-center">
@@ -69,6 +70,34 @@
             </div>
 
             <div id="detailsContainer" class="d-none"></div>
+
+                        <div id="JSAContainers" runat="server" class="d-flex" style="width:100%;">
+                <div id="HazardsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="hazardDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Hazards" HeaderText="Hazards" SortExpression="Hazards" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PrecautionsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="precautionsDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="Precautions" HeaderText="Precautions" SortExpression="Precautions" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div id="PPEsContainer" class="p-3 bg-light card rounded mb-3" style="width:100%;">
+                    <asp:GridView ID="ppeDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                        <Columns>
+                            <asp:BoundField DataField="PPE" HeaderText="PPEs" SortExpression="PPE" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+
+
             <div id="WdetailsContainer" class="d-none p-3 bg-light card rounded mb-3">
                 <strong>Workers Details:</strong> 
                 <asp:GridView ID="workerDetails" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
@@ -111,6 +140,7 @@
                                     <asp:Label runat="server" ID="validFrom" Text='<%# Eval("PermitValidFrom") %>'></asp:Label>
                                 </p>
                                 <asp:Button ID="viewPermit" runat="server" CssClass="btn btn-primary" Text="View Details" CommandName="ViewDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="ViewPermit_Click" />
+                                <asp:Button ID="downloadFile" runat="server" CssClass="btn btn-outline-info" Text="Download File" CommandName="DownloadFile" CommandArgument='<%# Eval("FilePath") %>' OnCommand="downloadFile_Click" 
                                 <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
                                 <asp:Button ID="approvePermit" runat="server" CssClass="btn btn-success" Text="Approve?" CommandName="ApproveDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="approvePermit_btn" Visible ="false" />

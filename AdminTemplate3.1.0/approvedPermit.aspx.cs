@@ -25,6 +25,7 @@ namespace AdminTemplate3._1._0
             deptName = Session["DeptName"].ToString();
             deptCode = (int)Session["DeptCode"];
             roleID = (int)Session["RoleID"];
+            JSAContainers.Visible = false;
 
             if (!IsPostBack)
             {
@@ -182,6 +183,7 @@ namespace AdminTemplate3._1._0
         {
             if (e.CommandName == "ViewDetails")
             {
+                JSAContainers.Visible = true;
                 string permitNumber = e.CommandArgument.ToString();
                 permitNum = permitNumber;
                 var permitDetails = GetPermitDetailsByPermitNumber(permitNumber);
@@ -189,6 +191,7 @@ namespace AdminTemplate3._1._0
                 if (permitDetails != null)
                 {
                     GetData();
+                    GetJSAData();
                     DisplayPermitDetails(permitDetails);
                 }
             }
@@ -202,7 +205,14 @@ namespace AdminTemplate3._1._0
                 Response.Redirect("editPermitForm.aspx");
             }
         }
-
+        protected void downloadFile_Click(object sender, CommandEventArgs e)
+        {
+            if(e.CommandName== "DownloadFile")
+            {
+                string filePath = e.CommandArgument.ToString();
+                Process.Start(filePath);
+            }
+        }
         private PermitDetails GetPermitDetailsByPermitNumber(string permitNumber)
         {
             PermitDetails permitDetails = null;
@@ -272,6 +282,144 @@ namespace AdminTemplate3._1._0
             string script = $"showPermitDetails({permitDetailsJson});";
             ScriptManager.RegisterStartupScript(this, GetType(), "ShowDetailsScript", script, true);
         }
+
+        private void GetJSAData()
+        {
+            string permitNumber = permitNum;
+            int flag;
+            string workPermits;
+            //DataTable hazards = new DataTable();
+            //DataTable precautions = new DataTable();
+            //DataTable ppes = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(Main_con))
+            {
+                using (SqlCommand command = new SqlCommand("usp_fetchWorkPermits", con))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PermitNumber", permitNumber);
+                    command.Parameters.Add("@WorkPermits", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
+
+                    con.Open();
+                    flag = command.ExecuteNonQuery();
+
+                    workPermits = command.Parameters["@WorkPermits"].Value.ToString();
+                    con.Close();
+                }
+
+                string[] parts = workPermits.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Trim each part to remove any leading or trailing whitespace
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    parts[i] = parts[i].Trim();
+                }
+
+                // Initialize variables to hold up to 8 parts
+                string wp1 = parts.Length > 0 ? parts[0] : string.Empty;
+                string wp2 = parts.Length > 1 ? parts[1] : string.Empty;
+                string wp3 = parts.Length > 2 ? parts[2] : string.Empty;
+                string wp4 = parts.Length > 3 ? parts[3] : string.Empty;
+                string wp5 = parts.Length > 4 ? parts[4] : string.Empty;
+                string wp6 = parts.Length > 5 ? parts[5] : string.Empty;
+                string wp7 = parts.Length > 6 ? parts[6] : string.Empty;
+                string wp8 = parts.Length > 7 ? parts[7] : string.Empty;
+
+                try
+                {
+                    using (SqlCommand command = new SqlCommand("usp_showHazardsAndAll", con))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@WP1", wp1);
+                        command.Parameters.AddWithValue("@WP2", wp2);
+                        command.Parameters.AddWithValue("@WP3", wp3);
+                        command.Parameters.AddWithValue("@WP4", wp4);
+                        command.Parameters.AddWithValue("@WP5", wp5);
+                        command.Parameters.AddWithValue("@WP6", wp6);
+                        command.Parameters.AddWithValue("@WP7", wp7);
+                        command.Parameters.AddWithValue("@WP8", wp8);
+
+                        con.Open();
+
+                        //using (SqlDataReader reader = command.ExecuteReader())
+                        //{
+                        //    // Load hazards DataTable
+                        //    DataTable hazards = new DataTable();
+                        //    hazards.Load(reader);
+                        //    Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
+
+                        //    // Move to the next result set and load precautions DataTable
+                        //    DataTable precautions = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        precautions.Load(reader);
+                        //        Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                        //    }
+
+                        //    // Move to the next result set and load ppes DataTable
+                        //    DataTable ppes = new DataTable();
+                        //    if (reader.NextResult())
+                        //    {
+                        //        ppes.Load(reader);
+                        //        Console.WriteLine("Loaded ppes: " + ppes.Rows.Count + " rows");
+                        //    }
+
+                        //    // Display DataTables
+                        //    DisplayDataTable("Hazards", hazards);
+                        //    DisplayDataTable("Precautions", precautions);
+                        //    DisplayDataTable("PPEs", ppes);
+                        //}
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            // Load hazards DataTable
+                            DataTable hazards = new DataTable();
+                            hazards.Load(reader);
+                            hazardDetails.DataSource = hazards;
+                            hazardDetails.DataBind();
+                            Console.WriteLine("Loaded hazards: " + hazards.Rows.Count + " rows");
+
+                            // Move to the next result set and load precautions DataTable
+                            DataTable precautions = new DataTable();
+                            precautions.Load(reader);
+                            precautionsDetails.DataSource = precautions;
+                            precautionsDetails.DataBind();
+                            Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    precautions.Load(reader);
+                            //    precautionsDetails.DataSource = precautions;
+                            //    precautionsDetails.DataBind();
+                            //    Console.WriteLine("Loaded precautions: " + precautions.Rows.Count + " rows");
+                            //}
+
+                            // Move to the next result set and load ppes DataTable
+                            DataTable ppes = new DataTable();
+                            ppes.Load(reader);
+                            ppeDetails.DataSource = ppes;
+                            ppeDetails.DataBind();
+                            Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //if (reader.NextResult() && reader.HasRows)
+                            //{
+                            //    ppes.Load(reader);
+                            //    ppeDetails.DataSource = ppes;
+                            //    ppeDetails.DataBind();
+                            //    Console.WriteLine("Loaded PPES: " + ppes.Rows.Count + " rows");
+                            //}
+                        }
+
+                        con.Close();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Error Occured: '" + ex + "'. Please try again!');</script>");
+                }
+
+            }
+        }
+
         private void GetData()
         {
             string permitNumber = permitNum;
@@ -703,14 +851,14 @@ namespace AdminTemplate3._1._0
 
                     PdfPCell emptycel1 = new PdfPCell(new Phrase("", FontFactory.GetFont(FontFactory.TIMES_BOLD, 9)));
                     emptycel1.Colspan = 2;  // Span across both main columns
-                    emptyCell1.MinimumHeight = 30f;  // Set a minimum height for
+                    emptycel1.MinimumHeight = 30f;  // Set a minimum height for
                     emptycel1.Border = Rectangle.NO_BORDER;
                     permitDetailsTable.AddCell(emptycel1);
 
                     PdfPCell permitSelected = new PdfPCell(new Phrase("Job Sefty Assissment", FontFactory.GetFont(FontFactory.TIMES_BOLD, 13)));
                     permitSelected.Colspan = 2;
-                    permitSelected.HorizontalAlignment = Element.ALIGN_RIGHT; // Align label to the right
-                    permitSelected.VerticalAlignment = Element.ALIGN_CENTER; // Align label to the right
+                    permitSelected.HorizontalAlignment = Element.ALIGN_LEFT; // Align label to the left
+                    permitSelected.VerticalAlignment = Element.ALIGN_CENTER; // Align label to the center
                     permitSelected.Border = Rectangle.NO_BORDER;
                     permitDetailsTable.AddCell(permitSelected);
 
@@ -723,17 +871,6 @@ namespace AdminTemplate3._1._0
                         parts[i] = parts[i].Trim();
                     }
 
-                    // Initialize variables to hold up to 8 parts
-                    //string wp1 = parts.Length > 0 ? parts[0] : string.Empty;
-                    //string wp2 = parts.Length > 1 ? parts[1] : string.Empty;
-                    //string wp3 = parts.Length > 2 ? parts[2] : string.Empty;
-                    //string wp4 = parts.Length > 3 ? parts[3] : string.Empty;
-                    //string wp5 = parts.Length > 4 ? parts[4] : string.Empty;
-                    //string wp6 = parts.Length > 5 ? parts[5] : string.Empty;
-                    //string wp7 = parts.Length > 6 ? parts[6] : string.Empty;
-                    //string wp8 = parts.Length > 7 ? parts[7] : string.Empty;
-
-
                     for(int i=0; i < parts.Length; i++)
                     {
                         PdfPCell permitSelectedValue = new PdfPCell(new Phrase(parts[i], FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11)));
@@ -744,7 +881,33 @@ namespace AdminTemplate3._1._0
                         permitDetailsTable.AddCell(permitSelectedValue);
                     }
 
+                    PdfPCell emptycel2 = new PdfPCell(new Phrase("", FontFactory.GetFont(FontFactory.TIMES_BOLD, 9)));
+                    emptycel2.Colspan = 2;  // Span across both main columns
+                    emptycel2.MinimumHeight = 30f;  // Set a minimum height for
+                    emptycel2.Border = Rectangle.NO_BORDER;
+                    permitDetailsTable.AddCell(emptycel2);
+
+                    PdfPTable hazardsAndAll = new PdfPTable(3);
+
+                    PdfPCell hazards = new PdfPCell(new Phrase("Hazards:", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    hazards.HorizontalAlignment = Element.ALIGN_CENTER;
+                    hazards.VerticalAlignment = Element.ALIGN_CENTER;
+                    hazardsAndAll.AddCell(hazards);
+
+                    PdfPCell precaution = new PdfPCell(new Phrase("Precautions:", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    precaution.HorizontalAlignment = Element.ALIGN_CENTER;
+                    precaution.VerticalAlignment = Element.ALIGN_CENTER;
+                    hazardsAndAll.AddCell(precaution);
+
+                    PdfPCell ppes = new PdfPCell(new Phrase("PPE's:", FontFactory.GetFont(FontFactory.TIMES_BOLD, 10)));
+                    ppes.HorizontalAlignment = Element.ALIGN_CENTER;
+                    ppes.VerticalAlignment = Element.ALIGN_CENTER;
+                    hazardsAndAll.AddCell(ppes);
+
+                    permitDetailsTable.AddCell(hazardsAndAll);
                     document.Add(permitDetailsTable);  // Add permit details to current page
+                    document.Add(hazardsAndAll);
+
                     document.NewPage();  // Start new page for worker details
                     PdfPTable workerDetails = new PdfPTable(11);    // workers details table
 
