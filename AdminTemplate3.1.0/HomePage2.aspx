@@ -125,7 +125,7 @@
                     <div class="chart tab-pane active" id="permit-chart2"
                        style="position: relative; height: 500px;">
                       <canvas id="workPermitChart2" width="600" height="300"></canvas>
-                      
+                      <asp:HiddenField ID="hfPermitsIssued" runat="server" />
                    </div>
                 </div>
               </div><!-- /.card-body -->
@@ -136,6 +136,7 @@
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
+
 
             <!-- Map card -->
 
@@ -221,46 +222,6 @@
                 }
             });
 
-            var chartData2 = JSON.parse(document.getElementById('<%= hfChartData1.ClientID %>').value);
-            var ctx2 = document.getElementById('workPermitChart2').getContext('2d');
-            var myChart2 = new Chart(ctx2, {
-                type: 'pie',
-                data: {
-                    labels: chartData2.labels,
-                    datasets: [{
-                        label: 'Permit Distribution',
-                        data: chartData2.data,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Work Permit Distribution by Month'
-                    }
-                }
-            });
-
             var chartData3 = JSON.parse(document.getElementById('<%= piechart.ClientID %>').value);
             var ctx3 = document.getElementById('deptPieChart').getContext('2d');
             var myChart3 = new Chart(ctx3, {
@@ -286,7 +247,7 @@
                 }
             });
 
-             var chartData4 = JSON.parse(document.getElementById('<%= siteChart.ClientID %>').value);
+            var chartData4 = JSON.parse(document.getElementById('<%= siteChart.ClientID %>').value);
             var ctx4 = document.getElementById('sitePieChart').getContext('2d');
             var myChart4 = new Chart(ctx4, {
                 type: 'pie',
@@ -325,6 +286,52 @@
                     }
                 }
             });
+
+            var chartData5 = JSON.parse(document.getElementById('<%= hfPermitsIssued.ClientID %>').value);
+            var ctx5 = document.getElementById('workPermitChart2').getContext('2d');
+            var myChart5 = new Chart(ctx5, {
+                type: 'pie',
+                data: {
+                    labels: chartData5.labels,
+                    datasets: [{
+                        label: 'Department Distribution',
+                        data: chartData5.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 71, 0.2)',    // Tomato
+                            'rgba(173, 255, 47, 0.2)'    // GreenYellow
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 71, 1)',      // Tomato
+                            'rgba(173, 255, 47, 1)'      // GreenYellow
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Work Permit Distribution by type'
+                    }
+                }
+            });
+
+           
         };
     </script>
      

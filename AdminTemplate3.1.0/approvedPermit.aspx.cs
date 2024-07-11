@@ -855,7 +855,7 @@ namespace AdminTemplate3._1._0
                     emptycel1.Border = Rectangle.NO_BORDER;
                     permitDetailsTable.AddCell(emptycel1);
 
-                    PdfPCell permitSelected = new PdfPCell(new Phrase("Job Sefty Assissment", FontFactory.GetFont(FontFactory.TIMES_BOLD, 13)));
+                    PdfPCell permitSelected = new PdfPCell(new Phrase("Job Safety Assessment", FontFactory.GetFont(FontFactory.TIMES_BOLD, 13)));
                     permitSelected.Colspan = 2;
                     permitSelected.HorizontalAlignment = Element.ALIGN_LEFT; // Align label to the left
                     permitSelected.VerticalAlignment = Element.ALIGN_CENTER; // Align label to the center
