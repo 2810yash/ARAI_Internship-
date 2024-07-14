@@ -19,11 +19,16 @@ namespace AdminTemplate3._1._0
     }
     public partial class HomePage2 : System.Web.UI.Page
     {
+
+        public int roleID, deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
+            roleID = (int)Session["RoleID"];
+            deptCode = (int)Session["DeptCode"];
             LoadBarChartData();
             LoadPieChartData();
             GetPermitCounts();
+            GetPendingPermitCounts();
             LoadSiteData();
             LoadPermitDistribution();
         }
@@ -77,16 +82,16 @@ namespace AdminTemplate3._1._0
             try {
 
                 string strcon = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-                string query = "EXEC dbo.usp_GetMonthlyDistribution";
-
 
                 DataTable dt = new DataTable();
 
                 using (SqlConnection con = new SqlConnection(strcon))
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    using (SqlCommand cmd = new SqlCommand("usp_GetMonthlyDistribution", con))
                     {
                         con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("DeptCode", deptCode);
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
                         da.Fill(dt);
                     }
@@ -126,26 +131,22 @@ namespace AdminTemplate3._1._0
         {
             try {
                 string connectionString = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-                string query = "EXEC dbo.GetPermitCounts";
-
+                
                 int currentMonthPermitCount = 0;
                 int totalPermitCount = 0;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    using (SqlCommand cmd = new SqlCommand("GetPermitCounts", con))
                     {
                         con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("DeptCode", deptCode);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 currentMonthPermitCount = reader.GetInt32(0);
-                            }
-
-                            if (reader.NextResult() && reader.Read())
-                            {
-                                totalPermitCount = reader.GetInt32(0);
                             }
                         }
                     }
@@ -153,12 +154,66 @@ namespace AdminTemplate3._1._0
 
                 // Now you can use the permit counts as needed
                 lblCurrentMonthPermitCount.Text = currentMonthPermitCount.ToString();
-                lblTotalPermitCount.Text = totalPermitCount.ToString();
             } catch (Exception ex)
             {
-                 Response.Write("<script>alert('Could not load data for charts: " + ex + "');</script>");
+                lblCurrentMonthPermitCount.Text = "Could not load data for charts";
             }
         }
+
+        private void GetPendingPermitCounts()
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+                
+                int pendingPermitCount = 0;
+                int approvedPermitCount = 0;
+                int rejectedPermitCount = 0;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_getPendingPermitsCount", con))
+                    {
+                        con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@RoleID", roleID);
+                        cmd.Parameters.AddWithValue("@DeptCode", deptCode);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                pendingPermitCount = reader.GetInt32(0);
+                            }
+
+                            if (reader.NextResult() && reader.Read())
+                            {
+                                approvedPermitCount = reader.GetInt32(0);
+                            }
+
+                            if (reader.NextResult() && reader.Read())
+                            {
+                                rejectedPermitCount = reader.GetInt32(0);
+                            }
+
+                        }
+                    }
+                }
+                // Now you can use the permit counts as needed
+                permitInfoLabel.Text = "Rejected Permits";
+                lblPendingPermits.Text = pendingPermitCount.ToString();
+                lblApprovedPermits.Text = approvedPermitCount.ToString();
+                lblRejectedPermits.Text = rejectedPermitCount.ToString();
+            }
+            catch (Exception ex)
+            {
+                permitInfoLabel.Text = "Approved Permits";
+                lblPendingPermits.Text = "Could not load data for charts";
+                lblApprovedPermits.Text = "Could not load data for charts";
+                lblRejectedPermits.Text = "Could not load data for charts";
+
+            }
+        }
+
 
         private void LoadPieChartData()
         {
@@ -235,6 +290,8 @@ namespace AdminTemplate3._1._0
                     using (SqlCommand command = new SqlCommand("usp_getWorkPermits", con))
                     {
                         con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("DeptCode", deptCode);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             wp1.Load(reader);

@@ -50,14 +50,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><sup style="font-size: 25px"><asp:Label ID ="lblTotalPermitCount" runat="server"></asp:Label> </sup></h3>
+                <h3><sup style="font-size: 25px"><asp:Label ID ="lblApprovedPermits" runat="server"></asp:Label> </sup></h3>
 
-                <p> Total Work Permits</p>
+                <p>Approved Permits</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fa fa-check"></i>
               </div>
-              <a href="viewWorkPermit.aspx" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="approvedPermit.aspx" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -65,14 +65,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>440</h3>
+               <h3><sup style="font-size: 25px"><asp:Label ID ="lblPendingPermits" runat="server"></asp:Label> </sup></h3>
 
-                <p>User Registrations</p>
+                <p>Pending Permits</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fa fa-edit"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="pendingPermit.aspx" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -80,14 +80,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>650</h3>
+               <h3><sup style="font-size: 25px"><asp:Label ID ="lblRejectedPermits" runat="server"></asp:Label> </sup></h3>
 
-                <p>Unique Visitors</p>
+                <p><asp:Label ID ="permitInfoLabel" runat="server"></asp:Label></p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fa fa-times"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="rejected.aspx" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

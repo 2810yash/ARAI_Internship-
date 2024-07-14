@@ -13,7 +13,6 @@ namespace AdminTemplate3._1._0
     public partial class register : System.Web.UI.Page
     {
         string strconn2 = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
-        private SqlCommand cmd;
 
         protected void Page_Load(object sender, EventArgs e)
         {

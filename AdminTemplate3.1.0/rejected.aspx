@@ -115,7 +115,7 @@
                                 <asp:Button ID="editPermit" runat="server" CssClass="btn btn-info" Text="Edit Permit" Visible="false" CommandName="EditDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="EditViewPermit_Click" />
                                 <asp:Button ID="deletePemit" runat="server" CssClass="btn btn-danger" Text="Delete Permit" CommandName="DeleteDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="deleteViewPermit_Click" OnClientClick="return confirmDelete();" />
                                 <%--<asp:Button ID="approvePemit" runat="server" CssClass="btn btn-success" Text="Approve ?" CommandName="ApproveDetails" CommandArgument='<%# Eval("PermitNumber") %>' OnCommand="approvePermit_btn" />--%>
-                                <asp:Button ID="downloadFile" runat="server" CssClass="btn btn-outline-info" Text="Download File" CommandName="DownloadFile" CommandArgument='<%# Eval("FilePath") %>' OnCommand="downloadFile_Click" 
+                                <asp:Button ID="downloadFile" runat="server" CssClass="btn btn-outline-info" Text="Download File" CommandName="DownloadFile" CommandArgument='<%# Eval("FilePath") %>' OnCommand="downloadFile_Click" />
                             </div>
                         </div>
                     </ItemTemplate>

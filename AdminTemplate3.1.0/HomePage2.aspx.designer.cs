@@ -24,13 +24,40 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.Label lblCurrentMonthPermitCount;
 
         /// <summary>
-        /// lblTotalPermitCount control.
+        /// lblApprovedPermits control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalPermitCount;
+        protected global::System.Web.UI.WebControls.Label lblApprovedPermits;
+
+        /// <summary>
+        /// lblPendingPermits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPendingPermits;
+
+        /// <summary>
+        /// lblRejectedPermits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRejectedPermits;
+
+        /// <summary>
+        /// permitInfoLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label permitInfoLabel;
 
         /// <summary>
         /// hfChartData1 control.
