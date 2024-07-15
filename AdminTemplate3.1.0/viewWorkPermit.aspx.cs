@@ -138,7 +138,7 @@ namespace AdminTemplate3._1._0
             else
             {
                 
-                Response.Redirect("Login.aspx");           
+                Response.Redirect("login.aspx");           
             }
         }
 

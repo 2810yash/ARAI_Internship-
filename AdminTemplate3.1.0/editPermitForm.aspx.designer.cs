@@ -204,6 +204,24 @@ namespace AdminTemplate3._1._0
         protected global::System.Web.UI.WebControls.GridView workerDetails;
 
         /// <summary>
+        /// FileUpload2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload2;
+
+        /// <summary>
+        /// fileUploadText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileUploadText;
+
+        /// <summary>
         /// check1 control.
         /// </summary>
         /// <remarks>

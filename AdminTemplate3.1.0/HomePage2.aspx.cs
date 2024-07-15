@@ -23,8 +23,15 @@ namespace AdminTemplate3._1._0
         public int roleID, deptCode;
         protected void Page_Load(object sender, EventArgs e)
         {
-            roleID = (int)Session["RoleID"];
-            deptCode = (int)Session["DeptCode"];
+            if(Session["RoleID"]!=null && Session["DeptCode"]!=null)
+            {
+                roleID = (int)Session["RoleID"];
+                deptCode = (int)Session["DeptCode"];
+            } else
+            {
+                Response.Redirect("login.aspx");
+            }
+
             LoadBarChartData();
             LoadPieChartData();
             GetPermitCounts();

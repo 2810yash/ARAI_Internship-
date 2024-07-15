@@ -21,11 +21,16 @@ namespace AdminTemplate3._1._0
         int rowCount = 0;
         public string deptName;
         string Main_con = ConfigurationManager.ConnectionStrings["strconn"].ConnectionString;
+        PermitDetails fileParts = new PermitDetails();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["deptName"] != null)
+            if (Session["DeptName"] != null)
             {
-                deptName = Session["deptName"].ToString();
+                deptName = Session["DeptName"].ToString();
+            }
+            else
+            {
+                Response.Redirect("login.aspx");
             }
 
             if (Session["PermitNumber"] == null)
@@ -313,6 +318,18 @@ namespace AdminTemplate3._1._0
         }
         protected void submitForm(object sender, EventArgs e)
         {
+            string isFileUpload = fileUpload();
+            if (isFileUpload != null)
+            {
+                editFormOperations();
+            }
+            else
+            {
+                Response.Write("<script>alert('Error uploading File');</script>");
+            }
+        }
+        public void editFormOperations()
+        {
             string permitNumber = permitNum1.Text;
             string siteNameValue = siteName.Text;
             DateTime? dateOfIssueValue = string.IsNullOrEmpty(issueDate1.Text) ? (DateTime?)null : Convert.ToDateTime(issueDate1.Text);
@@ -333,6 +350,9 @@ namespace AdminTemplate3._1._0
             string locateWorkValue = locateWork1.Text;
             string deptIssuedValue = deptName;
             string remarkValue = remark;
+            string fileName = fileParts.fileName;
+            string filePath = fileParts.filePath;
+            string fileExtention = fileParts.fIleExtention;
             bool isCloseValue = false;
             bool rejectedValue = false;
             string check1Txt = "";
@@ -412,8 +432,11 @@ namespace AdminTemplate3._1._0
                     cmd.Parameters.AddWithValue("@BriefDescriptionofWork", (object)describeWorkValue ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@LocationofWork", (object)locateWorkValue ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@DeptIssued", (object)deptIssuedValue ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FileName", (object)fileName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FilePath", (object)filePath ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FileExtention", (object)fileExtention ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Date", DateTime.Today.Date);
-                  
+
                     cmd.Parameters.AddWithValue("@workPermit1", check1.Checked);
                     cmd.Parameters.AddWithValue("@workPermit2", check2.Checked);
                     cmd.Parameters.AddWithValue("@workPermit3", check3.Checked);
@@ -589,6 +612,27 @@ namespace AdminTemplate3._1._0
                 //Response.Write($"<script>alert('General Exception: {ex.Message}');</script>");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('General Exception : " + ex.Message + "');", true);
             }
+        }
+        public string fileUpload()
+        {
+            if (FileUpload2.HasFile)
+            {
+                string FileName = FileUpload2.FileName;
+                string FilePath = Server.MapPath($"~/FileUploads/{FileName}");
+                string FileExtension = System.IO.Path.GetExtension(FileName);
+                FileUpload2.SaveAs(FilePath);
+                Response.Write("<script>alert('File Uploaded.');</script>");
+                fileParts.fileName = FileName;
+                fileParts.filePath = FilePath;
+                fileParts.fIleExtention = FileExtension;
+                fileUploadText.Visible = false;
+                return FilePath;
+            }
+            else
+            {
+                Response.Write("<script>alert('Please select a file to upload');</script>");
+            }
+            return null;
         }
     }
 }

@@ -45,27 +45,58 @@
                 background-color: #748290;
                 border-radius: 5em;
             }
+
+            .heading {
+                    text-align: center;
+                    font-weight: 500;
+                    padding: 50px;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px rgb(56, 111, 111);
+                    background-color: aliceblue;
+                    width:100%;
+            }
+
+            .heading h1 {
+                     margin: 0;
+                     font-family: 'sans-serif';
+                     color: #00000;
+                     font-weight: 1000;
+                     text-shadow: 20px 20px 40px rgb(56, 111, 111);
+            }
+
+            .blink-headline{
+                border:2px solid orange;
+                background-color:#fbe3b7;
+            }
+
+            .main-page{
+                background-color:#82cefd;
+            }
+
+            .content-wrapper{
+                background-color:#55b6e6;
+            }
         </style>
     </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper position-relative">
+        <div class="content-wrapper position-relative p-2">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6 mt-5">
-                            <h1 class="m-0">WorkPermit</h1>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="mt-5 heading">
+                            <h1>WORK-PERMIT</h1>
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-6">
+                        <%--<div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item text-decoration-none"><a href="../Homepage.aspx">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active">WorkPermit</li>
                             </ol>
-                        </div>
+                        </div>--%>
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
@@ -81,9 +112,9 @@
 
                     <%--<div data-aos="slide-up">--%>
                     <div>
-                        <%-- Blinking TEXT --%>
-                        <marquee>
-                        <div class="headline text-center">
+                         <%-- Blinking TEXT --%>
+                        <marquee class="blink-headline rounded">
+                        <div class="headline text-center p-3">
                             <h6 class="blink-text m-1">Security shall check work permit and allow
                                 workers to enter with valid work permit in case of below mentioned works</h6>
                             <h6 class="blink-text m-1">Work permit to be filled by contractor in
@@ -92,7 +123,7 @@
                                 under strict supervision of work intending departments</h6>
                         </div>
                         </marquee>
-                        <div>
+                        <div class="main-page rounded">
                             <%-- Site Name--%>
                             <div class="card-header justify-content-between">
                                 <label>Site: </label>
@@ -105,10 +136,10 @@
 
                             <%-- Permit Form--%>
                             <div class="position-relative" id="expand">
-                                <div class="bg-light rounded" id="Pages">
+                                <div class="p-2" id="Pages">
 
                                     <div class="page1" id="page1">
-                                        <div class="bg-light">
+                                        <div>
                                             <!-- permit number & date of issue: -->
                                             <div class="d-flex mb-3 mt-3">
                                                 <div class="input-group me-2">
@@ -360,6 +391,12 @@
                                                 </asp:UpdatePanel>
                                             </div>
                                         </div>
+                                         <%--file upload--%>
+                                        <div class="container-fluid p-3 flex-column">
+                                            <asp:FileUpload ID="FileUpload2" runat="server" />
+                                            <label ID="fileUploadText" runat="server" class="blink-text" style="color:red;">Re-Upload Your File</label>
+                                        </div>
+                                        <%--./fil upload--%>
                                     </div>
                                     <div id="page2" class="page2 p-4">
                                         <div>

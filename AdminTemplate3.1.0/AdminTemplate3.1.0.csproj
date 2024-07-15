@@ -6257,6 +6257,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FileUploads\Aditya_Raut_Resume.pdf" />
+    <Content Include="FileUploads\TE_RESULT.pdf" />
     <None Include="packages.config" />
     <Content Include="Styles\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css.map" />
     <Content Include="Styles\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css.map" />
@@ -6395,6 +6397,14 @@
     <Content Include="permitDetails.xss">
       <DependentUpon>permitDetails.xsd</DependentUpon>
     </Content>
+    <Content Include="PermitPDFs\100001.pdf" />
+    <Content Include="PermitPDFs\10002.pdf" />
+    <Content Include="PermitPDFs\10005.pdf" />
+    <Content Include="PermitPDFs\2001.pdf" />
+    <Content Include="PermitPDFs\314124621.pdf" />
+    <Content Include="PermitPDFs\454677686.pdf" />
+    <Content Include="PermitPDFs\8375948.pdf" />
+    <Content Include="PermitPDFs\rer32.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

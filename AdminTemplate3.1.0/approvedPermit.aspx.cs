@@ -21,10 +21,18 @@ namespace AdminTemplate3._1._0
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            loginID = Session["LoginID"].ToString();
-            deptName = Session["DeptName"].ToString();
-            deptCode = (int)Session["DeptCode"];
-            roleID = (int)Session["RoleID"];
+            if (Session["LoginID"]!=null && Session["DeptName"] != null && Session["DeptCode"] != null && Session["RoleID"] != null)
+            {
+                loginID = Session["LoginID"].ToString();
+                deptName = Session["DeptName"].ToString();
+                deptCode = (int)Session["DeptCode"];
+                roleID = (int)Session["RoleID"];
+            }
+            else
+            {
+                Response.Redirect("login.aspx");
+            }
+
             JSAContainers.Visible = false;
 
             if (!IsPostBack)

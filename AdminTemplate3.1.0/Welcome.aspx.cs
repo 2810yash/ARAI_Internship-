@@ -22,12 +22,14 @@ namespace AdminTemplate3._1._0
                 Response.Redirect("Homepage.aspx");
             }
 
-            if (Session["DeptName"] != null)
+            if (Session["DeptName"] != null && Session["DeptCode"]!=null)
             {
                 deptName = Session["DeptName"].ToString();
+                deptCode = (int)Session["DeptCode"];
+            } else
+            {
+                Response.Redirect("login.aspx");
             }
-
-            deptCode = (int)Session["DeptCode"];
 
             if (!IsPostBack)
             {
