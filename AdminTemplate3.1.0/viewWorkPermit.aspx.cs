@@ -117,29 +117,36 @@ namespace AdminTemplate3._1._0
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            loginID = Session["LoginID"].ToString();
-            deptName = Session["DeptName"].ToString();
-            deptCode = (int)Session["DeptCode"];
-            roleID = (int)Session["RoleID"];
-            JSAContainers.Visible = false;
 
-
-            if (Session["LoginID"] != null && Session["DeptName"] != null && Session["DeptCode"] != null && Session["RoleID"] != null)
+           try
             {
-                if (!IsPostBack)
+                if (Session["LoginID"] != null && Session["DeptName"] != null && Session["DeptCode"] != null && Session["RoleID"] != null)
                 {
                     loginID = Session["LoginID"].ToString();
                     deptName = Session["DeptName"].ToString();
                     deptCode = (int)Session["DeptCode"];
                     roleID = (int)Session["RoleID"];
+                    JSAContainers.Visible = false;
                     LoadPermitDetails();
+
+                    if (!IsPostBack)
+                    {
+                        loginID = Session["LoginID"].ToString();
+                        deptName = Session["DeptName"].ToString();
+                        deptCode = (int)Session["DeptCode"];
+                        roleID = (int)Session["RoleID"];
+                        LoadPermitDetails();
+                    }
                 }
-            }
-            else
+                else
+                {
+                    Response.Redirect("login.aspx");
+                }
+            } catch
             {
-                
-                Response.Redirect("login.aspx");           
+                Response.Redirect("login.aspx");
             }
+           
         }
 
         private void LoadPermitDetails()

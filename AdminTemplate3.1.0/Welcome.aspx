@@ -394,23 +394,19 @@
                                                 </asp:UpdatePanel>
                                             </div>
                                         </div>
-                                        <%--file upload--%>
-                                        <div class="container-fluid p-3">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="float-right" />
-                                        </div>
-                                        <%--./fil upload--%>
+                                        
                                     </div>
                                     <div id="page2" class="page2 p-4">
                                         <h4>Job-Safety Assessment</h4>
                                         <div>
-                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" OnCheckedChanged="checkChnage1" /><br />
-                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" OnCheckedChanged="checkChnage2" /><br />
-                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" OnCheckedChanged="checkChnage3" /><br />
-                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" OnCheckedChanged="checkChnage4" /><br />
-                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" OnCheckedChanged="checkChnage5" /><br />
-                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" OnCheckedChanged="checkChnage6" /><br />
-                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" OnCheckedChanged="checkChnage7" /><br />
-                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" OnCheckedChanged="checkChnage8" /><br />
+                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" OnCheckedChanged="checkChange1" /><br />
+                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" OnCheckedChanged="checkChange2" /><br />
+                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" OnCheckedChanged="checkChange3" /><br />
+                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" OnCheckedChanged="checkChange4" /><br />
+                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" OnCheckedChanged="checkChange5" /><br />
+                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" OnCheckedChanged="checkChange6" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" OnCheckedChanged="checkChange7" /><br />
+                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" OnCheckedChanged="checkChange8" /><br />
                                         </div>
                                         <br />
                                         <hr />
@@ -579,6 +575,12 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        <%--file upload--%>
+                                        <div class="container-fluid p-3 flex-column">
+                                            <asp:FileUpload ID="FileUpload1" runat="server" />
+                                            <label ID="fileUploadText" runat="server" class="blink-text" style="color:red;">Please Upload Your File</label>
+                                        </div>
+                                        <%--./fil upload--%>
                                     </div>
                                     <div id="page3" class="page-3 p-4">
                                         <div class="d-flex justify-content-between mt-3 mb-2">

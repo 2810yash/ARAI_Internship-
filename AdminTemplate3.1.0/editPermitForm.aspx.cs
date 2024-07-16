@@ -24,26 +24,35 @@ namespace AdminTemplate3._1._0
         PermitDetails fileParts = new PermitDetails();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["DeptName"] != null)
+            try
             {
-                deptName = Session["DeptName"].ToString();
-            }
-            else
+                if (Session["DeptName"] != null)
+                {
+                    deptName = Session["DeptName"].ToString();
+                }
+                else
+                {
+                    Response.Redirect("login.aspx");
+                }
+
+                if (Session["PermitNumber"] == null)
+                {
+                    // Handle the case when incident_id is not available, e.g., redirect to an error page or display a message
+                    Response.Redirect("viewWorkPermit.aspx");
+                }
+                else
+                {
+                    string permitNumber = Session["PermitNumber"].ToString();
+                    //loadIncidentID();
+                    splWorkPermit_list();
+                    arai_Engineer_list();
+                    setInitialCheck();
+                    loadFormData(permitNumber);
+                    GetData(permitNumber);
+                }
+            } catch
             {
                 Response.Redirect("login.aspx");
-            }
-
-            if (Session["PermitNumber"] == null)
-            {
-                // Handle the case when incident_id is not available, e.g., redirect to an error page or display a message
-                Response.Redirect("viewWorkPermit.aspx");
-            }
-            else
-            {
-                string permitNumber = Session["PermitNumber"].ToString();
-                //loadIncidentID();
-                loadFormData(permitNumber);
-                GetData(permitNumber);
             }
 
             if (!IsPostBack)
@@ -57,17 +66,14 @@ namespace AdminTemplate3._1._0
                 {
                     string permitNumber = Session["PermitNumber"].ToString();
                     //loadIncidentID();
+                    splWorkPermit_list();
+                    arai_Engineer_list();
+                    setInitialCheck();
                     loadFormData(permitNumber);
                     GetData(permitNumber);
                 }
             }
-            if (!IsPostBack)
-            {
-                //arai_Engineer_list();
-                splWorkPermit_list();
-                arai_Engineer_list();
-            }
-
+           
             //if (!Page.IsPostBack)
             //{
             //    SetInitialRow();
@@ -134,7 +140,243 @@ namespace AdminTemplate3._1._0
                 Response.Redirect("viewWorkPermit.aspx");
             }
         }
+        public void setInitialCheck()
+        {
+            check1_Hinfo.Visible = false;
+            check1_Pinfo.Visible = false;
+            check1_PPEinfo.Visible = false;
+            check2_Hinfo.Visible = false;
+            check2_Pinfo.Visible = false;
+            check2_PPEinfo.Visible = false;
+            check3_Hinfo.Visible = false;
+            check3_Pinfo.Visible = false;
+            check3_PPEinfo.Visible = false;
+            check4_Hinfo.Visible = false;
+            check4_Pinfo.Visible = false;
+            check4_PPEinfo.Visible = false;
+            check5_Hinfo.Visible = false;
+            check5_Pinfo.Visible = false;
+            check5_PPEinfo.Visible = false;
+            check6_Hinfo.Visible = false;
+            check6_Pinfo.Visible = false;
+            check6_PPEinfo.Visible = false;
+            check7_Hinfo.Visible = false;
+            check7_Pinfo.Visible = false;
+            check7_PPEinfo.Visible = false;
+            check8_Hinfo.Visible = false;
+            check8_Pinfo.Visible = false;
+            check8_PPEinfo.Visible = false;
+        }
+        public void special_license_CheckedChanged(object sender, EventArgs e)
+        {
+            spl_Licence1.Visible = special_license_yes1.Checked;
+            check5.Enabled = true;
+            check6.Enabled = true;
+            check7.Enabled = true;
+            check8.Enabled = true;
+        }
+        public void special_license_CheckedChangedNo(object sender, EventArgs e)
+        {
+            spl_Licence1.Visible = special_license_yes1.Checked;
+            check1.Enabled = true;
+            check2.Enabled = true;
+            check3.Enabled = true;
+            check4.Enabled = true;
+            check5.Enabled = false;
+            check6.Enabled = false;
+            check7.Enabled = false;
+            check8.Enabled = false;
+            check5.Checked = false;
+            check6.Checked = false;
+            check7.Checked = false;
+            check8.Checked = false;
+        }
+        protected void checkChange1(object sender, EventArgs e)
+        {
+            if (check1.Checked == true)
+            {
+                check1_Hinfo.Visible = true;
+                check1_Pinfo.Visible = true;
+                check1_PPEinfo.Visible = true;
+                check4.Enabled = false;
+                check4.Checked = false;
+            }
+            else
+            {
+                check1_Hinfo.Visible = false;
+                check1_Pinfo.Visible = false;
+                check1_PPEinfo.Visible = false;
+                check4.Enabled = true;
+            }
+        }
+        protected void checkChange2(object sender, EventArgs e)
+        {
+            if (check2.Checked == true)
+            {
+                check2_Hinfo.Visible = true;
+                check2_Pinfo.Visible = true;
+                check2_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check2_Hinfo.Visible = false;
+                check2_Pinfo.Visible = false;
+                check2_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChange3(object sender, EventArgs e)
+        {
+            if (check3.Checked == true)
+            {
+                check3_Hinfo.Visible = true;
+                check3_Pinfo.Visible = true;
+                check3_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check3_Hinfo.Visible = false;
+                check3_Pinfo.Visible = false;
+                check3_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChange4(object sender, EventArgs e)
+        {
+            if (check4.Checked == true)
+            {
+                check4_Hinfo.Visible = true;
+                check4_Pinfo.Visible = true;
+                check4_PPEinfo.Visible = true;
+                check1.Enabled = false;
+                check1.Checked = false;
+            }
+            else
+            {
+                check4_Hinfo.Visible = false;
+                check4_Pinfo.Visible = false;
+                check4_PPEinfo.Visible = false;
+                check1.Enabled = true;
+            }
+        }
+        protected void checkChange5(object sender, EventArgs e)
+        {
+            if (check5.Checked == true)
+            {
+                check5_Hinfo.Visible = true;
+                check5_Pinfo.Visible = true;
+                check5_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check5_Hinfo.Visible = false;
+                check5_Pinfo.Visible = false;
+                check5_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChange6(object sender, EventArgs e)
+        {
+            if (check6.Checked == true)
+            {
+                check6_Hinfo.Visible = true;
+                check6_Pinfo.Visible = true;
+                check6_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check6_Hinfo.Visible = false;
+                check6_Pinfo.Visible = false;
+                check6_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChange7(object sender, EventArgs e)
+        {
+            if (check7.Checked == true)
+            {
+                check7_Hinfo.Visible = true;
+                check7_Pinfo.Visible = true;
+                check7_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check7_Hinfo.Visible = false;
+                check7_Pinfo.Visible = false;
+                check7_PPEinfo.Visible = false;
+            }
+        }
+        protected void checkChange8(object sender, EventArgs e)
+        {
+            if (check8.Checked == true)
+            {
+                check8_Hinfo.Visible = true;
+                check8_Pinfo.Visible = true;
+                check8_PPEinfo.Visible = true;
+            }
+            else
+            {
+                check8_Hinfo.Visible = false;
+                check8_Pinfo.Visible = false;
+                check8_PPEinfo.Visible = false;
+            }
+        }
         protected void dropdownSelectedSplIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = spl_Licence1.SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Uncheck all checkboxes for default selection
+                    setInitialCheck();
+                    break;
+                case 1:
+                    setInitialCheck();
+                    check5.Checked = true;  // Check the first checkbox
+                    check5.Enabled = false;
+                    check6.Enabled = true;
+                    check7.Enabled = true;
+                    check8.Enabled = true;
+                    check5_Hinfo.Visible = true;
+                    check5_Pinfo.Visible = true;
+                    check5_PPEinfo.Visible = true;
+                    break;
+                case 2:
+                    setInitialCheck();
+                    check6.Checked = true;
+                    check6.Enabled = false;
+                    check5.Enabled = true;
+                    check8.Enabled = true;
+                    check7.Enabled = true;
+                    check6_Hinfo.Visible = true;
+                    check6_Pinfo.Visible = true;
+                    check6_PPEinfo.Visible = true;  // Check the second checkbox
+                    break;
+                case 3:
+                    setInitialCheck();
+                    check7.Checked = true;
+                    check7.Enabled = false;
+                    check5.Enabled = true;
+                    check6.Enabled = true;
+                    check8.Enabled = true;
+                    check7_Hinfo.Visible = true;
+                    check7_Pinfo.Visible = true;
+                    check7_PPEinfo.Visible = true;  // Check the third checkbox
+                    break;
+                case 4:
+                    setInitialCheck();
+                    check8.Checked = true;
+                    check8.Enabled = false;
+                    check5.Enabled = true;
+                    check6.Enabled = true;
+                    check7.Enabled = true;
+                    check8_Hinfo.Visible = true;
+                    check8_Pinfo.Visible = true;
+                    check8_PPEinfo.Visible = true;  // Check the fourth checkbox
+                    break;
+                default:
+                    setInitialCheck();
+                    break;
+            }
+        }
+        protected void dropdownSelectedSplIndexChanged1(object sender, EventArgs e)
         {
             int selectedIndex = spl_Licence1.SelectedIndex;
 
@@ -250,34 +492,58 @@ namespace AdminTemplate3._1._0
                         if (reader2["workPermit1"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit1"]))
                         {
                             check1.Checked = true;
+                            check1_Hinfo.Visible = true;
+                            check1_Pinfo.Visible = true;
+                            check1_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit2"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit2"]))
                         {
                             check2.Checked = true;
+                            check2_Hinfo.Visible = true;
+                            check2_Pinfo.Visible = true;
+                            check2_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit3"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit3"]))
                         {
                             check3.Checked = true;
+                            check3_Hinfo.Visible = true;
+                            check3_Pinfo.Visible = true;
+                            check3_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit4"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit4"]))
                         {
                             check4.Checked = true;
+                            check4_Hinfo.Visible = true;
+                            check4_Pinfo.Visible = true;
+                            check4_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit5"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit5"]))
                         {
                             check5.Checked = true;
+                            check5_Hinfo.Visible = true;
+                            check5_Pinfo.Visible = true;
+                            check5_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit6"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit6"]))
                         {
                             check6.Checked = true;
+                            check6_Hinfo.Visible = true;
+                            check6_Pinfo.Visible = true;
+                            check6_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit7"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit7"]))
                         {
                             check7.Checked = true;
+                            check7_Hinfo.Visible = true;
+                            check7_Pinfo.Visible = true;
+                            check7_PPEinfo.Visible = true;
                         }
                         if (reader2["workPermit8"] != DBNull.Value && Convert.ToBoolean(reader2["workPermit8"]))
                         {
                             check8.Checked = true;
+                            check8_Hinfo.Visible = true;
+                            check8_Pinfo.Visible = true;
+                            check8_PPEinfo.Visible = true;
                         }
                     }
                     else
@@ -615,17 +881,17 @@ namespace AdminTemplate3._1._0
         }
         public string fileUpload()
         {
-            if (FileUpload2.HasFile)
+            if (FileUpload1.HasFile)
             {
-                string FileName = FileUpload2.FileName;
+                string FileName = FileUpload1.FileName;
                 string FilePath = Server.MapPath($"~/FileUploads/{FileName}");
                 string FileExtension = System.IO.Path.GetExtension(FileName);
-                FileUpload2.SaveAs(FilePath);
+                FileUpload1.SaveAs(FilePath);
                 Response.Write("<script>alert('File Uploaded.');</script>");
                 fileParts.fileName = FileName;
                 fileParts.filePath = FilePath;
                 fileParts.fIleExtention = FileExtension;
-                fileUploadText.Visible = false;
+                fileUploadedText.Visible = false;
                 return FilePath;
             }
             else

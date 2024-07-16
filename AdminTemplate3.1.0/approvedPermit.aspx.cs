@@ -669,9 +669,9 @@ namespace AdminTemplate3._1._0
                     PdfPTable permitDetailsTable = new PdfPTable(2);  // Two main columns
 
                     // Permit details title
-                    PdfPCell titleCell = new PdfPCell(new Phrase("Work Permit", FontFactory.GetFont(FontFactory.TIMES_BOLD, 20)));
+                    PdfPCell titleCell = new PdfPCell(new Phrase("Work Permit", FontFactory.GetFont(FontFactory.TIMES_BOLD, 16)));
                     titleCell.Colspan = 2;  // Span across both main columns
-                    titleCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    titleCell.HorizontalAlignment = Element.ALIGN_CENTER;
                     titleCell.VerticalAlignment = Element.ALIGN_CENTER;
                     titleCell.Border = Rectangle.NO_BORDER;
                     permitDetailsTable.AddCell(titleCell);
@@ -680,7 +680,7 @@ namespace AdminTemplate3._1._0
                     AddEmptyCell(permitDetailsTable, 2, 30f);
 
                     // Site Name
-                    PdfPCell siteName = new PdfPCell(new Phrase(permit.SiteName, FontFactory.GetFont(FontFactory.TIMES_BOLD, 16)));
+                    PdfPCell siteName = new PdfPCell(new Phrase(permit.SiteName, FontFactory.GetFont(FontFactory.TIMES_BOLD, 12)));
                     siteName.Colspan = 2;  // Span across both main columns
                     siteName.HorizontalAlignment = Element.ALIGN_CENTER;
                     siteName.VerticalAlignment = Element.ALIGN_CENTER;
@@ -710,7 +710,7 @@ namespace AdminTemplate3._1._0
                     AddEmptyCell(permitDetailsTable, 2, 10f);
 
                     // Permit Number
-                    AddLabeledCell(permitDetailsTable, "Permit Number:", permit.PermitNumber, 13);
+                    AddLabeledCell(permitDetailsTable, "Permit Number:", permit.PermitNumber, 10);
 
                     // Left column (nested two columns)
                     PdfPTable leftColumnTable = new PdfPTable(2);  // Two columns for left side

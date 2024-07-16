@@ -17,25 +17,36 @@ namespace AdminTemplate3._1._0
         PermitDetails fileParts = new PermitDetails();
         public void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                if (Session["DeptName"] != null && Session["DeptCode"] != null)
+                {
+                    deptName = Session["DeptName"].ToString();
+                    deptCode = (int)Session["DeptCode"];
+                }
+                else
+                {
+                    Response.Redirect("login.aspx");
+                }
+            } catch
+            {
+                Response.Redirect("login.aspx");
+            }
+
             if ((int)Session["RoleID"] == 1 || (int)Session["RoleID"] == 3 || (int)Session["RoleID"] == 4 || (int)Session["RoleID"] == 5)
             {
                 Response.Redirect("Homepage.aspx");
             }
 
-            if (Session["DeptName"] != null && Session["DeptCode"]!=null)
-            {
-                deptName = Session["DeptName"].ToString();
-                deptCode = (int)Session["DeptCode"];
-            } else
-            {
-                Response.Redirect("login.aspx");
-            }
-
             if (!IsPostBack)
             {
+                if ((int)Session["RoleID"] == 1 || (int)Session["RoleID"] == 3 || (int)Session["RoleID"] == 4 || (int)Session["RoleID"] == 5)
+                {
+                    Response.Redirect("Homepage.aspx");
+                }
+
                 arai_Engineer_list();
                 splWorkPermit_list();
-                setInitialVal();
                 setInitialCheck();
             }
 
@@ -80,36 +91,6 @@ namespace AdminTemplate3._1._0
             check8_Pinfo.Visible = false;
             check8_PPEinfo.Visible = false;
         }
-
-
-        public void setInitialVal()
-        {
-            check1_Hinfo.Visible = false;
-            check1_Pinfo.Visible = false;
-            check1_PPEinfo.Visible = false;
-            check2_Hinfo.Visible = false;
-            check2_Pinfo.Visible = false;
-            check2_PPEinfo.Visible = false;
-            check3_Hinfo.Visible = false;
-            check3_Pinfo.Visible = false;
-            check3_PPEinfo.Visible = false;
-            check4_Hinfo.Visible = false;
-            check4_Pinfo.Visible = false;
-            check4_PPEinfo.Visible = false;
-            check5_Hinfo.Visible = false;
-            check5_Pinfo.Visible = false;
-            check5_PPEinfo.Visible = false;
-            check6_Hinfo.Visible = false;
-            check6_Pinfo.Visible = false;
-            check6_PPEinfo.Visible = false;
-            check7_Hinfo.Visible = false;
-            check7_Pinfo.Visible = false;
-            check7_PPEinfo.Visible = false;
-            check8_Hinfo.Visible = false;
-            check8_Pinfo.Visible = false;
-            check8_PPEinfo.Visible = false;
-        }
-
         public void special_license_CheckedChanged(object sender, EventArgs e)
         {
             spl_Licence.Visible = special_license_yes.Checked;
@@ -125,29 +106,34 @@ namespace AdminTemplate3._1._0
             check2.Enabled = true;
             check3.Enabled = true;
             check4.Enabled = true;
-            check5.Enabled = true;
-            check6.Enabled = true;
-            check7.Enabled = true;
-            check8.Enabled = true;
+            check5.Enabled = false;
+            check6.Enabled = false;
+            check7.Enabled = false;
+            check8.Enabled = false;
+            check5.Checked = false;
+            check6.Checked = false;
+            check7.Checked = false;
+            check8.Checked = false;
         }
-
-
-        protected void checkChnage1(object sender, EventArgs e)
+        protected void checkChange1(object sender, EventArgs e)
         {
             if (check1.Checked == true)
             {
                 check1_Hinfo.Visible = true;
                 check1_Pinfo.Visible = true;
                 check1_PPEinfo.Visible = true;
+                check4.Enabled = false;
+                check4.Checked = false;
             }
             else
             {
                 check1_Hinfo.Visible = false;
                 check1_Pinfo.Visible = false;
                 check1_PPEinfo.Visible = false;
+                check4.Enabled = true;
             }
         }
-        protected void checkChnage2(object sender, EventArgs e)
+        protected void checkChange2(object sender, EventArgs e)
         {
             if (check2.Checked == true)
             {
@@ -162,7 +148,7 @@ namespace AdminTemplate3._1._0
                 check2_PPEinfo.Visible = false;
             }
         }
-        protected void checkChnage3(object sender, EventArgs e)
+        protected void checkChange3(object sender, EventArgs e)
         {
             if (check3.Checked == true)
             {
@@ -177,22 +163,25 @@ namespace AdminTemplate3._1._0
                 check3_PPEinfo.Visible = false;
             }
         }
-        protected void checkChnage4(object sender, EventArgs e)
+        protected void checkChange4(object sender, EventArgs e)
         {
             if (check4.Checked == true)
             {
                 check4_Hinfo.Visible = true;
                 check4_Pinfo.Visible = true;
                 check4_PPEinfo.Visible = true;
+                check1.Enabled = false;
+                check1.Checked = false;
             }
             else
             {
                 check4_Hinfo.Visible = false;
                 check4_Pinfo.Visible = false;
                 check4_PPEinfo.Visible = false;
+                check1.Enabled = true;
             }
         }
-        protected void checkChnage5(object sender, EventArgs e)
+        protected void checkChange5(object sender, EventArgs e)
         {
             if (check5.Checked == true)
             {
@@ -207,7 +196,7 @@ namespace AdminTemplate3._1._0
                 check5_PPEinfo.Visible = false;
             }
         }
-        protected void checkChnage6(object sender, EventArgs e)
+        protected void checkChange6(object sender, EventArgs e)
         {
             if (check6.Checked == true)
             {
@@ -222,7 +211,7 @@ namespace AdminTemplate3._1._0
                 check6_PPEinfo.Visible = false;
             }
         }
-        protected void checkChnage7(object sender, EventArgs e)
+        protected void checkChange7(object sender, EventArgs e)
         {
             if (check7.Checked == true)
             {
@@ -237,7 +226,7 @@ namespace AdminTemplate3._1._0
                 check7_PPEinfo.Visible = false;
             }
         }
-        protected void checkChnage8(object sender, EventArgs e)
+        protected void checkChange8(object sender, EventArgs e)
         {
             if (check8.Checked == true)
             {
@@ -535,7 +524,6 @@ namespace AdminTemplate3._1._0
         //{
         //    spl_Licence.Visible = special_license_yes.Checked;
         //}
-        public void WPcheckBox_Load(object sender, EventArgs e) { }
 
         public int validateDates(DateTime dateOfIssue, DateTime validFrom, DateTime validTill)
         {
@@ -553,6 +541,12 @@ namespace AdminTemplate3._1._0
                 //Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Valid From Date cannot be earlier than Date of Issue!');", true);
             }
+            else if (validFrom.Date > validTill)
+            {
+                flag = -1;
+                //Response.Write("<script> alert('Valid From Date cannot be earlier than Date of Issue!'); </script>");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Valid From Date cannot be greater than Valid Till Date!');", true);
+            }
             else if (diff.Days > 15)
             {
                 flag = -1;
@@ -562,7 +556,7 @@ namespace AdminTemplate3._1._0
             return flag;
         }
 
-        public void FormOpreations()
+        public void FormOperations()
         {
             // Obtain values from the permit form
             String siteName = site.SelectedValue;
@@ -739,7 +733,8 @@ namespace AdminTemplate3._1._0
             string filePath = fileUpload();
             if (filePath != null)
             {
-                FormOpreations();
+                fileUploadText.Visible = false;
+                FormOperations();
             }
             else
             {
@@ -927,7 +922,7 @@ namespace AdminTemplate3._1._0
                         smtp.Port = smtp_port; //587
                         smtp.Send(mail);
                         ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Message has been sent successfully.');", true);
-                        //Response.Redirect("Welcome.aspx");
+                        Response.Redirect("Welcome.aspx");
                     }
                 }
                 catch (SmtpException smtpEx)
@@ -956,7 +951,7 @@ namespace AdminTemplate3._1._0
                 string FilePath = Server.MapPath($"~/FileUploads/{FileName}");
                 string FileExtension = System.IO.Path.GetExtension(FileName);
                 FileUpload1.SaveAs(FilePath);
-                Response.Write("<script>alert('File Uploaded.');</script>");
+                //Response.Write("<script>alert('File Uploaded.');</script>");
                 fileParts.fileName = FileName;
                 fileParts.filePath = FilePath;
                 fileParts.fIleExtention = FileExtension;

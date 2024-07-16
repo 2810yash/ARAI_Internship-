@@ -25,15 +25,13 @@ namespace AdminTemplate3._1._0
                     if ((int)Session["RoleID"] == 2)
                     {
                         createWP.Visible = true;
-                        createReport.Visible = true;
+                        //createReport.Visible = true;
                     }
                     //GetFunc();
-                }
+                } 
             } catch
             {
-                Response.Write("<script> alert('Please login first!')</script>");
                 Response.Redirect("login.aspx");
-
             }
             
         }
@@ -51,8 +49,16 @@ namespace AdminTemplate3._1._0
         }
         protected void logoutBTN_Click(object sender, EventArgs e)
         {
+            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            Response.Cache.SetValidUntilExpires(false);
+            Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
+
             Session.Clear();
             Session.Abandon(); // Add this line to abandon the session
+            Session.RemoveAll();
+
             Response.Redirect("login.aspx");
         }
     }

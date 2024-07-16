@@ -184,18 +184,20 @@
                                                             ID="special_license_yes1" Text="Yes"
                                                             runat="server"
                                                             GroupName="Special-License"
+                                                            AutoPostBack="true"
                                                             OnCheckedChanged="special_license_CheckedChanged1" />
                                                     </div>
                                                     <div class="ms-2">
                                                         <asp:RadioButton ID="special_license_no1"
                                                             Text="No" runat="server"
+                                                            AutoPostBack="true"
                                                             GroupName="Special-License" />
                                                     </div>
                                                 </div>
                                                 <asp:DropDownList ID="spl_Licence1"
                                                     CssClass="form-select"
                                                     Style="display: none; width: 50%;"
-                                                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropdownSelectedSplIndexChanged">
+                                                    runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropdownSelectedSplIndexChanged1">
                                                 </asp:DropDownList>
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function () {
@@ -391,23 +393,23 @@
                                                 </asp:UpdatePanel>
                                             </div>
                                         </div>
-                                         <%--file upload--%>
+                                         <%--file upload
                                         <div class="container-fluid p-3 flex-column">
                                             <asp:FileUpload ID="FileUpload2" runat="server" />
                                             <label ID="fileUploadText" runat="server" class="blink-text" style="color:red;">Re-Upload Your File</label>
                                         </div>
-                                        <%--./fil upload--%>
+                                        File upload--%>
                                     </div>
                                     <div id="page2" class="page2 p-4">
                                         <div>
-                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" /><br />
-                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" /><br />
-                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" /><br />
-                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" /><br />
-                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" /><br />
-                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" /><br />
-                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" /><br />
+                                            <asp:CheckBox ID="check1" CssClass="border rounded p-2 bg-light"  Width="100%" runat="server" ClientIDMode="Static" Text="Entry into vessels/tanks/manholes/A.C. Ducts/Cooling towers/fire fighting equipment" OnCheckedChanged="checkChange1" /><br />
+                                            <asp:CheckBox ID="check2" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Civil Work(Construction/Excavation & Painting)" OnCheckedChanged="checkChange2" /><br />
+                                            <asp:CheckBox ID="check3" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Hot Works" OnCheckedChanged="checkChange3" /><br />
+                                            <asp:CheckBox ID="check4" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Work on fragile roof" OnCheckedChanged="checkChange4" /><br />
+                                            <asp:CheckBox ID="check5" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="High Tension Electrical Work" OnCheckedChanged="checkChange5" /><br />
+                                            <asp:CheckBox ID="check6" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Low Tension Electrical Work" OnCheckedChanged="checkChange6" /><br />
+                                            <asp:CheckBox ID="check7" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Working on height (More than 3 meters)" OnCheckedChanged="checkChange7" /><br />
+                                            <asp:CheckBox ID="check8" CssClass="border rounded p-2 bg-light" AutoPostBack="true" Width="100%" runat="server" ClientIDMode="Static" Text="Others (Mobile crane operations, loading/unloading on gas cylinder, unloading of liquid nitrogen)" OnCheckedChanged="checkChange8" /><br />
                                         </div>
                                         <br />
                                         <hr />
@@ -415,7 +417,7 @@
                                             <div class="d-block">
                                                 <h5>Hazards Associated</h5>
                                                 <ul>
-                                                    <div id="check1-Hinfo" style="display: none;">
+                                                    <div id="check1_Hinfo" runat="server">
                                                         <li>Breathlessness/Fainting</li>
                                                         <li>Fire</li>
                                                         <li>Explosion</li>
@@ -423,7 +425,7 @@
                                                         <li>Poor Visibility</li>
                                                         <li>InfectionOfViruses</li>
                                                     </div>
-                                                    <div id="check2-Hinfo" style="display: none;">
+                                                    <div id="check2_Hinfo" runat="server">
                                                         <li>Fall of Material</li>
                                                         <li>Fall from height</li>
                                                         <li>Tripping over equipment</li>
@@ -434,7 +436,7 @@
                                                         <li>Eye Injury/Irritation</li>
                                                         <li>Inhalation of fumes</li>
                                                     </div>
-                                                    <div id="check3-Hinfo" style="display: none;">
+                                                    <div id="check3_Hinfo" runat="server">
                                                         <li>Fire</li>
                                                         <li>Explosion</li>
                                                         <li>Burns</li>
@@ -446,32 +448,32 @@
                                                         <li>Allergies</li>
                                                         <li>Suffocation</li>
                                                     </div>
-                                                    <div id="check4-Hinfo" style="display: none;">
+                                                    <div id="check4_Hinfo" runat="server">
                                                         <li>Fall from height</li>
                                                     </div>
-                                                    <div id="check5-Hinfo" style="display: none;">
+                                                    <div id="check5_Hinfo" runat="server">
                                                         <li>Fire</li>
                                                         <li>Explosion</li>
                                                         <li>Burns</li>
                                                         <li>Electrical Shock</li>
                                                     </div>
-                                                    <div id="check6-Hinfo" style="display: none;">
+                                                    <div id="check6_Hinfo" runat="server">
                                                         <li>Fire</li>
                                                         <li>Explosion</li>
                                                         <li>Burns</li>
                                                         <li>Electrical Shock</li>
                                                     </div>
-                                                    <div id="check7-Hinfo" style="display: none;">
+                                                    <div id="check7_Hinfo" runat="server">
                                                         <li>Fall from height</li>
                                                         <li>Fractures and dislocations</li>
                                                     </div>
-                                                    <div id="check8-Hinfo" style="display: none;"></div>
+                                                    <div id="check8_Hinfo" runat="server"></div>
                                                 </ul>
                                             </div>
                                             <div class="d-block">
                                                 <h5>Precautions to be taken</h5>
                                                 <ul>
-                                                    <div id="check1-Pinfo" style="display: none;">
+                                                    <div id="check1_Pinfo" runat="server">
                                                         <li>Remove Flammable/Explosive Materials</li>
                                                         <li>Breathing apparatus</li>
                                                         <li>Confirm Electrical equipment kept off</li>
@@ -479,13 +481,13 @@
                                                         <li>Provide appropriate exhaust/ventilation</li>
                                                         <li>Pipeline/Tank to be drained</li>
                                                     </div>
-                                                    <div id="check2-Pinfo" style="display: none;">
+                                                    <div id="check2_Pinfo" runat="server">
                                                         <li>Provide barricade</li>
                                                         <li>Stacking to be made min 2 feet</li>
                                                         <li>Provide safe means of access</li>
                                                         <li>Check routes of electrical cables</li>
                                                     </div>
-                                                    <div id="check3-Pinfo" style="display: none;">
+                                                    <div id="check3_Pinfo" runat="server">
                                                         <li>Provide appropriate exhaust/ventilation</li>
                                                         <li>Check routes of electrical cables</li>
                                                         <li>Perform hot work in safe location</li>
@@ -493,36 +495,36 @@
                                                         <li>Check hose pipes</li>
                                                         <li>Check exhaust</li>
                                                     </div>
-                                                    <div id="check4-Pinfo" style="display: none;">
+                                                    <div id="check4_Pinfo" runat="server">
                                                         <li>Provide safe means of access</li>
                                                         <li>Provide ladder attendant</li>
                                                     </div>
-                                                    <div id="check5-Pinfo" style="display: none;">
+                                                    <div id="check5_Pinfo" runat="server">
                                                         <li>Provide safe means of access</li>
                                                         <li>Work to be carried out by trained manpower</li>
                                                         <li>Strict supervision required</li>
                                                         <li>First aider available</li>
                                                     </div>
-                                                    <div id="check6-Pinfo" style="display: none;">
+                                                    <div id="check6_Pinfo" runat="server">
                                                         <li>Provide safe means of access</li>
                                                         <li>Provide fire watch/guard</li>
                                                         <li>Work to be carried out by trained manpower</li>
                                                         <li>Strict supervision required</li>
                                                         <li>First aider available</li>
                                                     </div>
-                                                    <div id="check7-Pinfo" style="display: none;">
+                                                    <div id="check7_Pinfo" runat="server">
                                                         <li>Provide safe means of access</li>
                                                         <li>Work to be carried out by trained manpower</li>
                                                         <li>Strict supervision required</li>
                                                         <li>Use of scaffold</li>
                                                     </div>
-                                                    <div id="check8-Pinfo" style="display: none;"></div>
+                                                    <div id="check8_Pinfo" runat="server"></div>
                                                 </ul>
                                             </div>
                                             <div class="d-block">
                                                 <h5>PPE's</h5>
                                                 <ul>
-                                                    <div id="check1-PPEinfo" style="display: none;">
+                                                    <div id="check1_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>High visibility jackets</li>
@@ -534,7 +536,7 @@
                                                         <li>Ear plugs/mufflers</li>
                                                         <li>Torch</li>
                                                     </div>
-                                                    <div id="check2-PPEinfo" style="display: none;">
+                                                    <div id="check2_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>High visibility jackets</li>
@@ -542,37 +544,37 @@
                                                         <li>Portable ladders</li>
                                                         <li>Provide fall protection</li>
                                                     </div>
-                                                    <div id="check3-PPEinfo" style="display: none;">
+                                                    <div id="check3_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Use appropriate instrument</li>
                                                         <li>Safety goggles/face shield</li>
                                                         <li>Safety gloves/apron</li>
                                                     </div>
-                                                    <div id="check4-PPEinfo" style="display: none;">
+                                                    <div id="check4_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>Portable ladders</li>
                                                         <li>Harness/Full body harness</li>
                                                     </div>
-                                                    <div id="check5-PPEinfo" style="display: none;">
+                                                    <div id="check5_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>Safety gloves/apron</li>
                                                         <li>Portable ladders</li>
                                                     </div>
-                                                    <div id="check6-PPEinfo" style="display: none;">
+                                                    <div id="check6_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>Portable ladders</li>
                                                     </div>
-                                                    <div id="check7-PPEinfo" style="display: none;">
+                                                    <div id="check7_PPEinfo" runat="server">
                                                         <li>Helmets</li>
                                                         <li>Safety shoes</li>
                                                         <li>Harness/Full body harness</li>
                                                         <li>Safety nets</li>
                                                         <li>Ropes</li>
                                                     </div>
-                                                    <div id="check8-PPEinfo" style="display: none;"></div>
+                                                    <div id="check8_PPEinfo" runat="server"></div>
                                                 </ul>
                                             </div>
                                         </div>
@@ -581,9 +583,9 @@
                                                 // Function to toggle visibility of info divs
                                                 function toggleInfoDiv(event) {
                                                     var checkboxId = event.target.id;
-                                                    var HcheckboxId = checkboxId + '-Hinfo';  // Get info div ID based on checkbox ID
-                                                    var PcheckboxId = checkboxId + '-Pinfo';  // Get info div ID based on checkbox ID
-                                                    var PPEcheckboxId = checkboxId + '-PPEinfo';  // Get info div ID based on checkbox ID
+                                                    var HcheckboxId = checkboxId + '_Hinfo';  // Get info div ID based on checkbox ID
+                                                    var PcheckboxId = checkboxId + '_Pinfo';  // Get info div ID based on checkbox ID
+                                                    var PPEcheckboxId = checkboxId + '_PPEinfo';  // Get info div ID based on checkbox ID
 
                                                     var HinfoDiv = document.getElementById(HcheckboxId);
                                                     var PinfoDiv = document.getElementById(PcheckboxId);
@@ -607,6 +609,12 @@
                                                 });
                                             });
                                         </script>
+                                        <%--file upload--%>
+                                        <div class="container-fluid p-3 flex-column">
+                                            <asp:FileUpload ID="FileUpload1" runat="server" />
+                                            <label ID="fileUploadedText" runat="server" class="blink-text" style="color:red;">Re-Upload Your File</label>
+                                        </div>
+                                        <%--./fil upload--%>
                                     </div>
                                     <div id="page3" class="page-3 p-4">
                                         <div class="d-flex justify-content-between mt-3 mb-2">

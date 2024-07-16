@@ -25,6 +25,7 @@ namespace AdminTemplate3._1._0
                 deptName = Session["DeptName"].ToString();
                 deptCode = (int)Session["DeptCode"];
                 roleID = (int)Session["RoleID"];
+
             }
             else
             {
@@ -45,6 +46,7 @@ namespace AdminTemplate3._1._0
         }
         private void LoadPermitDetails()
         {
+           
             //string query = "SELECT PermitNumber, NameofFirm_Agency, DateofIssue, PermitValidFrom FROM permit_details_tbl_backup WHERE IsClosed = 0 and DeptIssuedCode = " + deptCode;
             using (SqlConnection con = new SqlConnection(Main_con))
             {
@@ -91,6 +93,7 @@ namespace AdminTemplate3._1._0
                 // Find the button within the Repeater item
                 Button approvePermit = (Button)e.Item.FindControl("approvePermit");
                 Button rejectPermit = (Button)e.Item.FindControl("rejectPermit");
+                Button editPermit = (Button)e.Item.FindControl("editPermit");
                 if (approvePermit != null && rejectPermit != null)
                 {
 
@@ -99,6 +102,7 @@ namespace AdminTemplate3._1._0
                     {
                         approvePermit.Visible = true;
                         rejectPermit.Visible = true;
+                        editPermit.Visible = false;
                     }
                 }
             }

@@ -72,6 +72,14 @@ namespace AdminTemplate3._1._0
         // Define the number of iterations for the hashing algorithm
         private const int Iterations = 10000;
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(!IsPostBack)
+            {
+                ClearSession();
+            }
+        }
+
         //Login button
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -214,6 +222,11 @@ namespace AdminTemplate3._1._0
                 Response.Write("<script> alert('Could not store login details!');</script>");
             }
 
+        }
+        private void ClearSession()
+        {
+            Session.Clear();
+            Session.Abandon();
         }
     }
 }

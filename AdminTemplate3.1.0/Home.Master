@@ -60,9 +60,10 @@
                     <li class="nav-item">
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
+                    <%--<li class="nav-item d-none d-sm-inline-block">
                         <a href="Homepage.aspx" class="nav-link font-weight-bold">Incident/Accident</a>
-                    </li><li class="nav-item d-none d-sm-inline-block">
+                    </li>--%>
+                    <li class="nav-item d-none d-sm-inline-block">
                         <a href="HomePage2.aspx" class="nav-link font-weight-bold">Work Permit</a>
                     </li>
                     <%-- <li class="nav-item d-none d-sm-inline-block">
@@ -111,14 +112,14 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item menu-open">
-                                <a href="./Homepage.aspx" class="nav-link" id="dashboard">
+                                <a href="./HomePage2.aspx" class="nav-link" id="dashboard">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Dashboard
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                           <%-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-copy"></i>
                                     <p>
@@ -131,7 +132,7 @@
                                         <%--<a href="Welcome.aspx" class="nav-link">
                                             
                                             <p>Create Report</p>
-                                        </a>--%>
+                                        </a>
                                         <asp:LinkButton ID="createReport" CssClass="nav-link  fa-circle nav-icon" runat="server" OnClick="Create_Report" Visible="false">Create Report</asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
@@ -141,7 +142,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>--%>
                             <li class="nav-item">
                                 <a href="#" class="nav-link" id="workpermit">
                                     <i class="nav-icon fas fa-chart-pie"></i>
@@ -155,7 +156,10 @@
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Create Work Permit</p>
                                         </a>--%>
-                                        <asp:LinkButton ID="createWP"  CssClass ="nav-link  fa-circle nav-icon" runat="server" OnClick="Create_WP" Visible="false">Create Work Permit</asp:LinkButton>
+                                        <asp:LinkButton ID="createWP"  CssClass ="nav-link  fa-circle nav-icon" runat="server" OnClick="Create_WP" Visible="false">
+                                            <%--<i class="far fa-circle nav-icon"></i>--%>
+                                            <p>Create Work Permit</p>
+                                        </asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
                                         <a href="viewWorkPermit.aspx" class="nav-link">
